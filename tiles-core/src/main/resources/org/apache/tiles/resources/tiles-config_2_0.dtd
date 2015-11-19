@@ -147,6 +147,8 @@
                      be specified with this tag attribute, or in the body of the tag.
 -->
 <!ATTLIST put-attribute     value            CDATA           #IMPLIED>
+
+<!ATTLIST put-attribute     contribute            CDATA           #IMPLIED>
 <!--
 @attr role           Security role name that is allowed access to this attribute
                      object. The attribute is inserted only if the role name is

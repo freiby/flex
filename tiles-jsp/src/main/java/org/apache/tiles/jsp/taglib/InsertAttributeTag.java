@@ -124,6 +124,7 @@ public class InsertAttributeTag extends RenderTagSupport {
         if (container != null) {
             evaluatingContext = container.getAttributeContext(context);
         }
+        context.getRequest().setAttribute("_ATTR_NAME_", name);
         super.startContext(context);
     }
 

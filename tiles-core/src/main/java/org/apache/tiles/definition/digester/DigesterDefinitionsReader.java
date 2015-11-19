@@ -29,6 +29,7 @@ import org.apache.tiles.Attribute.AttributeType;
 import org.apache.tiles.context.ListAttribute;
 import org.apache.tiles.definition.DefinitionsFactoryException;
 import org.apache.tiles.definition.DefinitionsReader;
+import org.apache.tiles.impl.ContributeManager;
 import org.xml.sax.Attributes;
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.SAXException;
@@ -38,6 +39,7 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
+
 import org.xml.sax.SAXParseException;
 
 /**
@@ -166,7 +168,12 @@ public class DigesterDefinitionsReader implements DefinitionsReader {
                 throws Exception {
             Attribute attribute = (Attribute) digester.peek(0);
             Definition definition = (Definition) digester.peek(1);
-            definition.putAttribute(attributes.getValue("name"), attribute);
+            if(attributes.getValue("contribute") == null){
+            	definition.putAttribute(attributes.getValue("name"), attribute);
+            }else{
+            	attribute.setName(attributes.getValue("name"));
+            	ContributeManager.getSingleton().registryContribute(attributes.getValue("contribute"), attribute);
+            }
         }
     }
 

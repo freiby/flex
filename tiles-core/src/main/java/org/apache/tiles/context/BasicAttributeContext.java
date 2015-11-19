@@ -25,12 +25,14 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
 
 import org.apache.tiles.Attribute;
 import org.apache.tiles.AttributeContext;
+import org.apache.tiles.TilesContainer;
 
 /**
  * Basic implementation for <code>AttributeContext</code>.
@@ -49,6 +51,8 @@ public class BasicAttributeContext implements AttributeContext, Serializable {
      * Template attributes.
      */
     private Map<String, Attribute> attributes = null;
+    
+    private String defName;
 
     /**
      * Constructor.
@@ -128,6 +132,15 @@ public class BasicAttributeContext implements AttributeContext, Serializable {
             if (!attributes.containsKey(entry.getKey())) {
                 attributes.put(entry.getKey(), entry.getValue());
             }
+        }
+    }
+    
+    public void addAttr(List<Attribute> attrs){
+    	if(attrs == null) return;
+    	Iterator<Attribute> atts = attrs.iterator();
+        while (atts.hasNext()) {
+        	Attribute att = atts.next();
+        	putAttribute(att.getName(),att);
         }
     }
 
@@ -244,4 +257,12 @@ public class BasicAttributeContext implements AttributeContext, Serializable {
     public void clear() {
         attributes.clear();
     }
+
+	public String getDefinitionName() {
+		return defName;
+	}
+	
+	public void setDefinitionName(String value){
+		this.defName = value;
+	}
 }

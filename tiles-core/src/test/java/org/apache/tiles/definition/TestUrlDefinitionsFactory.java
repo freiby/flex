@@ -34,7 +34,9 @@ import junit.framework.TestSuite;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.tiles.Attribute;
 import org.apache.tiles.context.TilesRequestContext;
+import org.apache.tiles.impl.ContributeManager;
 
 /**
  * Tests the UrlDefinitionsFactory.
@@ -354,5 +356,31 @@ public class TestUrlDefinitionsFactory extends TestCase {
         assertEquals("a_en_US.jsp", factory.concatPostfix("a.jsp", postfix));
         assertEquals("file_en_US.jsp", factory.concatPostfix("file.jsp", postfix));
         assertEquals("./path/file_en_US.jsp", factory.concatPostfix("./path/file.jsp", postfix));
+    }
+    
+    public void testContribute() throws Exception {
+    	DefinitionsFactory factory = new UrlDefinitionsFactory();
+
+        // Set up multiple data sources.
+        URL url1 = this.getClass().getClassLoader().getResource(
+                "org/apache/tiles/config/contribute.xml");
+        assertNotNull("Could not load defs1 file.", url1);
+
+        factory.init(Collections.EMPTY_MAP);
+        factory.addSource(url1);
+        // Parse files.
+        Definitions definitions = factory.readDefinitions();
+
+        assertNotNull("test.def1 definition not found.", definitions.getDefinition("baseLayout"));
+        assertNotNull("test.def2 definition not found.", definitions.getDefinition("tiger"));
+        assertNotNull("test.def3 definition not found.", definitions.getDefinition("lion"));
+        
+        List<Attribute> attrs = ContributeManager.getSingleton().getContribute("content.pageContainer");
+        assertNotNull(attrs);
+        assertEquals(3,attrs.size());
+        
+        attrs = ContributeManager.getSingleton().getContribute("content");
+        assertNotNull(attrs);
+        assertEquals(1,attrs.size());
     }
 }

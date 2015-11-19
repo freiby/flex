@@ -43,6 +43,7 @@ import java.io.IOException;
 import java.io.Writer;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -508,7 +509,16 @@ public class BasicTilesContainer implements TilesContainer {
      * @return The newly created attribute context.
      */
     private AttributeContext startContext(TilesRequestContext tilesContext) {
-        AttributeContext context = new BasicAttributeContext();
+    	BasicAttributeContext context = new BasicAttributeContext();
+        AttributeContext pContext = getContext(tilesContext);
+        String defName = pContext.getDefinitionName();
+        if(pContext != null && defName != null){
+        	context.setDefinitionName(defName);
+        	String attrName = (String) tilesContext.getRequestScope().get("_ATTR_NAME_");
+        	
+        	List<Attribute> attrs = ContributeManager.getSingleton().getContribute(defName + "." + attrName);
+        	context.addAttr(attrs);
+        }
         pushContext(context, tilesContext);
         return context;
     }
@@ -590,6 +600,11 @@ public class BasicTilesContainer implements TilesContainer {
         AttributeContext originalContext = getAttributeContext(request);
         BasicAttributeContext subContext = new BasicAttributeContext(originalContext);
         subContext.addMissing(definition.getAttributes());
+        subContext.setDefinitionName(definitionName);
+        List<Attribute> attrs = ContributeManager.getSingleton().getContribute(definitionName);
+        if(attrs != null){
+        	subContext.addAttr(attrs);
+        }
         pushContext(subContext, request);
 
         try {

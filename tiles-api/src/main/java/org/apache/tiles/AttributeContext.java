@@ -72,4 +72,8 @@ public interface AttributeContext {
      * Clear the attributes.
      */
     void clear();
+    
+    String getDefinitionName();
+    
+    
 }
