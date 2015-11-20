@@ -103,4 +103,8 @@ public interface DefinitionsFactory {
      */
     Definitions readDefinitions()
         throws DefinitionsFactoryException;
+    
+    public Definitions getDefinitions()
+            throws DefinitionsFactoryException;
+    
 }

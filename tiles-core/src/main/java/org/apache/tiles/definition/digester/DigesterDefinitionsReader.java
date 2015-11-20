@@ -21,11 +21,20 @@
 
 package org.apache.tiles.definition.digester;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.apache.commons.digester.Digester;
 import org.apache.commons.digester.Rule;
 import org.apache.tiles.Attribute;
-import org.apache.tiles.Definition;
 import org.apache.tiles.Attribute.AttributeType;
+import org.apache.tiles.Definition;
+import org.apache.tiles.Page;
+import org.apache.tiles.Product;
+import org.apache.tiles.View;
 import org.apache.tiles.context.ListAttribute;
 import org.apache.tiles.definition.DefinitionsFactoryException;
 import org.apache.tiles.definition.DefinitionsReader;
@@ -33,13 +42,6 @@ import org.apache.tiles.impl.ContributeManager;
 import org.xml.sax.Attributes;
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.SAXException;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
-
 import org.xml.sax.SAXParseException;
 
 /**
@@ -82,6 +84,28 @@ public class DigesterDefinitionsReader implements DefinitionsReader {
      * Intercepts a &lt;definition&gt; tag.
      */
     private static final String DEFINITION_TAG = "tiles-definitions/definition";
+    
+    
+    /**
+     * Intercepts a &lt;product&gt; tag.
+     */
+    private static final String PRODUCT_TAG = "tiles-definitions/product";
+    
+    
+    /**
+     * Intercepts a &lt;product&gt; tag.
+     */
+    private static final String PAGE_TAG = PRODUCT_TAG + "/page";
+    
+    /**
+     * Intercepts a &lt;product&gt; tag.
+     */
+    private static final String VIEW_TAG = "tiles-definitions/view";
+    
+    /**
+     * Intercepts a &lt;put-attribute&gt; tag.
+     */
+    private static final String VIEW_PUT_TAG = VIEW_TAG + "/put-attribute";
 
     /**
      * Intercepts a &lt;put-attribute&gt; tag.
@@ -120,12 +144,26 @@ public class DigesterDefinitionsReader implements DefinitionsReader {
     private static final String BEAN_TAG = "*/bean";
 
     // Handler class names.
+    
+    
+    /**
+     * The handler to create definitions.
+     */
+    private static final String PRODUCT_HANDLER_CLASS =
+        Product.class.getName();
 
     /**
      * The handler to create definitions.
      */
     private static final String DEFINITION_HANDLER_CLASS =
         Definition.class.getName();
+    
+    
+    private static final String PAGE_HANDLER_CLASS =
+            Page.class.getName();
+    
+    private static final String VIEW_HANDLER_CLASS =
+            View.class.getName();
 
     /**
      * The handler to create attributes.
@@ -168,11 +206,11 @@ public class DigesterDefinitionsReader implements DefinitionsReader {
                 throws Exception {
             Attribute attribute = (Attribute) digester.peek(0);
             Definition definition = (Definition) digester.peek(1);
-            if(attributes.getValue("contribute") == null){
-            	definition.putAttribute(attributes.getValue("name"), attribute);
-            }else{
+            definition.putAttribute(attributes.getValue("name"), attribute);
+            if(definition instanceof View){
             	attribute.setName(attributes.getValue("name"));
-            	ContributeManager.getSingleton().registryContribute(attributes.getValue("contribute"), attribute);
+            	String contributeTo = ((View)definition).getContribute();
+            	ContributeManager.getSingleton().registryContribute(contributeTo, attribute);
             }
         }
     }
@@ -315,6 +353,27 @@ public class DigesterDefinitionsReader implements DefinitionsReader {
      * @param digester Digester instance to use.
      */
     private void initDigesterForTilesDefinitionsSyntax(Digester digester) {
+    	
+    	digester.addObjectCreate(PRODUCT_TAG, PRODUCT_HANDLER_CLASS);
+        digester.addSetProperties(PRODUCT_TAG);
+        digester.addSetNext(PRODUCT_TAG, "addDefinition", DEFINITION_HANDLER_CLASS);
+        
+        digester.addObjectCreate(VIEW_TAG, VIEW_HANDLER_CLASS);
+        digester.addSetProperties(VIEW_TAG);
+        digester.addSetNext(VIEW_TAG, "addDefinition", DEFINITION_HANDLER_CLASS);
+        
+        
+        digester.addObjectCreate(VIEW_PUT_TAG, PUT_ATTRIBUTE_HANDLER_CLASS);
+        digester.addRule(VIEW_PUT_TAG, new FillAttributeRule());
+        digester.addRule(VIEW_PUT_TAG, new PutAttributeRule());
+        digester.addCallMethod(VIEW_PUT_TAG, "setBody", 0);
+        
+        digester.addObjectCreate(PAGE_TAG, PAGE_HANDLER_CLASS);
+        digester.addRule(PAGE_TAG, new FillAttributeRule());
+        digester.addSetNext(PAGE_TAG, "addPage", PAGE_HANDLER_CLASS);
+        digester.addCallMethod(PAGE_TAG, "setBody", 0);
+        
+        
         // syntax rules
         digester.addObjectCreate(DEFINITION_TAG, DEFINITION_HANDLER_CLASS);
         digester.addSetProperties(DEFINITION_TAG);
@@ -376,7 +435,7 @@ public class DigesterDefinitionsReader implements DefinitionsReader {
     public void addDefinition(Definition definition) {
         definitions.put(definition.getName(), definition);
     }
-
+    
     /**
      * Error Handler that throws every exception it receives.
      */

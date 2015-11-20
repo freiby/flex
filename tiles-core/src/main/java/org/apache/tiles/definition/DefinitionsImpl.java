@@ -21,16 +21,19 @@
 
 package org.apache.tiles.definition;
 
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.tiles.Attribute;
 import org.apache.tiles.Definition;
-
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Set;
+import org.apache.tiles.Product;
 
 /**
  * @version $Rev$ $Date$
@@ -276,4 +279,21 @@ public class DefinitionsImpl implements Definitions {
             child.setPreparer(parent.getPreparer());
         }
     }
+
+	public Map<String,Product> getProducts() {
+		Set<Entry<String, Definition>> sets = baseDefinitions.entrySet();
+		Map<String,Product> map = new HashMap<String,Product>();
+		Iterator<Entry<String, Definition>> iterator = sets.iterator();
+		while(iterator.hasNext()){
+			Entry<String, Definition> entry = iterator.next();
+			if(entry.getValue() instanceof Product){
+				map.put(entry.getKey(), (Product) entry.getValue());
+			}
+		}
+		return map;
+	}
+
+	public Product getProductByName(String name) {
+		return getProducts().get(name);
+	}
 }

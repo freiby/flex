@@ -16,6 +16,10 @@ public class ContributeManager {
 		
 		private Map<String,Def> contributeToDef = new HashMap<String,Def>();
 		
+		public void clear(){
+			contributeToDef.clear();
+		}
+		
 		public List<Attribute> getAttribute(String to){
 			Path p = parsePath(to);
 			if(p.def != null && contributeToDef.containsKey(p.def)){
@@ -175,5 +179,9 @@ public class ContributeManager {
 		}finally{
 			lc.unlock();
 		}
+	}
+	
+	public void clear(){
+		cp.clear();
 	}
 }

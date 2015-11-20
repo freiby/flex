@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
 /*
  * $Id$
@@ -20,8 +20,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
--->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+--><project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
     <parent>
         <groupId>org.apache.tiles</groupId>
@@ -44,7 +43,7 @@
         <url>http://svn.apache.org/viewvc/tiles/framework/tags/tiles-2.0.6</url>
     </scm>
 
-    <ciManagement />
+    <ciManagement/>
     
     <modules>
         <module>tiles-api</module>
@@ -52,7 +51,8 @@
         <module>tiles-jsp</module>
         <module>tiles-test</module>
         <module>assembly</module>
-    </modules>
+		<module>nirvana-core</module>
+  </modules>
     
     <distributionManagement>
         <repository>
@@ -165,7 +165,7 @@
         </plugins>
     </reporting>
 
-    <dependencies />
+    <dependencies/>
     
     <profiles>
         <profile>

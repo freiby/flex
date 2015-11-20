@@ -26,6 +26,7 @@ import java.util.Locale;
 import java.util.Map;
 
 import org.apache.tiles.Definition;
+import org.apache.tiles.Product;
 
 /**
  *
@@ -113,5 +114,13 @@ public class MockDefinitions implements Definitions {
     public Map<String, Definition> getBaseDefinitions() {
         return null;
     }
+
+	public Map<String, Product> getProducts() {
+		return null;
+	}
+
+	public Product getProductByName(String name) {
+		return null;
+	}
 
 }

@@ -20,9 +20,10 @@
  */
 package org.apache.tiles;
 
-import java.util.Map;
 import java.io.IOException;
 import java.io.Writer;
+import java.util.List;
+import java.util.Map;
 
 /**
  * An encapsulation of the tiles framework.  This interface is

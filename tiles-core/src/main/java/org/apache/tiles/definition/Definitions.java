@@ -25,6 +25,7 @@ import java.util.Locale;
 import java.util.Map;
 
 import org.apache.tiles.Definition;
+import org.apache.tiles.Product;
 
 /**
  * Interface for managing collections of {@link Definition} objects.
@@ -105,4 +106,13 @@ public interface Definitions {
      * @return A map of the type "definition name -> definition".
      */
     Map<String, Definition> getBaseDefinitions();
+    
+    /**
+     * add by fudapeng for lookup product
+     * @return
+     */
+    Map<String,Product> getProducts();
+    
+    Product getProductByName(String name);
+    
 }

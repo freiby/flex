@@ -85,7 +85,32 @@
      hierarchy, and contains nested elements for all of the other
      configuration settings.
 -->
-<!ELEMENT tiles-definitions (definition+)>
+<!ELEMENT tiles-definitions (product|definition|view)+>
+
+<!ELEMENT product (page)+>
+<!ATTLIST product       name             CDATA            #IMPLIED>
+<!ATTLIST product       description      CDATA            #IMPLIED>
+<!ATTLIST product       icon             CDATA            #IMPLIED>
+
+
+<!ELEMENT page (#PCDATA)>
+<!ATTLIST page       id               ID               #IMPLIED>
+<!ATTLIST page       name             CDATA            #IMPLIED>
+<!ATTLIST page       description      CDATA            #IMPLIED>
+<!ATTLIST page       icon             CDATA            #IMPLIED>
+<!ATTLIST page       defautPage       CDATA            #IMPLIED>
+<!ATTLIST page       value            CDATA            #REQUIRED>
+
+
+<!ELEMENT view (put-attribute+)>
+<!ATTLIST view       id               ID               #IMPLIED>
+<!ATTLIST view       name             CDATA            #IMPLIED>
+<!ATTLIST view       description      CDATA            #IMPLIED>
+<!ATTLIST view       icon             CDATA            #IMPLIED>
+<!-- contribute to some of attribute or definitaion add by fudapeng-->
+<!ATTLIST view       contribute       CDATA            #REQUIRED>
+
+
 
 <!-- The "definition" element describes a definition that can be inserted in a jsp
      page. This definition is identified by its logical name. A definition allows
@@ -123,6 +148,8 @@
                      containing appropriate attributes will be available.
 -->
 <!ATTLIST definition       template         %RequestPath;    #IMPLIED>
+<!-- this attribute as page -->
+<!ATTLIST definition     as            CDATA           #IMPLIED>
 
 
 <!-- The "put-attribute" element describes an attribute of a definition. It allows to
@@ -148,7 +175,8 @@
 -->
 <!ATTLIST put-attribute     value            CDATA           #IMPLIED>
 
-<!ATTLIST put-attribute     contribute            CDATA           #IMPLIED>
+<!-- this attribute as view or resources(js css) -->
+<!ATTLIST put-attribute     as            CDATA           #IMPLIED>
 <!--
 @attr role           Security role name that is allowed access to this attribute
                      object. The attribute is inserted only if the role name is

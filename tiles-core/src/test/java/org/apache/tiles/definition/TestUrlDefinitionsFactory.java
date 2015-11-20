@@ -22,11 +22,11 @@
 package org.apache.tiles.definition;
 
 import java.net.URL;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Collections;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
@@ -35,6 +35,8 @@ import junit.framework.TestSuite;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.tiles.Attribute;
+import org.apache.tiles.Page;
+import org.apache.tiles.Product;
 import org.apache.tiles.context.TilesRequestContext;
 import org.apache.tiles.impl.ContributeManager;
 
@@ -358,7 +360,7 @@ public class TestUrlDefinitionsFactory extends TestCase {
         assertEquals("./path/file_en_US.jsp", factory.concatPostfix("./path/file.jsp", postfix));
     }
     
-    public void testContribute() throws Exception {
+    public void Contribute() throws Exception {
     	DefinitionsFactory factory = new UrlDefinitionsFactory();
 
         // Set up multiple data sources.
@@ -382,5 +384,8 @@ public class TestUrlDefinitionsFactory extends TestCase {
         attrs = ContributeManager.getSingleton().getContribute("content");
         assertNotNull(attrs);
         assertEquals(1,attrs.size());
+        
+        ContributeManager.getSingleton().clear();
     }
+    
 }

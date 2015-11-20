@@ -20,15 +20,28 @@
  */
 package org.apache.tiles.impl;
 
+import java.io.IOException;
+import java.io.Writer;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.Stack;
+import java.util.StringTokenizer;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.tiles.Attribute;
+import org.apache.tiles.Attribute.AttributeType;
 import org.apache.tiles.AttributeContext;
 import org.apache.tiles.Definition;
+import org.apache.tiles.Page;
+import org.apache.tiles.Product;
 import org.apache.tiles.TilesApplicationContext;
 import org.apache.tiles.TilesContainer;
 import org.apache.tiles.TilesException;
-import org.apache.tiles.Attribute.AttributeType;
 import org.apache.tiles.context.BasicAttributeContext;
 import org.apache.tiles.context.TilesContextFactory;
 import org.apache.tiles.context.TilesRequestContext;
@@ -38,18 +51,6 @@ import org.apache.tiles.definition.NoSuchDefinitionException;
 import org.apache.tiles.preparer.NoSuchPreparerException;
 import org.apache.tiles.preparer.PreparerFactory;
 import org.apache.tiles.preparer.ViewPreparer;
-
-import java.io.IOException;
-import java.io.Writer;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.Stack;
-import java.util.StringTokenizer;
 
 /**
  * Basic implementation of the tiles container interface.
@@ -96,7 +97,7 @@ public class BasicTilesContainer implements TilesContainer {
     /**
      * The definitions factory.
      */
-    private DefinitionsFactory definitionsFactory;
+    protected DefinitionsFactory definitionsFactory;
 
     /**
      * The preparer factory.
@@ -702,4 +703,5 @@ public class BasicTilesContainer implements TilesContainer {
             return false;
         }
     }
+	
 }

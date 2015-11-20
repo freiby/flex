@@ -137,7 +137,7 @@ public class UrlDefinitionsFactory
      * @throws DefinitionsFactoryException If something goes wrong during
      * reading definitions.
      */
-    protected Definitions getDefinitions()
+    public Definitions getDefinitions()
         throws DefinitionsFactoryException {
         return definitions;
     }
