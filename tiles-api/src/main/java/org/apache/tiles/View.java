@@ -1,6 +1,6 @@
 package org.apache.tiles;
 
-public class View extends Definition{
+public class View extends Definition implements ILifecycle{
 	private String id;
 	private String description;
 	private String icon;
@@ -34,6 +34,13 @@ public class View extends Definition{
 	public void setIcon(String icon) {
 		this.icon = icon;
 	}
-	
+	public void open() {
+	}
+	public void show() {
+	}
+	public void hiden() {
+	}
+	public void close() {
+	}
 	
 }

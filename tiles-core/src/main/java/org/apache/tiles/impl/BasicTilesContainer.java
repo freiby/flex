@@ -38,7 +38,6 @@ import org.apache.tiles.Attribute.AttributeType;
 import org.apache.tiles.AttributeContext;
 import org.apache.tiles.Definition;
 import org.apache.tiles.Page;
-import org.apache.tiles.Product;
 import org.apache.tiles.TilesApplicationContext;
 import org.apache.tiles.TilesContainer;
 import org.apache.tiles.TilesException;
@@ -48,6 +47,7 @@ import org.apache.tiles.context.TilesRequestContext;
 import org.apache.tiles.definition.DefinitionsFactory;
 import org.apache.tiles.definition.DefinitionsFactoryException;
 import org.apache.tiles.definition.NoSuchDefinitionException;
+import org.apache.tiles.impl.ext.BasicSiteContainer;
 import org.apache.tiles.preparer.NoSuchPreparerException;
 import org.apache.tiles.preparer.PreparerFactory;
 import org.apache.tiles.preparer.ViewPreparer;
@@ -515,10 +515,16 @@ public class BasicTilesContainer implements TilesContainer {
         String defName = pContext.getDefinitionName();
         if(pContext != null && defName != null){
         	context.setDefinitionName(defName);
-        	String attrName = (String) tilesContext.getRequestScope().get("_ATTR_NAME_");
-        	
-        	List<Attribute> attrs = ContributeManager.getSingleton().getContribute(defName + "." + attrName);
-        	context.addAttr(attrs);
+        	Page currentPage = ((BasicSiteContainer)this).getPageNavigation().getCurrentPage();
+        	if(currentPage != null){
+        		String templateref = currentPage.getTamplateref();
+        		Map<String, Attribute> views = currentPage.getView().getAttributes();
+        		String tagName = (String) tilesContext.getRequestScope().get("_ATTR_NAME_");
+        		if((defName + "." + tagName).equals(templateref)){
+        			context.addAll(views);
+        		}
+        		
+        	}
         }
         pushContext(context, tilesContext);
         return context;

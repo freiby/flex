@@ -2,12 +2,12 @@
 
 <!DOCTYPE tiles-definitions PUBLIC
    "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
-   "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+   "file://D:/WorkSpace/html/flex/tiles-core/src/main/resources/org/apache/tiles/resources/tiles-config_2_0.dtd">
 
 <tiles-definitions>
 
    <!-- framework -->
-   <definition name="baseLayout" template="/framework/theme/inspinia/baseLayout.jsp">
+   <definition name="baseLayout" template="/framework/theme/inspinia/baseLayout.jsp" >
       <put-attribute name="title"  value="Template"/>
       <put-attribute name="menu"   value="/framework/theme/inspinia/menu.jsp"/>
       <put-attribute name="content"   value="content"/>
@@ -23,15 +23,15 @@
    <!--  plugin   -->
     
    <product name="nirvana" description="">
-      <page name="tiger" description="" icon="" defautPage="true" value="pageContainer"/>
-	  <page name="lion" description="" icon="" value="pageContainer"/>
+      <page name="tiger" description="" icon="" defautPage="true" tamplateref="content.pageContainer" viewref="views"/>
+	  <page name="lion" description="" icon="" tamplateref="content.pageContainer" viewref="views"/>
    </product>
    
  
-   <view name="views"  contribute="nirvana.tiger">
-	  <put-attribute name="chart1"  value="/plugins/com.wxxr.app.monitor/view/chart1.jsp"  as="view"/>
-	  <put-attribute name="chart2"  value="/plugins/com.wxxr.app.monitor/view/chart2.jsp"  as="view"/>
-	  <put-attribute name="chart3"  value="/plugins/com.wxxr.app.monitor/view/chart3.jsp"  as="view"/>
+   <view name="views" >
+	  <put-attribute name="chart1"  value="/plugins/com.wxxr.app.monitor/view/chart1.jsp"  />
+	  <put-attribute name="chart2"  value="/plugins/com.wxxr.app.monitor/view/chart2.jsp"  />
+	  <put-attribute name="chart3"  value="/plugins/com.wxxr.app.monitor/view/chart3.jsp"  />
    </view>
 
 

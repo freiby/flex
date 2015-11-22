@@ -10,7 +10,7 @@ import java.util.List;
  * @author fudapeng
  *
  */
-public class Product extends Definition{
+public class Product extends Definition implements ILifecycle{
 	
 	public static final String CURRENT = "_CURRENT_PRODUCT_";
 	/**
@@ -69,6 +69,14 @@ public class Product extends Definition{
 		if(page != null && pages.contains(page)){
 			pages.remove(page);
 		}
+	}
+	public void open() {
+	}
+	public void show() {
+	}
+	public void hiden() {
+	}
+	public void close() {
 	}
 	
 }

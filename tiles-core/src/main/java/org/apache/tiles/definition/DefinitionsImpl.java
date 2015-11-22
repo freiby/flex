@@ -279,21 +279,4 @@ public class DefinitionsImpl implements Definitions {
             child.setPreparer(parent.getPreparer());
         }
     }
-
-	public Map<String,Product> getProducts() {
-		Set<Entry<String, Definition>> sets = baseDefinitions.entrySet();
-		Map<String,Product> map = new HashMap<String,Product>();
-		Iterator<Entry<String, Definition>> iterator = sets.iterator();
-		while(iterator.hasNext()){
-			Entry<String, Definition> entry = iterator.next();
-			if(entry.getValue() instanceof Product){
-				map.put(entry.getKey(), (Product) entry.getValue());
-			}
-		}
-		return map;
-	}
-
-	public Product getProductByName(String name) {
-		return getProducts().get(name);
-	}
 }

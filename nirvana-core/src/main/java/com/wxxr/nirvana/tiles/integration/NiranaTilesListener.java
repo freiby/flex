@@ -1,4 +1,4 @@
-package com.wxxr.nirvana.integration;
+package com.wxxr.nirvana.tiles.integration;
 
 import java.util.HashMap;
 import java.util.Map;

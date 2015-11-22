@@ -1,19 +1,39 @@
 package org.apache.tiles;
 
-import java.util.ArrayList;
-import java.util.List;
 
-public class Page extends Attribute{
+public class Page extends Attribute implements ILifecycle{
 	
 	private String id;
 	private String name;
 	private String description;
 	private String icon;
 	private boolean defautPage;
+	private String viewref;
 	
-	private List<View> views = new ArrayList<View>();
+	private String tamplateref;
 	
 	
+	private View view;
+	
+	
+	public View getView() {
+		return view;
+	}
+	public void setView(View view) {
+		this.view = view;
+	}
+	public String getViewref() {
+		return viewref;
+	}
+	public void setViewref(String viewref) {
+		this.viewref = viewref;
+	}
+	public String getTamplateref() {
+		return tamplateref;
+	}
+	public void setTamplateref(String tamplateref) {
+		this.tamplateref = tamplateref;
+	}
 	public boolean isDefautPage() {
 		return defautPage;
 	}
@@ -45,16 +65,17 @@ public class Page extends Attribute{
 		this.icon = icon;
 	}
 	
-	public void addView(View view){
-		if(view != null && !views.contains(view)){
-			views.add(view);
-		}
+	public void open() {
+		
 	}
-	
-	public void removeView(View view){
-		if(view != null && views.contains(view)){
-			views.remove(view);
-		}
+	public void show() {
+		
+	}
+	public void hiden() {
+		
+	}
+	public void close() {
+		
 	}
 	
 }

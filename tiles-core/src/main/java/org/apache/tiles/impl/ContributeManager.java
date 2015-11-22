@@ -11,7 +11,7 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 import org.apache.tiles.Attribute;
 
 public class ContributeManager {
-	
+	public static String delimiter = ".";
 	private class ContributeProvider{
 		
 		private Map<String,Def> contributeToDef = new HashMap<String,Def>();

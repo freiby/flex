@@ -207,11 +207,11 @@ public class DigesterDefinitionsReader implements DefinitionsReader {
             Attribute attribute = (Attribute) digester.peek(0);
             Definition definition = (Definition) digester.peek(1);
             definition.putAttribute(attributes.getValue("name"), attribute);
-            if(definition instanceof View){
-            	attribute.setName(attributes.getValue("name"));
-            	String contributeTo = ((View)definition).getContribute();
-            	ContributeManager.getSingleton().registryContribute(contributeTo, attribute);
-            }
+//            if(definition instanceof View){
+//            	attribute.setName(attributes.getValue("name"));
+//            	String contributeTo = ((View)definition).getContribute();
+//            	ContributeManager.getSingleton().registryContribute(contributeTo, attribute);
+//            }
         }
     }
 
@@ -372,6 +372,7 @@ public class DigesterDefinitionsReader implements DefinitionsReader {
         digester.addRule(PAGE_TAG, new FillAttributeRule());
         digester.addSetNext(PAGE_TAG, "addPage", PAGE_HANDLER_CLASS);
         digester.addCallMethod(PAGE_TAG, "setBody", 0);
+        digester.addSetProperties(PAGE_TAG);
         
         
         // syntax rules

@@ -5,12 +5,13 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+import junit.framework.TestCase;
+
 import org.apache.tiles.Attribute;
+import org.apache.tiles.Definition;
 import org.apache.tiles.Page;
 import org.apache.tiles.Product;
 import org.apache.tiles.impl.ContributeManager;
-
-import junit.framework.TestCase;
 
 public class TestMyUrlDefinitionsFactory extends TestCase {
 	
@@ -31,22 +32,29 @@ public class TestMyUrlDefinitionsFactory extends TestCase {
         assertNotNull("test.def2 definition not found.", definitions.getDefinition("tiger"));
         assertNotNull("test.def3 definition not found.", definitions.getDefinition("lion"));
         
-        List<Attribute> attrs = ContributeManager.getSingleton().getContribute("nirvana.tiger");
-        assertNotNull(attrs);
-        assertEquals(3,attrs.size());
+//        List<Attribute> attrs = ContributeManager.getSingleton().getContribute("nirvana.tiger");
+//        assertNotNull(attrs);
+//        assertEquals(3,attrs.size());
         
 //        attrs = ContributeManager.getSingleton().getContribute("content");
 //        assertNotNull(attrs);
 //        assertEquals(0,attrs.size());
         
-        Map<String,Product> products = definitions.getProducts();
-        
-        assertEquals(1, products.size());
-        Product product = products.entrySet().iterator().next().getValue();
+        Map<String,Definition> products = definitions.getBaseDefinitions();
+//        
+        assertNotNull(products.get("nirvana"));
+        Product product = (Product) products.get("nirvana");
         
         List<Page> pages = product.getPages();
         
         assertEquals(2,pages.size());
+        
+        boolean defaultPage = false;
+        for(Page item : pages){
+        	defaultPage = item.isDefautPage();
+        	if(defaultPage) break;
+        }
+        assertTrue(defaultPage);
         
         ContributeManager.getSingleton().clear();
     }

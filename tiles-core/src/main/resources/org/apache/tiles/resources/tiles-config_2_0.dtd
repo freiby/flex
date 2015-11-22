@@ -99,16 +99,14 @@
 <!ATTLIST page       description      CDATA            #IMPLIED>
 <!ATTLIST page       icon             CDATA            #IMPLIED>
 <!ATTLIST page       defautPage       CDATA            #IMPLIED>
-<!ATTLIST page       value            CDATA            #REQUIRED>
+<!ATTLIST page       tamplateref      CDATA            #REQUIRED>
+<!ATTLIST page       viewref          CDATA            #REQUIRED>
 
 
 <!ELEMENT view (put-attribute+)>
 <!ATTLIST view       id               ID               #IMPLIED>
 <!ATTLIST view       name             CDATA            #IMPLIED>
 <!ATTLIST view       description      CDATA            #IMPLIED>
-<!ATTLIST view       icon             CDATA            #IMPLIED>
-<!-- contribute to some of attribute or definitaion add by fudapeng-->
-<!ATTLIST view       contribute       CDATA            #REQUIRED>
 
 
 
