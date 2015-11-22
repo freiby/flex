@@ -10,7 +10,8 @@ import java.util.Set;
 import org.apache.tiles.Definition;
 import org.apache.tiles.Page;
 import org.apache.tiles.Product;
-import org.apache.tiles.View;
+import org.apache.tiles.Resource;
+import org.apache.tiles.Views;
 import org.apache.tiles.definition.DefinitionsFactoryException;
 
 /**
@@ -23,7 +24,7 @@ public class ProductManager {
 	private ContainerContext context;
 	private Map<String, Product> products = new HashMap<String, Product>();
 	private boolean initFlag = false;
-	private Map<String, View> views = new HashMap<String, View>();
+	private Map<String, Views> views = new HashMap<String, Views>();
 
 	public void init(ContainerContext context) throws NirvanaException {
 		this.context = context;
@@ -46,8 +47,8 @@ public class ProductManager {
 				products.put(entry.getKey(), (Product) entry.getValue());
 			}
 
-			if (entry.getValue() instanceof View) {
-				views.put(entry.getKey(), (View) entry.getValue());
+			if (entry.getValue() instanceof Views) {
+				views.put(entry.getKey(), (Views) entry.getValue());
 			}
 		}
 		initProduct();
@@ -65,8 +66,10 @@ public class ProductManager {
 				try {
 					Definition def = context.getDefinitionsFactory()
 							.getDefinitions().getBaseDefinitions().get(viewRef);
-					if (def instanceof View) {
-						View v = (View) def;
+					if (def instanceof Views) {
+						Views v = (Views) def;
+						List<String> viewResources = v.getResources();
+						initPageResource(v,viewResources);
 						item.setView(v);
 					}
 				} catch (DefinitionsFactoryException e) {
@@ -75,7 +78,24 @@ public class ProductManager {
 
 			}
 		}
+	}
 
+	private void initPageResource(Views v,List<String> viewResources) throws NirvanaException {
+		Set<Entry<String, Definition>> sets;
+		try {
+			sets = context.getDefinitionsFactory().getDefinitions()
+					.getBaseDefinitions().entrySet();
+		} catch (DefinitionsFactoryException e) {
+			throw new NirvanaException(e);
+		}
+		Iterator<Entry<String, Definition>> iterator = sets.iterator();
+		while (iterator.hasNext()) {
+			Entry<String, Definition> entry = iterator.next();
+			if (entry.getValue() instanceof Resource) {
+				v.setResource((Resource) entry.getValue());
+				break;
+			}
+		}
 	}
 
 	public Product getCurrentProduct() {

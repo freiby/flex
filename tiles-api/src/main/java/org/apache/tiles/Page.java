@@ -11,15 +11,18 @@ public class Page extends Attribute implements ILifecycle{
 	private String viewref;
 	
 	private String tamplateref;
+	private Resource pageResource;
 	
+	private Views view;
 	
-	private View view;
+	public Resource getResource(){
+		return pageResource;
+	}
 	
-	
-	public View getView() {
+	public Views getView() {
 		return view;
 	}
-	public void setView(View view) {
+	public void setView(Views view) {
 		this.view = view;
 	}
 	public String getViewref() {

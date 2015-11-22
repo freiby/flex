@@ -181,6 +181,8 @@
                      allowed.
 -->
 <!ATTLIST put-attribute     role             CDATA            #IMPLIED>
+<!ATTLIST put-attribute     resourceref      CDATA            #IMPLIED>
+
 
 
 <!-- The "put-list-attribute" element describes a list attribute of a definition. It allows to

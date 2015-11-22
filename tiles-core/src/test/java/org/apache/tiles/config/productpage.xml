@@ -6,50 +6,66 @@
 
 <tiles-definitions>
 
-   <!-- framework -->
-   <definition name="baseLayout" template="/framework/theme/inspinia/baseLayout.jsp" >
-      <put-attribute name="title"  value="Template"/>
-      <put-attribute name="menu"   value="/framework/theme/inspinia/menu.jsp"/>
-      <put-attribute name="content"   value="content"/>
-   </definition>
+	<!-- framework -->
+	<definition name="baseLayout" template="/framework/theme/inspinia/baseLayout.jsp">
+		<put-attribute name="title" value="Template" />
+		<put-attribute name="menu" value="/framework/theme/inspinia/menu.jsp" />
+		<put-attribute name="content" value="content" />
+		<put-attribute name="resourcejs" value="/framework/theme/inspinia/jsinsert.jsp" />
+		<put-attribute name="resourcecs" value="/framework/theme/inspinia/csinsert.jsp" />
+	</definition>
 
-   <definition name="content" template="/framework/theme/inspinia/content.jsp">
-		<put-attribute name="pageHeader"  value="/framework/theme/inspinia/pageHeader.jsp"/>
-		<put-attribute name="pageContainer"  value="/framework/theme/inspinia/pageContainer.jsp" />
-   </definition>
-   
-
-   
-   <!--  plugin   -->
-    
-   <product name="nirvana" description="">
-      <page name="tiger" description="" icon="" defautPage="true" tamplateref="content.pageContainer" viewref="views"/>
-	  <page name="lion" description="" icon="" tamplateref="content.pageContainer" viewref="views"/>
-   </product>
-   
- 
-   <view name="views" >
-	  <put-attribute name="chart1"  value="/plugins/com.wxxr.app.monitor/view/chart1.jsp"  />
-	  <put-attribute name="chart2"  value="/plugins/com.wxxr.app.monitor/view/chart2.jsp"  />
-	  <put-attribute name="chart3"  value="/plugins/com.wxxr.app.monitor/view/chart3.jsp"  />
-   </view>
+	<definition name="content" template="/framework/theme/inspinia/content.jsp">
+		<put-attribute name="pageHeader"
+			value="/framework/theme/inspinia/pageHeader.jsp" />
+		<put-attribute name="pageContainer"
+			value="/framework/theme/inspinia/pageContainer.jsp" />
+	</definition>
 
 
-   <definition name="tiger" extends="baseLayout" as="page">
-      <put-attribute name="title"  value="Tiger"/>
-	  <put-attribute name="views"  value="views"/>
-   </definition>
 
-   
+	<!-- plugin -->
 
-   <definition name="lion" extends="baseLayout" as="page">
-	  <put-attribute name="title"  value="Lion"/>
-   </definition>
-   
-   
-   
-   
+	<product name="nirvana" description="">
+		<page name="tiger" description="" icon="" defautPage="true"
+			tamplateref="content.pageContainer" viewref="views" />
+		<page name="lion" description="" icon="" tamplateref="content.pageContainer"
+			viewref="views" />
+	</product>
 
 
-  
+	<view name="views">
+		<put-attribute name="chart1"
+			value="/plugins/com.wxxr.app.monitor/view/chart1.jsp" resourceref="cssjs"/>
+		<put-attribute name="chart2"
+			value="/plugins/com.wxxr.app.monitor/view/chart2.jsp" />
+		<put-attribute name="chart3"
+			value="/plugins/com.wxxr.app.monitor/view/chart3.jsp" />
+	</view>
+
+	<resource name="cssjs">
+		<put-attribute name="chart1"
+			value="/plugins/com.wxxr.app.monitor/view/js/chart1.js" rtype="js"/>
+		<put-attribute name="chart1"
+			value="/plugins/com.wxxr.app.monitor/view/js/chart1.css" rtype="css"/>
+	</resource>
+
+
+	<definition name="tiger" extends="baseLayout" as="page">
+		<put-attribute name="title" value="Tiger" />
+		<put-attribute name="views" value="views" />
+	</definition>
+
+
+
+	<definition name="lion" extends="baseLayout" as="page">
+		<put-attribute name="title" value="Lion" />
+	</definition>
+
+
+
+
+
+
+
 </tiles-definitions>

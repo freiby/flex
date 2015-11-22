@@ -34,7 +34,7 @@ import org.apache.tiles.Attribute.AttributeType;
 import org.apache.tiles.Definition;
 import org.apache.tiles.Page;
 import org.apache.tiles.Product;
-import org.apache.tiles.View;
+import org.apache.tiles.Views;
 import org.apache.tiles.context.ListAttribute;
 import org.apache.tiles.definition.DefinitionsFactoryException;
 import org.apache.tiles.definition.DefinitionsReader;
@@ -163,7 +163,7 @@ public class DigesterDefinitionsReader implements DefinitionsReader {
             Page.class.getName();
     
     private static final String VIEW_HANDLER_CLASS =
-            View.class.getName();
+            Views.class.getName();
 
     /**
      * The handler to create attributes.
