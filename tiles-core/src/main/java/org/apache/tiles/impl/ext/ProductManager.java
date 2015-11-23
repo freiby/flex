@@ -68,7 +68,7 @@ public class ProductManager {
 							.getDefinitions().getBaseDefinitions().get(viewRef);
 					if (def instanceof Views) {
 						Views v = (Views) def;
-						List<String> viewResources = v.getResources();
+						List<String> viewResources = v.getResourceRefs();
 						initPageResource(v,viewResources);
 						item.setView(v);
 					}

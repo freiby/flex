@@ -44,7 +44,7 @@
 	</view>
 
 	<resource name="cssjs">
-		<put-attribute name="chart1"
+		<put-attribute name="chart2"
 			value="/plugins/com.wxxr.app.monitor/view/js/chart1.js" rtype="js"/>
 		<put-attribute name="chart1"
 			value="/plugins/com.wxxr.app.monitor/view/js/chart1.css" rtype="css"/>

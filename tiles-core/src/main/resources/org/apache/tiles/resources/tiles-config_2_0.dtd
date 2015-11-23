@@ -85,7 +85,7 @@
      hierarchy, and contains nested elements for all of the other
      configuration settings.
 -->
-<!ELEMENT tiles-definitions (product|definition|view)+>
+<!ELEMENT tiles-definitions (product|definition|view|resource)+>
 
 <!ELEMENT product (page)+>
 <!ATTLIST product       name             CDATA            #IMPLIED>
@@ -108,7 +108,8 @@
 <!ATTLIST view       name             CDATA            #IMPLIED>
 <!ATTLIST view       description      CDATA            #IMPLIED>
 
-
+<!ELEMENT resource (put-attribute+)>
+<!ATTLIST resource       name          CDATA            #IMPLIED>
 
 <!-- The "definition" element describes a definition that can be inserted in a jsp
      page. This definition is identified by its logical name. A definition allows
@@ -182,6 +183,7 @@
 -->
 <!ATTLIST put-attribute     role             CDATA            #IMPLIED>
 <!ATTLIST put-attribute     resourceref      CDATA            #IMPLIED>
+<!ATTLIST put-attribute     rtype            CDATA            #IMPLIED>
 
 
 

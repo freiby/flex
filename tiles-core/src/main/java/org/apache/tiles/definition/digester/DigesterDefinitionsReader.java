@@ -34,11 +34,11 @@ import org.apache.tiles.Attribute.AttributeType;
 import org.apache.tiles.Definition;
 import org.apache.tiles.Page;
 import org.apache.tiles.Product;
+import org.apache.tiles.Resource;
 import org.apache.tiles.Views;
 import org.apache.tiles.context.ListAttribute;
 import org.apache.tiles.definition.DefinitionsFactoryException;
 import org.apache.tiles.definition.DefinitionsReader;
-import org.apache.tiles.impl.ContributeManager;
 import org.xml.sax.Attributes;
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.SAXException;
@@ -103,6 +103,16 @@ public class DigesterDefinitionsReader implements DefinitionsReader {
     private static final String VIEW_TAG = "tiles-definitions/view";
     
     /**
+     * Intercepts a &lt;product&gt; tag.
+     */
+    private static final String RESOURCE_TAG = "tiles-definitions/resource";
+    
+    /**
+     * Intercepts a &lt;put-attribute&gt; tag.
+     */
+    private static final String RESOURCE_PUT_TAG = RESOURCE_TAG + "/put-attribute";
+    
+    /**
      * Intercepts a &lt;put-attribute&gt; tag.
      */
     private static final String VIEW_PUT_TAG = VIEW_TAG + "/put-attribute";
@@ -164,6 +174,12 @@ public class DigesterDefinitionsReader implements DefinitionsReader {
     
     private static final String VIEW_HANDLER_CLASS =
             Views.class.getName();
+    
+    /**
+     * The handler to create definitions.
+     */
+    private static final String RESOURCE_HANDLER_CLASS =
+        Resource.class.getName();
 
     /**
      * The handler to create attributes.
@@ -363,10 +379,21 @@ public class DigesterDefinitionsReader implements DefinitionsReader {
         digester.addSetNext(VIEW_TAG, "addDefinition", DEFINITION_HANDLER_CLASS);
         
         
+        digester.addObjectCreate(RESOURCE_TAG, RESOURCE_HANDLER_CLASS);
+        digester.addSetProperties(RESOURCE_TAG);
+        digester.addSetNext(RESOURCE_TAG, "addDefinition", DEFINITION_HANDLER_CLASS);
+        
+        digester.addObjectCreate(RESOURCE_PUT_TAG, PUT_ATTRIBUTE_HANDLER_CLASS);
+        digester.addRule(RESOURCE_PUT_TAG, new FillAttributeRule());
+        digester.addRule(RESOURCE_PUT_TAG, new PutAttributeRule());
+        digester.addCallMethod(RESOURCE_PUT_TAG, "setBody", 0);
+        digester.addSetProperties(RESOURCE_PUT_TAG);
+        
         digester.addObjectCreate(VIEW_PUT_TAG, PUT_ATTRIBUTE_HANDLER_CLASS);
         digester.addRule(VIEW_PUT_TAG, new FillAttributeRule());
         digester.addRule(VIEW_PUT_TAG, new PutAttributeRule());
         digester.addCallMethod(VIEW_PUT_TAG, "setBody", 0);
+        digester.addSetProperties(VIEW_PUT_TAG);
         
         digester.addObjectCreate(PAGE_TAG, PAGE_HANDLER_CLASS);
         digester.addRule(PAGE_TAG, new FillAttributeRule());

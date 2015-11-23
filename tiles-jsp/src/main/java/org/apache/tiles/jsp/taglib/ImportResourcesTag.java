@@ -21,11 +21,14 @@
 
 package org.apache.tiles.jsp.taglib;
 
-import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.jsp.JspException;
 
+import org.apache.tiles.ModelException;
+import org.apache.tiles.Page;
 import org.apache.tiles.access.TilesAccess;
+import org.apache.tiles.impl.ext.BasicSiteContainer;
 
 /**
  * Exposes am attribute as a scripting variable within the page.
@@ -33,38 +36,45 @@ import org.apache.tiles.access.TilesAccess;
  * @since Tiles 1.0
  * @version $Rev$ $Date$
  */
-public class UseAttributeExtTag extends UseAttributeTag {
-	public int doStartTag() throws JspException {
+public class ImportResourcesTag extends UseAttributeTag {
+	
+	private Page currentPage;
+	private String type;
+	private List<String> res;
+	
+	/** {@inheritDoc} */
+    public int doStartTag() throws JspException {
+        container = TilesAccess.getContainer(pageContext.getServletContext());
+        attributeContext = container.getAttributeContext(pageContext);
+        scope = getScopeId();
+        execute();
+        return SKIP_BODY;
+    }
+	
+	public void execute() throws JspException {
 		container = TilesAccess.getContainer(pageContext.getServletContext());
 		attributeContext = container.getAttributeContext(pageContext);
 		scope = getScopeId();
-
-		// Some tags allow for unspecified attribues. This
-		// implies that the tag should use all of the attributes.
-		if (name != null) {
-			attribute = attributeContext.getAttribute(name);
-			if ((attribute == null || attribute.getValue() == null) && ignore) {
-				return SKIP_BODY;
-			}
-
-			if (attribute == null) {
-				throw new JspException("Attribute with name '" + name
-						+ "' not found");
-			}
-
-			if (attribute.getValue() == null) {
-				throw new JspException("Attribute with name '" + name
-						+ "' has a null value.");
+		if(container instanceof BasicSiteContainer){
+			BasicSiteContainer bsc = (BasicSiteContainer)container;
+			currentPage = bsc.getPageNavigation().getCurrentPage();
+			try {
+				currentPage.getView().getResource().getAttributes();
+				res = currentPage.getView().getResourcesByType(type);
+			} catch (ModelException e) {
+				throw new JspException("tag error, tile.xml pug-attribute rtype is null");
 			}
 		}
-
-		try {
-			execute();
-		} catch (IOException e) {
-			throw new JspException("io error while executing tag '"
-					+ getClass().getName() + "'.", e);
-		}
-
-		return SKIP_BODY;
+		pageContext.setAttribute(getScriptingVariable(), res, scope);
 	}
+	
+	
+	
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
+	}
+	
 }

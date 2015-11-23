@@ -687,6 +687,87 @@
          </description>
       </attribute>
    </tag>
+   
+   <tag>
+      <name>importResources</name>
+      <tag-class>org.apache.tiles.jsp.taglib.ImportResourcesTag</tag-class>
+      <tei-class>org.apache.tiles.jsp.taglib.UseAttributeTag$Tei</tei-class>
+      <body-content>empty</body-content>
+      <description>
+      <![CDATA[
+      <p><strong>Use attribute value inside page.</strong></p>
+      <p>Declare a Java variable, and an attribute in the specified scope, 
+      using its attribute value.</p>
+      <p>Java variable and attribute will have the name specified by 'id',
+      or the original name if not specified.</p>
+      ]]>
+      </description>
+      <attribute>
+         <name>id</name>
+         <required>false</required>
+         <rtexprvalue>true</rtexprvalue>
+         <description>
+         <![CDATA[
+         <p>Declared attribute and variable name.</p>
+         ]]>
+         </description>
+      </attribute>
+      <attribute>
+         <name>type</name>
+         <required>true</required>
+         <rtexprvalue>false</rtexprvalue>
+         <description>
+         <![CDATA[
+         <p>Declared resource type js or css.</p>
+         ]]>
+         </description>
+      </attribute>
+      <attribute>
+         <name>classname</name>
+         <required>false</required>
+         <rtexprvalue>true</rtexprvalue>
+         <description>
+         <![CDATA[
+         <p>Class of the declared variable.</p>
+         ]]>
+         </description>
+      </attribute>
+      <attribute>
+         <name>scope</name>
+         <required>false</required>
+         <rtexprvalue>false</rtexprvalue>
+         <description>
+         <![CDATA[
+         <p>Scope of the declared attribute. Default to 'page'.</p>
+         ]]>
+         </description>
+      </attribute>
+      <attribute>
+         <name>name</name>
+         <required>true</required>
+         <rtexprvalue>true</rtexprvalue>
+         <description>
+         <![CDATA[
+         <p>Attribute name.</p>
+         ]]>
+         </description>
+      </attribute>
+      <attribute>
+         <name>ignore</name>
+         <required>false</required>
+         <rtexprvalue>true</rtexprvalue>
+         <type>boolean</type>
+         <description>
+         <![CDATA[
+         <p>
+         If this attribute is set to true, and the attribute specified by the name
+         does not exist, simply return without error. The default value is false, which will
+         cause a runtime exception to be thrown.
+         </p>
+         ]]>
+         </description>
+      </attribute>
+   </tag>
    <tag>
       <name>importAttribute</name>
       <tag-class>org.apache.tiles.jsp.taglib.ImportAttributeTag</tag-class>

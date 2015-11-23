@@ -12,7 +12,7 @@ public class Views extends Definition implements ILifecycle{
 	
 	
 	
-	public List<String> getResources(){
+	public List<String> getResourceRefs(){
 		List<String> rs = new ArrayList<String>();
 		Map<String, Attribute> views = getAttributes();
 		Set<String> keys = views.keySet();
@@ -22,6 +22,24 @@ public class Views extends Definition implements ILifecycle{
 			
 		}
 		return rs;
+	}
+	
+	public List<String> getResourcesByType(String type) throws ModelException{
+		if(resource == null){
+			throw new ModelException("the resource of views is null");
+		}
+		List<String> rss = new ArrayList<String>();
+		Map<String, Attribute> rs = resource.getAttributes();
+		Set<String> keys = rs.keySet();
+		for(String key : keys){
+			if(rs.get(key).getRtype() == null){
+				throw new ModelException("resource type is null");
+			}
+			if(type.equals(rs.get(key).getRtype())){
+				rss.add((String) rs.get(key).getValue());
+			}
+		}
+		return rss;
 	}
 	
 	public Resource getResource() {

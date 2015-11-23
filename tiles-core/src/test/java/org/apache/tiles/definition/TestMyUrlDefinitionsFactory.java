@@ -7,10 +7,11 @@ import java.util.Map;
 
 import junit.framework.TestCase;
 
-import org.apache.tiles.Attribute;
 import org.apache.tiles.Definition;
 import org.apache.tiles.Page;
 import org.apache.tiles.Product;
+import org.apache.tiles.Resource;
+import org.apache.tiles.Views;
 import org.apache.tiles.impl.ContributeManager;
 
 public class TestMyUrlDefinitionsFactory extends TestCase {
@@ -55,6 +56,15 @@ public class TestMyUrlDefinitionsFactory extends TestCase {
         	if(defaultPage) break;
         }
         assertTrue(defaultPage);
+        
+        Views views = (Views) products.get("views");
+        String rr = views.getAttribute("chart1").getResourceref();
+        assertNotNull(rr);
+        
+        Resource r = (Resource) products.get("cssjs");
+        assertNotNull(r);
+        assertEquals(2, r.getAttributes().size());
+        
         
         ContributeManager.getSingleton().clear();
     }
