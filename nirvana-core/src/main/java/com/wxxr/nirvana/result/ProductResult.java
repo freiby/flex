@@ -28,6 +28,7 @@ public class ProductResult extends TilesResult {
         container.render(location, request, response);
     }
 	
+	
 	private String getPage(String product,BasicSiteContainer container){
 		return container.getPageNavigation().getProductDefautPage(product);
 	}
