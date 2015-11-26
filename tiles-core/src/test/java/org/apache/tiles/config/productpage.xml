@@ -11,7 +11,8 @@
 		<put-attribute name="title" value="Template" />
 		<put-attribute name="menu" value="/framework/theme/inspinia/menu.jsp" />
 		<put-attribute name="content" value="content" />
-		<put-attribute name="resourcejs" value="/framework/theme/inspinia/jsinsert.jsp" />
+		<put-attribute name="resourcejsfooter" value="/framework/theme/inspinia/jsinsertfooter.jsp" />
+		<put-attribute name="resourcejsheader" value="/framework/theme/inspinia/jsinsertheader.jsp" />
 		<put-attribute name="resourcecs" value="/framework/theme/inspinia/csinsert.jsp" />
 	</definition>
 
@@ -28,27 +29,31 @@
 
 	<product name="nirvana" description="">
 		<page name="tiger" description="" icon="" defautPage="true"
-			tamplateref="content.pageContainer" viewref="views" />
+			tamplateref="content.pageContainer" viewsref="views" />
 		<page name="lion" description="" icon="" tamplateref="content.pageContainer"
-			viewref="views" />
+			viewsref="views" />
 	</product>
 
 
-	<view name="views">
+	<views name="views" resourcesref="cssjs" >
 		<put-attribute name="chart1"
-			value="/plugins/com.wxxr.app.monitor/view/chart1.jsp" resourceref="cssjs"/>
+			value="/plugins/com.wxxr.app.monitor/view/chart1.jsp" />
 		<put-attribute name="chart2"
-			value="/plugins/com.wxxr.app.monitor/view/chart2.jsp" />
+			value="/plugins/com.wxxr.app.monitor/view/c3-1.html" />
 		<put-attribute name="chart3"
 			value="/plugins/com.wxxr.app.monitor/view/chart3.jsp" />
-	</view>
+	</views>
 
-	<resource name="cssjs">
+	<resources name="cssjs">
 		<put-attribute name="chart2"
-			value="/plugins/com.wxxr.app.monitor/view/js/chart1.js" rtype="js"/>
+			value="/plugins/com.wxxr.app.monitor/view/js/hello.js" rtype="js" position="footer"/>
+		<put-attribute name="chart4"
+			value="/plugins/com.wxxr.app.monitor/view/js/d3.min.js" rtype="js" position="header"/>
+		<put-attribute name="chart3"
+			value="/plugins/com.wxxr.app.monitor/view/js/c3.min.js" rtype="js" position="header"/>
 		<put-attribute name="chart1"
-			value="/plugins/com.wxxr.app.monitor/view/js/chart1.css" rtype="css"/>
-	</resource>
+			value="/plugins/com.wxxr.app.monitor/view/js/hello.css" rtype="css" position="footer"/>
+	</resources>
 
 
 	<definition name="tiger" extends="baseLayout" as="page">

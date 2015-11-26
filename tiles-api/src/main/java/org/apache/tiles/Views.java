@@ -9,22 +9,34 @@ public class Views extends Definition implements ILifecycle{
 	private String id;
 	private String description;
 	private Resource resource;
+	private String resourcesref;
 	
 	
 	
-	public List<String> getResourceRefs(){
-		List<String> rs = new ArrayList<String>();
-		Map<String, Attribute> views = getAttributes();
-		Set<String> keys = views.keySet();
-		for(String key : keys){
-			String resource = views.get(key).getResourceref();
-			rs.add(resource);
-			
-		}
-		return rs;
+	
+	
+	
+	public String getResourcesref() {
+		return resourcesref;
 	}
+
+	public void setResourcesref(String resourcesref) {
+		this.resourcesref = resourcesref;
+	}
+
+//	public List<String> getResourceRefs(){
+//		List<String> rs = new ArrayList<String>();
+//		Map<String, Attribute> views = getAttributes();
+//		Set<String> keys = views.keySet();
+//		for(String key : keys){
+//			String resource = views.get(key).getResourceref();
+//			rs.add(resource);
+//			
+//		}
+//		return rs;
+//	}
 	
-	public List<String> getResourcesByType(String type) throws ModelException{
+	public List<String> getResourcesByTypeAndPostion(String type, String position) throws ModelException{
 		if(resource == null){
 			throw new ModelException("the resource of views is null");
 		}
@@ -35,7 +47,7 @@ public class Views extends Definition implements ILifecycle{
 			if(rs.get(key).getRtype() == null){
 				throw new ModelException("resource type is null");
 			}
-			if(type.equals(rs.get(key).getRtype())){
+			if(type.equals(rs.get(key).getRtype()) && rs.get(key).getPosition().equals(position)){
 				rss.add((String) rs.get(key).getValue());
 			}
 		}
@@ -70,5 +82,4 @@ public class Views extends Definition implements ILifecycle{
 	}
 	public void close() {
 	}
-	
 }

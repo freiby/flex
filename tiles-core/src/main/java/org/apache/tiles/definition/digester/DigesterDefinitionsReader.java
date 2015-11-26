@@ -100,12 +100,12 @@ public class DigesterDefinitionsReader implements DefinitionsReader {
     /**
      * Intercepts a &lt;product&gt; tag.
      */
-    private static final String VIEW_TAG = "tiles-definitions/view";
+    private static final String VIEW_TAG = "tiles-definitions/views";
     
     /**
      * Intercepts a &lt;product&gt; tag.
      */
-    private static final String RESOURCE_TAG = "tiles-definitions/resource";
+    private static final String RESOURCE_TAG = "tiles-definitions/resources";
     
     /**
      * Intercepts a &lt;put-attribute&gt; tag.

@@ -58,12 +58,12 @@ public class TestMyUrlDefinitionsFactory extends TestCase {
         assertTrue(defaultPage);
         
         Views views = (Views) products.get("views");
-        String rr = views.getAttribute("chart1").getResourceref();
-        assertNotNull(rr);
+        String rr = views.getResourcesref();
+        assertEquals("cssjs",rr);
         
         Resource r = (Resource) products.get("cssjs");
         assertNotNull(r);
-        assertEquals(2, r.getAttributes().size());
+        assertEquals(4, r.getAttributes().size());
         
         
         ContributeManager.getSingleton().clear();

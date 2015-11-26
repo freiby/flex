@@ -62,13 +62,13 @@ public class ProductManager {
 			Product product = entry.getValue();
 			List<Page> pages = product.getPages();
 			for (Page item : pages) {
-				String viewRef = item.getViewref();
+				String viewRef = item.getViewsref();
 				try {
 					Definition def = context.getDefinitionsFactory()
 							.getDefinitions().getBaseDefinitions().get(viewRef);
 					if (def instanceof Views) {
 						Views v = (Views) def;
-						List<String> viewResources = v.getResourceRefs();
+						String viewResources = v.getResourcesref();
 						initPageResource(v,viewResources);
 						item.setView(v);
 					}
@@ -80,7 +80,7 @@ public class ProductManager {
 		}
 	}
 
-	private void initPageResource(Views v,List<String> viewResources) throws NirvanaException {
+	private void initPageResource(Views v,String viewResources) throws NirvanaException {
 		Set<Entry<String, Definition>> sets;
 		try {
 			sets = context.getDefinitionsFactory().getDefinitions()
@@ -92,7 +92,10 @@ public class ProductManager {
 		while (iterator.hasNext()) {
 			Entry<String, Definition> entry = iterator.next();
 			if (entry.getValue() instanceof Resource) {
-				v.setResource((Resource) entry.getValue());
+				Resource r = (Resource) entry.getValue();
+				if(r.getName().equals(viewResources)){
+					v.setResource((Resource) entry.getValue());
+				}
 				break;
 			}
 		}

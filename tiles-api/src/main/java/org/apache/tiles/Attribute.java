@@ -357,16 +357,16 @@ public class Attribute implements Serializable {
         }
     }
     
-    private String resourceref;
-
-	public String getResourceref() {
-		return resourceref;
-	}
-
-	public void setResourceref(String resourceref) {
-		this.resourceref = resourceref;
-	}
+    private String position;
     
+	public String getPosition() {
+		return position;
+	}
+
+	public void setPosition(String position) {
+		this.position = position;
+	}
+
 	private String  rtype;
 
 	public String getRtype() {

@@ -85,7 +85,7 @@
      hierarchy, and contains nested elements for all of the other
      configuration settings.
 -->
-<!ELEMENT tiles-definitions (product|definition|view|resource)+>
+<!ELEMENT tiles-definitions (product|definition|views|resources)+>
 
 <!ELEMENT product (page)+>
 <!ATTLIST product       name             CDATA            #IMPLIED>
@@ -100,16 +100,17 @@
 <!ATTLIST page       icon             CDATA            #IMPLIED>
 <!ATTLIST page       defautPage       CDATA            #IMPLIED>
 <!ATTLIST page       tamplateref      CDATA            #REQUIRED>
-<!ATTLIST page       viewref          CDATA            #REQUIRED>
+<!ATTLIST page       viewsref          CDATA            #REQUIRED>
 
 
-<!ELEMENT view (put-attribute+)>
-<!ATTLIST view       id               ID               #IMPLIED>
-<!ATTLIST view       name             CDATA            #IMPLIED>
-<!ATTLIST view       description      CDATA            #IMPLIED>
+<!ELEMENT views (put-attribute+)>
+<!ATTLIST views       id               ID               #IMPLIED>
+<!ATTLIST views       name             CDATA            #IMPLIED>
+<!ATTLIST views       description      CDATA            #IMPLIED>
+<!ATTLIST views       resourcesref     CDATA            #IMPLIED>
 
-<!ELEMENT resource (put-attribute+)>
-<!ATTLIST resource       name          CDATA            #IMPLIED>
+<!ELEMENT resources (put-attribute+)>
+<!ATTLIST resources       name          CDATA            #IMPLIED>
 
 <!-- The "definition" element describes a definition that can be inserted in a jsp
      page. This definition is identified by its logical name. A definition allows
@@ -182,9 +183,8 @@
                      allowed.
 -->
 <!ATTLIST put-attribute     role             CDATA            #IMPLIED>
-<!ATTLIST put-attribute     resourceref      CDATA            #IMPLIED>
 <!ATTLIST put-attribute     rtype            CDATA            #IMPLIED>
-
+<!ATTLIST put-attribute     position         CDATA            #IMPLIED>
 
 
 <!-- The "put-list-attribute" element describes a list attribute of a definition. It allows to

@@ -8,7 +8,7 @@ public class Page extends Attribute implements ILifecycle{
 	private String description;
 	private String icon;
 	private boolean defautPage;
-	private String viewref;
+	private String viewsref;
 	
 	private String tamplateref;
 	private Resource pageResource;
@@ -25,11 +25,11 @@ public class Page extends Attribute implements ILifecycle{
 	public void setView(Views view) {
 		this.view = view;
 	}
-	public String getViewref() {
-		return viewref;
+	public String getViewsref() {
+		return viewsref;
 	}
-	public void setViewref(String viewref) {
-		this.viewref = viewref;
+	public void setViewsref(String viewref) {
+		this.viewsref = viewref;
 	}
 	public String getTamplateref() {
 		return tamplateref;

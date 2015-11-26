@@ -40,6 +40,7 @@ public class ImportResourcesTag extends UseAttributeTag {
 	
 	private Page currentPage;
 	private String type;
+	private String position;
 	private List<String> res;
 	
 	/** {@inheritDoc} */
@@ -60,7 +61,8 @@ public class ImportResourcesTag extends UseAttributeTag {
 			currentPage = bsc.getPageNavigation().getCurrentPage();
 			try {
 				currentPage.getView().getResource().getAttributes();
-				res = currentPage.getView().getResourcesByType(type);
+				if(position == null) position = "footer";
+				res = currentPage.getView().getResourcesByTypeAndPostion(type,position);
 			} catch (ModelException e) {
 				throw new JspException("tag error, tile.xml pug-attribute rtype is null");
 			}
@@ -76,5 +78,14 @@ public class ImportResourcesTag extends UseAttributeTag {
 	public void setType(String type) {
 		this.type = type;
 	}
+
+	public String getPosition() {
+		return position;
+	}
+
+	public void setPosition(String position) {
+		this.position = position;
+	}
+	
 	
 }
