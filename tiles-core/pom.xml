@@ -24,9 +24,9 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
   <parent>
-    <groupId>org.apache.tiles</groupId>
-    <artifactId>tiles-parent</artifactId>
-    <version>2.0.6</version>
+    <groupId>com.wxxr.nirvana</groupId>
+    <artifactId>nirvana-parent</artifactId>
+    <version>1.0.0</version>
   </parent>
 
   <modelVersion>4.0.0</modelVersion>
@@ -121,9 +121,8 @@
 
   <dependencies>
     <dependency>
-      <groupId>org.apache.tiles</groupId>
+      <groupId>com.wxxr.nirvana</groupId>
       <artifactId>tiles-api-wxxr</artifactId>
-      <version>${pom.version}</version>
     </dependency>
 
     <dependency>
@@ -147,7 +146,7 @@
     <dependency>
       <groupId>javax.servlet</groupId>
       <artifactId>servlet-api</artifactId>
-      <version>2.4</version>
+      
       <scope>provided</scope>
     </dependency>
 
@@ -161,14 +160,14 @@
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>4.0</version>
+
       <scope>test</scope>
     </dependency>
 
     <dependency>
       <groupId>org.easymock</groupId>
       <artifactId>easymock</artifactId>
-      <version>2.2</version>
+
       <scope>test</scope>
     </dependency>
 
@@ -181,17 +180,5 @@
 
   </dependencies>
 
-  <repositories>
-    <repository>
-      <id>dtddoc</id>
-      <url>http://dtddoc.sf.net/maven2</url>
-    </repository>
-  </repositories>
-  <pluginRepositories>
-    <pluginRepository>
-      <id>dtddoc</id>
-      <url>http://dtddoc.sf.net/maven2</url>
-    </pluginRepository>
-  </pluginRepositories>
 
 </project>

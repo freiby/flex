@@ -20,7 +20,7 @@
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>org.apache.tiles</groupId>
+  <groupId>com.wxxr.nirvana</groupId>
   <artifactId>tiles-assembly</artifactId>
   <packaging>pom</packaging>
   <name>Tiles Assembly</name>
@@ -28,9 +28,9 @@
   </description>
 
   <parent>
-    <groupId>org.apache.tiles</groupId>
-    <artifactId>tiles-parent</artifactId>
-    <version>2.0.6</version>
+    <artifactId>nirvana-parent</artifactId>
+	<groupId>com.wxxr.nirvana</groupId>
+	<version>1.0.0</version>
   </parent>
 
   <scm>
@@ -92,78 +92,78 @@
   <dependencies>
 
     <dependency>
-      <groupId>org.apache.tiles</groupId>
+      <groupId>com.wxxr.nirvana</groupId>
       <artifactId>tiles-api</artifactId>
       <version>${pom.version}</version>
     </dependency>
 
     <dependency>
-      <groupId>org.apache.tiles</groupId>
-      <artifactId>tiles-core</artifactId>
+      <groupId>com.wxxr.nirvana</groupId>
+      <artifactId>tiles-core-wxxr</artifactId>
       <version>${pom.version}</version>
       <exclusions>
           <exclusion>
-              <groupId>org.apache.tiles</groupId>
-              <artifactId>tiles-api</artifactId>
+              <groupId>com.wxxr.nirvana</groupId>
+              <artifactId>tiles-api-wxxr</artifactId>
           </exclusion>
       </exclusions>
     </dependency>
 
     <dependency>
-      <groupId>org.apache.tiles</groupId>
-      <artifactId>tiles-jsp</artifactId>
+      <groupId>com.wxxr.nirvana</groupId>
+      <artifactId>tiles-jsp-wxxr</artifactId>
       <version>${pom.version}</version>
       <exclusions>
           <exclusion>
-              <groupId>org.apache.tiles</groupId>
-              <artifactId>tiles-api</artifactId>
+              <groupId>com.wxxr.nirvana</groupId>
+              <artifactId>tiles-api-wxxr</artifactId>
           </exclusion>
           <exclusion>
-              <groupId>org.apache.tiles</groupId>
-              <artifactId>tiles-core</artifactId>
+              <groupId>com.wxxr.nirvana</groupId>
+              <artifactId>tiles-core-wxxr</artifactId>
           </exclusion>
       </exclusions>
     </dependency>
 
     <dependency>
-      <groupId>org.apache.tiles</groupId>
-      <artifactId>tiles-api</artifactId>
+      <groupId>com.wxxr.nirvana</groupId>
+      <artifactId>tiles-api-wxxr</artifactId>
       <version>${pom.version}</version>
       <classifier>j4</classifier>
     </dependency>
 
     <dependency>
-      <groupId>org.apache.tiles</groupId>
-      <artifactId>tiles-core</artifactId>
+      <groupId>com.wxxr.nirvana</groupId>
+      <artifactId>tiles-core-wxxr</artifactId>
       <version>${pom.version}</version>
       <classifier>j4</classifier>
       <exclusions>
           <exclusion>
-              <groupId>org.apache.tiles</groupId>
-              <artifactId>tiles-api</artifactId>
+              <groupId>com.wxxr.nirvana</groupId>
+              <artifactId>tiles-api-wxxr</artifactId>
           </exclusion>
       </exclusions>
     </dependency>
 
     <dependency>
-      <groupId>org.apache.tiles</groupId>
-      <artifactId>tiles-jsp</artifactId>
+      <groupId>com.wxxr.nirvana</groupId>
+      <artifactId>tiles-jsp-wxxr</artifactId>
       <version>${pom.version}</version>
       <classifier>j4</classifier>
       <exclusions>
           <exclusion>
-              <groupId>org.apache.tiles</groupId>
-              <artifactId>tiles-api</artifactId>
+              <groupId>com.wxxr.nirvana</groupId>
+              <artifactId>tiles-api-wxxr</artifactId>
           </exclusion>
           <exclusion>
-              <groupId>org.apache.tiles</groupId>
-              <artifactId>tiles-core</artifactId>
+              <groupId>com.wxxr.nirvana</groupId>
+              <artifactId>tiles-core-wxxr</artifactId>
           </exclusion>
       </exclusions>
     </dependency>
 
     <dependency>
-      <groupId>org.apache.tiles</groupId>
+      <groupId>com.wxxr.nirvana</groupId>
       <artifactId>tiles-test</artifactId>
       <version>${pom.version}</version>
       <type>war</type>
