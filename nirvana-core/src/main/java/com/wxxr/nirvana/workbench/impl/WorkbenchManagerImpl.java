@@ -1,5 +1,6 @@
 package com.wxxr.nirvana.workbench.impl;
 
+import com.wxxr.nirvana.context.NirvanaContext;
 import com.wxxr.nirvana.platform.IPlatform;
 import com.wxxr.nirvana.theme.IThemeManager;
 import com.wxxr.nirvana.workbench.IPermissionsManager;
@@ -17,6 +18,10 @@ public class WorkbenchManagerImpl implements IWorkbenchManager {
 	private IPermissionsManager permissionsManager;
 
 	private IWorkbench currentWorkbench;
+	
+	private NirvanaContext nirvanaContext;
+	
+	private static final String WORKBENCH_KEY = "__WORKBENCH__";
 
 	public IThemeManager getThemeManager() {
 
@@ -39,13 +44,16 @@ public class WorkbenchManagerImpl implements IWorkbenchManager {
 	}
 
 	public IWorkbench getCurrentWorkbench() {
-		IWorkbench workbench = (IWorkbench)getUserSessionMap().get(WORKBENCH_KEY);
+		IWorkbench workbench = (IWorkbench)nirvanaContext.getSessionValue(WORKBENCH_KEY);
 		if(workbench == null){
 			workbench = createWorkbench();
-			getUserSessionMap().put(WORKBENCH_KEY, workbench);
+			nirvanaContext.setSessionValue(WORKBENCH_KEY, workbench);
 		}
 		return workbench;
-		return currentWorkbench;
+	}
+
+	private IWorkbench createWorkbench() {
+		return new WorkbenchImpl();
 	}
 
 	public IPlatform getUIPlatform() {
