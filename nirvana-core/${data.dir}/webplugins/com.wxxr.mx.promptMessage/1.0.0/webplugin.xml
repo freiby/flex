@@ -1,0 +1,1860 @@
+<?xml version="1.0" encoding="GB2312" ?>
+<plugin id="com.wxxr.mx.promptMessage" name="promptMessage"
+	version="1.0.0" provider-name="wxxr.com.cn"
+	contextURI="promptMessage"
+	messagebundle="message"
+	main="wxxr-mx-promptMessage-main.swf"
+	>
+	
+	
+	
+	<runtime>
+		<library name="lib/wxxr-mx-promptMessage-1.0.2.jar" />
+		<library name="wxxr-mx-promptMessage-share.swf" type="swc"/>
+	</runtime>
+	<extension id="prms" point="com.wxxr.mx.core.platform.messages">
+      <message
+      	    id="message"
+      		serviceType="propertiesservice"
+      		bundlename="message"
+      		language="en"
+      		country="US"
+      		polling="true"
+      		>
+      </message>
+      
+      <message
+      	    id="ejbservice"
+      		serviceType="ejbservice"
+      		servicejndi=""
+      		bundlename="message"
+      		polling="true"
+      		>
+      </message>
+   </extension>
+	<extension id="promptMessageProduct" point="com.wxxr.mx.ui.products">
+ 
+
+      <product
+            themeID="com.wxxr.flex.style.smlib.smlibStyle_theme"
+            homePageMode="WELCOME.NULL"   
+            name="pmsg"
+            description="%kefuxitong"
+            id="pmsg"
+			map_url="pmsg"
+            >
+         <property
+               name="color"
+               value="yellow">
+         </property>
+		 <pages>
+        		<page id="com.wxxr.mx.promptMessage.promptManagerPage" index="1"/>
+        		<page id="com.wxxr.mx.promptMessage.setUserBatchManagerPage" index="2"/>
+        		<page id="com.wxxr.mx.promptMessage.newUnionManagerPage" index="3"/>
+        		<page id="com.wxxr.mx.promptMessage.userGroupManagementPage" index="4"/>
+        		<page id="com.wxxr.mx.promptMessage.communicationAssistantManagementPage" index="5"/>
+        		<page id="com.wxxr.mx.promptMessage.uploadPointTxtManagementPage" index="6"/>
+				<page id="com.wxxr.mx.promptMessage.promptWorkflowManagerPage" index="7"/>
+        		
+        		<!-- 
+        		<page id="com.wxxr.mx.promptMessage.bizCodeManagementPage" index="6"/>
+        		 <page id="com.wxxr.publishresources.newworkflowPage" index="7"/> -->
+         </pages>
+      </product>
+
+   </extension>
+   
+ 	<extension
+         point="com.wxxr.mx.ui.pages" id="pages.promptMessage">
+      <page
+            class="com.wxxr.plugin.promptMessage.pageLayout.PromptManagerPerspective"
+            id="promptManagerPage"
+            label="%tishiyuguanli"      
+			descriptionImage="framework/assets/png/infoTooTip.png"
+            name="%tishiyuguanli">
+      </page>
+	  <page
+            class="com.wxxr.plugin.promptMessage.pageLayout.PromptWorkflowManagerPerspective"
+            id="promptWorkflowManagerPage"
+            label="提示语-任务"      
+			descriptionImage="framework/assets/png/infoTooTip.png"
+            name="提示语-任务">
+      </page>
+      <page
+            class="com.wxxr.plugin.promptMessage.pageLayout.SetUserBatchPerspective"
+            id="setUserBatchManagerPage"
+            label="%yonghushuxingguanli"
+			descriptionImage="framework/assets/png/xpincon_3.png"
+            name="%yonghushuxingguanli">
+      </page>
+      
+      
+       <page
+            class="com.wxxr.plugin.promptMessage.pageLayout.UserGroupManagementPerspective"
+            id="userGroupManagementPage"
+            label="用户分组管理"
+			descriptionImage="framework/assets/png/xpincon_1.png"
+            name="%yonghufenzuguanli">
+      </page>
+      
+     
+       <page
+            class="com.wxxr.plugin.promptMessage.pageLayout.CommunicationAssistantManagementPerspective"
+            id="communicationAssistantManagementPage"
+            label="通讯助手管理"
+			descriptionImage="framework/assets/png/xpincon_4.png"
+            name="%communicationAssistantManagement">
+      </page>
+      
+      
+         <page
+            class="com.wxxr.plugin.promptMessage.pageLayout.BizCodeManagementPerspective"
+            id="bizCodeManagementPage"
+            label="数据字典管理"
+			descriptionImage="framework/assets/png/xpincon_5.png"
+            name="%bizCodeManagementPage">
+      </page>
+      
+		 <page
+            class="com.wxxr.plugin.promptMessage.pageLayout.UploadPointManagementPerspective"
+            id="uploadPointTxtManagementPage"
+            label="导入扣减积管理"
+			descriptionImage="framework/assets/png/xpincon_2.png"
+            name="%uploadPointTxtManagementPage">
+      </page>
+		
+      
+     </extension>
+     
+     
+
+     
+     <extension
+         point="com.wxxr.mx.ui.views" id="views.promptMessageView">
+	  <!-- fdp add in 2009-7-31-->
+	   <view
+            name=""
+            description=""
+            class="com.wxxr.plugin.promptMessage.view.PromptNav"
+            id="PromptNav">
+      </view>
+	  <view
+            name="%tishiyuliebiao"
+            description="%tishiyuliebiao"
+            class="com.wxxr.plugin.promptMessage.view.PromptListTable"
+            id="PromptListTable">
+      </view>
+      <view
+            name="%xiaoxidaimaliebiao"
+            description="%xiaoxidaimaliebiao"
+            class="com.wxxr.plugin.promptMessage.view.MessageCodeListTable"
+            id="MessageCodeListTable">
+      </view>
+      <!--  
+      <view
+            name="%zichuanboliebiao"
+            description="%zichuanboliebiao"
+            class="com.wxxr.plugin.promptMessage.view.SendSelfListTable"
+            id="SendSelfListTable">
+      </view>
+      <view
+            name="%yonghupiliangshezhi"
+            description="%yonghupiliangshezhi"
+            class="com.wxxr.plugin.promptMessage.view.SetUserBatch"
+            id="SetUserBatch">
+      </view>
+       -->
+      <view
+            name=""
+            description=""
+            class="com.wxxr.plugin.promptMessage.view.SetUserBatchNav"
+            id="SetUserBatchNav">
+      </view>
+      <view
+            name="%yonghupiliangshezhirenwu"
+            description="%yonghupiliangshezhirenwu"
+            class="com.wxxr.plugin.promptMessage.view.SetUserBatchTaskListTable"
+            id="SetUserBatchTaskListTable">
+      </view>
+      <view
+            name=""
+            description=""
+            class="com.wxxr.plugin.promptMessage.view.NewUnionNav"
+            id="NewUnionNav">
+      </view>
+       <view
+            name="%guangdongchuangxinlianmeng"
+            description="%guangdongchuangxinlianmeng"
+            class="com.wxxr.plugin.promptMessage.view.NewUnionList"
+            id="NewUnionList">
+      </view>
+      
+      
+      <view
+            name="用户分组管理"
+            description="用户分组管理"
+            class="com.wxxr.plugin.promptMessage.view.userGroupManagement.UserGroupManageNav"
+            id="UserGroupManageNav">
+      </view>
+      
+       <view
+            name="分组管理信息"
+            description="分组管理信息"
+            class="com.wxxr.plugin.promptMessage.view.userGroupManagement.UserGroupManageInfoView"
+            id="UserGroupManageInfoView">
+      </view>
+      
+       <view
+            name="用户管理信息"
+            description="用户管理信息"
+            class="com.wxxr.plugin.promptMessage.view.userGroupManagement.UserManageInfoView"
+            id="UserManageInfoView">
+      </view>
+      
+      <view
+            name="公告管理"
+            description="公告管理"
+            class="com.wxxr.plugin.promptMessage.view.communicationAssistant.CommunicationAssistantNav"
+            id="communicationAssistantNav">
+      </view>
+      
+      <view
+            name="所有的公告"
+            description="所有的公告"
+            class="com.wxxr.plugin.promptMessage.view.communicationAssistant.CommunicationAssistantNoticeItemsView"
+            id="communicationAssistantNoticeItemsView">
+      </view>
+      
+       <view
+            name="公告编辑"
+            description="公告编辑"
+            class="com.wxxr.plugin.promptMessage.editor.CommunicationAssistantNoticeItemEditor"
+            id="commuicationAssistantnoticeEditor">
+      </view>
+      
+
+	  <view
+            name="数据字典"
+            description="数据字典"
+            class="com.wxxr.plugin.promptMessage.view.bizcode.BizCodeManageNav"
+            id="bizCodeManageNav">
+      </view>
+      
+      <view
+            name="子节点列表"
+            description="子节点列表"
+            class="com.wxxr.plugin.promptMessage.view.bizcode.BizListManageView"
+            id="bizDetailManageView">
+      </view>
+      
+       <view
+            name="数据字典详情"
+            description="数据字典详情"
+            class="com.wxxr.plugin.promptMessage.view.bizcode.BizCodeDetailView"
+            id="bizDetailView">
+      </view>
+      
+      <view
+            name="导入扣减积分管理"
+            description="导入扣减积分管理"
+            class="com.wxxr.plugin.promptMessage.view.uploadPoint.UploadPointNav"
+            id="uploadpointNav">
+      </view>
+      
+      
+      <view
+            name="导入扣减积分列表"
+            description="导入扣减积分列表"
+            class="com.wxxr.plugin.promptMessage.view.uploadPoint.UploadPointListView"
+            id="uploadpointListView">
+      </view>
+	
+	  
+
+	  <view
+            name="提示语消息"
+            description="提示语消息"		   
+            class="com.wxxr.mx.publish.components.view.AsyncQueryView4Pull4InputList"
+            id="messgetask">
+            <property>
+               <columns>
+                  <column NOColumn="true">
+               	  	<parameter
+	                    name="width"
+	                    value="50"
+	                  />
+               	  </column>
+				   <column headerText="消息代码" dataField="programNum"  dataType="String" defaultShow="true">
+					 <parameter
+	                    name="width"
+	                    value="100"
+	                 />
+				  </column>
+				  
+
+				  <column headerText="描述" dataField="desc"  dataType="String" defaultShow="true">
+                  
+                  </column>
+
+				  <column headerText="内容" dataField="content"  dataType="String" defaultShow="true">
+                  
+                  </column>
+
+                  <column headerText="任务类型" dataField="taskTypeCN"  dataType="String" defaultShow="true">
+					 <parameter
+	                    name="width"
+	                    value="100"
+	                 />
+				  </column>
+                  
+                  <column headerText="执行人" dataField="operator" dataType="String" defaultShow="true">
+					 <parameter
+	                    name="width"
+	                    value="100"
+	                 />
+				  </column>
+                  <column headerText="执行时间" dataField="updataDateToString" dataType="String" defaultShow="true">
+					 <parameter
+	                    name="width"
+	                    value="125"
+	                 />
+				  </column>
+				  <column headerText="锁定状态" dataField="lockStatus"  defaultShow="true">
+				  <parameter
+	                    name="width"
+	                    value="80"
+	                 />
+	              </column>  
+	               <column multiCheckColumn="true" multiCheckColumnId="id"/>
+               </columns>
+               <showRefresh>true</showRefresh>
+               <queryName>BcWorklistQuery</queryName>
+               <maxRows>2000</maxRows>
+               <chunkSize>5</chunkSize>
+               <shouldFailOnLargerResults>true</shouldFailOnLargerResults>
+               <queryAutoInit>false</queryAutoInit>
+                <batchOpenEditor>true</batchOpenEditor>
+            </property>
+      </view>
+
+
+     </extension>
+ 
+    <extension point="com.wxxr.mx.ui.menus" id="menus.pmsg.wizard">
+    
+    		  <menuContribution
+            locationURI="toolbar:com.wxxr.mx.promptMessage.uploadpointListView?after=additions">
+              <toolbar id="com.wxxr.mx.promptMessage.UploadPoint.prompt.uploadpointListView"
+                      enabled="true"
+                      type="push"
+                      label = "上传文件"
+                      commandId="com.wxxr.mx.promptMessage.UploadPoint.prompt.uploadpointtext">
+                <parameter name="width" value="80"/>
+                <parameter name="label" value="上传文件"/>                  
+                <parameter name="height" value="20"/>
+                <parameter name="styleName" value="CommitButtonSkin"/>
+                <styles name="toolTip" value="Font"/>
+            </toolbar>
+         </menuContribution>
+    
+    		<menuContribution  id="bizcodeEditMenuContribution"
+            locationURI="toolbar:com.wxxr.mx.promptMessage.bizDetailView?after=additions">
+             <toolbar
+               id="com.wxxr.mx.promptMessage.bizDetailView.edit"
+               enabled="true"
+               type="push"
+               label = "编辑子节点"
+              commandId="com.wxxr.mx.promptMessage.bizDetailView.EditBizCodeNode"
+              >
+                  <parameter
+                    name="width"
+                    value="110"                  
+                  />
+
+                  <parameter
+                    name="label"
+                    value="编辑子节点"
+                  />                  
+                  
+                  <parameter
+                    name="height"
+                    value="20"
+                  />
+                <parameter
+                    name="styleName"
+                    value="AddNewButtonSkin"
+                  />
+                  <styles
+                    name="toolTip"
+                    value="Font"
+                  />
+        		 <visibleWhen>
+			  	 	<with variable="canEditBizCode">  
+				 	 	 <equals value="true"/> 
+			  	 	</with>
+                 </visibleWhen>
+            </toolbar>
+          </menuContribution>
+          
+    
+    
+    	  <menuContribution  id="bizcodeMenuContribution"
+            locationURI="toolbar:com.wxxr.mx.promptMessage.bizDetailManageView?after=additions">
+             <toolbar
+               id="com.wxxr.mx.promptMessage.bizDetailManageView.add"
+               enabled="true"
+              type="push"
+              label = "增加子节点"
+              commandId="com.wxxr.mx.promptMessage.bizDetailManageView.addBizCodeNode"
+              >
+                  <parameter
+                    name="width"
+                    value="110"                  
+                  />
+
+                  <parameter
+                    name="label"
+                    value="增加子节点"
+                  />                  
+                  
+                  <parameter
+                    name="height"
+                    value="20"
+                  />
+                  <parameter
+                    name="styleName"
+                    value="AddNewButtonSkin"
+                  />
+                  <styles
+                    name="toolTip"
+                    value="Font"
+                  />
+        
+            </toolbar>
+          </menuContribution>
+          
+          
+          
+    
+    	<menuContribution  id="searchUserGroupMenu"
+            locationURI="toolbar:com.wxxr.mx.promptMessage.UserGroupManageInfoView?after=additions">
+               <toolbar
+               id="com.wxxr.mx.promptMessage.PromptListTable.prompt.addUserInGroup"
+               enabled="true"
+              type="push"
+              label = "添加用户"
+              commandId="com.wxxr.mx.promptMessage.PromptListTable.prompt.addUserInGroup"
+              >
+                  <parameter
+                    name="width"
+                    value="110"                  
+                  />
+
+                  <parameter
+                    name="label"
+                    value="添加用户"
+                  />                  
+               
+                  <parameter
+                    name="height"
+                    value="20"
+                  />
+                  <parameter
+                    name="styleName"
+                    value="AddUserButtonSkin"
+                  />
+                  <styles
+                    name="toolTip"
+                    value="Font"
+                  />
+                     <visibleWhen>
+			  	 	<with variable="canAddUsert">  
+				 	 	 <equals value="true"/> 
+			  	 	</with>
+                 </visibleWhen>
+            </toolbar>
+            
+            
+            
+             <toolbar
+               id="com.wxxr.mx.promptMessage.PromptListTable.prompt.searchUserGroup"
+               enabled="true"
+              type="push"
+              label = "用户组搜素"
+              commandId="com.wxxr.mx.promptMessage.PromptListTable.prompt.searchUserGroup"
+              >
+                  <parameter
+                    name="width"
+                    value="110"                  
+                  />
+                  <parameter
+                    name="label"
+                    value="用户组搜素"
+                  />                  
+                  <parameter
+                    name="height"
+                    value="20"
+                  />
+                  <parameter
+                    name="styleName"
+                    value="QueryButtonSkin"
+                  />
+                  <styles
+                    name="toolTip"
+                    value="Font"
+                  />
+                  
+            </toolbar>
+            
+            
+          
+            
+           </menuContribution>
+    
+    
+    	<menuContribution  id="searchUserMenu"
+            locationURI="toolbar:com.wxxr.mx.promptMessage.UserManageInfoView?after=additions">
+            
+             <toolbar
+               id="com.wxxr.mx.promptMessage.PromptListTable.prompt.deleteUserInGroup"
+               enabled="true"
+              type="push"
+              label = "删除用户"
+              commandId="com.wxxr.mx.promptMessage.PromptListTable.prompt.deleteUserInGroup"
+              >
+                  <parameter
+                    name="width"
+                    value="110"                  
+                  />
+
+                  <parameter
+                    name="label"
+                    value="删除用户"
+                  />                  
+               
+                  <parameter
+                    name="height"
+                    value="20"
+                  />
+                  <parameter
+                    name="styleName"
+                    value="delButtonSkin"
+                  />
+                  <styles
+                    name="toolTip"
+                    value="Font"
+                  />
+                     <visibleWhen>
+			  	 	<with variable="canDeleteUser">  
+				 	 	 <equals value="true"/> 
+			  	 	</with>
+                 </visibleWhen>
+            </toolbar>
+            
+            
+            
+             <toolbar
+               id="com.wxxr.mx.promptMessage.PromptListTable.prompt.searchGroup"
+               enabled="true"
+              type="push"
+              label = "用户搜素"
+              commandId="com.wxxr.mx.promptMessage.PromptListTable.prompt.searchUser"
+              >
+                  <parameter
+                    name="width"
+                    value="110"                  
+                  />
+
+                  <parameter
+                    name="label"
+                    value="用户搜素"
+                  />                  
+               
+                  <parameter
+                    name="height"
+                    value="20"
+                  />
+                  <parameter
+                    name="styleName"
+                    value="QueryButtonSkin"
+                  />
+                  <styles
+                    name="toolTip"
+                    value="Font"
+                  />
+                  
+            </toolbar>
+            
+           
+            
+           </menuContribution>
+           
+           
+          <menuContribution  id="promptListViewId"
+            locationURI="toolbar:com.wxxr.mx.promptMessage.communicationAssistantNoticeItemsView?after=additions">
+             <toolbar
+               id="com.wxxr.mx.promptMessage.communicationAssistantNoticeItemsView.prompt.add"
+               enabled="true"
+              type="push"
+              label = "增加公告"
+              commandId="com.wxxr.mx.promptMessage.communicationAssistantNoticeItemsView.addNoticeCommonId"
+              >
+                  <parameter
+                    name="width"
+                    value="110"                  
+                  />
+
+                  <parameter
+                    name="label"
+                    value="增加公告"
+                  />                  
+                  
+                  <parameter
+                    name="height"
+                    value="20"
+                  />
+                  <parameter
+                    name="styleName"
+                    value="AddNewButtonSkin"
+                  />
+                  <styles
+                    name="toolTip"
+                    value="Font"
+                  />
+            </toolbar>
+            
+             <toolbar
+               id="com.wxxr.mx.promptMessage.commnad.commuicationAssistantnoticeEditor.modifyNotice"
+               enabled="true"
+              type="push"
+              label="修改"
+              commandId="com.wxxr.mx.promptMessage.commuicationAssistantnoticeEditor.commnad.modifyNotice"
+              >
+                <parameter
+                    name="width"
+                    value="60"                  
+                  />
+
+                  <parameter
+                    name="label"
+                    value="修改"
+                  />                  
+                 
+                  <parameter
+                    name="height"
+                    value="20"
+                  />
+                  <parameter
+                    name="styleName"
+                    value="DeleteButtonSkin"
+                  />
+                  <styles
+                    name="toolTip"
+                    value="Font"
+                  />
+                   <visibleWhen>
+			  	 	<with variable="canModifyNotice">  
+				 	 	 <equals value="true"/> 
+			  	 	</with>
+                 </visibleWhen>
+            </toolbar>
+            
+            
+            <toolbar
+               id="com.wxxr.mx.promptMessage.commnad.commuicationAssistantnoticeEditor.deleteNotice1"
+               enabled="true"
+              type="push"
+              label="删除"
+              commandId="com.wxxr.mx.promptMessage.commuicationAssistantnoticeEditor.commnad.deleteNotice"
+              >
+                <parameter
+                    name="width"
+                    value="60"                  
+                  />
+
+                  <parameter
+                    name="label"
+                    value="删除"
+                  />                  
+                 
+                  <parameter
+                    name="height"
+                    value="20"
+                  />
+                  <parameter
+                    name="styleName"
+                    value="DeleteButtonSkin"
+                  />
+                  <styles
+                    name="toolTip"
+                    value="Font"
+                  />
+                    <visibleWhen>
+			  	 	<with variable="canDeleteNotice">  
+				 	 	 <equals value="true"/> 
+			  	 	</with>
+                 </visibleWhen>
+            </toolbar>
+            </menuContribution>
+           
+           
+          <menuContribution
+            locationURI="toolbar:com.wxxr.mx.promptMessage.commuicationAssistantnoticeEditor?after=additions">
+             <toolbar
+               id="com.wxxr.mx.promptMessage.commnad.commuicationAssistantnoticeEditor.save"
+               enabled="true"
+              type="push"
+              label="保存"
+              commandId="com.wxxr.mx.promptMessage.commuicationAssistantnoticeEditor.commnad.saveNotice"
+              >
+                <parameter
+                    name="width"
+                    value="60"                  
+                  />
+
+                  <parameter
+                    name="label"
+                    value="保存"
+                  />                  
+                 
+                  <parameter
+                    name="height"
+                    value="20"
+                  />
+                  <parameter
+                    name="styleName"
+                    value="CommitButtonSkin"
+                  />
+                  <styles
+                    name="toolTip"
+                    value="Font"
+                  />
+                  <visibleWhen>
+			  	 	<with variable="canSaveNotice">  
+				 	 	 <equals value="true"/> 
+			  	 	</with>
+                 </visibleWhen>
+            </toolbar>
+            
+            
+             <toolbar
+               id="com.wxxr.mx.promptMessage.commnad.commuicationAssistantnoticeEditor.deleteNotice"
+               enabled="true"
+              type="push"
+              label="删除"
+              commandId="com.wxxr.mx.promptMessage.commuicationAssistantnoticeEditor.commnad.deleteNotice"
+              >
+                <parameter
+                    name="width"
+                    value="60"                  
+                  />
+
+                  <parameter
+                    name="label"
+                    value="删除"
+                  />                  
+                 
+                  <parameter
+                    name="height"
+                    value="20"
+                  />
+                  <parameter
+                    name="styleName"
+                    value="DeleteButtonSkin"
+                  />
+                  <styles
+                    name="toolTip"
+                    value="Font"
+                  />
+            </toolbar>
+            
+         </menuContribution>
+           
+    
+		<menuContribution  id="promptListViewId"
+            locationURI="toolbar:com.wxxr.mx.promptMessage.PromptListTable?after=additions">
+             <toolbar
+               id="com.wxxr.mx.promptMessage.PromptListTable.prompt.add"
+               enabled="true"
+              type="push"
+              label = "%zengjiaxinxi"
+              commandId="com.wxxr.mx.promptMessage.PromptListTable.prompt.addCommonId"
+              >
+                  <parameter
+                    name="width"
+                    value="110"                  
+                  />
+
+                  <parameter
+                    name="label"
+                    value="%zengjiaxinxi"
+                  />                  
+                  
+                  <parameter
+                    name="height"
+                    value="20"
+                  />
+                  <parameter
+                    name="styleName"
+                    value="AddNewButtonSkin"
+                  />
+                  <styles
+                    name="toolTip"
+                    value="Font"
+                  />
+                  <visibleWhen>
+			  	    <with variable="addAble">
+				      <equals value="true"/>
+				    </with>
+                  </visibleWhen>
+            </toolbar>
+            <toolbar
+               id="com.wxxr.mx.promptMessage.PromptListTable.prompt.export"
+               enabled="true"
+              type="push"
+              label = "%daochu"
+              commandId="com.wxxr.mx.promptMessage.PromptListTable.prompt.export"
+              >
+                  <parameter
+                    name="width"
+                    value="60"                  
+                  />
+
+                  <parameter
+                    name="label"
+                    value="%daochu"
+                  />                  
+                  
+                  <parameter
+                    name="height"
+                    value="20"
+                  />
+                  <parameter
+                    name="styleName"
+                    value="exportButtonSkin"
+                  />
+                  <styles
+                    name="toolTip"
+                    value="Font"
+                  />
+                  <visibleWhen>
+			  	    <with variable="addAble">
+				      <equals value="true"/>
+				    </with>
+                  </visibleWhen>
+            </toolbar>
+            </menuContribution>
+            <menuContribution
+            locationURI="toolbar:com.wxxr.mx.promptMessage.promptItemEditor?after=additions">
+             <toolbar
+               id="com.wxxr.mx.promptMessage.promptItemEditor.prompt.add"
+               enabled="true"
+              type="push"
+              label = "保存1"
+              commandId="com.wxxr.mx.promptMessage.promptItemEditor.prompt.saveCommonId"
+              >
+                  <parameter
+                    name="width"
+                    value="60"                  
+                  />
+
+                  <parameter
+                    name="label"
+                    value="%baocun"
+                  />                  
+                 
+                  <parameter
+                    name="height"
+                    value="20"
+                  />
+                  <parameter
+                    name="styleName"
+                    value="CommitButtonSkin"
+                  />
+                  <styles
+                    name="toolTip"
+                    value="Font"
+                  />
+                   <visibleWhen>
+			  	 	<with variable="settings.save">  
+				 	 	 <equals value="true"/> 
+			  	 	</with>
+                 </visibleWhen>
+            </toolbar>
+             <toolbar
+               id="com.wxxr.mx.promptMessage.promptItemEditor.prompt.delete"
+               enabled="true"
+              type="push"
+              label = "删除"
+              commandId="com.wxxr.mx.promptMessage.promptItemEditor.prompt.delCommonId"
+              >
+                  <parameter
+                    name="width"
+                    value="60"                  
+                  />
+
+                  <parameter
+                    name="label"
+                    value="%shanchu"
+                  />                  
+                   <!--parameter
+                    name="icon"
+                    value="assets/smlib/reset.png"
+                  /-->
+                  <parameter
+                    name="height"
+                    value="20"
+                  />
+                  <parameter
+                    name="styleName"
+                    value="DeleteButtonSkin"
+                  />
+                  <styles
+                    name="toolTip"
+                    value="Font"
+                  />
+                   <visibleWhen>
+			  	 	<with variable="settings.delete">  
+				 	 	 <equals value="true"/> 
+			  	 	</with>
+                 </visibleWhen>
+            </toolbar>
+
+			
+			<toolbar
+               id="com.wxxr.mx.promptMessage.promptItemEditor.prompt.deny"
+               enabled="true"
+              type="push"
+              label="驳回"
+              commandId="com.wxxr.mx.promptMessage.promptItemEditor.commnad.id.deny"
+              >
+                  <parameter
+                    name="width"
+                    value="60"
+                  />
+                  <parameter
+                    name="label"
+                    value="驳回"
+                  />                     
+                  <!-- parameter
+                    name="icon"
+                    value="assets/smlib/deny.gif"
+                  /-->
+                  <parameter
+                    name="height"
+                    value="20"
+                  />
+                  <parameter
+                    name="styleName"
+                    value="DenyButtonSkin"
+                  />
+                  <styles
+                    name="toolTip"
+                    value="Font"
+                  />
+                  <!-- <visibleWhen>
+                  			  	 	<with variable="reject.playbill">  
+                  				 	 	 <equals value="true"/> 
+                  			  	 	</with>
+                                   </visibleWhen> -->
+            </toolbar>
+
+
+			<toolbar
+               id="com.wxxr.mx.promptMessage.promptItemEditor.prompt.pass"
+               enabled="true"
+              type="push"
+              label="通过"
+              commandId="com.wxxr.mx.promptMessage.promptItemEditor.commnad.id.pass"
+              >
+                  <parameter
+                    name="width"
+                    value="60"
+                  />
+                  <parameter
+                    name="label"
+                    value="通过"
+                  />                     
+                  <!-- parameter
+                    name="icon"
+                    value="assets/smlib/deny.gif"
+                  /-->
+                  <parameter
+                    name="height"
+                    value="20"
+                  />
+                  <parameter
+                    name="styleName"
+                    value="CommitButtonSkin"
+                  />
+                  <styles
+                    name="toolTip"
+                    value="Font"
+                  />
+                  <!-- <visibleWhen>
+                  			  	 	<with variable="reject.playbill">  
+                  				 	 	 <equals value="true"/> 
+                  			  	 	</with>
+                                   </visibleWhen> -->
+            </toolbar>
+
+
+
+            </menuContribution>
+        <!-- add by yanghongbo -->    
+        <menuContribution  id="messageCodeListView"
+             locationURI="toolbar:com.wxxr.mx.promptMessage.MessageCodeListTable?after=additions">
+            <toolbar
+               id="com.wxxr.mx.promptMessage.MessageCodeListTable.prompt.addMessageCode"
+               enabled="true"
+              type="push"
+              label = "%zengjiaxiaoxidaima"
+              commandId="com.wxxr.mx.promptMessage.MessageCodeListTable.prompt.addKeyCommonId"
+              >
+                  <parameter
+                    name="width"
+                    value="110"                  
+                  />
+
+                  <parameter
+                    name="label"
+                    value="%zengjiaxiaoxidaima"
+                  />                  
+                   <!-- parameter
+                    name="icon"
+                      value="assets/smlib/addKey.gif"
+                  /-->
+                  <parameter
+                    name="height"
+                    value="20"
+                  />
+                  <parameter
+                    name="styleName"
+                    value="AddKeyButtonSkin"
+                  />
+                  <styles
+                    name="toolTip"
+                    value="Font"
+                  />
+            </toolbar>
+        </menuContribution>
+        <menuContribution
+            locationURI="toolbar:com.wxxr.mx.promptMessage.messageCodeDetailEditor?after=additions">
+             <toolbar id="com.wxxr.mx.promptMessage.messageCodeDetailEditor.prompt.updateMessageCode"
+                      enabled="true"
+                      type="push"
+                      label = "%baocun"
+                      commandId="com.wxxr.mx.promptMessage.messageCodeDetailEditor.prompt.updateKeyCommonId">
+                <parameter name="width" value="60"/>
+                <parameter name="label" value="%baocun"/>                  
+                <parameter name="height" value="20"/>
+                <parameter name="styleName" value="CommitButtonSkin"/>
+                <styles name="toolTip" value="Font"/>
+                   <visibleWhen>
+			  	 	<with variable="updateKey">  
+				 	 	 <equals value="true"/> 
+			  	 	</with>
+                 </visibleWhen>
+            </toolbar>
+            <!--  
+             <toolbar id="com.wxxr.mx.promptMessage.messageCodeDetailEditor.prompt.deleteMessageCode"
+                      enabled="true"
+                      type="push"
+                      label = "%shanchu"
+                      commandId="com.wxxr.mx.promptMessage.messageCodeDetailEditor.prompt.deleteKeyCommonId">
+                  <parameter name="width" value="60" />
+                  <parameter name="label" value="%shanchu"/>                  
+                  <parameter name="height" value="20"/>
+                  <parameter name="styleName" value="DeleteButtonSkin"/>
+                  <styles name="toolTip" value="Font"/>
+                   <visibleWhen>
+			  	 	<with variable="deleteKey">  
+				 	 	 <equals value="true"/> 
+			  	 	</with>
+                 </visibleWhen>
+            </toolbar>
+            -->
+         </menuContribution>
+          <!-- 
+         <menuContribution
+            locationURI="toolbar:com.wxxr.mx.promptMessage.sendSelfEditor?after=additions">
+           
+             <toolbar id="com.wxxr.mx.promptMessage.sendSelfEditor.prompt.updateSendSelfMessage"
+                      enabled="true"
+                      type="push"
+                      label = "%baocun"
+                      commandId="com.wxxr.mx.promptMessage.sendSelfEditor.prompt.updateSendSelfMessageCommonId">
+                <parameter name="width" value="60"/>
+                <parameter name="label" value="%baocun"/>                  
+                <parameter name="height" value="20"/>
+                <parameter name="styleName" value="CommitButtonSkin"/>
+                <styles name="toolTip" value="Font"/>
+            </toolbar>
+          </menuContribution>
+           <menuContribution
+            locationURI="toolbar:com.wxxr.mx.promptMessage.SetUserBatch?after=additions">
+              <toolbar id="com.wxxr.mx.promptMessage.SetUserBatch.prompt.setUserBatch"
+                      enabled="true"
+                      type="push"
+                      label = "%tijiao"
+                      commandId="com.wxxr.mx.promptMessage.SetUserBatch.prompt.userBatchSetCommonId">
+                <parameter name="width" value="80"/>
+                <parameter name="label" value="%tijiao"/>                  
+                <parameter name="height" value="20"/>
+                <parameter name="styleName" value="CommitButtonSkin"/>
+                <styles name="toolTip" value="Font"/>
+                <visibleWhen>
+			  	 	<with variable="updateUserBatchSet">  
+				 	 	 <equals value="true"/> 
+			  	 	</with>
+                </visibleWhen>
+            </toolbar>
+         </menuContribution>
+          -->
+          <menuContribution
+            locationURI="toolbar:com.wxxr.mx.promptMessage.SetUserBatchTaskListTable?after=additions">
+             
+             <toolbar id="com.wxxr.mx.promptMessage.SetUserBatchTaskListTable.prompt.setUserBatch"
+                      enabled="true"
+                      type="push"
+                      label = "%piliangshezhi"
+                      commandId="com.wxxr.mx.promptMessage.SetUserBatchTaskListTable.prompt.userBatchSetCommonId">
+                <parameter name="width" value="80"/>
+                <parameter name="label" value="%piliangshezhi"/>                  
+                <parameter name="height" value="20"/>
+                <parameter name="styleName" value="CommitButtonSkin"/>
+                <styles name="toolTip" value="Font"/>
+            </toolbar>
+             <!-- 
+            <toolbar id="com.wxxr.mx.promptMessage.SetUserBatchTaskListTable.prompt.setNewUser"
+                      enabled="true"
+                      type="push"
+                      label = "%shezhixinyonghu"
+                      commandId="com.wxxr.mx.promptMessage.SetUserBatchTaskListTable.prompt.setNewUserCommonId">
+                <parameter name="width" value="100"/>
+                <parameter name="label" value="%shezhixinyonghu"/>                  
+                <parameter name="height" value="20"/>
+                <parameter name="styleName" value="CommitButtonSkin"/>
+                <styles name="toolTip" value="Font"/>
+            </toolbar>
+             -->
+            <toolbar id="com.wxxr.mx.promptMessage.SetUserBatchTaskListTable.prompt.refreshUserBatchSetTask"
+                      enabled="true"
+                      type="push"
+                      label = "%shuaxin"
+                      commandId="com.wxxr.mx.promptMessage.SetUserBatchTaskListTable.prompt.refreshUserBatchSetTaskCommonId">
+                <parameter name="width" value="60"/>
+                <parameter name="label" value="%shuaxin"/>                  
+                <parameter name="height" value="20"/>
+                <parameter name="styleName" value="refreshButtonSkin"/>
+                <styles name="toolTip" value="Font"/>
+            </toolbar>
+         </menuContribution>
+          <menuContribution
+            locationURI="toolbar:com.wxxr.mx.promptMessage.NewUnionList?after=additions">
+             <toolbar id="com.wxxr.mx.promptMessage.NewUnionList.prompt.addNewUnion"
+                      enabled="true"
+                      type="push"
+                      label = "%xinzeng"
+                      commandId="com.wxxr.mx.promptMessage.NewUnionList.prompt.addNewUnionCommonId">
+                <parameter name="width" value="60"/>
+                <parameter name="label" value="%xinzeng"/>                  
+                <parameter name="height" value="20"/>
+                <parameter name="styleName" value="AddNewButtonSkin"/>
+                <styles name="toolTip" value="Font"/>
+            </toolbar>
+            <toolbar id="com.wxxr.mx.promptMessage.NewUnionList.prompt.refreshNewUnion"
+                      enabled="true"
+                      type="push"
+                      label = "%shuaxin"
+                      commandId="com.wxxr.mx.promptMessage.NewUnionList.prompt.refreshNewUnionCommonId">
+                <parameter name="width" value="60"/>
+                <parameter name="label" value="%shuaxin"/>                  
+                <parameter name="height" value="20"/>
+                <parameter name="styleName" value="refreshButtonSkin"/>
+                <styles name="toolTip" value="Font"/>
+            </toolbar>
+         </menuContribution>
+       
+          <menuContribution
+            locationURI="toolbar:com.wxxr.mx.promptMessage.newUnionEditor?after=additions">
+             <toolbar id="com.wxxr.mx.promptMessage.newUnionEditor.prompt.updateNewUnion"
+                      enabled="true"
+                      type="push"
+                      label = "%baocun"
+                      commandId="com.wxxr.mx.promptMessage.newUnionEditor.prompt.updateNewUnionCommonId">
+                <parameter name="width" value="60"/>
+                <parameter name="label" value="%baocun"/>                  
+                <parameter name="height" value="20"/>
+                <parameter name="styleName" value="CommitButtonSkin"/>
+                <styles name="toolTip" value="Font"/>
+                <visibleWhen>
+			  	 	<with variable="updateNewUnion">  
+				 	 	 <equals value="true"/> 
+			  	 	</with>
+                </visibleWhen>
+            </toolbar>
+           
+            <toolbar id="com.wxxr.mx.promptMessage.newUnionEditor.prompt.deleteNewUnion"
+                      enabled="true"
+                      type="push"
+                      label = "%shanchu"
+                      commandId="com.wxxr.mx.promptMessage.newUnionEditor.prompt.deleteNewUnionCommonId">
+                  <parameter name="width" value="60" />
+                  <parameter name="label" value="%shanchu"/>                  
+                  <parameter name="height" value="20"/>
+                  <parameter name="styleName" value="DeleteButtonSkin"/>
+                  <styles name="toolTip" value="Font"/>
+            </toolbar>
+         </menuContribution>
+
+
+		
+		<menuContribution id= "messageTasks"
+            locationURI="toolbar:com.wxxr.mx.promptMessage.messgetask?after=additions">
+            <toolbar
+               id="com.wxxr.mx.prompt.toolBar.messageTasks.add"
+               type="push"
+               enabled="true"
+               label="新增"
+              commandId="com.wxxr.mx.promptMessage.PromptListTable.prompt.addCommonId"
+              >
+                  <parameter
+                    name="width"
+                    value="30"
+                  />
+                  <parameter
+                    name="label"
+                    value=""
+                  />                   
+                  <!--parameter
+                    name="icon"
+                    value="assets/smlib/add.gif"
+                  /-->
+                  <parameter
+                    name="height"
+                    value="20"
+                  />
+                  <parameter
+                    name="styleName"
+                    value="UploadButtonSkin4Wizard"
+                  />
+                  <styles
+                    name="toolTip"
+                    value="Font"
+                  />
+            </toolbar>
+
+			<toolbar
+               id="com.wxxr.mx.prompt.toolBar.messageTasks.export"
+               enabled="true"
+              type="push"
+              label = "导出"
+              commandId="com.wxxr.mx.promptMessage.PromptListTable.prompt.export"
+              >
+                  <parameter
+                    name="width"
+                    value="30"                  
+                  />
+
+                  <parameter
+                    name="label"
+                    value=""
+                  />                  
+                  
+                  <parameter
+                    name="height"
+                    value="20"
+                  />
+                  <parameter
+                    name="styleName"
+                    value="exportButtonSkin"
+                  />
+                  <styles
+                    name="toolTip"
+                    value="Font"
+                  />
+                  <!-- <visibleWhen>
+                  			  	    <with variable="addAble">
+                  				      <equals value="true"/>
+                  				    </with>
+                  </visibleWhen> -->
+            </toolbar>
+            <toolbar
+               id="com.wxxr.mx.prompt.toolBar.messageTasks.batchlock"
+               enabled="true"
+              type="push"
+              label="批量锁定"
+              commandId="com.wxxr.mx.prompt.commnadId.Batchlock"
+              >
+                  <parameter
+                    name="width"
+                    value="30"
+                  />
+                  <parameter
+                    name="label"
+                    value=""
+                  />                    
+                  <parameter
+                    name="icon"
+                    value="framework/assets/smlib/batchlock.png"
+                  />
+                  <parameter
+                    name="height"
+                    value="20"
+                  />
+                  <parameter
+                    name="styleName"
+                    value="OperationButtonSkin"
+                  />
+                  <styles
+                    name="toolTip"
+                    value="Font"
+                  />
+            </toolbar>
+            <toolbar
+               id="com.wxxr.mx.prompt.toolBar.messageTasks.BatchUnlock"
+               enabled="true"
+              type="push"
+              label="批量解锁"
+              commandId="com.wxxr.mx.prompt.commnadId.BatchUnlock"
+              >
+                  <parameter
+                    name="width"
+                    value="30"
+                  />
+                  <parameter
+                    name="label"
+                    value=""
+                  />                    
+                  <parameter
+                    name="icon"
+                    value="framework/assets/smlib/batchunlock.png"
+                  />
+                  <parameter
+                    name="height"
+                    value="20"
+                  />
+                  <parameter
+                    name="styleName"
+                    value="OperationButtonSkin"
+                  />
+                  <styles
+                    name="toolTip"
+                    value="Font"
+                  />
+            </toolbar>
+        </menuContribution>
+
+
+
+       </extension>
+       
+      <extension
+         point="com.wxxr.mx.ui.handlers" id="pmsg.handlers.toolbar">
+         <!-- 提示语言 -->
+          <handler
+            class="com.wxxr.plugin.promptMessage.handler.NewPromptHandler"
+            commandId="com.wxxr.mx.promptMessage.PromptListTable.prompt.addCommonId">
+      	  </handler>
+      	  <handler
+            class="com.wxxr.plugin.promptMessage.handler.OutputPromptHandler"
+            commandId="com.wxxr.mx.promptMessage.PromptListTable.prompt.export">
+      	  </handler>
+      	  
+      	  <handler
+            class="com.wxxr.plugin.promptMessage.handler.SavePromptHandler"
+            commandId="com.wxxr.mx.promptMessage.promptItemEditor.prompt.saveCommonId">
+          </handler>
+      	  <handler
+            class="com.wxxr.plugin.promptMessage.handler.DelPromptHandler"
+            commandId="com.wxxr.mx.promptMessage.promptItemEditor.prompt.delCommonId">
+      	  </handler>
+      	 <!-- 消息代码 -->
+      	  <handler
+            class="com.wxxr.plugin.promptMessage.handler.AddPromptKeyHandler"
+            commandId="com.wxxr.mx.promptMessage.MessageCodeListTable.prompt.addKeyCommonId">
+      	  </handler>
+      	  <handler
+            class="com.wxxr.plugin.promptMessage.handler.UpdatePromptKeyHandler"
+            commandId="com.wxxr.mx.promptMessage.messageCodeDetailEditor.prompt.updateKeyCommonId">
+          </handler>
+          <!-- 
+      	  <handler
+            class="com.wxxr.plugin.promptMessage.handler.DelPromptKeyHandler"
+            commandId="com.wxxr.mx.promptMessage.messageCodeDetailEditor.prompt.deleteKeyCommonId">
+      	  </handler>
+      	   -->
+      	   <!-- 自传播
+      	   <handler
+            class="com.wxxr.plugin.promptMessage.handler.UpdateSendSelfMessageSelfHandler"
+            commandId="com.wxxr.mx.promptMessage.sendSelfEditor.prompt.updateSendSelfMessageCommonId">
+          </handler>
+           -->
+           <!-- 用户批量设置 -->
+           <handler
+            class="com.wxxr.plugin.promptMessage.handler.SetUserBatchHandler"
+            commandId="com.wxxr.mx.promptMessage.SetUserBatchTaskListTable.prompt.userBatchSetCommonId">
+          </handler>
+          <handler
+            class="com.wxxr.plugin.promptMessage.handler.RefreshUserBatchSetTaskHandler"
+            commandId="com.wxxr.mx.promptMessage.SetUserBatchTaskListTable.prompt.refreshUserBatchSetTaskCommonId">
+          </handler>
+          <handler
+            class="com.wxxr.plugin.promptMessage.handler.SetNewUserHandler"
+            commandId="com.wxxr.mx.promptMessage.SetUserBatchTaskListTable.prompt.setNewUserCommonId">
+          </handler>
+          <!-- 广东创新联盟 -->
+           <handler
+            class="com.wxxr.plugin.promptMessage.handler.AddNewUnionHandler"
+            commandId="com.wxxr.mx.promptMessage.NewUnionList.prompt.addNewUnionCommonId">
+          </handler>
+          <handler
+            class="com.wxxr.plugin.promptMessage.handler.RefreshNewUnionHandler"
+            commandId="com.wxxr.mx.promptMessage.NewUnionList.prompt.refreshNewUnionCommonId">
+          </handler>
+         
+          <handler
+            class="com.wxxr.plugin.promptMessage.handler.UpdateNewUnionHandler"
+            commandId="com.wxxr.mx.promptMessage.newUnionEditor.prompt.updateNewUnionCommonId">
+          </handler>
+          
+          <handler
+            class="com.wxxr.plugin.promptMessage.handler.DeleteNewUnionHandler"
+            commandId="com.wxxr.mx.promptMessage.newUnionEditor.prompt.deleteNewUnionCommonId">
+          </handler>
+          
+          
+           <handler
+            class="com.wxxr.plugin.promptMessage.handler.UserGroupSearchHandler"
+            commandId="com.wxxr.mx.promptMessage.PromptListTable.prompt.searchUserGroup">
+          </handler>
+          
+            <handler
+            class="com.wxxr.plugin.promptMessage.handler.UserSearchHandler"
+            commandId="com.wxxr.mx.promptMessage.PromptListTable.prompt.searchUser">
+          </handler>
+          
+              <handler
+            class="com.wxxr.plugin.promptMessage.handler.AddUserInGroupHandler"
+            commandId="com.wxxr.mx.promptMessage.PromptListTable.prompt.addUserInGroup">
+          </handler>
+          
+            <handler
+            class="com.wxxr.plugin.promptMessage.handler.DeleteUserInGroupHandler"
+            commandId="com.wxxr.mx.promptMessage.PromptListTable.prompt.deleteUserInGroup">
+          </handler>
+          
+          
+           <handler
+            class="com.wxxr.plugin.promptMessage.handler.SaveNoticeHandler"
+            commandId="com.wxxr.mx.promptMessage.commuicationAssistantnoticeEditor.commnad.saveNotice">
+          </handler>
+          
+             <handler
+            class="com.wxxr.plugin.promptMessage.handler.DeleteNoticeHandler"
+            commandId="com.wxxr.mx.promptMessage.commuicationAssistantnoticeEditor.commnad.deleteNotice">
+          </handler>
+          
+            <handler
+            class="com.wxxr.plugin.promptMessage.handler.AddNoticeHandler"
+            commandId="com.wxxr.mx.promptMessage.communicationAssistantNoticeItemsView.addNoticeCommonId">
+          </handler>
+         
+           <handler
+            class="com.wxxr.plugin.promptMessage.handler.ModifyNoticeHandler"
+            commandId="com.wxxr.mx.promptMessage.commuicationAssistantnoticeEditor.commnad.modifyNotice">
+          </handler>
+          
+           <handler
+            class="com.wxxr.plugin.promptMessage.handler.AddBizCodeNode"
+            commandId="com.wxxr.mx.promptMessage.bizDetailManageView.addBizCodeNode">
+          </handler>
+          
+           <handler
+            class="com.wxxr.plugin.promptMessage.handler.EditBizCodeNode"
+            commandId="com.wxxr.mx.promptMessage.bizDetailView.EditBizCodeNode">
+          </handler>
+         
+         
+         <handler
+            class="com.wxxr.plugin.promptMessage.handler.UploadPointHandler"
+            commandId="com.wxxr.mx.promptMessage.UploadPoint.prompt.uploadpointtext">
+          </handler>
+
+
+
+		 <handler
+            class="com.wxxr.plugin.promptMessage.handler.task.BatchlockHandler"
+            commandId="com.wxxr.mx.prompt.commnadId.Batchlock">
+      	</handler>
+
+      	<handler
+            class="com.wxxr.plugin.promptMessage.handler.task.BatchUnlockHandler"
+            commandId="com.wxxr.mx.prompt.commnadId.BatchUnlock">
+      	</handler>
+
+		<handler
+            class="com.wxxr.plugin.promptMessage.handler.task.DenyPromptHandler"
+            commandId="com.wxxr.mx.promptMessage.promptItemEditor.commnad.id.deny">
+      	</handler>
+
+		<handler
+            class="com.wxxr.plugin.promptMessage.handler.task.PassPromptHandler"
+            commandId="com.wxxr.mx.promptMessage.promptItemEditor.commnad.id.pass">
+      	</handler>
+         
+         
+         
+     </extension>
+       <extension
+         point="com.wxxr.mx.ui.commands" id="pmsg.commands.toolbar">
+       <category
+            name="category.sysconfig"
+            description="category.sysconfig.desc"
+            id="com.wxxr.mx.smlib.category.test">
+      </category>
+      
+     
+      
+      <command
+            name="uploadpointtext"
+            description="test.command.desc"
+            categoryId="com.wxxr.mx.promptMessage.category.test"
+			 label="page"
+            id="com.wxxr.mx.promptMessage.UploadPoint.prompt.uploadpointtext" />
+      
+       <command
+            name="addBizCodeNodeCommonId"
+            description="test.command.desc"
+            categoryId="com.wxxr.mx.promptMessage.category.test"
+			 label="page"
+            id="com.wxxr.mx.promptMessage.bizDetailManageView.addBizCodeNode" />
+            
+             <command
+            name="editBizCodeNodeCommonId"
+            description="test.command.desc"
+            categoryId="com.wxxr.mx.promptMessage.category.test"
+			 label="page"
+            id="com.wxxr.mx.promptMessage.bizDetailView.EditBizCodeNode" />
+      
+      
+       <command
+            name="modifyNoticeCommonId"
+            description="test.command.desc"
+            categoryId="com.wxxr.mx.promptMessage.category.test"
+			 label="page"
+            id="com.wxxr.mx.promptMessage.commuicationAssistantnoticeEditor.commnad.modifyNotice" />
+      
+      
+      
+       <command
+            name="addNoticeCommonId"
+            description="test.command.desc"
+            categoryId="com.wxxr.mx.promptMessage.category.test"
+			 label="page"
+            id="com.wxxr.mx.promptMessage.communicationAssistantNoticeItemsView.addNoticeCommonId" />
+      
+      
+       <command
+            name="deleteNoticeCommand"
+            description="test.command.desc"
+            categoryId="com.wxxr.mx.promptMessage.category.test"
+			 label="page"
+            id="com.wxxr.mx.promptMessage.commuicationAssistantnoticeEditor.commnad.deleteNotice" />
+      
+      
+        <command
+            name="saveNoticeCommand"
+            description="test.command.desc"
+            categoryId="com.wxxr.mx.promptMessage.category.test"
+			 label="page"
+            id="com.wxxr.mx.promptMessage.commuicationAssistantnoticeEditor.commnad.saveNotice" />
+      
+      <command
+            name="deleteUserInGroupCommand"
+            description="test.command.desc"
+            categoryId="com.wxxr.mx.promptMessage.category.test"
+			 label="page"
+            id="com.wxxr.mx.promptMessage.PromptListTable.prompt.deleteUserInGroup" />
+      
+        <command
+            name="searchUserGroupCommand"
+            description="test.command.desc"
+            categoryId="com.wxxr.mx.promptMessage.category.test"
+			 label="page"
+            id="com.wxxr.mx.promptMessage.PromptListTable.prompt.searchUserGroup" />
+            
+            
+         <command
+            name="addUserInGroupCommand"
+            description="test.command.desc"
+            categoryId="com.wxxr.mx.promptMessage.category.test"
+			 label="page"
+            id="com.wxxr.mx.promptMessage.PromptListTable.prompt.addUserInGroup" />
+            
+       <command
+            name="searchUserCommand"
+            description="test.command.desc"
+            categoryId="com.wxxr.mx.promptMessage.category.test"
+		    label="page"
+            id="com.wxxr.mx.promptMessage.PromptListTable.prompt.searchUser" />
+      
+      <command
+            name="addPromptCommand"
+            description="test.command.desc"
+            categoryId="com.wxxr.mx.promptMessage.category.test"
+			 label="page"
+            id="com.wxxr.mx.promptMessage.PromptListTable.prompt.addCommonId" />
+            <command
+            name="addPromptCommand"
+            description="test.command.desc"
+            categoryId="com.wxxr.mx.promptMessage.category.test"
+			 label="page"
+            id="com.wxxr.mx.promptMessage.PromptListTable.prompt.export" />
+            <command
+            name="savePromptCommand"
+            description="test.command.desc"
+            categoryId="com.wxxr.mx.promptMessage.category.test"
+			 label="page"
+            id="com.wxxr.mx.promptMessage.promptItemEditor.prompt.saveCommonId" />
+            <command
+            name="delPromptCommand"
+            description="test.command.desc"
+            categoryId="com.wxxr.mx.promptMessage.category.test"
+			 label="page"
+            id="com.wxxr.mx.promptMessage.promptItemEditor.prompt.delCommonId" />
+            
+            <!-- 消息代码 -->
+            <command
+             name="addPromptKeyCommand"
+             description="test.command.desc"
+             categoryId="com.wxxr.mx.promptMessage.category.test"
+			 label="page"
+             id="com.wxxr.mx.promptMessage.MessageCodeListTable.prompt.addKeyCommonId" />
+            <command
+             name="updatePromptKeyCommand"
+             description="test.command.desc"
+             categoryId="com.wxxr.mx.promptMessage.category.test"
+			 label="page"
+             id="com.wxxr.mx.promptMessage.messageCodeDetailEditor.prompt.updateKeyCommonId" />
+             <!-- 
+             <command
+             name="delPromptKeyCommand"
+             description="test.command.desc"
+             categoryId="com.wxxr.mx.promptMessage.category.test"
+			 label="page"
+             id="com.wxxr.mx.promptMessage.messageCodeDetailEditor.prompt.deleteKeyCommonId" />
+              -->
+             <!-- 自传播 
+            <command
+             name="updateSendSelfMessageCommand"
+             description="test.command.desc"
+             categoryId="com.wxxr.mx.promptMessage.category.test"
+			 label="page"
+             id="com.wxxr.mx.promptMessage.sendSelfEditor.prompt.updateSendSelfMessageCommonId" />  
+             -->
+             <!-- 用户批量设置 -->
+             <command
+             name="userBatchSetCommand"
+             description="test.command.desc"
+             categoryId="com.wxxr.mx.promptMessage.category.test"
+			 label="page"
+             id="com.wxxr.mx.promptMessage.SetUserBatchTaskListTable.prompt.userBatchSetCommonId" />
+             <command
+             name="refreshUserBatchSetTaskCommand"
+             description="test.command.desc"
+             categoryId="com.wxxr.mx.promptMessage.category.test"
+			 label="page"
+             id="com.wxxr.mx.promptMessage.SetUserBatchTaskListTable.prompt.refreshUserBatchSetTaskCommonId" />
+             <command
+             name="setNewUserCommand"
+             description="test.command.desc"
+             categoryId="com.wxxr.mx.promptMessage.category.test"
+			 label="page"
+             id="com.wxxr.mx.promptMessage.SetUserBatchTaskListTable.prompt.setNewUserCommonId" />
+             <!-- 广东创新联盟 -->
+             <command
+             name="addNewUnionCommand"
+             description="addNewUnionCommand"
+             categoryId="com.wxxr.mx.promptMessage.category.test"
+			 label="page"
+             id="com.wxxr.mx.promptMessage.NewUnionList.prompt.addNewUnionCommonId" />
+             <command
+             name="refreshNewUnionCommand"
+             description="refreshNewUnionCommand"
+             categoryId="com.wxxr.mx.promptMessage.category.test"
+			 label="page"
+             id="com.wxxr.mx.promptMessage.NewUnionList.prompt.refreshNewUnionCommonId" />
+           
+             <command
+             name="updateNewUnionCommand"
+             description="updateNewUnionCommand"
+             categoryId="com.wxxr.mx.promptMessage.category.test"
+			 label="page"
+             id="com.wxxr.mx.promptMessage.newUnionEditor.prompt.updateNewUnionCommonId" /> 
+          
+             <command
+             name="deleteNewUnionCommand"
+             description="deleteNewUnionCommand"
+             categoryId="com.wxxr.mx.promptMessage.category.test"
+			 label="page"
+             id="com.wxxr.mx.promptMessage.newUnionEditor.prompt.deleteNewUnionCommonId" />
+
+
+
+			 <command       
+				name="Batchlock"
+				description="Batchlock"
+				categoryId="com.wxxr.mx.prompt.category.test"
+				label=""
+				id="com.wxxr.mx.prompt.commnadId.Batchlock" />
+
+			 
+			 <command       
+				name="BatchUnlock"
+				description="BatchUnlock"
+				categoryId="com.wxxr.mx.prompt.category.test"
+				label=""
+				id="com.wxxr.mx.prompt.commnadId.BatchUnlock" />
+			
+			 
+
+			 <command       
+				name="deny"
+				description="deny"
+				categoryId="com.wxxr.mx.prompt.category.test"
+				label=""
+				id="com.wxxr.mx.promptMessage.promptItemEditor.commnad.id.deny" />
+
+				
+      </extension>
+      
+       <extension
+         point="com.wxxr.mx.ui.editors" id="pmsg.editors">
+      	<editor
+      		name="promptItemEditor"
+            description="promptItemEditor"
+            class="com.wxxr.plugin.promptMessage.editor.PromptItemEditor"
+            id="promptItemEditor">
+             <contentTypeBinding contentTypeId="promptItemEditorType" />
+        </editor>
+        <editor
+      		name="messageCodeDetailEditor"
+            description="messageCodeDetailEditor"
+            class="com.wxxr.plugin.promptMessage.editor.MessageCodeDetailEditor"
+            id="messageCodeDetailEditor">               
+             <contentTypeBinding contentTypeId="messageCodeDetailEditorType" />
+        </editor>
+        <editor
+      		name="userBatchSetTaskEditor"
+            description="userBatchSetTaskEditor"
+            class="com.wxxr.plugin.promptMessage.editor.UserBatchSetTaskEditor"
+            id="userBatchSetTaskEditor">               
+             <contentTypeBinding contentTypeId="userBatchSetTaskEditorType" />
+        </editor>
+        <editor
+      		name="newUnionEditor"
+            description="newUnionEditor"
+            class="com.wxxr.plugin.promptMessage.editor.NewUnionEditor"
+            id="newUnionEditor">               
+             <contentTypeBinding contentTypeId="newUnionEditorType" />
+        </editor>
+        
+        <editor
+      		name="commuicationAssistantnoticeEditor"
+            description="commuicationAssistantnoticeEditor"
+            class="com.wxxr.plugin.promptMessage.editor.CommunicationAssistantNoticeItemEditor"
+            id="commuicationAssistantnoticeEditor">               
+             <contentTypeBinding contentTypeId="commuicationAssistantnoticeEditorType" />
+        </editor>
+        
+
+        
+        <!--  
+         <editor
+      		name="sendSelfEditor"
+            description="sendSelfEditor"
+            class="com.wxxr.plugin.promptMessage.editor.SendSelfEditor"
+            id="sendSelfEditor">               
+             <contentTypeBinding contentTypeId="sendSelfEditorType" />
+        </editor>
+        -->
+       </extension>
+     <extension id="pmsgservices" point="com.wxxr.mx.core.platform.RPC-services">
+         <RPC-service
+            id="SSHXMessageController"
+             class="com.wxxr.smlib.ejb.SSHXMessageController"
+         />
+          <RPC-service
+            id="MessageProgramController"
+             class="com.wxxr.smlib.ejb.MessageProgramController"
+         />
+         <RPC-service
+            id="CenterI18nMessageController"
+             class="com.wxxr.i18nmessagemgr.ejb.CenterI18nMessageController"
+         />
+        <RPC-service
+            id="UserBatchTaskService"
+             class="com.wxxr.longlastingtask.ejb.LongLastingTaskController"
+         /> 
+         <RPC-service
+            id="ResetUserService"
+             class="com.wxxr.resetuser.ejb.ResetUserEjb"
+         /> 
+          <RPC-service
+            id="LongLastingAttrController"
+             class="com.wxxr.longlasting.attr.ejb.LongLastingAttrController"
+         /> 
+         <RPC-service
+            id="RefDataHelperController"
+             class="com.wxxr.worklist.ejb.RefDataHelper"
+         />
+         <RPC-service
+            id="NewUnionController"
+             class="com.wxxr.newunion.ejb.CreativeEJBRemote"
+         /> 
+     </extension>  
+
+
+
+
+	  <extension id="promptMessage-permissions"
+  		point="com.wxxr.mx.core.platform.permissions">
+  		<!-- 移动用户使用techsupport（对应Technician角色）和msgoperator（对应MsgManager角色）两个用户名登陆都能看见该page下的所有页面；不区分移动和电信 -->
+  		<permission targetId="com.wxxr.mx.promptMessage.pages.promptMessage:promptManagerPage" id="promptPrmission">
+  			<xRoles>MsgManager,Technician</xRoles>
+  		</permission>
+  		 <!-- 移动用户使用techsupport（对应Technician角色）的用户名登陆才能看见消息代码页面 -->
+  		<permission targetId="com.wxxr.mx.promptMessage.views.promptMessageView:MessageCodeListTable" id="promptPrmission2">
+  			<xRoles>Technician</xRoles>
+  		</permission>
+  		<permission targetId="com.wxxr.mx.promptMessage.pages.promptMessage:setUserBatchManagerPage" id="promptPrmission3">
+  			<xRoles>MsgManager,Technician</xRoles>
+  		</permission>
+  		<permission targetId="com.wxxr.mx.promptMessage.pages.promptMessage:newUnionManagerPage" id="promptPrmission4">
+  			<xRoles>CMUser</xRoles>
+  		</permission>
+  		<!-- 
+  		<permission targetId="com.wxxr.mx.promptMessage.menus.pmsg.wizard:promptListViewId:com.wxxr.mx.promptMessage.PromptListTable.prompt.addKey"  id="promptPrmission2">
+  			<xRoles>Technician</xRoles>
+  		</permission>
+  		 -->
+  		
+  		<permission targetId="com.wxxr.mx.promptMessage.pages.promptMessage:communicationAssistantManagementPage" id="promptPrmission6">
+  			<xRoles>MobileHelperManager</xRoles>
+  		</permission>
+  		
+  		<permission targetId="com.wxxr.mx.promptMessage.pages.promptMessage:userGroupManagementPage" id="promptPrmission7">
+  			<xRoles>UserGroupManager</xRoles>
+  		</permission>
+  		
+  		<permission targetId="com.wxxr.mx.promptMessage.pages.promptMessage:uploadPointTxtManagementPage"  id="permissions_xn4">
+  			<xRoles>MobileHelperManager</xRoles>
+  		</permission>
+  		
+		</extension>  
+		
+
+
+</plugin>
