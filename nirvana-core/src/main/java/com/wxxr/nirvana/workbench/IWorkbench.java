@@ -8,6 +8,7 @@
  */
 package com.wxxr.nirvana.workbench;
 
+import com.wxxr.nirvana.platform.IPlatform;
 import com.wxxr.nirvana.theme.ITheme;
 
 /**
@@ -15,11 +16,26 @@ import com.wxxr.nirvana.theme.ITheme;
  *
  */
 public interface IWorkbench {
-  void init(IWorkbenchManager context);
-  IViewManager getViewManager();
-  String getServerContextName();
-  ITheme getCurrentTheme();
-  IWorkbenchPageManager getWorkbenchPageManager();
-  IWorkbenchManager getWorkbenchManager();
-  void destroy();
+
+	IPermissionsManager getPermissionsManager();
+
+	ISecurityManager getSecurityManager();
+
+	IWorkbench getCurrentWorkbench();
+
+	IPlatform getUIPlatform();
+
+	String getDefaultPageId();
+
+	String getDefaultThemeId();
+
+	IViewManager getViewManager();
+
+	String getServerContextName();
+
+	ITheme getCurrentTheme();
+
+	IWorkbenchPageManager getWorkbenchPageManager();
+
+	void destroy();
 }

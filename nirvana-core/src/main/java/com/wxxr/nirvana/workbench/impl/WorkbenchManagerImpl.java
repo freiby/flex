@@ -11,38 +11,6 @@ import com.wxxr.nirvana.workbench.IWorkbenchPageManager;
 
 public class WorkbenchManagerImpl implements IWorkbenchManager {
 
-	private IThemeManager themeManager;
-
-	private ISecurityManager securityManager;
-	
-	private IPermissionsManager permissionsManager;
-
-	private IWorkbench currentWorkbench;
-	
-	private NirvanaContext nirvanaContext;
-	
-	private static final String WORKBENCH_KEY = "__WORKBENCH__";
-
-	public IThemeManager getThemeManager() {
-
-		return null;
-	}
-
-	public IWorkbenchPageManager getPageManager() {
-
-		return null;
-	}
-
-	public IPermissionsManager getPermissionsManager() {
-
-		return null;
-	}
-
-	public ISecurityManager getSecurityManager() {
-
-		return null;
-	}
-
 	public IWorkbench getCurrentWorkbench() {
 		IWorkbench workbench = (IWorkbench)nirvanaContext.getSessionValue(WORKBENCH_KEY);
 		if(workbench == null){
