@@ -14,7 +14,6 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.wxxr.nirvana.platform.CoreException;
 import com.wxxr.nirvana.workbench.ISecurityManager;
-import com.wxxr.nirvana.workbench.IWorkbenchManager;
 
 /**
  * @author neillin
@@ -76,13 +75,6 @@ public class SecurityManager implements ISecurityManager {
 	 */
 	public Principal getCurrentUser() {
 		return null;//FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal();
-	}
-
-	/* (non-Javadoc)
-	 * @see com.wxxr.web.ui.ISecurityManager#init(com.wxxr.web.ui.workbench.IWorkbenchManager)
-	 */
-	public void init(IWorkbenchManager owner) throws CoreException {
-
 	}
 
 }

@@ -13,14 +13,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.wxxr.nirvana.platform.CoreException;
 import com.wxxr.nirvana.platform.IConfigurationElement;
 import com.wxxr.nirvana.platform.IExtension;
-import com.wxxr.nirvana.platform.IPluginDescriptor;
 import com.wxxr.nirvana.workbench.IView;
 import com.wxxr.nirvana.workbench.IViewManager;
 import com.wxxr.nirvana.workbench.IWorkbench;
@@ -52,17 +50,10 @@ public class ViewManager extends BaseExtensionPointManager implements IViewManag
 	public ViewManager(){
 		super(UIConstants.UI_NAMESPACE,UIConstants.EXTENSION_POINT_VIEWS);
 	}
-
-	/* (non-Javadoc)
-	 * @see com.wxxr.web.ui.views.IViewManager#find(java.lang.String)
-	 */
 	public IView find(String id) {
 		return views.get(id);
 	}
 
-	/* (non-Javadoc)
-	 * @see com.wxxr.web.ui.views.IViewManager#getViews()
-	 */
 	public IView[] getViews() {
 		if(views.isEmpty()){
 			return EMPTY_VIEWS;
@@ -76,27 +67,15 @@ public class ViewManager extends BaseExtensionPointManager implements IViewManag
 		exts.clear();
 	}
 
-	public void init(IWorkbench owner) throws CoreException {
-		this.workbench = owner;
-		super.start();
-	}
-
 	protected IView createNewView(IConfigurationElement elem) throws Exception {
-		String id = elem.getAttribute(ATT_VIEW_ID);
+		String id = elem.getNamespaceIdentifier() + "." + elem.getAttribute(ATT_VIEW_ID);
 		IView view = find(id);
 		if(view == null){
-			String clazz = elem.getAttribute(ATT_VIEW_CLASS);
-			if(StringUtils.isBlank(clazz)){
-				if(VIEW_TYPE_COMPOSITE.equals(StringUtils.trim(elem.getAttribute(ATT_TYPE)))){
-				}else{
-				}
-			}else{
-		    	IPluginDescriptor plugin = getUIPlatform().getPluginDescriptor(elem.getNamespaceIdentifier());
-		    	view = (IView)createPluginObject(clazz, plugin);				
-			}
+			view = new View();
 			view.init(this, elem);
-			addView(view);
+			views.put(view.getId(), view);	
 		}
+
 		return view;
 		
 	}
@@ -141,12 +120,6 @@ public class ViewManager extends BaseExtensionPointManager implements IViewManag
 	}
   
 
-	public void addView(IView view) {
-		if(view == null){
-			throw new IllegalArgumentException();
-		}
-		views.put(view.getId(), view);	
-	}
 
 	public IWorkbench getWorkbench() {
 		return workbench;
@@ -157,6 +130,14 @@ public class ViewManager extends BaseExtensionPointManager implements IViewManag
 			return UIConstants.EMPTY_STRING_ARRAY;
 		}
 		return views.keySet().toArray(new String[views.size()]);
+	}
+
+	public IView removeView(String id) {
+		IView view = find(id);
+		if(view != null){
+			views.remove(id);
+		}
+		return view;
 	}
 
 }

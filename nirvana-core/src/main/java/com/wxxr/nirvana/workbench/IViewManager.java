@@ -1,6 +1,5 @@
 package com.wxxr.nirvana.workbench;
 
-import com.wxxr.nirvana.platform.CoreException;
 
 public interface IViewManager {
     /**
@@ -22,12 +21,8 @@ public interface IViewManager {
     
     public String[] getViewIds();
     
-    public void addView(IView view);
-    
-    void init(IWorkbench owner) throws CoreException;
-    
     void destroy();
     
-    IWorkbench getWorkbench();
-
+    void start();
+    
 }

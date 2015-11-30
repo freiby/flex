@@ -22,13 +22,6 @@ public interface ITheme extends IContributionItem {
 	String getDescription();
 	
 	/**
-	 * update config data from IConfigurationElement
-	 * added at 2007-11-5
-	 * @param config
-	 */
-	void applyConfigure(IConfigurationElement config);
-	
-	/**
 	 * this method should be called after a new instance was created.
 	 * 
 	 * added at 2007-11-5
@@ -40,4 +33,10 @@ public interface ITheme extends IContributionItem {
 	void destroy();
 
 	IThemeManager getThemeManager();
+	
+	IDesktop getDesktop();
+	
+	IPageLayout getPageLayout();
+	
+	boolean isDefault();
 }

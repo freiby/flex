@@ -241,7 +241,6 @@ public class Platform implements IPlatform{
 //		platformClassLoader = new UnifiedClassLoader3(null,null,parentClassLoader,loaderRepository);
 //		loaderRepository.registerClassLoader((UnifiedClassLoader3)platformClassLoader);
 		currentInstance = this;
-		initPluginRoot();
 	}
 
 
@@ -798,10 +797,10 @@ public class Platform implements IPlatform{
 
 
 	public void start() throws Exception {
-//		initPluginRoot();//deploy platform.core plugin
-//		scanPluginRoot();
-//		timer = new Timer();
-//		timer.scheduleAtFixedRate(scanTask, 5000L, 5000L);
+		PluginConfigurationElement pe = initPluginRoot();
+		if(pe != null){
+			activatePlugin(pe.getNamespaceIndentifier(), pe.getPluginVersion().toString());
+		}
 	}
 
 	public void stop() {
@@ -839,7 +838,7 @@ public class Platform implements IPlatform{
 	}
 
 
-	private File initPluginRoot() throws Exception {
+	private PluginConfigurationElement initPluginRoot() throws Exception {
 		if(pluginRootDir == null){
 			pluginRootDir = StringPropertyReplacer.replaceProperties(DEFAULT_PLUGIN_ROOT);
 		}
@@ -853,12 +852,24 @@ public class Platform implements IPlatform{
 			throw new CoreException("Invalid plugin root directory :"+pluginRootDir);
 		}
 		URL corePluginXML = Platform.class.getResource(CoreConstants.PLUGIN_XML);
+		PluginConfigurationElement pluginConfig = null;;
 		if(corePluginXML != null){
 			if(log.isInfoEnabled()){
 				log.info("Found platform core plugin xml :" + corePluginXML.toExternalForm());
 			}
-			PluginConfigurationElement pluginConfig = parser.parse(corePluginXML.openStream());
+			pluginConfig = parser.parse(corePluginXML.openStream());
 			File corePluginDir = new File(new File(pluginRoot,pluginConfig.getNamespaceIndentifier()),pluginConfig.getPluginVersion().toString());
+			
+			pluginConfig.setPluginxmlURL(new File(corePluginDir,CoreConstants.PLUGIN_XML).toURL());
+			
+			Map<PluginVersionIdentifier,PluginConfigurationElement> versions = deployedPluginVersions.get(pluginConfig.getNamespaceIdentifier());
+			if(versions == null){
+				versions = new HashMap<PluginVersionIdentifier,PluginConfigurationElement>();
+				deployedPluginVersions.put(pluginConfig.getNamespaceIdentifier(), versions);
+			}
+			versions.put(pluginConfig.getPluginVersion(), pluginConfig);
+			
+			
 			if(!corePluginDir.exists()){
 				if(!corePluginDir.mkdirs()){
 					throw new CoreException("Failed to create platform core plugin directory :"+corePluginDir);        
@@ -875,13 +886,16 @@ public class Platform implements IPlatform{
 					FileUtils.copyURLToFile(corePluginXML, xmlFile);
 				}
 			}
+			return pluginConfig;
 		}else{
 			if(log.isInfoEnabled()){
 				log.info("Cannot find platform core plugin xml");
 			}
 
 		}
-		return pluginRoot;
+		
+		
+		return pluginConfig;
 	}
 
 	protected void scanPluginVersions(File pluginDir){

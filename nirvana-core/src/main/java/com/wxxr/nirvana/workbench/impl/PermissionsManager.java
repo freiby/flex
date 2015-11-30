@@ -19,14 +19,12 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.sun.management.jmx.Trace;
 import com.wxxr.nirvana.platform.CoreException;
 import com.wxxr.nirvana.platform.IConfigurationElement;
 import com.wxxr.nirvana.platform.IExtension;
 import com.wxxr.nirvana.platform.IPluginDescriptor;
 import com.wxxr.nirvana.workbench.IPermissionDescriptor;
 import com.wxxr.nirvana.workbench.IPermissionsManager;
-import com.wxxr.nirvana.workbench.IWorkbenchManager;
 import com.wxxr.nirvana.workbench.UIConstants;
 import com.wxxr.nirvana.workbench.config.BaseExtensionPointManager;
 
@@ -189,14 +187,6 @@ public class PermissionsManager extends BaseExtensionPointManager implements
 			}
 			return map.get(targetId);
 		}
-	}
-
-	/* (non-Javadoc)
-	 * @see com.wxxr.web.ui.permissions.IPermissionsManager#init(com.wxxr.web.ui.workbench.IWorkbenchManager)
-	 */
-	public void init(IWorkbenchManager owner) throws CoreException {
-		super.start();
-
 	}
 
 	/* (non-Javadoc)

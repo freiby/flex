@@ -21,6 +21,5 @@ public interface ISecurityManager {
   boolean currentUserHasARoleOf(String[] roles);
   boolean currentUserHasRoles(String[] roles);
   Principal getCurrentUser();
-  void init(IWorkbenchManager owner) throws CoreException;
   void destroy();
 }

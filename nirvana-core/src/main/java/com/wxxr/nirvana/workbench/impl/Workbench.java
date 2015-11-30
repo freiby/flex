@@ -1,10 +1,11 @@
 package com.wxxr.nirvana.workbench.impl;
 
-import com.wxxr.nirvana.context.NirvanaContext;
 import com.wxxr.nirvana.platform.IPlatform;
+import com.wxxr.nirvana.platform.PlatformLocator;
 import com.wxxr.nirvana.theme.ITheme;
 import com.wxxr.nirvana.theme.IThemeManager;
 import com.wxxr.nirvana.workbench.IPermissionsManager;
+import com.wxxr.nirvana.workbench.IProductManager;
 import com.wxxr.nirvana.workbench.ISecurityManager;
 import com.wxxr.nirvana.workbench.IViewManager;
 import com.wxxr.nirvana.workbench.IWorkbench;
@@ -18,20 +19,41 @@ public class Workbench implements IWorkbench {
 	
 	private IPermissionsManager permissionsManager;
 
-	private NirvanaContext nirvanaContext;
+	private IWorkbenchPageManager workbenchPageManager;
 	
-	private IWorkbenchPageManager workbenchPage;
-
+	private IViewManager viewManager;
+	
+	private IProductManager productManager;
 
 	public IWorkbenchPageManager getWorkbenchPageManager() {
-		return workbenchPage;
+		if(workbenchPageManager == null){
+			workbenchPageManager = new WorkbenchPageManager();
+			workbenchPageManager.start();
+		}
+		return workbenchPageManager;
+	}
+	
+	public IProductManager getProductManager() {
+		if(productManager == null){
+			productManager = new ProductManager();
+			productManager.start();
+		}
+		return productManager;
 	}
 	
 	public IThemeManager getThemeManager() {
+		if(themeManager == null){
+			themeManager = new ThemeManager();
+			themeManager.start();
+		}
 		return themeManager;
 	}
 
 	public IPermissionsManager getPermissionsManager() {
+		if(permissionsManager == null){
+			permissionsManager = new PermissionsManager();
+			permissionsManager.start();
+		}
 		return permissionsManager;
 	}
 
@@ -39,33 +61,27 @@ public class Workbench implements IWorkbench {
 		return securityManager;
 	}
 
-	public IWorkbench getCurrentWorkbench() {
-		return null;
-	}
-
 	public IPlatform getUIPlatform() {
-		return null;
+		return PlatformLocator.getPlatform();
 	}
 
 	public String getDefaultPageId() {
-		return null;
+		return workbenchPageManager.getDefaultPageId();
 	}
 
 	public String getDefaultThemeId() {
-		return null;
+		return workbenchPageManager.getDefaultPageId();
 	}
 
 	public IViewManager getViewManager() {
-		return null;
+		if(viewManager == null){
+			viewManager = new ViewManager();
+			viewManager.start();
+		}
+		return viewManager;
 	}
-
-	public String getServerContextName() {
-		return null;
-	}
-
 	public ITheme getCurrentTheme() {
-		
-		return null;
+		return themeManager.getDefaultTheme();
 	}
 
 	public void destroy() {

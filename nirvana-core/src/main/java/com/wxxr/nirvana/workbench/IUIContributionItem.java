@@ -21,15 +21,6 @@ public interface IUIContributionItem extends IContributionItem {
     public String getId();
     
     /**
-     * Returns the text for this item.
-     *
-     * @return the text, or <code>null</code> if none
-     * @see #TEXT
-     */
-    public String getText();
-
-    
-    /**
      * Returns the tool tip text for this item.
      *
      * @return the tool tip text, or <code>null</code> if none
@@ -44,5 +35,10 @@ public interface IUIContributionItem extends IContributionItem {
     String getSubcontextURI();
     
     String getUniqueIndentifier();
+    
+    String getName();
+    
+    String getDescription();
+    
 
 }

@@ -1,0 +1,27 @@
+<plugin
+   id="com.wxxr.nirvana.platform"
+   name="ExtensionPoint"
+   version="1.0.0"
+   provider-name="wxxr.com.cn"
+   
+   >	
+   <extension-point id="adapters" name="%ExtPoint.adapters"/>
+   <extension-point id="services" name="%ExtPoint.services"/>
+   <extension-point id="RPC-services" name="%ExtPoint.rpcservices"/>
+   <extension-point id="RemoteObjects" name="%ExtPoint.RemoteObject"/>
+   <extension-point id="startup" name="%ExtPoint.startup"/>
+   <extension-point id="permissions" name="%ExtPoint.permissions"/>
+   <extension-point id="messages" name="%message" schema="schema/message.exsd"/>
+   <extension-point id="logins" name="%login" schema="schema/login.exsd"/>
+   <extension-point id="prompt" name="%prompt" schema="schema/prompt.exsd"/>
+   <extension-point id="promptManaager" name="%promptManaager" schema="schema/promptManaager.exsd"/>
+   <extension-point id="menu" name="%menu" schema="schema/menu.exsd"/>
+   <extension-point id="menuLinkView" name="%menuLinkView" schema="schema/menuLinkView.exsd"/>
+   <extension-point id="uieventBind" name="%uieventBind" schema="schema/uieventBind.exsd"/> 
+   <extension-point id="initLayouts" name="%initLayout" schema="schema/initLayout.exsd"/> 
+   <extension-point id="pages" name="%initLayout" schema="schema/initLayout.exsd"/>
+   <extension-point id="views" name="%initLayout" schema="schema/initLayout.exsd"/>
+   <extension-point id="themes" name="%initLayout" schema="schema/initLayout.exsd"/>
+   <extension-point id="resources" name="%initLayout" schema="schema/initLayout.exsd"/>
+   <extension-point id="products" name="%initLayout" schema="schema/initLayout.exsd"/>
+</plugin>

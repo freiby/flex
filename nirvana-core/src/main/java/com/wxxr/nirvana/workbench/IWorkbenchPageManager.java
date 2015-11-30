@@ -40,7 +40,7 @@ public interface IWorkbenchPageManager {
   Page[] getPages();
   String[] getAllPageIds(); 
   String getDefaultPageId();	 
-  void init(IWorkbenchManager owner) throws CoreException;
   void destroy();
+  void start();
 
 }

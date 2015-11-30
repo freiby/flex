@@ -16,10 +16,9 @@ import com.wxxr.nirvana.platform.IConfigurationElement;
  */
 public interface IWorkbenchPage extends IUIContributionItem {
   void init(IWorkbenchPageManager manager, IConfigurationElement config);
-  IView[] getViewsById(String id);
+  IView getViewsById(String id);
   String[] getAllViewIds();
-  void addViewToRegion(String regionId, String viewId, IConfigurationElement data);
-  IView removeViewById(String viewId);
+  boolean hasView(String vid);
   void destroy();
   IWorkbenchPageManager getWorkbenchPageManager();
 }

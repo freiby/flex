@@ -1,133 +1,38 @@
-<?xml version="1.0" encoding="GB2312" ?>
-<plugin id="com.wxxr.nirvana.test" name="nirvana"
-	version="1.0.0" provider-name="wxxr.com.cn"
-	>
-	<!-- <requires>com.wxxr.nirvana.test</requires> -->
-	<extension id="nirvana" point="com.wxxr.nirvana.products">
-       <product
-            name="pmsg"
-            description="nirvana"
-            id="nirvana"
+<?xml version="1.0" encoding="utf-8" ?>
+<plugin
+   id="com.wxxr.nirvana.style"
+   name="FlexWebUI"
+   version="1.0.0"
+   provider-name="wxxr.com.cn"
+   contextURI="flexWeb"
+   messagebundle="styleMessage"
+   >
+    <extension
+         id="nirvanaStyle"
+         point="com.wxxr.nirvana.platform.themes">
+      <theme
+            id="nirvanaStyle_theme"
+            name="nirvanaSytle"
+            description="nirvanaSytledesc"
+			default="true"
             >
-		 <pages>
-        		<page id="com.wxxr.nirvana.test.niravanaPage" index="1" defaulPage="true"/>
-         </pages>
-      </product>
+			<desktop
+				id="nirvanadesktop"
+				name="desktop"
+				description="desktopdesc"
+				uri="desktopuri"
+            >
+			</desktop>
 
+			<pageLayout
+				id="nirvanapagelayout"
+				name="layout"
+				description="layoutdesc"
+				uri="pagelayouturi">
+			</pageLayout>
+      </theme>
    </extension>
+
+
    
-   <extension point="com.wxxr.nirvana.pages" id="pages.niravanaPage">
-      <page
-            class="com.wxxr.plugin.promptMessage.pageLayout.PromptManagerPerspective"
-            id="niravanaPage"
-            label="tiger"      
-            name="tiger">
-      </page>
-   </extension>
-
-   <extension
-       point="com.wxxr.nirvana.views" id="views.niravanaViews">
-	   <view
-            name="chart1"
-            description=""
-            uri="view/chart1.jsp"
-            id="chart1"
-			>
-      </view>
-
-	  <view
-            name="chart2"
-            description=""
-            uri="c3-1.html"
-            id="chart2"
-			resourceref="com.wxxr.nirvana.test.dj,com.wxxr.nirvana.test.cj,com.wxxr.nirvana.test.hj">
-      </view>
-
-	  <view
-            name="chart3"
-            description=""
-            uri="view/chart3.jsp"
-            id="chart3">
-      </view>
-     </extension>
- 
-     <extension id="pmsgservices" point="com.wxxr.nirvana.rpc">
-         <RPC-service
-            id="NewUnionController"
-             class="com.wxxr.newunion.ejb.CreativeEJBRemote"
-         /> 
-     </extension>
-	 
-
-	 <extension point="com.wxxr.nirvana.resources" id="pages.niravanaPage">
-		  <resource
-				id="hj"
-				label="tiger"      
-				uri="js/hello.js"
-				type="js"
-				position="footer">
-		  </resource>
-
-
-		  <resource
-				id="dj"
-				label="tiger"      
-				uri="js/d3.min.js"
-				type="js"
-				position="header">
-		  </resource>
-
-		  <resource
-				id="cj"
-				label="tiger"      
-				uri="js/c3.min.js"
-				type="js"
-				position="header">
-		  </resource>
-
-
-		  
-     </extension>
-
-
-
-
-	  <extension id="promptMessage-permissions"
-  		point="com.wxxr.mx.core.platform.permissions">
-  		<!-- 移动用户使用techsupport（对应Technician角色）和msgoperator（对应MsgManager角色）两个用户名登陆都能看见该page下的所有页面；不区分移动和电信 -->
-  		<permission targetId="com.wxxr.mx.promptMessage.pages.promptMessage:promptManagerPage" id="promptPrmission">
-  			<xRoles>MsgManager,Technician</xRoles>
-  		</permission>
-  		 <!-- 移动用户使用techsupport（对应Technician角色）的用户名登陆才能看见消息代码页面 -->
-  		<permission targetId="com.wxxr.mx.promptMessage.views.promptMessageView:MessageCodeListTable" id="promptPrmission2">
-  			<xRoles>Technician</xRoles>
-  		</permission>
-  		<permission targetId="com.wxxr.mx.promptMessage.pages.promptMessage:setUserBatchManagerPage" id="promptPrmission3">
-  			<xRoles>MsgManager,Technician</xRoles>
-  		</permission>
-  		<permission targetId="com.wxxr.mx.promptMessage.pages.promptMessage:newUnionManagerPage" id="promptPrmission4">
-  			<xRoles>CMUser</xRoles>
-  		</permission>
-  		<!-- 
-  		<permission targetId="com.wxxr.mx.promptMessage.menus.pmsg.wizard:promptListViewId:com.wxxr.mx.promptMessage.PromptListTable.prompt.addKey"  id="promptPrmission2">
-  			<xRoles>Technician</xRoles>
-  		</permission>
-  		 -->
-  		
-  		<permission targetId="com.wxxr.mx.promptMessage.pages.promptMessage:communicationAssistantManagementPage" id="promptPrmission6">
-  			<xRoles>MobileHelperManager</xRoles>
-  		</permission>
-  		
-  		<permission targetId="com.wxxr.mx.promptMessage.pages.promptMessage:userGroupManagementPage" id="promptPrmission7">
-  			<xRoles>UserGroupManager</xRoles>
-  		</permission>
-  		
-  		<permission targetId="com.wxxr.mx.promptMessage.pages.promptMessage:uploadPointTxtManagementPage"  id="permissions_xn4">
-  			<xRoles>MobileHelperManager</xRoles>
-  		</permission>
-  		
-		</extension>  
-		
-
-
-</plugin>
+</plugin> 

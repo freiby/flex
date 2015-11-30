@@ -131,5 +131,7 @@ public interface IPlatform {
   public String[] listAllPluginNames() ;
   public String[] listAllVersionsOfPlugin(String pluginId);
   public void activatePlugins()  throws Exception;
+  
+  public void start() throws Exception;
 
 }

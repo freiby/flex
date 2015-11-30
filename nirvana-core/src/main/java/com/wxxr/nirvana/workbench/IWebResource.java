@@ -14,8 +14,5 @@ package com.wxxr.nirvana.workbench;
  *
  */
 public interface IWebResource extends IContributionItem {
-	String getSourceDirectory();
 	String getType();
-	String getMapToURI();
-	String getRealPathOfMapTo();
 }

@@ -13,7 +13,7 @@ package com.wxxr.nirvana.workbench;
  *
  */
 public interface UIConstants {
-  String UI_NAMESPACE="com.wxxr.nirvana";
+  String UI_NAMESPACE="com.wxxr.nirvana.platform";
   String EXTENSION_POINT_PAGES="pages";
   String EXTENSION_POINT_MENUS="menus";
   String EXTENSION_POINT_ACTIONS="actions";
@@ -24,6 +24,7 @@ public interface UIConstants {
   String EXTENSION_POINT_THEMES="themes";
   String EXTENSION_POINT_RESOURCES="resources";
   String EXTENSION_POINT_BEANS="beans";
+  String EXTENSION_POINT_PRODUCTS="products";
   
   String[] EMPTY_STRING_ARRAY = new String[0];
 }

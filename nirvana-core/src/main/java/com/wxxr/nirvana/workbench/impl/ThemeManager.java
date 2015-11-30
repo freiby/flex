@@ -14,18 +14,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.ui.context.Theme;
 
-import com.sun.management.jmx.Trace;
-import com.wxxr.nirvana.platform.CoreException;
 import com.wxxr.nirvana.platform.IConfigurationElement;
 import com.wxxr.nirvana.platform.IExtension;
-import com.wxxr.nirvana.platform.IPluginDescriptor;
 import com.wxxr.nirvana.theme.ITheme;
 import com.wxxr.nirvana.theme.IThemeManager;
-import com.wxxr.nirvana.workbench.IWorkbenchManager;
 import com.wxxr.nirvana.workbench.UIConstants;
 import com.wxxr.nirvana.workbench.config.BaseExtensionPointManager;
 
@@ -41,6 +37,7 @@ public class ThemeManager extends BaseExtensionPointManager implements IThemeMan
 	private static final String ATT_ID="id";
 	private static final String ATT_CLASS="class";
 	private static final String DEFAULT_THEME_ID = "industrial";
+	private ITheme defaultTheme; 
 	
 	public ThemeManager(){
 		super(UIConstants.UI_NAMESPACE,UIConstants.EXTENSION_POINT_THEMES);
@@ -48,18 +45,7 @@ public class ThemeManager extends BaseExtensionPointManager implements IThemeMan
 
 	protected Map<String, ITheme> themes = new HashMap<String, ITheme>();
 	protected Map<String, List<String>> exts = new ConcurrentHashMap<String, List<String>>();
-	protected IWorkbenchManager manager;
 	
-    public void addTheme(ITheme theme) {
-      if(theme == null){
-        throw new IllegalArgumentException();
-      }
-      synchronized(themes){
-        themes.put(theme.getId(), theme);
-      }
-      
-    }
-
     public String[] getAllThemeIds() {
       synchronized(themes){
         if(themes.isEmpty()){
@@ -91,8 +77,7 @@ public class ThemeManager extends BaseExtensionPointManager implements IThemeMan
     }
 
 	public ITheme getDefaultTheme() {
-		String themeId = manager.getDefaultThemeId();
-		return (themeId != null) ? getTheme(themeId) : getTheme(DEFAULT_THEME_ID);
+		return defaultTheme;
 	}
 
 	public void destroy() {
@@ -100,23 +85,20 @@ public class ThemeManager extends BaseExtensionPointManager implements IThemeMan
 		
 	}
 
-	public void init(IWorkbenchManager owner) throws CoreException {
-		manager = owner;
-		super.start();
-	}
 
 	protected ITheme createNewTheme(IConfigurationElement elem) throws Exception {
-		String id = elem.getAttribute(ATT_ID);
+		String id = elem.getNamespaceIdentifier()+ "." + elem.getAttribute(ATT_ID);
 		ITheme theme = null;
-		String clazz = elem.getAttribute(ATT_CLASS);
-		if(StringUtils.isBlank(clazz)){
-			theme = new ThemeImpl();
-		}else{
-	    	IPluginDescriptor plugin = getUIPlatform().getPluginDescriptor(elem.getNamespaceIdentifier());
-	    	theme = (ITheme)createPluginObject(clazz, plugin);				
-		}
+		theme = new ThemeImpl();
 		theme.init(this, elem);
-		addTheme(theme);
+		
+		synchronized(themes){
+	        themes.put(id, theme);
+	      }
+		
+		if(theme.isDefault()){
+			defaultTheme = theme;
+		}
 		return theme;
 		
 	}
@@ -127,7 +109,7 @@ public class ThemeManager extends BaseExtensionPointManager implements IThemeMan
 		List<String> list = exts.get(ext.getUniqueIdentifier());
 		for (int i = 0; i < configs.length; i++) {
 			IConfigurationElement elem = configs[i];
-			if((elem != null)&&THEME_ELEMENT_NAME.equalsIgnoreCase(elem.getName())){
+			if((elem != null) && THEME_ELEMENT_NAME.equalsIgnoreCase(elem.getName())){
 				try {
 					ITheme theme = createNewTheme(elem);
 					if(list == null){

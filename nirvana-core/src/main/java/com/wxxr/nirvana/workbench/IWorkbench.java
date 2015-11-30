@@ -21,8 +21,6 @@ public interface IWorkbench {
 
 	ISecurityManager getSecurityManager();
 
-	IWorkbench getCurrentWorkbench();
-
 	IPlatform getUIPlatform();
 
 	String getDefaultPageId();
@@ -30,8 +28,6 @@ public interface IWorkbench {
 	String getDefaultThemeId();
 
 	IViewManager getViewManager();
-
-	String getServerContextName();
 
 	ITheme getCurrentTheme();
 
