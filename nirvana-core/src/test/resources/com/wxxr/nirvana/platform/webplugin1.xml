@@ -10,8 +10,8 @@
 			themeref="com.wxxr.nirvana.style.nirvanaStyle_theme"
             id="nirvana"
             >
-			<page ref="com.wxxr.nirvana.test.niravanaPage" index="1" defaulPage="true"/>
-			<page ref="com.wxxr.nirvana.test.lionPage" index="2" />
+			<page ref="com.wxxr.nirvana.test.niravanaPage" index="1" defaulPage="true" layout="nirvanapagelayout"/>
+			<page ref="com.wxxr.nirvana.test.lionPage" index="2" layout="nirvanapagelayout2"/>
       </product>
 
    </extension>
@@ -20,11 +20,12 @@
       <page
             id="niravanaPage"
             label="tiger"      
-            name="tiger">
+            name="tiger"
+			>
             
-            <view ref="com.wxxr.nirvana.test.chart1"></view>
-            <view ref="com.wxxr.nirvana.test.chart2"></view>
-            <view ref="com.wxxr.nirvana.test.chart3"></view>
+            <view ref="com.wxxr.nirvana.test.chart1" attachment="headerone"></view>
+            <view ref="com.wxxr.nirvana.test.chart2" attachment="headertwo">></view>
+            <view ref="com.wxxr.nirvana.test.chart3" attachment="headerthree">></view>
             
       </page>
 
@@ -32,6 +33,10 @@
             id="lionPage"
             label="lion"      
             name="lion">
+
+			<view ref="com.wxxr.nirvana.test.chart1" attachment="headerone"></view>
+            <view ref="com.wxxr.nirvana.test.chart2" attachment="headertwo">></view>
+            <view ref="com.wxxr.nirvana.test.chart3" attachment="headerthree">></view>
       </page>
       
    </extension>

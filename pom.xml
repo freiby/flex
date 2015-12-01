@@ -55,8 +55,7 @@
 		<module>nirvana-core</module>
 		<module>tiles</module>
 		<module>nirvana-ui</module>
-    <module>nirvana-web</module>
-    <module>nirvana-we</module>
+		<module>nirvana-web</module>
   </modules>
     
     <distributionManagement>

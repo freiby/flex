@@ -30,6 +30,14 @@
 				description="layoutdesc"
 				uri="pagelayouturi">
 			</pageLayout>
+
+
+			<pageLayout
+				id="nirvanapagelayout2"
+				name="layout"
+				description="layoutdesc"
+				uri="pagelayouturi">
+			</pageLayout>
       </theme>
    </extension>
 

@@ -11,5 +11,7 @@ public interface IView extends IUIContributionItem, Cloneable {
     String getViewURI();
     
     View.ResourceRef[] getResourcesRef();
+    
+    String get(String attri);
 
 }

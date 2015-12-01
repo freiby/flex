@@ -61,4 +61,12 @@ public class View extends UIComponent implements IView{
 		return resourcesRefs;
 	}
 
+	public String get(String attri) {
+		IConfigurationElement elem = getConfigurationElement();
+		if(elem != null){
+			return elem.getAttribute(attri);
+		}
+		return null;
+	}
+
 }
