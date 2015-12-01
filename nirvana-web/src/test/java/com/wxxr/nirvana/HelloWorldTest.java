@@ -19,11 +19,12 @@
  * under the License.
  */
 
-package com.wxxr.nirvana.example;
+package com.wxxr.nirvana;
 
 import org.apache.struts2.StrutsTestCase;
 
 import com.opensymphony.xwork2.ActionSupport;
+import com.wxxr.nirvana.example.HelloWorld;
 
 public class HelloWorldTest extends StrutsTestCase {
 

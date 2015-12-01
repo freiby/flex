@@ -19,7 +19,7 @@
  * under the License.
  */
 
-package com.wxxr.nirvana.example;
+package com.wxxr.nirvana;
 
 import java.util.List;
 import java.util.Map;

@@ -6,7 +6,6 @@ import static junit.framework.Assert.assertNotNull;
 import java.net.URL;
 import java.util.List;
 
-import org.apache.tiles.Page;
 import org.junit.Before;
 import org.junit.Test;
 

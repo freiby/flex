@@ -5,6 +5,7 @@ import org.apache.tiles.TilesContainer;
 import org.apache.tiles.TilesException;
 import org.apache.tiles.impl.ext.BasicSiteContainer;
 
+
 public class SiteTilesContainerFactory extends StrutsTilesContainerFactory {
 	
 	/**

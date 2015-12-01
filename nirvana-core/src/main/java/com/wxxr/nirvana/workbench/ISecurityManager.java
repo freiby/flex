@@ -10,8 +10,6 @@ package com.wxxr.nirvana.workbench;
 
 import java.security.Principal;
 
-import com.wxxr.nirvana.platform.CoreException;
-
 /**
  * @author neillin
  *

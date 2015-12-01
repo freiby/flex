@@ -19,12 +19,13 @@
  * under the License.
  */
 
-package com.wxxr.nirvana.example;
+package com.wxxr.nirvana;
 
 import java.util.Map;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.config.entities.ActionConfig;
+import com.wxxr.nirvana.example.Login;
 
 public class LoginTest extends ConfigTest {
 

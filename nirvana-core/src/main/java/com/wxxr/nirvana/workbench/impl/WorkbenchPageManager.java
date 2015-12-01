@@ -16,7 +16,6 @@ import java.util.Map;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.tiles.Page;
 
 import com.wxxr.nirvana.platform.CoreException;
 import com.wxxr.nirvana.platform.IConfigurationElement;
@@ -236,10 +235,6 @@ public class WorkbenchPageManager extends BaseExtensionPointManager implements
 	}
 
 	
-
-	public Page removeLayout(String layoutId) {
-		return null;
-	}
 
 	public String getDefaultPageId() {
 		return null;

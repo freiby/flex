@@ -94,13 +94,13 @@
     <dependency>
       <groupId>com.wxxr.nirvana</groupId>
       <artifactId>tiles-api</artifactId>
-      <version>${pom.version}</version>
+      <version>${project.version}</version>
     </dependency>
 
     <dependency>
       <groupId>com.wxxr.nirvana</groupId>
       <artifactId>tiles-core-wxxr</artifactId>
-      <version>${pom.version}</version>
+      <version>${project.version}</version>
       <exclusions>
           <exclusion>
               <groupId>com.wxxr.nirvana</groupId>
@@ -112,7 +112,7 @@
     <dependency>
       <groupId>com.wxxr.nirvana</groupId>
       <artifactId>tiles-jsp-wxxr</artifactId>
-      <version>${pom.version}</version>
+      <version>${project.version}</version>
       <exclusions>
           <exclusion>
               <groupId>com.wxxr.nirvana</groupId>
@@ -128,14 +128,14 @@
     <dependency>
       <groupId>com.wxxr.nirvana</groupId>
       <artifactId>tiles-api-wxxr</artifactId>
-      <version>${pom.version}</version>
+      <version>${project.version}</version>
       <classifier>j4</classifier>
     </dependency>
 
     <dependency>
       <groupId>com.wxxr.nirvana</groupId>
       <artifactId>tiles-core-wxxr</artifactId>
-      <version>${pom.version}</version>
+      <version>${project.version}</version>
       <classifier>j4</classifier>
       <exclusions>
           <exclusion>
@@ -148,7 +148,7 @@
     <dependency>
       <groupId>com.wxxr.nirvana</groupId>
       <artifactId>tiles-jsp-wxxr</artifactId>
-      <version>${pom.version}</version>
+      <version>${project.version}</version>
       <classifier>j4</classifier>
       <exclusions>
           <exclusion>
@@ -165,7 +165,7 @@
     <dependency>
       <groupId>com.wxxr.nirvana</groupId>
       <artifactId>tiles-test</artifactId>
-      <version>${pom.version}</version>
+      <version>${project.version}</version>
       <type>war</type>
     </dependency>
 
