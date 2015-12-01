@@ -73,7 +73,7 @@ public class ViewManager extends BaseExtensionPointManager implements IViewManag
 		if(view == null){
 			view = new View();
 			view.init(this, elem);
-			views.put(view.getId(), view);	
+			views.put(view.getUniqueIndentifier(), view);	
 		}
 
 		return view;

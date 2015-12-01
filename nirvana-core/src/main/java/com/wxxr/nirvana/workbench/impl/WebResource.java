@@ -37,4 +37,9 @@ public class WebResource extends BaseContributionItem implements IWebResource {
 		return elem.getAttribute(ATT_SOURCE_TYPE);
 	}
 
+
+	public void destroy() {
+		
+	}
+
 }

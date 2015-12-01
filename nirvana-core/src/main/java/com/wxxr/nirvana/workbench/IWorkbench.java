@@ -23,9 +23,9 @@ public interface IWorkbench {
 
 	IPlatform getUIPlatform();
 
-	String getDefaultPageId();
+//	String getDefaultPageId();
 
-	String getDefaultThemeId();
+//	String getDefaultThemeId();
 
 	IViewManager getViewManager();
 

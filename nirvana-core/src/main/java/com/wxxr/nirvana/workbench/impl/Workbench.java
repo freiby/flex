@@ -8,6 +8,7 @@ import com.wxxr.nirvana.workbench.IPermissionsManager;
 import com.wxxr.nirvana.workbench.IProductManager;
 import com.wxxr.nirvana.workbench.ISecurityManager;
 import com.wxxr.nirvana.workbench.IViewManager;
+import com.wxxr.nirvana.workbench.IWebResourceManager;
 import com.wxxr.nirvana.workbench.IWorkbench;
 import com.wxxr.nirvana.workbench.IWorkbenchPageManager;
 
@@ -24,7 +25,17 @@ public class Workbench implements IWorkbench {
 	private IViewManager viewManager;
 	
 	private IProductManager productManager;
-
+	
+	private IWebResourceManager webresourceManager;
+	
+	public IWebResourceManager getWebResourceManager() {
+		if(webresourceManager == null){
+			webresourceManager = new WebResourceManager();
+			webresourceManager.start();
+		}
+		return webresourceManager;
+	}
+	
 	public IWorkbenchPageManager getWorkbenchPageManager() {
 		if(workbenchPageManager == null){
 			workbenchPageManager = new WorkbenchPageManager();
@@ -63,14 +74,6 @@ public class Workbench implements IWorkbench {
 
 	public IPlatform getUIPlatform() {
 		return PlatformLocator.getPlatform();
-	}
-
-	public String getDefaultPageId() {
-		return workbenchPageManager.getDefaultPageId();
-	}
-
-	public String getDefaultThemeId() {
-		return workbenchPageManager.getDefaultPageId();
 	}
 
 	public IViewManager getViewManager() {

@@ -55,6 +55,7 @@ public class WorkbenchPage extends UIComponent implements IWorkbenchPage {
 	
 	protected void initViews(IConfigurationElement config) {
 		IConfigurationElement[] viewConfigs = config.getChildren(VIEW_ELEMENT);
+		if(viewConfigs == null) return;
 		viewids = new String[viewConfigs.length];
 		for (int j = 0; j < viewConfigs.length; j++) {
 			IConfigurationElement viewConfig = viewConfigs[j];

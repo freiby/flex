@@ -127,38 +127,8 @@ public class WorkbenchPageManager extends BaseExtensionPointManager implements
 		}
 	}
 
-	public IWorkbenchPage[] getMyPages() {
-		synchronized (pages) {
-			if (pages.isEmpty()) {
-				return NO_CHILD;
-			}
-			LinkedList<IWorkbenchPage> myPages = new LinkedList<IWorkbenchPage>();
-			for (IWorkbenchPage workbenchPage : pages.values()) {
-				// if(workbenchPage.isVisible()){
-				// myPages.add(workbenchPage);
-				// }
-			}
-			if (myPages.isEmpty()) {
-				return NO_CHILD;
-			}
-			IWorkbenchPage[] ps = myPages.toArray(new IWorkbenchPage[myPages
-					.size()]);
-			Arrays.sort(ps);
-			return ps;
-		}
-	}
-
-	protected String[] getMyPageIds() {
-		IWorkbenchPage[] myPages = getMyPages();
-		if ((myPages == null) || (myPages.length == 0)) {
-			return UIConstants.EMPTY_STRING_ARRAY;
-		}
-		String[] ids = new String[myPages.length];
-		for (int i = 0; i < myPages.length; i++) {
-			ids[i] = myPages[i].getId();
-		}
-		return ids;
-	}
+	
+	
 
 	/*
 	 * (non-Javadoc)
@@ -210,19 +180,8 @@ public class WorkbenchPageManager extends BaseExtensionPointManager implements
 	}
 
 	public IWorkbenchPage getCurrentWorkbenchPage() {
-		// if(currentPageId == null){
-		// currentPageId =
-		// workbench.getWorkbenchManager().getPreferencesManager().getUserDefaultPage(null,
-		// getMyPageIds());
-		// }
-		// IWorkbenchPage page = getWorkbenchPage(currentPageId);
-		// if((page != null)&&(page.isVisible())){
-		// return page;
-		// }
-		// this.currentPageId =
-		// workbench.getWorkbenchManager().getPreferencesManager().getUserDefaultPage(null,
-		// getMyPageIds());
-		// return getWorkbenchPage(currentPageId);
+		 if(currentPageId != null)
+		 return getWorkbenchPage(currentPageId);
 		return null;
 	}
 
@@ -276,23 +235,9 @@ public class WorkbenchPageManager extends BaseExtensionPointManager implements
 		return workbench;
 	}
 
-	public Page getPage(String pageId) {
-		return null;
-	}
-
-	public Page getPage(String pageId, IConfigurationElement elem) {
-		return null;
-	}
-
-	public void addPage(Page page) {
-
-	}
+	
 
 	public Page removeLayout(String layoutId) {
-		return null;
-	}
-
-	public Page[] getPages() {
 		return null;
 	}
 

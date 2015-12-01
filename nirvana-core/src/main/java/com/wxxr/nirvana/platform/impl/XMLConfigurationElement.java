@@ -17,7 +17,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.xml.sax.Attributes;
 
-import com.sun.management.jmx.Trace;
 import com.wxxr.nirvana.platform.CoreException;
 import com.wxxr.nirvana.platform.IConfigurationElement;
 import com.wxxr.nirvana.platform.IContributor;
@@ -223,7 +222,7 @@ public class XMLConfigurationElement implements IConfigurationElement,Comparable
 			.append("plugins/swf/").append(((PluginConfigurationElement)this).getNamespaceIndentifier()).append('/').append(((PluginConfigurationElement)this).getPluginVersion().toString()).append('/')
 			.append(value).append('"');
 		}else if(this.name.equals("library") && name.equals("name") && value.endsWith(".swf")){
-			if(attributes.get("thirdParty") != null){//Èç¹ûÊÇµÚÈı·½µÄswf ¾Í°ÑËü·Åµ½rootÏÂ±ß
+			if(attributes.get("thirdParty") != null){//å¦‚æœæ˜¯ç¬¬ä¸‰æ–¹çš„swf å°±æŠŠå®ƒæ”¾åˆ°rootä¸‹è¾¹
 				String thirdParty = (String)attributes.get("thirdParty");
 				buf.append(' ').append(name).append('=').append("\"plugins/thirdparty/").append(value).append('"');
 			}else{
@@ -244,31 +243,31 @@ public class XMLConfigurationElement implements IConfigurationElement,Comparable
 	}
 	/**
 	 * add by wangping 2009-01-10 14:07
-	 * ÔÚxmlÕâ¸öÊ÷ÉÏ,Èç¹ûÈÎºÎÒ»¸ö×Ó½ÚµãÉÏÓĞ"filter" ÊôĞÔ,²¢ÇÒËüµÄÖµºÍ´Ëº¯ÊıµÄ´«Èë²ÎÊıÆ¥Åä£¬ÔòÒÔ´Ë½áµãÎª¸ù½áµãµÄ×ÓÊ÷ºÍËüµÄ¸¸½áµãÒ»Ö±ÉÏËİµ½¸ù£¬ÕâĞ©½áµã¶¼»á±»¼ÇÂ¼ÔÚ·µ»ØµÄString Àï¡£ 
-	 * µ«²¢²»ÄÜ±£Ö¤¸¸½áµãµÄÆäËü×Ó½áµãÒ²°üº¬µ½´ËStringÖĞ£¬
+	 * åœ¨xmlè¿™ä¸ªæ ‘ä¸Š,å¦‚æœä»»ä½•ä¸€ä¸ªå­èŠ‚ç‚¹ä¸Šæœ‰"filter" å±æ€§,å¹¶ä¸”å®ƒçš„å€¼å’Œæ­¤å‡½æ•°çš„ä¼ å…¥å‚æ•°åŒ¹é…ï¼Œåˆ™ä»¥æ­¤ç»“ç‚¹ä¸ºæ ¹ç»“ç‚¹çš„å­æ ‘å’Œå®ƒçš„çˆ¶ç»“ç‚¹ä¸€ç›´ä¸Šæº¯åˆ°æ ¹ï¼Œè¿™äº›ç»“ç‚¹éƒ½ä¼šè¢«è®°å½•åœ¨è¿”å›çš„String é‡Œã€‚ 
+	 * ä½†å¹¶ä¸èƒ½ä¿è¯çˆ¶ç»“ç‚¹çš„å…¶å®ƒå­ç»“ç‚¹ä¹ŸåŒ…å«åˆ°æ­¤Stringä¸­ï¼Œ
 	 * 
-	 * 0 ²ÎÊıÎª null »ò "" »ò "*" ²»¹ıÂË£¬·µ»ØtoXML()¡£
-	 * 1 µ±Ç°½áµãÍ¨¹ıÁË£¬°Ñµ±Ç°½áµãµÄ×ÓÊ÷·µ»Ø¡£
-	 * 2 Èç¹ûµ±Ç°½áµãÃ»ÓĞÍ¨¹ı£¬
-	 * 		2.1 µ±Ç°½áµã»¹ÓĞ×Ó½áµã£¬ÔòÏÈ¹ıÂË×Ó½áµã£¬Èç¹û¹ıÂËºóµÄString ³¤¶È²»Îª"0",Ôò·µ»Ø: µ±Ç°½áµãname + attribute + ¹ıÂË½á¹û + value + µ±Ç°½áµãµÄxml½áÊø·û¡£
-	 * 		2.2 µ±Ç°½áµãÃ»ÓĞ×Ó½áµã£¬Ôò·µ»Ønull »ò "" ¡£
+	 * 0 å‚æ•°ä¸º null æˆ– "" æˆ– "*" ä¸è¿‡æ»¤ï¼Œè¿”å›toXML()ã€‚
+	 * 1 å½“å‰ç»“ç‚¹é€šè¿‡äº†ï¼ŒæŠŠå½“å‰ç»“ç‚¹çš„å­æ ‘è¿”å›ã€‚
+	 * 2 å¦‚æœå½“å‰ç»“ç‚¹æ²¡æœ‰é€šè¿‡ï¼Œ
+	 * 		2.1 å½“å‰ç»“ç‚¹è¿˜æœ‰å­ç»“ç‚¹ï¼Œåˆ™å…ˆè¿‡æ»¤å­ç»“ç‚¹ï¼Œå¦‚æœè¿‡æ»¤åçš„String é•¿åº¦ä¸ä¸º"0",åˆ™è¿”å›: å½“å‰ç»“ç‚¹name + attribute + è¿‡æ»¤ç»“æœ + value + å½“å‰ç»“ç‚¹çš„xmlç»“æŸç¬¦ã€‚
+	 * 		2.2 å½“å‰ç»“ç‚¹æ²¡æœ‰å­ç»“ç‚¹ï¼Œåˆ™è¿”å›null æˆ– "" ã€‚
 	 * @return
 	 */
 	public String toXMLWithFilter(String filter) {
-		//0 ²ÎÊıÎª "*" ²»¹ıÂË£¬·µ»ØtoXML()¡£
+		//0 å‚æ•°ä¸º "*" ä¸è¿‡æ»¤ï¼Œè¿”å›toXML()ã€‚
 		if(StringUtils.isBlank(filter)||filter.equals("*")){
 			return this.toXML();
 		}
-		//1 µ±Ç°½áµãÍ¨¹ıÁË£¬°Ñµ±Ç°½áµãµÄ×ÓÊ÷·µ»Ø¡£
+		//1 å½“å‰ç»“ç‚¹é€šè¿‡äº†ï¼ŒæŠŠå½“å‰ç»“ç‚¹çš„å­æ ‘è¿”å›ã€‚
 		if(this.hasAttribute(CoreConstants.ATT_FILTER)){
 			if(this.getAttributeValue(CoreConstants.ATT_FILTER).equals(filter)){
 				return this.toXML();
 			}
 		}
-		//2 Èç¹ûµ±Ç°½áµãÃ»ÓĞÍ¨¹ı£¬
-		//2.1 µ±Ç°½áµã»¹ÓĞ×Ó½áµã£¬ÔòÏÈ¹ıÂË×Ó½áµã£¬Èç¹û¹ıÂËºóµÄString ³¤¶È²»Îª"0",Ôò·µ»Ø: µ±Ç°½áµãname + attribute + ¹ıÂË½á¹û + value + µ±Ç°½áµãµÄxml½áÊø·û¡£
+		//2 å¦‚æœå½“å‰ç»“ç‚¹æ²¡æœ‰é€šè¿‡ï¼Œ
+		//2.1 å½“å‰ç»“ç‚¹è¿˜æœ‰å­ç»“ç‚¹ï¼Œåˆ™å…ˆè¿‡æ»¤å­ç»“ç‚¹ï¼Œå¦‚æœè¿‡æ»¤åçš„String é•¿åº¦ä¸ä¸º"0",åˆ™è¿”å›: å½“å‰ç»“ç‚¹name + attribute + è¿‡æ»¤ç»“æœ + value + å½“å‰ç»“ç‚¹çš„xmlç»“æŸç¬¦ã€‚
 		if(children.size() != 0){
-			//ÔòÏÈ¹ıÂË×Ó½áµã£¬
+			//åˆ™å…ˆè¿‡æ»¤å­ç»“ç‚¹ï¼Œ
 			StringBuffer buf = new StringBuffer();
 			Collection col = children.values();
 			Iterator itr = (col != null) ? col.iterator() : null;
@@ -293,9 +292,9 @@ public class XMLConfigurationElement implements IConfigurationElement,Comparable
 					}
 				}
 			}
-			//Èç¹û¹ıÂËºóµÄString ³¤¶È²»Îª"0",Ôò·µ»Ø: µ±Ç°½áµãname + attribute + ¹ıÂË½á¹û + value + µ±Ç°½áµãµÄxml½áÊø·û¡£
+			//å¦‚æœè¿‡æ»¤åçš„String é•¿åº¦ä¸ä¸º"0",åˆ™è¿”å›: å½“å‰ç»“ç‚¹name + attribute + è¿‡æ»¤ç»“æœ + value + å½“å‰ç»“ç‚¹çš„xmlç»“æŸç¬¦ã€‚
 			if(buf.length()>0){
-				// µ±Ç°½áµãname + attribute
+				// å½“å‰ç»“ç‚¹name + attribute
 				StringBuffer buf2 = new StringBuffer();
 				buf2.append("<").append(name);
 				Collection col2 = attributes.keySet();
@@ -309,9 +308,9 @@ public class XMLConfigurationElement implements IConfigurationElement,Comparable
 					buf2.append(elementHeadToXml(name, value));
 				}
 				buf2.append(">");
-				//  + ¹ıÂË½á¹û 
+				//  + è¿‡æ»¤ç»“æœ 
 				buf2.append(buf.toString());
-				// + value  + µ±Ç°½áµãµÄxml½áÊø·û
+				// + value  + å½“å‰ç»“ç‚¹çš„xmlç»“æŸç¬¦
 				if (value != null){
 					buf2.append('\n').append('"').append(value).append('"');
 				}
@@ -319,77 +318,77 @@ public class XMLConfigurationElement implements IConfigurationElement,Comparable
 				return buf2.toString();
 			}
 		}
-		//2.2 µ±Ç°½áµãÃ»ÓĞ×Ó½áµã£¬Ôò·µ»Ønull »ò "" ¡£
+		//2.2 å½“å‰ç»“ç‚¹æ²¡æœ‰å­ç»“ç‚¹ï¼Œåˆ™è¿”å›null æˆ– "" ã€‚
 		return null;
 	}
 	/**
-	 * ·µ»ØÄÇĞ©ºÚÃûµ¥Óëblacklist²»Æ¥ÅäµÄÔªËØµÄtoXML()
+	 * è¿”å›é‚£äº›é»‘åå•ä¸blacklistä¸åŒ¹é…çš„å…ƒç´ çš„toXML()
 	 * 
-	 * ÔÚwebplugin.xmlÀïµÄÔªËØ¿ÉÒÔÔö¼Ó blacklist ÊôĞÔ£¬ËüµÄÖµ±»ÈÏÎªÊÇ´ËÔªËØµÄºÚÃûµ¥ÁĞ±í£¬Èç¹ûÓĞ¶à¸öºÚÃûµ¥ÒÔ","·Ö¸ô¡£
-	 * ÔÚÊ¹ÓÃ´Ë·½·¨·µ»ØelementµÄStringĞÎÊ½Ê±£¬Èç¹û²ÎÊıÓëÔªËØµÄºÚÃûµ¥ÁĞ±íÆ¥Åä³É¹¦,ÔÚ·µ»ØÖµÖĞ½«²»»á°üº¬´ËÔªËØ¼°Æä×ÓÊ÷µÄStringĞÎÊ½¡£
+	 * åœ¨webplugin.xmlé‡Œçš„å…ƒç´ å¯ä»¥å¢åŠ  blacklist å±æ€§ï¼Œå®ƒçš„å€¼è¢«è®¤ä¸ºæ˜¯æ­¤å…ƒç´ çš„é»‘åå•åˆ—è¡¨ï¼Œå¦‚æœæœ‰å¤šä¸ªé»‘åå•ä»¥","åˆ†éš”ã€‚
+	 * åœ¨ä½¿ç”¨æ­¤æ–¹æ³•è¿”å›elementçš„Stringå½¢å¼æ—¶ï¼Œå¦‚æœå‚æ•°ä¸å…ƒç´ çš„é»‘åå•åˆ—è¡¨åŒ¹é…æˆåŠŸ,åœ¨è¿”å›å€¼ä¸­å°†ä¸ä¼šåŒ…å«æ­¤å…ƒç´ åŠå…¶å­æ ‘çš„Stringå½¢å¼ã€‚
 	 * 
-	 * 0 Èç¹ûÎªnull»ò""  ÔòÈÏÎªÆ¥Åä²»³É¹¦£¬´Ëº¯Êı·µ»ØÖµÓëtoXML()Í¬
-	 * 1 Èç¹ûµ±Ç°ÔªËØÓĞblacklistÊôĞÔ
-	 * 		1.1 Èç¹ûµ±Ç°ÔªËØÆ¥Åä²»³É¹¦
-	 * 			Èç¹ûÃ»ÓĞ×ÓÔªËØ£¬Ôò·µ»Øµ±Ç°ÔªËØtoString¡£
-	 * 			Èç¹ûÓĞ×ÓÔªËØ
-	 * 				¼ÇËã×ÓÔªËØµÄStringĞÎÊ½£¬
-	 * 					Èç¹û½á¹ûblank£¬Ôò·µ»Øµ±Ç°ÔªËØtoString¡£
-	 * 					Èç¹û½á¹û²»ÊÇblankÔò  ·µ»Ø£ºµ±Ç°½áµãname + attribute + ½á¹û + value + µ±Ç°½áµãµÄxml½áÊø·û¡£
-	 * 		1.2 Èç¹ûµ±Ç°ÔªËØÆ¥Åä³É¹¦
-	 * 			·µ»Ønull
-	 * 2 Èç¹ûµ±Ç°ÔªËØÃ»ÓĞblacklistÊôĞÔ
-	 * 			Èç¹ûÃ»ÓĞ×ÓÔªËØ£¬Ôò·µ»Øµ±Ç°ÔªËØtoString¡£
-	 * 			Èç¹ûÓĞ×ÓÔªËØ
-	 * 				¼ÇËã×ÓÔªËØµÄStringĞÎÊ½£¬
-	 * 					Èç¹û½á¹ûblank£¬Ôò·µ»Øµ±Ç°ÔªËØtoString¡£
-	 * 					Èç¹û½á¹û²»ÊÇblankÔò  ·µ»Ø£ºµ±Ç°½áµãname + attribute + ½á¹û + value + µ±Ç°½áµãµÄxml½áÊø·û¡£
+	 * 0 å¦‚æœä¸ºnullæˆ–""  åˆ™è®¤ä¸ºåŒ¹é…ä¸æˆåŠŸï¼Œæ­¤å‡½æ•°è¿”å›å€¼ä¸toXML()åŒ
+	 * 1 å¦‚æœå½“å‰å…ƒç´ æœ‰blacklistå±æ€§
+	 * 		1.1 å¦‚æœå½“å‰å…ƒç´ åŒ¹é…ä¸æˆåŠŸ
+	 * 			å¦‚æœæ²¡æœ‰å­å…ƒç´ ï¼Œåˆ™è¿”å›å½“å‰å…ƒç´ toStringã€‚
+	 * 			å¦‚æœæœ‰å­å…ƒç´ 
+	 * 				è®°ç®—å­å…ƒç´ çš„Stringå½¢å¼ï¼Œ
+	 * 					å¦‚æœç»“æœblankï¼Œåˆ™è¿”å›å½“å‰å…ƒç´ toStringã€‚
+	 * 					å¦‚æœç»“æœä¸æ˜¯blankåˆ™  è¿”å›ï¼šå½“å‰ç»“ç‚¹name + attribute + ç»“æœ + value + å½“å‰ç»“ç‚¹çš„xmlç»“æŸç¬¦ã€‚
+	 * 		1.2 å¦‚æœå½“å‰å…ƒç´ åŒ¹é…æˆåŠŸ
+	 * 			è¿”å›null
+	 * 2 å¦‚æœå½“å‰å…ƒç´ æ²¡æœ‰blacklistå±æ€§
+	 * 			å¦‚æœæ²¡æœ‰å­å…ƒç´ ï¼Œåˆ™è¿”å›å½“å‰å…ƒç´ toStringã€‚
+	 * 			å¦‚æœæœ‰å­å…ƒç´ 
+	 * 				è®°ç®—å­å…ƒç´ çš„Stringå½¢å¼ï¼Œ
+	 * 					å¦‚æœç»“æœblankï¼Œåˆ™è¿”å›å½“å‰å…ƒç´ toStringã€‚
+	 * 					å¦‚æœç»“æœä¸æ˜¯blankåˆ™  è¿”å›ï¼šå½“å‰ç»“ç‚¹name + attribute + ç»“æœ + value + å½“å‰ç»“ç‚¹çš„xmlç»“æŸç¬¦ã€‚
 	 * 
 	 * @param blacklist
-	 * blacklist µÄÖµ¿ÉÒÔÊÇÒÔÏÂĞÎÊ½£º
-	 *  Èç¹ûÎª"WXXR"
-	 *  		Èç¹ûÔªËØµÄºÚÃûµ¥ÁĞ±íÖĞÓĞºÚÃûµ¥Óë"WXXR"×Ö·û´®ÍêÈ«Æ¥Åä£¬ÏµÍ³½«ÈÏÎªºÚÃûµ¥Æ¥Åä³É¹¦¡£
-	 *  Èç¹ûÎª"*WXXR*"
-	 *  		Èç¹ûÔªËØµÄºÚÃûµ¥ÁĞ±íÖĞ°üº¬"WXXR"×Ö·û´®£¬ÏµÍ³½«ÈÏÎªºÚÃûµ¥Æ¥Åä³É¹¦¡£
-	 * 	Èç¹ûÎª"ABC*"
-	 * 			Èç¹ûÔªËØµÄºÚÃûµ¥ÁĞ±íÖĞ°üº¬ÒÔ"ABC"¿ªÍ·µÄ×Ö·û´®£¬ÏµÍ³½«ÈÏÎªºÚÃûµ¥Æ¥Åä³É¹¦¡£
-	 *  Èç¹ûÎª"*XYZ"  
-	 *  		Èç¹ûÔªËØµÄºÚÃûµ¥ÁĞ±íÖĞ°üº¬ÒÔ"XYZ"½áÎ²µÄ×Ö·û´®£¬ÏµÍ³½«ÈÏÎªºÚÃûµ¥Æ¥Åä³É¹¦¡£
+	 * blacklist çš„å€¼å¯ä»¥æ˜¯ä»¥ä¸‹å½¢å¼ï¼š
+	 *  å¦‚æœä¸º"WXXR"
+	 *  		å¦‚æœå…ƒç´ çš„é»‘åå•åˆ—è¡¨ä¸­æœ‰é»‘åå•ä¸"WXXR"å­—ç¬¦ä¸²å®Œå…¨åŒ¹é…ï¼Œç³»ç»Ÿå°†è®¤ä¸ºé»‘åå•åŒ¹é…æˆåŠŸã€‚
+	 *  å¦‚æœä¸º"*WXXR*"
+	 *  		å¦‚æœå…ƒç´ çš„é»‘åå•åˆ—è¡¨ä¸­åŒ…å«"WXXR"å­—ç¬¦ä¸²ï¼Œç³»ç»Ÿå°†è®¤ä¸ºé»‘åå•åŒ¹é…æˆåŠŸã€‚
+	 * 	å¦‚æœä¸º"ABC*"
+	 * 			å¦‚æœå…ƒç´ çš„é»‘åå•åˆ—è¡¨ä¸­åŒ…å«ä»¥"ABC"å¼€å¤´çš„å­—ç¬¦ä¸²ï¼Œç³»ç»Ÿå°†è®¤ä¸ºé»‘åå•åŒ¹é…æˆåŠŸã€‚
+	 *  å¦‚æœä¸º"*XYZ"  
+	 *  		å¦‚æœå…ƒç´ çš„é»‘åå•åˆ—è¡¨ä¸­åŒ…å«ä»¥"XYZ"ç»“å°¾çš„å­—ç¬¦ä¸²ï¼Œç³»ç»Ÿå°†è®¤ä¸ºé»‘åå•åŒ¹é…æˆåŠŸã€‚
 	 *  
-	 *  Èç¹ûÎª"*"       ÔòÈÎºÎÓĞblacklistÊôĞÔµÄÔªËØ¶¼Æ¥Åä³É¹¦£¬¼´Ê¹blacklistµÄÖµÎª"" £¬³ıÁËÃ»ÓĞblacklistÊôĞÔµÄÔªËØ¡£
-	 *  Èç¹ûÎªnull»ò""  ÔòÈÏÎªÆ¥Åä²»³É¹¦£¬´Ëº¯Êı·µ»ØÖµÓëtoXML()Í¬¡£
+	 *  å¦‚æœä¸º"*"       åˆ™ä»»ä½•æœ‰blacklistå±æ€§çš„å…ƒç´ éƒ½åŒ¹é…æˆåŠŸï¼Œå³ä½¿blacklistçš„å€¼ä¸º"" ï¼Œé™¤äº†æ²¡æœ‰blacklistå±æ€§çš„å…ƒç´ ã€‚
+	 *  å¦‚æœä¸ºnullæˆ–""  åˆ™è®¤ä¸ºåŒ¹é…ä¸æˆåŠŸï¼Œæ­¤å‡½æ•°è¿”å›å€¼ä¸toXML()åŒã€‚
 	 *  
 	 *  
 	 * @return
 	 */
 	public String toXMLWithoutBlackList(String blacklist) {
-		//0 Èç¹ûÎªnull»ò""  ÔòÈÏÎªÆ¥Åä²»³É¹¦£¬´Ëº¯Êı·µ»ØÖµÓëtoXML()Í¬
+		//0 å¦‚æœä¸ºnullæˆ–""  åˆ™è®¤ä¸ºåŒ¹é…ä¸æˆåŠŸï¼Œæ­¤å‡½æ•°è¿”å›å€¼ä¸toXML()åŒ
 		if(StringUtils.isBlank(blacklist)){
 			return this.toXML();
 		}
-		//1 Èç¹ûµ±Ç°ÔªËØÓĞblacklistÊôĞÔ
+		//1 å¦‚æœå½“å‰å…ƒç´ æœ‰blacklistå±æ€§
 		if(this.hasAttribute(CoreConstants.ATT_BLACKLIST)){
 			String blacklists = this.getAttributeValue(CoreConstants.ATT_BLACKLIST);
 			boolean b = blackListMatch(blacklist,blacklists);
-			//1.1 Èç¹ûµ±Ç°ÔªËØÆ¥Åä²»³É¹¦
+			//1.1 å¦‚æœå½“å‰å…ƒç´ åŒ¹é…ä¸æˆåŠŸ
 			if(!b){
 				return doChildWithoutBlacklist(blacklist);
 			}
-			//1.2 Èç¹ûµ±Ç°ÔªËØÆ¥Åä³É¹¦
+			//1.2 å¦‚æœå½“å‰å…ƒç´ åŒ¹é…æˆåŠŸ
 			return null;
 		}else{
-			//2 Èç¹ûµ±Ç°ÔªËØÃ»ÓĞblacklistÊôĞÔÔò´Ëº¯Êı·µ»ØÖµÓëtoXML()Í¬
+			//2 å¦‚æœå½“å‰å…ƒç´ æ²¡æœ‰blacklistå±æ€§åˆ™æ­¤å‡½æ•°è¿”å›å€¼ä¸toXML()åŒ
 			return doChildWithoutBlacklist(blacklist);
 		}
 	}
 
 	private String doChildWithoutBlacklist(String blacklist) {
-		//Èç¹ûÃ»ÓĞ×ÓÔªËØ£¬Ôò·µ»Øµ±Ç°ÔªËØtoString¡£
+		//å¦‚æœæ²¡æœ‰å­å…ƒç´ ï¼Œåˆ™è¿”å›å½“å‰å…ƒç´ toStringã€‚
 		if(children.size() == 0){
 			return this.toXML();
 		}
-		//Èç¹ûÓĞ×ÓÔªËØ
-		//¼ÇËã×ÓÔªËØµÄStringĞÎÊ½£¬
+		//å¦‚æœæœ‰å­å…ƒç´ 
+		//è®°ç®—å­å…ƒç´ çš„Stringå½¢å¼ï¼Œ
 		StringBuffer buf = new StringBuffer();
 		Collection col = children.values();
 		Iterator itr = (col != null) ? col.iterator() : null;
@@ -414,9 +413,9 @@ public class XMLConfigurationElement implements IConfigurationElement,Comparable
 				}
 			}
 		}
-		//Èç¹û½á¹û²»ÊÇblankÔò  µ±Ç°½áµãname + attribute + ½á¹û + value + µ±Ç°½áµãµÄxml½áÊø·û¡£
+		//å¦‚æœç»“æœä¸æ˜¯blankåˆ™  å½“å‰ç»“ç‚¹name + attribute + ç»“æœ + value + å½“å‰ç»“ç‚¹çš„xmlç»“æŸç¬¦ã€‚
 		if(buf.length()>0){
-			// µ±Ç°½áµãname + attribute
+			// å½“å‰ç»“ç‚¹name + attribute
 			StringBuffer buf2 = new StringBuffer();
 			buf2.append("<").append(name);
 			Collection col2 = attributes.keySet();
@@ -431,16 +430,16 @@ public class XMLConfigurationElement implements IConfigurationElement,Comparable
 				buf2.append(elementHeadToXml(name, value));
 			}
 			buf2.append(">");
-			//  + ¹ıÂË½á¹û 
+			//  + è¿‡æ»¤ç»“æœ 
 			buf2.append(buf.toString());
-			// + value  + µ±Ç°½áµãµÄxml½áÊø·û
+			// + value  + å½“å‰ç»“ç‚¹çš„xmlç»“æŸç¬¦
 			if (value != null){
 				buf2.append('\n').append('"').append(value).append('"');
 			}
 			buf2.append("\n</").append(name).append('>');
 			return buf2.toString();
 		}else{
-			//Èç¹û½á¹ûblank£¬Ôò·µ»Øµ±Ç°ÔªËØtoString¡£
+			//å¦‚æœç»“æœblankï¼Œåˆ™è¿”å›å½“å‰å…ƒç´ toStringã€‚
 			return this.toXML();
 		}
 		//return this.toXML();
@@ -448,17 +447,17 @@ public class XMLConfigurationElement implements IConfigurationElement,Comparable
 	/**
 	 * 
 	 * @param blacklist
-	 * 	true ºÚÃûµ¥Æ¥Åä³É¹¦
-	 *  false ºÚÃûµ¥Æ¥Åä²»³É¹¦
+	 * 	true é»‘åå•åŒ¹é…æˆåŠŸ
+	 *  false é»‘åå•åŒ¹é…ä¸æˆåŠŸ
 	 * @param blacklists
 	 * @return
 	 */
 	private boolean blackListMatch(String blacklist,String blacklists){
-		//Èç¹ûÎªnull»ò""  Ôò²»¹ıÂË·µ»ØÖµÓëtoXML()Í¬¡£ ÔÚÕâÀï¾ÍÊÇ·µ»Øfalse£¬ ´ú±íÆ¥Åä²»³É¹¦
+		//å¦‚æœä¸ºnullæˆ–""  åˆ™ä¸è¿‡æ»¤è¿”å›å€¼ä¸toXML()åŒã€‚ åœ¨è¿™é‡Œå°±æ˜¯è¿”å›falseï¼Œ ä»£è¡¨åŒ¹é…ä¸æˆåŠŸ
 		if(StringUtils.isBlank(blacklist)){
 			return false;
 		}
-		//Èç¹ûÎª"*"       Ôò¹ıÂËÈÎºÎÓĞblacklistÊôĞÔµÄÔªËØ£¬¼´Ê¹blacklistµÄÖµÎª""¡££¬³ıÁËÃ»ÓĞblacklistÊôĞÔµÄÔªËØ¡£ ÄÜ½øÈë´Ë·½·¨ËµÃ÷Ò»¶¨ÓĞblacklistÊôĞÔ
+		//å¦‚æœä¸º"*"       åˆ™è¿‡æ»¤ä»»ä½•æœ‰blacklistå±æ€§çš„å…ƒç´ ï¼Œå³ä½¿blacklistçš„å€¼ä¸º""ã€‚ï¼Œé™¤äº†æ²¡æœ‰blacklistå±æ€§çš„å…ƒç´ ã€‚ èƒ½è¿›å…¥æ­¤æ–¹æ³•è¯´æ˜ä¸€å®šæœ‰blacklistå±æ€§
 		if(blacklist.equals("*")){
 			return true;
 		}
@@ -467,8 +466,8 @@ public class XMLConfigurationElement implements IConfigurationElement,Comparable
 		}
 		blacklists = blacklists.trim();
 		
-		//Èç¹ûÎª"*WXXR*"
-		//  		Èç¹ûÔªËØµÄºÚÃûµ¥ÁĞ±íÖĞ°üº¬"WXXR"×Ö·û´®£¬ÏµÍ³½«ÈÏÎªºÚÃûµ¥Æ¥Åä³É¹¦¡£
+		//å¦‚æœä¸º"*WXXR*"
+		//  		å¦‚æœå…ƒç´ çš„é»‘åå•åˆ—è¡¨ä¸­åŒ…å«"WXXR"å­—ç¬¦ä¸²ï¼Œç³»ç»Ÿå°†è®¤ä¸ºé»‘åå•åŒ¹é…æˆåŠŸã€‚
 		if(blacklist.endsWith("*") && blacklist.startsWith("*")){
 			String tempBL = blacklist.substring(0, blacklist.length() -1);
 			tempBL = tempBL.substring(1, tempBL.length());
@@ -480,8 +479,8 @@ public class XMLConfigurationElement implements IConfigurationElement,Comparable
 			}
 		}
 		
-		//Èç¹ûÎª"ABC*"
-		// 			Èç¹ûÔªËØµÄºÚÃûµ¥ÁĞ±íÖĞ°üº¬ÒÔ"ABC"¿ªÍ·µÄ×Ö·û´®£¬ÏµÍ³½«ÈÏÎªºÚÃûµ¥Æ¥Åä³É¹¦¡£
+		//å¦‚æœä¸º"ABC*"
+		// 			å¦‚æœå…ƒç´ çš„é»‘åå•åˆ—è¡¨ä¸­åŒ…å«ä»¥"ABC"å¼€å¤´çš„å­—ç¬¦ä¸²ï¼Œç³»ç»Ÿå°†è®¤ä¸ºé»‘åå•åŒ¹é…æˆåŠŸã€‚
 		if(blacklist.endsWith("*")){
 			String tempBL = blacklist.substring(0, blacklist.length() -1);
 			String[] blacklistStrings = blacklists.split(",");
@@ -491,8 +490,8 @@ public class XMLConfigurationElement implements IConfigurationElement,Comparable
 				}
 			}
 		}
-		//Èç¹ûÎª"*XYZ"  
-		//  		Èç¹ûÔªËØµÄºÚÃûµ¥ÁĞ±íÖĞ°üº¬ÒÔ"XYZ"½áÎ²µÄ×Ö·û´®£¬ÏµÍ³½«ÈÏÎªºÚÃûµ¥Æ¥Åä³É¹¦¡£	
+		//å¦‚æœä¸º"*XYZ"  
+		//  		å¦‚æœå…ƒç´ çš„é»‘åå•åˆ—è¡¨ä¸­åŒ…å«ä»¥"XYZ"ç»“å°¾çš„å­—ç¬¦ä¸²ï¼Œç³»ç»Ÿå°†è®¤ä¸ºé»‘åå•åŒ¹é…æˆåŠŸã€‚	
 		if(blacklist.startsWith("*")){
 			String tempBL = blacklist.substring(1, blacklist.length());
 			String[] blacklistStrings = blacklists.split(",");
@@ -502,8 +501,8 @@ public class XMLConfigurationElement implements IConfigurationElement,Comparable
 				}
 			}
 		}
-		//Èç¹ûÎª"WXXR"
-		//  		Èç¹ûÔªËØµÄºÚÃûµ¥ÁĞ±íÖĞÓĞºÚÃûµ¥Óë"WXXR"×Ö·û´®ÍêÈ«Æ¥Åä£¬ÏµÍ³½«ÈÏÎªºÚÃûµ¥Æ¥Åä³É¹¦¡£
+		//å¦‚æœä¸º"WXXR"
+		//  		å¦‚æœå…ƒç´ çš„é»‘åå•åˆ—è¡¨ä¸­æœ‰é»‘åå•ä¸"WXXR"å­—ç¬¦ä¸²å®Œå…¨åŒ¹é…ï¼Œç³»ç»Ÿå°†è®¤ä¸ºé»‘åå•åŒ¹é…æˆåŠŸã€‚
 		String[] blacklistStrings = blacklists.split(",");
 		for (String bl : blacklistStrings) {
 			if(blacklist.equals(bl)){

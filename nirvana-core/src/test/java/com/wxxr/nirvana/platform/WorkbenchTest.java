@@ -4,12 +4,18 @@ import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNotNull;
 
 import java.net.URL;
+import java.util.List;
 
+import org.apache.tiles.Page;
 import org.junit.Before;
 import org.junit.Test;
 
 import com.wxxr.nirvana.theme.ITheme;
 import com.wxxr.nirvana.workbench.IProduct;
+import com.wxxr.nirvana.workbench.IView;
+import com.wxxr.nirvana.workbench.IWebResource;
+import com.wxxr.nirvana.workbench.IWorkbenchPage;
+import com.wxxr.nirvana.workbench.impl.View;
 import com.wxxr.nirvana.workbench.impl.Workbench;
 
 public class WorkbenchTest {
@@ -47,6 +53,28 @@ public class WorkbenchTest {
 		String defaultPage = p.getDefaultPage();
 		assertEquals("com.wxxr.nirvana.test.niravanaPage", defaultPage);
 		assertEquals(2, p.getAllPages().length);
+		
+		IWorkbenchPage page = workbench.getWorkbenchPageManager().getWorkbenchPage(defaultPage);
+		assertNotNull(page);
+		String[] views = page.getAllViewIds();
+		assertEquals(3, views.length);
+		
+		views = workbench.getViewManager().getViewIds();
+		assertEquals(3, views.length);
+		
+		IView view = workbench.getViewManager().find("com.wxxr.nirvana.test.chart2");
+		assertNotNull(view);
+		View.ResourceRef[] vrr = view.getResourcesRef();
+		assertEquals(3, vrr	.length);
+		
+		List<IWebResource> webrs = workbench.getWebResourceManager().getResources();
+		assertEquals(3, webrs.size());
+		
+		for(IWebResource wr : webrs){
+			assertEquals("js", wr.getType());
+		}
+		
+		
 	}
 	
 

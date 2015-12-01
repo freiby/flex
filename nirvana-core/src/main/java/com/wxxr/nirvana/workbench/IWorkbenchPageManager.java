@@ -8,10 +8,6 @@
  */
 package com.wxxr.nirvana.workbench;
 
-import org.apache.tiles.Page;
-
-import com.wxxr.nirvana.platform.CoreException;
-import com.wxxr.nirvana.platform.IConfigurationElement;
 
 /**
  * @author neillin
@@ -25,21 +21,11 @@ public interface IWorkbenchPageManager {
    * @param layoutId
    * @return
    */
-  Page getPage(String pageId);
+  IWorkbenchPage getWorkbenchPage(String pageId);
 
-  /**
-   * return a new-created layout initialized with specific configuration, 
-   * this layout would not be shared with other page 
-   * 
-   * @param layoutId
-   * @return
-   */
-  Page getPage(String layoutId, IConfigurationElement elem);
-  void addPage(Page page);
-  Page removeLayout(String layoutId);
-  Page[] getPages();
+  IWorkbenchPage[] getAllPages();
   String[] getAllPageIds(); 
-  String getDefaultPageId();	 
+  String getCurrentWorkbenchPageId();
   void destroy();
   void start();
 

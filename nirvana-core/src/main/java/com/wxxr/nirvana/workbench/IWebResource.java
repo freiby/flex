@@ -15,4 +15,5 @@ package com.wxxr.nirvana.workbench;
  */
 public interface IWebResource extends IContributionItem {
 	String getType();
+	void destroy();
 }

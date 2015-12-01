@@ -14,6 +14,7 @@ public class View extends UIComponent implements IView{
 	protected String viewURI;
 	
 	private String[] resourcesIds;
+	private ResourceRef[] resourcesRefs;
 	
 	public boolean getAllowMultiple() {
 		return false;
@@ -31,19 +32,33 @@ public class View extends UIComponent implements IView{
 	protected void initResources(IConfigurationElement config) {
 		IConfigurationElement[] rConfigs = config.getChildren(RESOURCE_ELEMENT);
 		resourcesIds = new String[rConfigs.length];
+		resourcesRefs = new ResourceRef[rConfigs.length];
 		for (int j = 0; j < rConfigs.length; j++) {
+			ResourceRef rr = new ResourceRef();
 			IConfigurationElement rConfig = rConfigs[j];
 			String rid = rConfig.getAttribute(UIComponent.ATT_REF);
+			String init = rConfig.getAttribute("init");
+			rr.init = init;
+			rr.id = rid;
+			resourcesRefs[j] = rr;
 			resourcesIds[j] = rid;
 		}
 	}
 	
-
+	public class ResourceRef{
+		public String id;
+		public String init;
+	}
+	
 	public void destroy() {
 	}
 
 	public String getViewURI() {
 		return viewURI;
+	}
+
+	public ResourceRef[] getResourcesRef() {
+		return resourcesRefs;
 	}
 
 }

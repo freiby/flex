@@ -11,7 +11,7 @@
             id="nirvana"
             >
 			<page ref="com.wxxr.nirvana.test.niravanaPage" index="1" defaulPage="true"/>
-			<page ref="com.wxxr.nirvana.test.lionPage" index="1" />
+			<page ref="com.wxxr.nirvana.test.lionPage" index="2" />
       </product>
 
    </extension>
@@ -53,9 +53,9 @@
             uri="view/c3-1.html"
             id="chart2"
 			>
-			<resource ref="com.wxxr.nirvana.test.dj"></resource>
-			<resource ref="com.wxxr.nirvana.test.cj"></resource>
-			<resource ref="com.wxxr.nirvana.test.hj"></resource>
+			<resource ref="com.wxxr.nirvana.test.dj" init="before_view"></resource>
+			<resource ref="com.wxxr.nirvana.test.cj" init="before_view"></resource>
+			<resource ref="com.wxxr.nirvana.test.hj" init="after_view"></resource>
 
       </view>
 
