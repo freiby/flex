@@ -25,8 +25,9 @@ import java.lang.reflect.Method;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.wxxr.nirvana.context.ApplicationContext;
+import com.wxxr.nirvana.context.NirvanaServletContext;
 import com.wxxr.nirvana.exception.NirvanaException;
+import com.wxxr.nirvana.workbench.IWorkbench;
 
 
 /**
@@ -54,14 +55,33 @@ public final class ContainerAccess {
      */
     public static final String CONTAINER_ATTRIBUTE =
         "com.wxxr.nirvana.CONTAINER";
+    
+    public static final String WORKBENCH_ATTRIBUTE =
+            "com.wxxr.nirvana.WORKBENCH";
 
+    public static IWorkbench getWorkbench(){
+    	return (IWorkbench) NirvanaServletContext.getContext().getServletContext().getAttribute(ContainerAccess.WORKBENCH_ATTRIBUTE);
+    }
+    
     /**
-     * The name of the attribute to get the {@link TilesApplicationContext} from
-     * a context.
+     * 放入session中
+     * @param context
+     * @param workbench
+     * @throws NirvanaException
      */
-    private static final String CONTEXT_ATTRIBUTE =
-        "om.wxxr.nirvana.APPLICATION_CONTEXT";
-
+    public static void setWorkbench(Object context, IWorkbench workbench) throws NirvanaException{
+    	if (workbench == null) {
+            if (LOG.isInfoEnabled()) {
+                LOG.info("Removing nirvana for context: " + context.getClass().getName());
+            }
+            removeAttribute(context, WORKBENCH_ATTRIBUTE);
+        }
+        if (workbench != null && LOG.isInfoEnabled()) {
+            LOG.info("Publishing nirvana for context: " + context.getClass().getName());
+        }
+        setAttribute(context, WORKBENCH_ATTRIBUTE, workbench);
+    }
+    
     /**
      * Finds and returns a Tiles container object, if it was previously initialized.
      *
@@ -73,7 +93,7 @@ public final class ContainerAccess {
     public static IWorkbenchContainer getContainer(Object context) {
         return (IWorkbenchContainer) getAttribute(context, CONTAINER_ATTRIBUTE);
     }
-
+    
     /**
      * Configures the container to be used in the application.
      *
@@ -97,19 +117,6 @@ public final class ContainerAccess {
         setAttribute(context, CONTAINER_ATTRIBUTE, container);
     }
 
-    /**
-     * Returns the Tiles application context object.
-     *
-     * @param context The (application) context to use.
-     * @return The required Tiles application context.
-     */
-    public static ApplicationContext getApplicationContext(Object context) {
-        IWorkbenchContainer container = getContainer(context);
-        if (container != null) {
-            return container.getApplicationContext();
-        }
-        return (ApplicationContext) getAttribute(context, CONTEXT_ATTRIBUTE);
-    }
 
     /**
      * Returns an attribute from a context.

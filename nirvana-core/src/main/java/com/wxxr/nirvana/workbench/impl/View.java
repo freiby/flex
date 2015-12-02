@@ -1,10 +1,11 @@
 package com.wxxr.nirvana.workbench.impl;
 
 import com.wxxr.nirvana.platform.IConfigurationElement;
+import com.wxxr.nirvana.workbench.IDispatchUI;
 import com.wxxr.nirvana.workbench.IView;
 import com.wxxr.nirvana.workbench.IViewManager;
 
-public class View extends UIComponent implements IView{
+public class View extends UIComponent implements IView,IDispatchUI{
 
 	private static final String ATT_VIEW_URI="uri";
 	
@@ -53,7 +54,7 @@ public class View extends UIComponent implements IView{
 	public void destroy() {
 	}
 
-	public String getViewURI() {
+	public String getURI() {
 		return viewURI;
 	}
 

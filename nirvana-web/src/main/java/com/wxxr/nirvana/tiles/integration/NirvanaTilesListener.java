@@ -12,8 +12,8 @@ import org.apache.struts2.tiles.StrutsTilesListener;
 import org.apache.tiles.factory.TilesContainerFactory;
 
 
-public class NiranaTilesListener extends StrutsTilesListener {
-	private static final Logger LOG = LogManager.getLogger(NiranaTilesListener.class);
+public class NirvanaTilesListener extends StrutsTilesListener {
+	private static final Logger LOG = LogManager.getLogger(NirvanaTilesListener.class);
 
     private static final Map<String, String> INITN;
 

@@ -4,6 +4,6 @@ import com.wxxr.nirvana.IWorkbenchContainer;
 
 public class WorkbenchContainerFactory {
 	public static IWorkbenchContainer createWorkbench(){
-		return null;
+		return new WorkbenchContainerImpl();
 	}
 }

@@ -27,6 +27,8 @@ public class ProductManager extends BaseExtensionPointManager implements
 //	private List<IProduct> products = new ArrayList<IProduct>();
 	
 	private Map<String, IProduct> products = new HashMap<String, IProduct>();
+	
+	private Product currentProduct;
 
 	public ProductManager() {
 		super(UIConstants.UI_NAMESPACE,UIConstants.EXTENSION_POINT_PRODUCTS);

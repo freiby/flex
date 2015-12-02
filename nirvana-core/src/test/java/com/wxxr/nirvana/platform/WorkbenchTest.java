@@ -10,6 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.wxxr.nirvana.theme.ITheme;
+import com.wxxr.nirvana.workbench.IDispatchUI;
 import com.wxxr.nirvana.workbench.IProduct;
 import com.wxxr.nirvana.workbench.IView;
 import com.wxxr.nirvana.workbench.IWebResource;
@@ -44,9 +45,9 @@ public class WorkbenchTest {
 		assertEquals("com.wxxr.nirvana.style.nirvanaStyle_theme", themeid);
 		ITheme theme = workbench.getThemeManager().getTheme(themeid);
 		assertNotNull(theme);
-		String themeuri = theme.getDesktop().getURI();
+		String themeuri = ((IDispatchUI)theme.getDesktop()).getURI();
 		assertEquals("desktopuri", themeuri);
-		String pageuri = theme.getPageLayout().getURI();
+		String pageuri = ((IDispatchUI)theme.getPageLayout()).getURI();
 		assertEquals("pagelayouturi", pageuri);
 		
 		String defaultPage = p.getDefaultPage();
@@ -72,8 +73,6 @@ public class WorkbenchTest {
 		for(IWebResource wr : webrs){
 			assertEquals("js", wr.getType());
 		}
-		
-		
 	}
 	
 

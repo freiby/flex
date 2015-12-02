@@ -1,4 +1,4 @@
-package com.wxxr.nirvana.workbench.impl;
+package com.wxxr.nirvana.context;
 
 import java.util.Map;
 
@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-public class WorkbenchServletContext {
+public class NirvanaServletContext {
 	
 	public static final String HTTP_REQUEST = "javax.servlet.http.HttpServletRequest";
 	
@@ -18,28 +18,28 @@ public class WorkbenchServletContext {
 	public static final String SERVLET_CONTEXT = "javax.servlet.ServletContext";
 
 
-	static ThreadLocal<WorkbenchServletContext> workbenchContext = new ThreadLocal<WorkbenchServletContext>();
+	static ThreadLocal<NirvanaServletContext> workbenchContext = new ThreadLocal<NirvanaServletContext>();
 	
 	private Map<String, Object> context;
 
-	public WorkbenchServletContext() {
-		super();
+	public NirvanaServletContext(Map<String, Object> context) {
+		this.context = context;
 	}
 
-	public static WorkbenchServletContext getContext() {
+	public static NirvanaServletContext getContext() {
 		return workbenchContext.get();
 	}
 	
-	public static void setContext(WorkbenchServletContext context) {
+	public static void setContext(NirvanaServletContext context) {
 		workbenchContext.set(context);
 	}
 	
 	public HttpServletRequest getRequest(){
-		return (HttpServletRequest) WorkbenchServletContext.getContext().context.get(HTTP_REQUEST);
+		return (HttpServletRequest) NirvanaServletContext.getContext().context.get(HTTP_REQUEST);
 	}
 	
     public static void setRequest(HttpServletRequest request) {
-    	WorkbenchServletContext.getContext().put(HTTP_REQUEST, request);
+    	NirvanaServletContext.getContext().put(HTTP_REQUEST, request);
     }
 	
 	private void put(String key, Object value) {
@@ -47,27 +47,27 @@ public class WorkbenchServletContext {
 	}
 
 	public HttpServletResponse getResponse(){
-		return (HttpServletResponse) WorkbenchServletContext.getContext().context.get(HTTP_RESPONSE);
+		return (HttpServletResponse) NirvanaServletContext.getContext().context.get(HTTP_RESPONSE);
 	}
 	
 	public static void setResponse(HttpServletResponse response) {
-		WorkbenchServletContext.getContext().put(HTTP_RESPONSE, response);
+		NirvanaServletContext.getContext().put(HTTP_RESPONSE, response);
     }
 	
 	public ServletContext getServletContext(){
-		return (ServletContext) WorkbenchServletContext.getContext().context.get(SERVLET_CONTEXT);
+		return (ServletContext) NirvanaServletContext.getContext().context.get(SERVLET_CONTEXT);
 	}
 	
 	public static void setServletContext(ServletContext servletContext) {
-		WorkbenchServletContext.getContext().put(SERVLET_CONTEXT, servletContext);
+		NirvanaServletContext.getContext().put(SERVLET_CONTEXT, servletContext);
     }
 	
 	public HttpSession getSession(){
-		return (HttpSession) WorkbenchServletContext.getContext().context.get(HTTP_SESSION);
+		return (HttpSession) NirvanaServletContext.getContext().context.get(HTTP_SESSION);
 	}
 	
 	public static void setHttpSession(HttpSession session) {
-		WorkbenchServletContext.getContext().put(HTTP_SESSION, session);
+		NirvanaServletContext.getContext().put(HTTP_SESSION, session);
     }
 	
     public Object get(String key) {

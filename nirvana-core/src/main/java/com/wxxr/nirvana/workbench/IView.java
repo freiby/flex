@@ -8,8 +8,6 @@ public interface IView extends IUIContributionItem, Cloneable {
     
     void destroy();
     
-    String getViewURI();
-    
     View.ResourceRef[] getResourcesRef();
     
     String get(String attri);
