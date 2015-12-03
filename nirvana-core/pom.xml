@@ -28,7 +28,7 @@
 			<scope>test</scope>
 		</dependency>
 
-		
+
 
 		<dependency>
 			<groupId>org.apache.commons</groupId>
@@ -64,6 +64,19 @@
 					<target>1.5</target>
 				</configuration>
 			</plugin>
+
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<goal>test-jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 			<!-- <plugin> <groupId>org.mortbay.jetty</groupId> <artifactId>jetty-maven-plugin</artifactId> 
 				<version>8.1.16.v20140903</version> <configuration> <stopKey>CTRL+C</stopKey> 
 				<stopPort>8999</stopPort> <systemProperties> <systemProperty> <name>xwork.loggerFactory</name> 
@@ -72,6 +85,8 @@
 				<webAppSourceDirectory>${basedir}/src/main/webapp/</webAppSourceDirectory> 
 				<webAppConfig> <descriptor>${basedir}/src/main/webapp/WEB-INF/web.xml</descriptor> 
 				</webAppConfig> </configuration> </plugin> -->
+
+
 		</plugins>
 	</build>
 </project>

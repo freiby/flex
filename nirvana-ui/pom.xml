@@ -24,6 +24,17 @@
 			<groupId>com.wxxr.nirvana</groupId>
 			<artifactId>nirvana-core</artifactId>
 		</dependency>
+		
+		
+		<dependency>
+			<groupId>com.wxxr.nirvana</groupId>
+			<artifactId>nirvana-core</artifactId>
+			<version>1.0.0</version>
+			<type>test-jar</type>  
+			<scope>test</scope>
+		</dependency>
+		
+		
 
 		<dependency>
 			<groupId>javax.servlet</groupId>

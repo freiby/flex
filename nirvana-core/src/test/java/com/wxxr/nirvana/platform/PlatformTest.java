@@ -16,6 +16,7 @@ public class PlatformTest {
 	@Test
 	public void testPlatformDeploy() throws Exception {
 		System.getProperties().setProperty("data.dir", "target/partest");
+		PlatformLocator.getPlatform().start();
 		String parfile = "test.par";
 		URL url = PlatformTest.class.getResource(parfile);
 		PlatformLocator.getPlatform().deployPlugin(url);
