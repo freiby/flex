@@ -56,7 +56,6 @@ public class ThemeImpl extends BaseContributionItem implements ITheme {
 	public void init(IThemeManager manager, IConfigurationElement config) {
 		this.manager = manager;
 		applyConfigure(config, true);
-		initPageLayout(config.getChildren("pageLayout")[0]);
 		initDesktop(config.getChildren("desktop")[0]);
 	}
 

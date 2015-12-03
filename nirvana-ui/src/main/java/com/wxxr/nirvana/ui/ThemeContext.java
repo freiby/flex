@@ -17,21 +17,18 @@ public class ThemeContext extends UIComponentContext {
 		theme = (ThemeImpl) uiContribute;
 	}
 
-	
-	public IUIComponentContext getChildUIContext(String componentName) {
-		IUIComponentContext result = super.getChildUIContext(componentName);
-		if(result != null){
-			return result;
-		}
+	@Override
+	protected IUIComponentContext createUIContext(String componentName) {
+		IUIComponentContext result = null;
 		if(componentName.equals(IUIComponentContext.DESKTOP)){
 			IDesktop destop = theme.getDesktop();
 			result = new DesktopContext(destop);
-			result.init(this,null);
+			result.init(this);
 			addChildContext(IUIComponentContext.DESKTOP, result);
 		}else if(componentName.equals(IUIComponentContext.PAGELAYOUT)){
 			IPageLayout pagelayout = theme.getPageLayout();
 			result = new PageLayoutContext(pagelayout);
-			result.init(this,null);
+			result.init(this);
 			addChildContext(IUIComponentContext.PAGELAYOUT,result);
 		}
 		return result;

@@ -224,8 +224,8 @@ public class WorkbenchPageManager extends BaseExtensionPointManager implements
 			IConfigurationElement elem = configs[i];
 			if ((elem != null)
 					&& PAGE_ELEMENT_NAME.equalsIgnoreCase(elem.getName())) {
-				pages.remove(elem.getAttribute(ATT_PAGE_ID));
-				destroyPage(elem.getAttribute(ATT_PAGE_ID));
+				pages.remove(elem.getNamespaceIdentifier() + "." + elem.getAttribute(ATT_PAGE_ID));
+				destroyPage(elem.getNamespaceIdentifier() + "." + elem.getAttribute(ATT_PAGE_ID));
 			}
 		}
 	}

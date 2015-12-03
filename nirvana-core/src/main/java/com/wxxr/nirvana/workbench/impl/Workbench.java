@@ -4,6 +4,7 @@ import com.wxxr.nirvana.platform.IPlatform;
 import com.wxxr.nirvana.platform.PlatformLocator;
 import com.wxxr.nirvana.theme.ITheme;
 import com.wxxr.nirvana.theme.IThemeManager;
+import com.wxxr.nirvana.workbench.IPageLayoutManager;
 import com.wxxr.nirvana.workbench.IPermissionsManager;
 import com.wxxr.nirvana.workbench.IProductManager;
 import com.wxxr.nirvana.workbench.ISecurityManager;
@@ -27,6 +28,8 @@ public class Workbench implements IWorkbench {
 	private IProductManager productManager;
 	
 	private IWebResourceManager webresourceManager;
+	
+	private IPageLayoutManager pageLayoutManager;
 	
 	public IWebResourceManager getWebResourceManager() {
 		if(webresourceManager == null){
@@ -88,6 +91,14 @@ public class Workbench implements IWorkbench {
 	}
 
 	public void destroy() {
+	}
+
+	public IPageLayoutManager getPageLayoutManager() {
+		if(pageLayoutManager == null){
+			pageLayoutManager = new PageLayoutManager();
+			pageLayoutManager.start();
+		}
+		return pageLayoutManager;
 	}
 
 }

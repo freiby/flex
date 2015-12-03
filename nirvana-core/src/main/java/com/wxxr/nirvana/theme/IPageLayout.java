@@ -1,6 +1,7 @@
 package com.wxxr.nirvana.theme;
 
-import com.wxxr.nirvana.workbench.IUIContributionItem;
+import com.wxxr.nirvana.workbench.IDispatchUI;
 
-public interface IPageLayout extends IUIContributionItem{
+public interface IPageLayout extends IDispatchUI{
+	void destroy();
 }

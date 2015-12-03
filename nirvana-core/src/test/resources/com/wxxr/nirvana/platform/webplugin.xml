@@ -24,7 +24,14 @@
             >
 			</desktop>
 
-			<pageLayout
+			
+      </theme>
+	 </extension>
+
+	 <extension
+         id="nirvanaStyle"
+         point="com.wxxr.nirvana.platform.pagelayouts">
+	  <pageLayout
 				id="nirvanapagelayout"
 				name="layout"
 				description="layoutdesc"
@@ -38,7 +45,6 @@
 				description="layoutdesc"
 				uri="pagelayouturi">
 			</pageLayout>
-      </theme>
    </extension>
 
 

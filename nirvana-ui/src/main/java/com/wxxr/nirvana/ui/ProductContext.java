@@ -18,24 +18,26 @@ public class ProductContext extends UIComponentContext{
 		super(uiContribute);
 		product = (Product) uiContribute;
 	}
-
-	public IUIComponentContext getChildUIContext(String componentName) {
-		IUIComponentContext result = super.getChildUIContext(componentName);
-		if(result != null){
-			return result;
-		}
+	
+	@Override
+	protected IUIComponentContext createUIContext(String componentName) {
+		IUIComponentContext result = null;
 		if(componentName.equals(IUIComponentContext.THEME)){
 			String theme = product.getTheme();
 			IWorkbench workbench = ContainerAccess.getWorkbench();
 			ITheme th = workbench.getThemeManager().getTheme(theme);
 			result = new ThemeContext(th);
-			result.init(this,null);
+			result.init(this);
 			addChildContext(IUIComponentContext.THEME, result);
 		}else if(componentName.equals(IUIComponentContext.PAGE)){
 			PageRef[] pagerefs = product.getAllPages();
-			IWorkbench workbench = ContainerAccess.getWorkbench();
 			result = new PageContext(null,pagerefs);
-			result.init(this,null);
+			result.init(this);
+			addChildContext(IUIComponentContext.PAGE, result);
+		}else if(componentName.equals(IUIComponentContext.PAGENAV)){
+			PageRef[] pagerefs = product.getAllPages();
+			result = new PageNavigationContext(pagerefs);
+			result.init(this);
 			addChildContext(IUIComponentContext.PAGE, result);
 		}
 		return result;

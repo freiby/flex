@@ -58,9 +58,20 @@ public final class ContainerAccess {
     
     public static final String WORKBENCH_ATTRIBUTE =
             "com.wxxr.nirvana.WORKBENCH";
+    
+    public static final String WORKBENCH_SESSION_ATTRIBUTE =
+            "com.wxxr.nirvana.SESSIONWORKBENCH";
 
     public static IWorkbench getWorkbench(){
     	return (IWorkbench) NirvanaServletContext.getContext().getServletContext().getAttribute(ContainerAccess.WORKBENCH_ATTRIBUTE);
+    }
+    
+    public static ISessionWorkbench getSessionWorkbench(){
+    	return (ISessionWorkbench) NirvanaServletContext.getContext().getSession().getAttribute(ContainerAccess.WORKBENCH_SESSION_ATTRIBUTE);
+    }
+    
+    public static void setSessionWorkbench(ISessionWorkbench value){
+    	 NirvanaServletContext.getContext().getSession().setAttribute(ContainerAccess.WORKBENCH_SESSION_ATTRIBUTE,value);
     }
     
     /**
@@ -102,19 +113,9 @@ public final class ContainerAccess {
      * @throws NirvanaException If something goes wrong during manipulation of the
      * context.
      */
-    public static void setContainer(Object context, IWorkbenchContainer container)
+    public static void setContainer(IWorkbenchContainer container)
         throws NirvanaException {
-
-        if (container == null) {
-            if (LOG.isInfoEnabled()) {
-                LOG.info("Removing TilesContext for context: " + context.getClass().getName());
-            }
-            removeAttribute(context, CONTAINER_ATTRIBUTE);
-        }
-        if (container != null && LOG.isInfoEnabled()) {
-            LOG.info("Publishing TilesContext for context: " + context.getClass().getName());
-        }
-        setAttribute(context, CONTAINER_ATTRIBUTE, container);
+    	 NirvanaServletContext.getContext().getSession().setAttribute(ContainerAccess.CONTAINER_ATTRIBUTE,container);
     }
 
 

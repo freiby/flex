@@ -25,6 +25,7 @@ public interface UIConstants {
   String EXTENSION_POINT_RESOURCES="resources";
   String EXTENSION_POINT_BEANS="beans";
   String EXTENSION_POINT_PRODUCTS="products";
+  String EXTENSION_POINT_PAGELAYOUT="pagelayouts";
   
   String[] EMPTY_STRING_ARRAY = new String[0];
 }

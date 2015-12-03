@@ -1,12 +1,15 @@
 package com.wxxr.nirvana;
 
 import java.util.HashMap;
+import java.util.Map;
+import java.util.Stack;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextListener;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.jsp.PageContext;
 
 import org.easymock.EasyMock;
 import org.junit.Before;
@@ -16,79 +19,109 @@ import com.wxxr.nirvana.context.NirvanaServletContext;
 import com.wxxr.nirvana.exception.NirvanaException;
 import com.wxxr.nirvana.platform.WorkbenchTest;
 import com.wxxr.nirvana.ui.WorkbenchContainerFactory;
-import com.wxxr.nirvana.ui.WorkbenchContainerImpl;
-import com.wxxr.nirvana.workbench.IWorkbench;
+import com.wxxr.nirvana.ui.WorkbenchProxy;
 import com.wxxr.nirvana.workbench.impl.Workbench;
 
 public class RenderTest {
-	
-	
+
 	ServletContext servletContext;
 	Workbench workbench;
+
 	@Before
 	public void setUp() throws Exception {
-		ServletContextListener listener = EasyMock.createMock(ServletContextListener.class);
+		ServletContextListener listener = EasyMock
+				.createMock(ServletContextListener.class);
 		servletContext = EasyMock.createMock(ServletContext.class);
-		
+
 		WorkbenchTest workbenchTest = new WorkbenchTest();
 		workbenchTest.setUp();
-		
+
 		workbench = new Workbench();
-		EasyMock.expect(servletContext.getAttribute(ContainerAccess.WORKBENCH_ATTRIBUTE)).andReturn(workbench).anyTimes();
-		servletContext.setAttribute(ContainerAccess.WORKBENCH_ATTRIBUTE, workbench);
-//		EasyMock.expectLastCall().andThrow(new RuntimeException("aaa"));
+		EasyMock.expect(
+				servletContext
+						.getAttribute(ContainerAccess.WORKBENCH_ATTRIBUTE))
+				.andReturn(workbench).anyTimes();
+		servletContext.setAttribute(ContainerAccess.WORKBENCH_ATTRIBUTE,
+				workbench);
+		// EasyMock.expectLastCall().andThrow(new RuntimeException("aaa"));
 		EasyMock.replay(servletContext);
-		ContainerAccess.setWorkbench(servletContext,workbench);
-		
-		
+		ContainerAccess.setWorkbench(servletContext, workbench);
+
 	}
-	
+
 	@Test
 	public void testBoostrap() throws NirvanaException{
 		String product = "nirvana";
-		String page = "niravanaPage";
+		String page = "tiger";
 		
 		HttpServletRequest request = EasyMock.createMock(HttpServletRequest.class);
 		HttpServletResponse response = EasyMock.createMock(HttpServletResponse.class);
-		
 		HttpSession session = EasyMock.createMock(HttpSession.class);
-		EasyMock.expect(request.getSession()).andReturn(session).anyTimes();//.andStubReturn(session).anyTimes();
 		
+		EasyMock.expect(request.getSession()).andReturn(session).anyTimes();
 		EasyMock.expect(session.getServletContext()).andReturn(servletContext).anyTimes();
-		
 		EasyMock.expect(session.getAttribute(ContainerAccess.CONTAINER_ATTRIBUTE)).andReturn(null).anyTimes();
 		
 		IWorkbenchContainer container = null;
 		container = WorkbenchContainerFactory.createWorkbench();
 		
-		EasyMock.expect(session.getAttribute(IWorkbenchContainer.WORKBENCH_CONTAINER)).andReturn(container).anyTimes();
+		Stack<IUIComponentContext> contextStack = new Stack<IUIComponentContext>();
+		EasyMock.expect(request.getAttribute("org.apache.tiles.AttributeContext.STACK")).andReturn(contextStack).anyTimes();
 		
-		container.init(request, response);
-		session.setAttribute(IWorkbenchContainer.WORKBENCH_CONTAINER,container);
+		WorkbenchProxy workbenchProxy = null;
+		workbenchProxy = new WorkbenchProxy(workbench);
 		
-		EasyMock.expect(session.getAttribute(IWorkbenchContainer.WORKBENCH_PROXY)).andReturn(null).anyTimes();
+		session.setAttribute(ContainerAccess.CONTAINER_ATTRIBUTE,container);
+		session.setAttribute(ContainerAccess.WORKBENCH_SESSION_ATTRIBUTE,workbenchProxy);
+		
+		EasyMock.expect(session.getAttribute(ContainerAccess.WORKBENCH_SESSION_ATTRIBUTE)).andReturn(workbenchProxy).anyTimes();
+		
+		PageContext pageContext = new PageContextMock(request,response,session,servletContext);
+		
+		EasyMock.replay(request,response,session);
+		
 		
 		NirvanaServletContext nirvanaContext = new NirvanaServletContext(new HashMap<String, Object>());
 		NirvanaServletContext.setContext(nirvanaContext);
-		
 		NirvanaServletContext.setRequest(request);
 		NirvanaServletContext.setResponse(response);
 		NirvanaServletContext.setServletContext(session.getServletContext());
 		NirvanaServletContext.setHttpSession(session);
 		
 		
-		IWorkbench workbench = ContainerAccess.getWorkbench();
-		synchronized (workbench) {
-			IWorkbenchContainer workbenchContainer = ContainerAccess.getContainer(session);
-			if(workbenchContainer == null){
-				
-				ContainerAccess.setContainer(session, container);
-			}
-		}
+		container.init(request, response);
+		ContainerAccess.setContainer(container);
+		ContainerAccess.setSessionWorkbench(workbenchProxy);
 		
-		EasyMock.replay(request,response,session);
-		container.bootstrap(product, request, response);
+		container.bootstrap(request, response,product, page);
 		
+		InvokeContext invokeContext = new InvokeContext();
+		RenderMock rm = new RenderMock(invokeContext);
+		container.registryUIRender(rm);
+		JspTagMock desktop = new JspTagMock(container, "desktop", pageContext, null);
+		JspTagMock pageTag = new JspTagMock(container, "page", pageContext, null);
+		JspTagMock navTag = new JspTagMock(container, "navigation", pageContext, null);
+		
+		desktop.addTag(pageTag);
+		desktop.addTag(navTag);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("anchor", "headerone");
+		JspTagMock viewTag1 = new JspTagMock(container, "view", pageContext, map);
+		map = new HashMap<String, Object>();
+		map.put("anchor", "headertwo");
+		JspTagMock viewTag2 = new JspTagMock(container, "view", pageContext, map);
+		map = new HashMap<String, Object>();
+		map.put("anchor", "headerthree");
+		JspTagMock viewTag3 = new JspTagMock(container, "view", pageContext, map);
+		
+		pageTag.addTag(viewTag1);
+		pageTag.addTag(viewTag2);
+		pageTag.addTag(viewTag3);
+		
+		invokeContext.setCurrentNode(desktop);
+		
+//		container.startContext("desktop", pageContext);
+//		container.render("desktop", pageContext, null);
 	}
-
 }

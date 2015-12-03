@@ -22,7 +22,6 @@ package com.wxxr.nirvana.context;
 
 import java.io.IOException;
 import java.util.Locale;
-import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -37,7 +36,7 @@ import com.wxxr.nirvana.exception.NirvanaIOException;
  *
  * @version $Rev$ $Date$
  */
-public class ServletRequestContext extends ServletApplicationContext implements IRequestContext {
+public class ServletRequestContext  implements IRequestContext {
 
     /**
      * The request object to use.
@@ -48,48 +47,9 @@ public class ServletRequestContext extends ServletApplicationContext implements 
      * The response object to use.
      */
     private HttpServletResponse response;
-
-
-    /**
-     * <p>The lazily instantiated <code>Map</code> of header name-value
-     * combinations (immutable).</p>
-     */
-    private Map<String, String> header = null;
-
-
-    /**
-     * <p>The lazily instantitated <code>Map</code> of header name-values
-     * combinations (immutable).</p>
-     */
-    private Map<String, String[]> headerValues = null;
-
-
-    /**
-     * <p>The lazily instantiated <code>Map</code> of request
-     * parameter name-value.</p>
-     */
-    private Map<String, String> param = null;
-
-
-    /**
-     * <p>The lazily instantiated <code>Map</code> of request
-     * parameter name-values.</p>
-     */
-    private Map<String, String[]> paramValues = null;
-
-    /**
-     * <p>The lazily instantiated <code>Map</code> of request scope
-     * attributes.</p>
-     */
-    private Map<String, Object> requestScope = null;
-
-    /**
-     * <p>The lazily instantiated <code>Map</code> of session scope
-     * attributes.</p>
-     */
-    private Map<String, Object> sessionScope = null;
-
-
+    
+    
+    private ServletContext servletContext;
     /**
      * Creates a new instance of ServletTilesRequestContext.
      *
@@ -100,75 +60,14 @@ public class ServletRequestContext extends ServletApplicationContext implements 
     public ServletRequestContext(ServletContext servletContext,
                                       HttpServletRequest request,
                                       HttpServletResponse response) {
-        super(servletContext);
+    	this.servletContext = servletContext;
         initialize(request, response);
     }
 
 
-    /** {@inheritDoc} */
-    public Map<String, String> getHeader() {
-
-        if ((header == null) && (request != null)) {
-            header = new ServletHeaderMap(request);
-        }
-        return (header);
-
-    }
+ 
 
 
-    /** {@inheritDoc} */
-    public Map<String, String[]> getHeaderValues() {
-
-        if ((headerValues == null) && (request != null)) {
-            headerValues = new ServletHeaderValuesMap(request);
-        }
-        return (headerValues);
-
-    }
-
-
-    /** {@inheritDoc} */
-    public Map<String, String> getParam() {
-
-        if ((param == null) && (request != null)) {
-            param = new ServletParamMap(request);
-        }
-        return (param);
-
-    }
-
-
-    /** {@inheritDoc} */
-    public Map<String, String[]> getParamValues() {
-
-        if ((paramValues == null) && (request != null)) {
-            paramValues = new ServletParamValuesMap(request);
-        }
-        return (paramValues);
-
-    }
-
-
-    /** {@inheritDoc} */
-    public Map<String, Object> getRequestScope() {
-
-        if ((requestScope == null) && (request != null)) {
-            requestScope = new ServletRequestScopeMap(request);
-        }
-        return (requestScope);
-
-    }
-
-
-    /** {@inheritDoc} */
-    public Map<String, Object> getSessionScope() {
-
-        if ((sessionScope == null) && (request != null)) {
-            sessionScope = new ServletSessionScopeMap(request);
-        }
-        return (sessionScope);
-
-    }
 
     /** {@inheritDoc} */
     public void dispatch(String path) throws IOException {
@@ -251,28 +150,6 @@ public class ServletRequestContext extends ServletApplicationContext implements 
         // Perform other setup as needed
     }
 
-
-    /**
-     * <p>Release references to allocated resources acquired in
-     * <code>initialize()</code> of via subsequent processing.  After this
-     * method is called, subsequent calls to any other method than
-     * <code>initialize()</code> will return undefined results.</p>
-     */
-    public void release() {
-        // Release references to allocated collections
-        header = null;
-        headerValues = null;
-        param = null;
-        paramValues = null;
-        requestScope = null;
-        sessionScope = null;
-
-        // Release references to Servlet API objects
-        request = null;
-        response = null;
-        super.release();
-
-    }
 
 
     /** {@inheritDoc} */

@@ -40,10 +40,8 @@ public abstract class UIComponentContext implements IUIComponentContext {
 		return new ArrayList<IUIComponentContext>(contexts.values());
 	}
 	
-	public void init(IUIComponentContext parent,IRequestContext request) {
+	public void init(IUIComponentContext parent) {
 		this.parent =  parent;
-		if(request != null)
-		this.requestContext = request;
 	}
 
 
@@ -70,19 +68,24 @@ public abstract class UIComponentContext implements IUIComponentContext {
 		return parent;
 	}
 	
-	public IUIComponentContext getChildUIContext(String componentName) {
-		IUIComponentContext result = getContext(componentName);
+	public final IUIComponentContext getChildUIContext(String componentName) {
+		IUIComponentContext result = contexts.get(componentName);
 		if(result != null){
 			return result;
 		}
-		return null;
-	}
-	
-	public IRequestContext getRequestContext(){
-		if(requestContext == null){
-			return getParentUIContext().getRequestContext();
+		
+		result = createUIContext(componentName);
+		
+		
+		if(result == null){
+			result = getParentUIContext().getChildUIContext(componentName);
 		}
-		return requestContext;
+		return result;
 	}
 	
+	
+	
+	protected IUIComponentContext createUIContext(String componentName){return null;};
+
+
 }

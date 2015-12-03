@@ -2,6 +2,7 @@ package com.wxxr.nirvana.ui;
 
 import java.util.Map;
 
+import com.wxxr.nirvana.ContainerAccess;
 import com.wxxr.nirvana.ISessionWorkbench;
 import com.wxxr.nirvana.workbench.IContributionItem;
 import com.wxxr.nirvana.workbench.IView;
@@ -15,7 +16,7 @@ public class ViewContext extends UIComponentContext {
 	public ViewContext(IContributionItem uiContribute,ViewRef[] viewrefs) {
 		super(uiContribute);
 		this.viewrefs = viewrefs;
-		workbench = (ISessionWorkbench) getRequestContext().getSessionScope().get(WorkbenchContainerImpl.WORKBENCH_PROXY);
+		workbench = ContainerAccess.getSessionWorkbench();
 	}
 	
 	private IView pickUp(Map<String,Object> parameters){

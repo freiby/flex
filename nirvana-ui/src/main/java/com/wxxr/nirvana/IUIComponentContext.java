@@ -15,6 +15,7 @@ public interface IUIComponentContext {
 	public final static String THEME = "theme";
 	public final static String VIEW = "view";
 	public final static String PAGE = "page";
+	public final static String PAGENAV = "navigation";
 	
 	String getUIId();
 
@@ -28,7 +29,6 @@ public interface IUIComponentContext {
 	
 	List<IUIComponentContext> getChildrenContext();
 	
-	void init(IUIComponentContext context,IRequestContext rcontext);
+	void init(IUIComponentContext context);
 	
-	IRequestContext getRequestContext();
 }

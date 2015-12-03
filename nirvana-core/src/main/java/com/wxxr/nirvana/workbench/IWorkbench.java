@@ -36,5 +36,7 @@ public interface IWorkbench {
 	
 	IWebResourceManager getWebResourceManager();
 	
+	IPageLayoutManager getPageLayoutManager();
+	
 	void destroy();
 }

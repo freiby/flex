@@ -1,6 +1,5 @@
 package com.wxxr.nirvana.ui;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -11,22 +10,24 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.jsp.PageContext;
 
 import com.wxxr.nirvana.ContainerAccess;
+import com.wxxr.nirvana.IRenderContext;
 import com.wxxr.nirvana.IUIComponentContext;
 import com.wxxr.nirvana.IUIComponentRender;
 import com.wxxr.nirvana.IWorkbenchContainer;
 import com.wxxr.nirvana.context.IRequestContext;
 import com.wxxr.nirvana.context.JspRequestContext;
+import com.wxxr.nirvana.context.NirvanaServletContext;
 import com.wxxr.nirvana.context.ServletRequestContext;
 import com.wxxr.nirvana.exception.NirvanaException;
-import com.wxxr.nirvana.theme.ITheme;
 import com.wxxr.nirvana.workbench.IProduct;
 import com.wxxr.nirvana.workbench.IWorkbench;
+import com.wxxr.nirvana.workbench.IWorkbenchPage;
+import com.wxxr.nirvana.workbench.impl.Product.PageRef;
 import com.wxxr.nirvana.workbench.impl.UIComponent;
 
 public class WorkbenchContainerImpl implements IWorkbenchContainer {
 
 	private List<IUIComponentRender> renders = new ArrayList<IUIComponentRender>();
-	private WorkbenchProxy workbenchProxy = null;
 	private static final String ATTRIBUTE_CONTEXT_STACK =
 	        "org.apache.tiles.AttributeContext.STACK";
 	
@@ -34,14 +35,10 @@ public class WorkbenchContainerImpl implements IWorkbenchContainer {
 	private boolean initialization = false;
 	
 	public void init(HttpServletRequest request, HttpServletResponse response) throws NirvanaException{
-		getRequestContext(request,response).getSessionScope().put(WORKBENCH_CONTAINER, this);
-		
 		IWorkbench workbench = ContainerAccess.getWorkbench();
 		if(workbench == null){
 			throw new NirvanaException("workbench is not init");
 		}
-		workbenchProxy = new WorkbenchProxy(workbench);
-		getRequestContext(request,response).getSessionScope().put(WORKBENCH_PROXY, workbenchProxy);
 	}
 	
 	public IUIComponentContext getUIComponentContext(IRequestContext rcontext) {
@@ -63,11 +60,10 @@ public class WorkbenchContainerImpl implements IWorkbenchContainer {
 	protected Stack<IUIComponentContext> getContextStack(IRequestContext context) {
         @SuppressWarnings("unchecked")
 		Stack<IUIComponentContext> contextStack =
-            (Stack<IUIComponentContext>) context
-                .getRequestScope().get(ATTRIBUTE_CONTEXT_STACK);
+            (Stack<IUIComponentContext>)NirvanaServletContext.getContext().getRequest().getAttribute(ATTRIBUTE_CONTEXT_STACK);
         if (contextStack == null) {
             contextStack = new Stack<IUIComponentContext>();
-            context.getRequestScope().put(ATTRIBUTE_CONTEXT_STACK,
+            NirvanaServletContext.getContext().getRequest().setAttribute(ATTRIBUTE_CONTEXT_STACK,
                     contextStack);
         }
 
@@ -87,8 +83,15 @@ public class WorkbenchContainerImpl implements IWorkbenchContainer {
         Stack<IUIComponentContext> contextStack = getContextStack(rcontext);
         contextStack.push(context);
     }
+	
+	protected IUIComponentContext popContext(IRequestContext context) {
+        Stack<IUIComponentContext> contextStack = getContextStack(context);
+        return contextStack.pop();
+    }
 
 	public void endContext(PageContext context) {
+		IRequestContext rcontext = getRequestContext(context);
+		popContext(rcontext);
 	}
 
 	public void prepare(String preparer, PageContext context)
@@ -99,16 +102,20 @@ public class WorkbenchContainerImpl implements IWorkbenchContainer {
 		if(!initialization){
 			throw new NirvanaException("workbench not bootstrap");
 		}
-		IRequestContext rc = getRequestContext(context);
-		IUIComponentContext pContext = getContext(rc);
+		final IRequestContext rc = getRequestContext(context);
+		final IUIComponentContext pContext = getContext(rc);
 		UIComponent uicomponent = pContext.getCurrentComponent(parameters);
 		for(IUIComponentRender render : renders){
 			if(render.accept(uicomponent)){
-				try {
-					render.render(uicomponent, rc);
-				} catch (IOException e) {
-					throw new NirvanaException("render error: " , e);
-				}
+				IRenderContext renderContext = new IRenderContext() {
+					public IRequestContext getRequestContext() {
+						return rc;
+					}
+					public IUIComponentContext getComponentContext() {
+						return pContext;
+					}
+				};
+				render.render(uicomponent, renderContext);
 			}
 		}
 	}
@@ -125,27 +132,57 @@ public class WorkbenchContainerImpl implements IWorkbenchContainer {
 		}
 	}
 
-	public void bootstrap(String p, HttpServletRequest request, HttpServletResponse response)throws  NirvanaException{
+	public void bootstrap(HttpServletRequest request, HttpServletResponse response,String p, String page)throws  NirvanaException{
 		if(initialization) return;
+		WorkbenchProxy workbenchProxy = (WorkbenchProxy) ContainerAccess.getSessionWorkbench();
 		IProduct product = workbenchProxy.getCurrentProduct();
 		if(product == null){
-			product = workbenchProxy.getProductManager().getProductById(p);
+			product = workbenchProxy.getProductManager().getProductByName(p);
 			workbenchProxy.setCurrentProduct(product);
 		}
-		
 		if(product == null){
 			throw new NirvanaException("workbench has not product that can visit");
 		}
-		
-		String themeref = workbenchProxy.getCurrentProduct().getTheme();
-		ITheme theme = workbenchProxy.getThemeManager().getTheme(themeref);
-		
 		ProductContext rootcontext = new ProductContext(product);
 		IRequestContext rcontext = getRequestContext(request,response);
-		rootcontext.init(null, rcontext);
-		
+		rootcontext.init(null);
 		pushContext(rootcontext, rcontext);
+		
+		IUIComponentContext themeContext = rootcontext.getChildUIContext("theme");
+		rootcontext.init(null);
+		pushContext(themeContext, rcontext);
+		workbenchProxy.setCurrentProduct(product);
+		openPage(page);
 		initialization = true;
+	}
+	
+	public void openPage(String ...pagename) throws NirvanaException{
+		if(pagename.length > 1) throw new NirvanaException("open one page");
+		WorkbenchProxy workbenchProxy = (WorkbenchProxy) ContainerAccess.getSessionWorkbench();
+		PageRef[] pages = workbenchProxy.getCurrentProduct().getAllPages();
+		PageRef defaultPage  = null;
+		for(PageRef p : pages){
+			if(p.defaultPage){
+				defaultPage = p;
+			}
+			if(pagename.length == 1){
+				IWorkbenchPage page = workbenchProxy.getWorkbenchPageManager().getWorkbenchPage(p.id);
+				if(page.getUniqueIndentifier().equalsIgnoreCase(p.id) && page.getName().equalsIgnoreCase(pagename[0])){
+					workbenchProxy.setCurrentPage(page);
+					return;
+				}
+			}
+			if(pagename.length == 0){
+				IWorkbenchPage page = workbenchProxy.getWorkbenchPageManager().getWorkbenchPage(p.id);
+				workbenchProxy.setCurrentPage(page);
+				return;
+			}
+		}
+		
+		IWorkbenchPage page = workbenchProxy.getWorkbenchPageManager().getWorkbenchPage(defaultPage.id);
+		workbenchProxy.setCurrentPage(page);
+		
+		
 	}
 	
 	/**

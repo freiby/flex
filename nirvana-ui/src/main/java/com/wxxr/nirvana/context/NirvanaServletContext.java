@@ -35,11 +35,11 @@ public class NirvanaServletContext {
 	}
 	
 	public HttpServletRequest getRequest(){
-		return (HttpServletRequest) NirvanaServletContext.getContext().context.get(HTTP_REQUEST);
+		return (HttpServletRequest) getContext().context.get(HTTP_REQUEST);
 	}
 	
     public static void setRequest(HttpServletRequest request) {
-    	NirvanaServletContext.getContext().put(HTTP_REQUEST, request);
+    	getContext().put(HTTP_REQUEST, request);
     }
 	
 	private void put(String key, Object value) {
@@ -47,7 +47,7 @@ public class NirvanaServletContext {
 	}
 
 	public HttpServletResponse getResponse(){
-		return (HttpServletResponse) NirvanaServletContext.getContext().context.get(HTTP_RESPONSE);
+		return (HttpServletResponse) getContext().context.get(HTTP_RESPONSE);
 	}
 	
 	public static void setResponse(HttpServletResponse response) {
@@ -55,19 +55,19 @@ public class NirvanaServletContext {
     }
 	
 	public ServletContext getServletContext(){
-		return (ServletContext) NirvanaServletContext.getContext().context.get(SERVLET_CONTEXT);
+		return (ServletContext) getContext().context.get(SERVLET_CONTEXT);
 	}
 	
 	public static void setServletContext(ServletContext servletContext) {
-		NirvanaServletContext.getContext().put(SERVLET_CONTEXT, servletContext);
+		getContext().put(SERVLET_CONTEXT, servletContext);
     }
 	
 	public HttpSession getSession(){
-		return (HttpSession) NirvanaServletContext.getContext().context.get(HTTP_SESSION);
+		return (HttpSession) getContext().context.get(HTTP_SESSION);
 	}
 	
 	public static void setHttpSession(HttpSession session) {
-		NirvanaServletContext.getContext().put(HTTP_SESSION, session);
+		getContext().put(HTTP_SESSION, session);
     }
 	
     public Object get(String key) {

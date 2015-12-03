@@ -17,4 +17,8 @@ public class PageLayout extends UIComponent implements IPageLayout,IDispatchUI {
 		uri = config.getAttribute("uri");
 	}
 
+	public void destroy() {
+		
+	}
+
 }

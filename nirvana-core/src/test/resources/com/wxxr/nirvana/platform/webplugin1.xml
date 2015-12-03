@@ -5,13 +5,13 @@
 	<!-- <requires>com.wxxr.nirvana.test</requires> -->
 	<extension id="nirvana" point="com.wxxr.nirvana.platform.products">
        <product
-            name="pmsg"
+            name="nirvana"
             description="nirvana"
 			themeref="com.wxxr.nirvana.style.nirvanaStyle_theme"
             id="nirvana"
             >
-			<page ref="com.wxxr.nirvana.test.niravanaPage" index="1" defaulPage="true" layout="nirvanapagelayout"/>
-			<page ref="com.wxxr.nirvana.test.lionPage" index="2" layout="nirvanapagelayout2"/>
+			<page ref="com.wxxr.nirvana.test.niravanaPage" index="1" defaulPage="true" layout="com.wxxr.nirvana.style.nirvanapagelayout"/>
+			<page ref="com.wxxr.nirvana.test.lionPage" index="2" layout="com.wxxr.nirvana.style.nirvanapagelayout2"/>
       </product>
 
    </extension>

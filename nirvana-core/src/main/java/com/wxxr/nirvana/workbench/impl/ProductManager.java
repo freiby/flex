@@ -100,7 +100,7 @@ public class ProductManager extends BaseExtensionPointManager implements
 			String key = keyIt.next();
 			String hname = products.get(key).getName();
 			if(name.equalsIgnoreCase(hname)){
-				return products.get(name);
+				return products.get(key);
 			}
 		}
 		return null;

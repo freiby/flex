@@ -5,7 +5,7 @@ import com.wxxr.nirvana.workbench.IDispatchUI;
 import com.wxxr.nirvana.workbench.IView;
 import com.wxxr.nirvana.workbench.IViewManager;
 
-public class View extends UIComponent implements IView,IDispatchUI{
+public class View extends UIComponent implements IView{
 
 	private static final String ATT_VIEW_URI="uri";
 	

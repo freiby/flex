@@ -25,7 +25,7 @@ public interface IWorkbenchPageManager {
 
   IWorkbenchPage[] getAllPages();
   String[] getAllPageIds(); 
-  String getCurrentWorkbenchPageId();
+//  String getCurrentWorkbenchPageId();
   void destroy();
   void start();
 

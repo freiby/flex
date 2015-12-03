@@ -10,10 +10,6 @@ import com.wxxr.nirvana.context.IRequestContext;
 import com.wxxr.nirvana.exception.NirvanaException;
 
 public interface IWorkbenchContainer {
-	public final static String WORKBENCH_PROXY = "_workbench_proxy_";
-	public final static String WORKBENCH_CONTAINER = "_workbench_container_";
-	
-	
 	void init(HttpServletRequest request, HttpServletResponse response) throws NirvanaException;
 	void render(String component, PageContext context, Map<String,Object> parameters)throws  NirvanaException;
 	void endContext(PageContext context);
@@ -24,7 +20,7 @@ public interface IWorkbenchContainer {
 	void registryUIRender(IUIComponentRender render);
 	void unregistryUIRender(IUIComponentRender render);
 	
-	void bootstrap(String product, HttpServletRequest request, HttpServletResponse response)throws  NirvanaException;
+	void bootstrap(HttpServletRequest request, HttpServletResponse response,String product, String page)throws  NirvanaException;
 	IUIComponentContext getUIComponentContext(IRequestContext rcontext);
 	void destroy();
 	
