@@ -23,7 +23,7 @@ import com.wxxr.nirvana.workbench.IWorkbenchPage;
 import com.wxxr.nirvana.workbench.IWorkbenchPageManager;
 
 /**
- * @author neillin
+ * @author fudapeng
  *
  */
 public class WorkbenchPage extends UIComponent implements IWorkbenchPage {

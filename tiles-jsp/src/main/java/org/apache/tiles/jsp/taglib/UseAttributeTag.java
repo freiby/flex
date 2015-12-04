@@ -23,6 +23,7 @@
 package org.apache.tiles.jsp.taglib;
 
 import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.TagData;
 import javax.servlet.jsp.tagext.TagExtraInfo;
 import javax.servlet.jsp.tagext.VariableInfo;
@@ -76,7 +77,7 @@ public class UseAttributeTag extends AttributeTagSupport {
      * @throws JspException if a JSP exception has occurred
      */
     public void execute() throws JspException {
-        pageContext.setAttribute(getScriptingVariable(), attribute.getValue(), scope);
+        pageContext.setAttribute(getScriptingVariable(), attribute.getValue(), PageContext.PAGE_SCOPE);
     }
 
     /**

@@ -21,6 +21,9 @@
 package com.wxxr.nirvana.context;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.jsp.PageContext;
 
 /**
  * Encapsulation of request information.
@@ -45,4 +48,8 @@ public interface IRequestContext {
      * @throws IOException If something goes wrong during inclusion.
      */
     void include(String path) throws IOException;
+    
+    PrintWriter getWriter() throws IOException;
+    
+    PageContext getPageContext();
 }

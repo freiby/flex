@@ -13,7 +13,7 @@ import java.net.URL;
 import com.wxxr.nirvana.platform.IRuntimeLibrary;
 
 /**
- * @author neillin
+ * @author fudapeng
  *
  */
 public class RuntimeLibrary implements IRuntimeLibrary {

@@ -15,7 +15,7 @@ import com.wxxr.nirvana.platform.PlatformLocator;
 import com.wxxr.nirvana.platform.PluginVersionIdentifier;
 
 /**
- * @author neillin
+ * @author fudapeng
  *
  */
 public class PluginConfigurationElement extends XMLConfigurationElement {

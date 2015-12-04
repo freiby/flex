@@ -30,7 +30,7 @@ import com.wxxr.nirvana.platform.MessageResourceBundle;
 import com.wxxr.nirvana.platform.PluginVersionIdentifier;
 
 /**
- * @author neillin
+ * @author fudapeng
  *
  */
 public class Plugin implements IPluginDescriptor, IPluginInitializer {

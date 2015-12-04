@@ -16,7 +16,7 @@ import com.wxxr.nirvana.platform.CoreException;
 import com.wxxr.nirvana.workbench.ISecurityManager;
 
 /**
- * @author neillin
+ * @author fudapeng
  *
  */
 public class SecurityManager implements ISecurityManager {

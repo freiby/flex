@@ -11,7 +11,7 @@ package com.wxxr.nirvana.platform.impl;
 import com.wxxr.nirvana.platform.IContributor;
 
 /**
- * @author neillin
+ * @author fudapeng
  *
  */
 public class Contributor implements IContributor {

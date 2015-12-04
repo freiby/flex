@@ -9,7 +9,7 @@
 package com.wxxr.nirvana.platform;
 
 /**
- * @author neillin
+ * @author fudapeng
  *
  */
 public interface ILifeSignDetector {

@@ -18,7 +18,7 @@ import com.wxxr.nirvana.platform.IRegistryChangeListener;
 import com.wxxr.nirvana.platform.PlatformLocator;
 
 /**
- * @author neillin
+ * @author fudapeng
  *
  */
 public abstract class BaseExtensionPointManager implements IRegistryChangeListener {

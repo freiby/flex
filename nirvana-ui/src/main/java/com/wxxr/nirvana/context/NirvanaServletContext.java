@@ -7,6 +7,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+/**
+ * servlet的上下文，不保证session的线程安全。
+ * @author fudapeng
+ *
+ */
 public class NirvanaServletContext {
 	
 	public static final String HTTP_REQUEST = "javax.servlet.http.HttpServletRequest";

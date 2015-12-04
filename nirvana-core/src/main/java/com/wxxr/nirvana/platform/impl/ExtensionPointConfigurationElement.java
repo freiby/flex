@@ -9,7 +9,7 @@
 package com.wxxr.nirvana.platform.impl;
 
 /**
- * @author neillin
+ * @author fudapeng
  *
  */
 public class ExtensionPointConfigurationElement extends XMLConfigurationElement {

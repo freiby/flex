@@ -18,7 +18,7 @@ import com.wxxr.nirvana.platform.CoreException;
 import com.wxxr.nirvana.platform.IRuntimeLibrary;
 
 /**
- * @author neillin
+ * @author fudapeng
  *
  */
 public class PluginClassLoader extends ClassLoader {

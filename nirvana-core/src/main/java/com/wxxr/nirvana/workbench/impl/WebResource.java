@@ -13,13 +13,14 @@ import com.wxxr.nirvana.workbench.IWebResource;
 import com.wxxr.nirvana.workbench.config.BaseContributionItem;
 
 /**
- * @author neillin
+ * @author fudapeng
  *
  */
 public class WebResource extends BaseContributionItem implements IWebResource {
 	
-	public static final String ATT_SOURCE_DIR = "src";
-	public static final String ATT_SOURCE_TYPE = "type";
+	public static final String ATT_SOURCE_DIR = "uri";
+	private static final String ATT_SOURCE_TYPE = "type";
+	
 	
 
 	public WebResource(IConfigurationElement elem) {
@@ -37,9 +38,12 @@ public class WebResource extends BaseContributionItem implements IWebResource {
 		return elem.getAttribute(ATT_SOURCE_TYPE);
 	}
 
-
 	public void destroy() {
-		
+	}
+	
+
+	public String getUri() {
+		return elem.getAttribute(ATT_SOURCE_DIR);
 	}
 
 }

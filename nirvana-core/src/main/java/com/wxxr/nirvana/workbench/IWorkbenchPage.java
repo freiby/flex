@@ -12,7 +12,7 @@ import com.wxxr.nirvana.platform.IConfigurationElement;
 import com.wxxr.nirvana.workbench.impl.WorkbenchPage.ViewRef;
 
 /**
- * @author neillin
+ * @author fudapeng
  *
  */
 public interface IWorkbenchPage extends IUIContributionItem {

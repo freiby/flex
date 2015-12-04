@@ -10,7 +10,7 @@ package com.wxxr.nirvana.workbench;
 
 
 /**
- * @author neillin
+ * @author fudapeng
  *
  */
 public interface IWorkbenchPageManager {

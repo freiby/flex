@@ -13,7 +13,7 @@ import java.net.URL;
 import java.util.Enumeration;
 
 /**
- * @author neillin
+ * @author fudapeng
  *
  */
 public class CompositeClassLoader extends ClassLoader {

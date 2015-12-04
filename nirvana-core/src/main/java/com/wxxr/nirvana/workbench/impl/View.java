@@ -1,7 +1,6 @@
 package com.wxxr.nirvana.workbench.impl;
 
 import com.wxxr.nirvana.platform.IConfigurationElement;
-import com.wxxr.nirvana.workbench.IDispatchUI;
 import com.wxxr.nirvana.workbench.IView;
 import com.wxxr.nirvana.workbench.IViewManager;
 
@@ -11,10 +10,10 @@ public class View extends UIComponent implements IView{
 	
 	private static final String RESOURCE_ELEMENT = "resource";
 	
+	
 	protected IViewManager manager;
 	protected String viewURI;
 	
-	private String[] resourcesIds;
 	private ResourceRef[] resourcesRefs;
 	
 	public boolean getAllowMultiple() {
@@ -32,31 +31,14 @@ public class View extends UIComponent implements IView{
 	
 	protected void initResources(IConfigurationElement config) {
 		IConfigurationElement[] rConfigs = config.getChildren(RESOURCE_ELEMENT);
-		resourcesIds = new String[rConfigs.length];
 		resourcesRefs = new ResourceRef[rConfigs.length];
 		for (int j = 0; j < rConfigs.length; j++) {
-			ResourceRef rr = new ResourceRef();
+			ResourceRef rr = new ResourceRef(rConfigs[j]);
 			IConfigurationElement rConfig = rConfigs[j];
-			String rid = rConfig.getAttribute(UIComponent.ATT_REF);
-			String init = rConfig.getAttribute("init");
-			rr.init = init;
-			rr.id = rid;
 			resourcesRefs[j] = rr;
-			resourcesIds[j] = rid;
 		}
 	}
 	
-	public class ResourceRef{
-		public String id;
-		public String init;
-	}
-	
-	public void destroy() {
-	}
-
-	public String getURI() {
-		return viewURI;
-	}
 
 	public ResourceRef[] getResourcesRef() {
 		return resourcesRefs;
@@ -68,6 +50,13 @@ public class View extends UIComponent implements IView{
 			return elem.getAttribute(attri);
 		}
 		return null;
+	}
+	
+	public void destroy() {
+	}
+
+	public String getURI() {
+		return viewURI;
 	}
 
 }

@@ -28,7 +28,7 @@ import com.wxxr.nirvana.workbench.UIConstants;
 import com.wxxr.nirvana.workbench.config.BaseExtensionPointManager;
 
 /**
- * @author neillin
+ * @author fudapeng
  *
  */
 public class WorkbenchPageManager extends BaseExtensionPointManager implements

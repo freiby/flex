@@ -25,11 +25,6 @@ public class ThemeContext extends UIComponentContext {
 			result = new DesktopContext(destop);
 			result.init(this);
 			addChildContext(IUIComponentContext.DESKTOP, result);
-		}else if(componentName.equals(IUIComponentContext.PAGELAYOUT)){
-			IPageLayout pagelayout = theme.getPageLayout();
-			result = new PageLayoutContext(pagelayout);
-			result.init(this);
-			addChildContext(IUIComponentContext.PAGELAYOUT,result);
 		}
 		return result;
 	}

@@ -24,6 +24,8 @@
             >
 			</desktop>
 
+			<resource ref="com.wxxr.nirvana.test.dj" point="header"></resource>
+			<resource ref="com.wxxr.nirvana.test.cj" point="header"></resource>
 			
       </theme>
 	 </extension>
@@ -46,6 +48,28 @@
 				uri="pagelayouturi">
 			</pageLayout>
    </extension>
+
+
+   <extension point="com.wxxr.nirvana.platform.resources" id="pages.niravanaPage">
+		  <resource
+				id="dj"
+				label="tiger"      
+				uri="js/d3.min.js"
+				type="js"
+				>
+		  </resource>
+
+		  <resource
+				id="cj"
+				label="tiger"      
+				uri="js/c3.min.js"
+				type="js"
+				>
+		  </resource>
+
+
+		  
+     </extension>
 
 
    

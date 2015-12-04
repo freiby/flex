@@ -10,7 +10,7 @@ package com.wxxr.nirvana.platform.impl;
 
 
 /**
- * @author neillin
+ * @author fudapeng
  *
  */
 public class PluginElementHandler extends BaseElementHandler {

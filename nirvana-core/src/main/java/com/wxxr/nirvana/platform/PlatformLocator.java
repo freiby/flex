@@ -14,7 +14,7 @@ import org.apache.commons.logging.LogFactory;
 import com.wxxr.nirvana.platform.impl.Platform;
 
 /**
- * @author neillin
+ * @author fudapeng
  *
  */
 public class PlatformLocator {

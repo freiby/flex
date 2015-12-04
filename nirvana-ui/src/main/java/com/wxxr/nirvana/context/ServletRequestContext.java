@@ -21,6 +21,7 @@
 package com.wxxr.nirvana.context;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Locale;
 
 import javax.servlet.RequestDispatcher;
@@ -28,6 +29,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.jsp.PageContext;
 
 import com.wxxr.nirvana.exception.NirvanaIOException;
 
@@ -178,4 +180,18 @@ public class ServletRequestContext  implements IRequestContext {
 
         return retValue;
     }
+
+
+
+
+
+
+	public PrintWriter getWriter() throws IOException {
+		return response.getWriter();
+	}
+
+
+	public PageContext getPageContext() {
+		return null;
+	}
 }

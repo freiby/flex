@@ -13,10 +13,11 @@ import com.wxxr.nirvana.theme.IDesktop;
 import com.wxxr.nirvana.theme.IPageLayout;
 import com.wxxr.nirvana.theme.ITheme;
 import com.wxxr.nirvana.theme.IThemeManager;
+import com.wxxr.nirvana.workbench.IWebResource;
 import com.wxxr.nirvana.workbench.config.BaseContributionItem;
 
 /**
- * @author neillin
+ * @author fudapeng
  *
  */
 public class ThemeImpl extends BaseContributionItem implements ITheme {
@@ -25,8 +26,10 @@ public class ThemeImpl extends BaseContributionItem implements ITheme {
 	protected String description;
 	protected IThemeManager manager;
 	private Desktop desktop;
-	private PageLayout pageLayout;
 	private boolean defaultTheme = false;
+	private ResourceRef[] resourcerefs;
+	
+	private String ATT_RESOURCE = "resource";
 
 	/*
 	 * (non-Javadoc)
@@ -57,19 +60,26 @@ public class ThemeImpl extends BaseContributionItem implements ITheme {
 		this.manager = manager;
 		applyConfigure(config, true);
 		initDesktop(config.getChildren("desktop")[0]);
+		initResources(config);
+	}
+
+	private void initResources(IConfigurationElement config) {
+		IConfigurationElement[] children = config.getChildren(ATT_RESOURCE);
+		if(children != null && children.length > 0){
+			resourcerefs = new ResourceRef[children.length];
+			int i = 0;
+			for(IConfigurationElement child : children){
+				ResourceRef ref = new ResourceRef(child);
+				resourcerefs[i] = ref;
+			}
+		}
+		
 	}
 
 	private void initDesktop(IConfigurationElement config) {
 		if(desktop == null){
 			desktop = new Desktop();
 			desktop.init(config);
-		}
-	}
-
-	private void initPageLayout(IConfigurationElement config) {
-		if(pageLayout == null){
-			pageLayout = new PageLayout();
-			pageLayout.init(config);
 		}
 	}
 
@@ -106,12 +116,12 @@ public class ThemeImpl extends BaseContributionItem implements ITheme {
 		return desktop;
 	}
 
-	public IPageLayout getPageLayout() {
-		return pageLayout;
-	}
-
 	public boolean isDefault() {
 		return defaultTheme;
 	}
 
+	public ResourceRef[] getResourceRefs() {
+		return resourcerefs;
+	}
+	
 }

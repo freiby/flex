@@ -13,7 +13,7 @@ import com.wxxr.nirvana.platform.IExtensionDelta;
 import com.wxxr.nirvana.platform.IExtensionPoint;
 
 /**
- * @author neillin
+ * @author fudapeng
  *
  */
 public class ExtensionDelta implements IExtensionDelta {

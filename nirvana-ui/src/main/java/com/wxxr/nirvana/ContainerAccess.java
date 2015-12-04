@@ -31,7 +31,8 @@ import com.wxxr.nirvana.workbench.IWorkbench;
 
 
 /**
- * Provides static access to the tiles container.
+ * Provides static access to the workbench container.
+ * 
  *
  * @version $Rev$ $Date$
  */

@@ -3,11 +3,14 @@ package com.wxxr.nirvana;
 import java.util.List;
 import java.util.Map;
 
-import com.wxxr.nirvana.context.IRequestContext;
 import com.wxxr.nirvana.workbench.IContributionItem;
 import com.wxxr.nirvana.workbench.impl.UIComponent;
 
-
+/**
+ * 渲染每个组件的需要知道组件的上下文，也就是那个product的哪个theme的哪个deskop等等
+ * @author fudapeng
+ *
+ */
 public interface IUIComponentContext {
 	
 	public final static String DESKTOP = "desktop";

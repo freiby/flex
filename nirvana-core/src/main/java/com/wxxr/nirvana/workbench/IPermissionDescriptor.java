@@ -11,7 +11,7 @@ package com.wxxr.nirvana.workbench;
 import com.wxxr.nirvana.platform.IConfigurationElement;
 
 /**
- * @author neillin
+ * @author fudapeng
  *
  */
 public interface IPermissionDescriptor extends IContributionItem {

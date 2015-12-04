@@ -91,5 +91,9 @@ public class JspRequestContext extends ServletRequestContext
         }
         return response;
     }
+    
+    public PageContext getPageContext() {
+		return pageContext;
+	}
 
 }

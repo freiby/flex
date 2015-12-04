@@ -13,7 +13,7 @@ import com.wxxr.nirvana.theme.ITheme;
 import com.wxxr.nirvana.theme.IThemeManager;
 
 /**
- * @author neillin
+ * @author fudapeng
  *
  */
 public interface IWorkbench {

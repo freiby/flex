@@ -11,7 +11,7 @@ package com.wxxr.nirvana.platform;
 import java.net.URL;
 
 /**
- * @author neillin
+ * @author fudapeng
  * 
  */
 public interface IPackageUploader {

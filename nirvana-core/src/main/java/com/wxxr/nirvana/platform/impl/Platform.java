@@ -50,7 +50,7 @@ import com.wxxr.nirvana.util.JarUtils;
 import com.wxxr.nirvana.util.StringPropertyReplacer;
 
 /**
- * @author neillin
+ * @author fudapeng
  *
  */
 public class Platform implements IPlatform{

@@ -26,7 +26,7 @@ import org.apache.commons.logging.LogFactory;
 
 import com.wxxr.nirvana.platform.MessageResourceBundle;
 /**
- * @author neillin
+ * @author fudapeng
  *
  */
 public class PluginMessageResourceBundle implements

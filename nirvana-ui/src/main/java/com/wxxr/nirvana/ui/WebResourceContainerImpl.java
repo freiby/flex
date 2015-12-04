@@ -1,0 +1,116 @@
+package com.wxxr.nirvana.ui;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.wxxr.nirvana.ContainerAccess;
+import com.wxxr.nirvana.ISessionWorkbench;
+import com.wxxr.nirvana.IWebResourceContainer;
+import com.wxxr.nirvana.exception.NirvanaException;
+import com.wxxr.nirvana.workbench.IProduct;
+import com.wxxr.nirvana.workbench.IView;
+import com.wxxr.nirvana.workbench.IWebResource;
+import com.wxxr.nirvana.workbench.IWorkbenchPage;
+import com.wxxr.nirvana.workbench.impl.ResourceRef;
+import com.wxxr.nirvana.workbench.impl.UIComponent;
+import com.wxxr.nirvana.workbench.impl.Product.PageRef;
+import com.wxxr.nirvana.workbench.impl.WorkbenchPage.ViewRef;
+
+/**
+ * 
+ * @author fudapeng
+ *
+ */
+public class WebResourceContainerImpl implements IWebResourceContainer {
+    private IWorkbenchPage page;
+    private IProduct product;
+    
+    private IWebResource[] resources;
+    
+    private Map<String, WebResourceInfo[]> viewResourceMap = new HashMap<String, WebResourceInfo[]>();
+    
+    private Map<String, List<IWebResource>> pointMap = new HashMap<String, List<IWebResource>>();
+    
+    private IWebResource[] themeResources = null;
+    
+    private ResourceRef[] themeRefs = null;
+    
+	public void init(HttpServletRequest request, HttpServletResponse response)
+			throws NirvanaException {
+    	page = ContainerAccess.getSessionWorkbench().getCurrentPage();
+    	product = ContainerAccess.getSessionWorkbench().getCurrentProduct();
+    	String themeref = product.getTheme();
+    	ISessionWorkbench workbench = ContainerAccess.getSessionWorkbench();
+    	themeRefs = workbench.getThemeManager().getTheme(themeref).getResourceRefs();
+    	this.themeResources = new IWebResource[themeRefs.length];
+    	for(int i= 0; i<themeRefs.length; i++){
+    		this.themeResources[i] =  workbench.getWebResourceManager().getResource(themeRefs[i].getRef());
+    		collection(themeRefs[i].getPoint(),this.themeResources[i]);
+		}
+    	PageRef[] pagerefs = product.getAllPages();
+    	for(PageRef pageref : pagerefs){
+    		IWorkbenchPage page = workbench.getWorkbenchPageManager().getWorkbenchPage(pageref.id);
+    		ViewRef[] viewrefs = page.getAllViewRefs();
+    		for(ViewRef viewref : viewrefs){
+    			IView view = workbench.getViewManager().find(viewref.getId());
+    			ResourceRef[] viewRrefs = view.getResourcesRef();
+    			WebResourceInfo[] infos = new WebResourceInfo[viewRrefs.length];
+    			for(int i= 0; i<viewRrefs.length; i++){
+    				IWebResource webr =  workbench.getWebResourceManager().getResource(viewRrefs[i].getRef());
+    				WebResourceInfo info = new WebResourceInfo(webr, viewRrefs[i].getPoint());
+    				infos[i] = info;
+    				collection(viewRrefs[i].getPoint(), webr);
+    			}
+    			
+    			viewResourceMap.put(view.getUniqueIndentifier(), infos);
+    		}
+    	}
+	}
+	
+	private void collection(String point, IWebResource r){
+		if(!pointMap.containsKey(point)){
+			List<IWebResource> rs = new ArrayList<IWebResource>();
+			rs.add(r);
+			pointMap.put(point, rs);
+		}else{
+			List<IWebResource> webrs = pointMap.get(point);
+			webrs.add(r);
+		}
+	}
+
+	public void reset(HttpServletRequest request, HttpServletResponse response)
+			throws NirvanaException {
+
+	}
+
+	public void destroy() {
+		page = null;
+		product = null;
+	}
+
+	public IWebResource[] getResources(String point){
+		if(pointMap.containsKey(point)){
+			return pointMap.get(point).toArray(new IWebResource[pointMap.get(point).size()]);
+		}
+		return null;
+	}
+
+	public WebResourceInfo[] getComponentResource(UIComponent component) {
+		String uid = component.getUniqueIndentifier();
+		if(viewResourceMap.containsKey(uid)){
+			return viewResourceMap.get(uid);
+		}
+		return null;
+	}
+	
+	private class Ref{
+		public ResourceRef[] refs;
+		public IWebResource[] resources;
+	}
+
+}

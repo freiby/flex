@@ -12,7 +12,7 @@ import com.wxxr.nirvana.platform.IConfigurationElement;
 import com.wxxr.nirvana.workbench.IContributionItem;
 
 /**
- * @author neillin
+ * @author fudapeng
  *
  */
 public class BaseContributionItem implements IContributionItem {

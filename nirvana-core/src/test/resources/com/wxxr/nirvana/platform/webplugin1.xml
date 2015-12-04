@@ -49,7 +49,6 @@
             uri="view/chart1.jsp"
             id="chart1"
 			>
-			<resource ref="com.wxxr.nirvana.test.dj"></resource>
       </view>
 
 	  <view
@@ -58,9 +57,8 @@
             uri="view/c3-1.html"
             id="chart2"
 			>
-			<resource ref="com.wxxr.nirvana.test.dj" init="before_view"></resource>
-			<resource ref="com.wxxr.nirvana.test.cj" init="before_view"></resource>
-			<resource ref="com.wxxr.nirvana.test.hj" init="after_view"></resource>
+			
+			<resource ref="com.wxxr.nirvana.test.hj" point="before"></resource>
 
       </view>
 
@@ -69,7 +67,7 @@
             description=""
             uri="view/chart3.jsp"
             id="chart3">
-			<resource ref="com.wxxr.nirvana.test.dj"></resource>
+			
       </view>
      </extension>
  
@@ -87,28 +85,8 @@
 				label="tiger"      
 				uri="js/hello.js"
 				type="js"
-				position="footer">
-		  </resource>
-
-
-		  <resource
-				id="dj"
-				label="tiger"      
-				uri="js/d3.min.js"
-				type="js"
-				position="header">
-		  </resource>
-
-		  <resource
-				id="cj"
-				label="tiger"      
-				uri="js/c3.min.js"
-				type="js"
-				position="header">
-		  </resource>
-
-
-		  
+				>
+		  </resource> 
      </extension>
 
 

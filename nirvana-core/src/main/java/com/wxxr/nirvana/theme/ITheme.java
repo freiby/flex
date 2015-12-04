@@ -10,9 +10,10 @@ package com.wxxr.nirvana.theme;
 
 import com.wxxr.nirvana.platform.IConfigurationElement;
 import com.wxxr.nirvana.workbench.IContributionItem;
+import com.wxxr.nirvana.workbench.impl.ResourceRef;
 
 /**
- * @author neillin
+ * @author fudapeng
  *
  */
 public interface ITheme extends IContributionItem {
@@ -36,7 +37,7 @@ public interface ITheme extends IContributionItem {
 	
 	IDesktop getDesktop();
 	
-	IPageLayout getPageLayout();
+	ResourceRef[] getResourceRefs();
 	
 	boolean isDefault();
 }

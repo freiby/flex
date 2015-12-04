@@ -16,7 +16,7 @@ import com.wxxr.nirvana.platform.IServiceRegistry;
 import com.wxxr.nirvana.platform.IServiceRegistryEventListener;
 
 /**
- * @author neillin
+ * @author fudapeng
  *
  */
 public class BasicServiceRegsitry implements IServiceRegistry {

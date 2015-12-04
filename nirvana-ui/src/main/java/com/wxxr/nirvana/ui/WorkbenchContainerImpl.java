@@ -13,6 +13,8 @@ import com.wxxr.nirvana.ContainerAccess;
 import com.wxxr.nirvana.IRenderContext;
 import com.wxxr.nirvana.IUIComponentContext;
 import com.wxxr.nirvana.IUIComponentRender;
+import com.wxxr.nirvana.IWebResourceContainer;
+import com.wxxr.nirvana.IWebResourceContainer.WebResourceInfo;
 import com.wxxr.nirvana.IWorkbenchContainer;
 import com.wxxr.nirvana.context.IRequestContext;
 import com.wxxr.nirvana.context.JspRequestContext;
@@ -20,6 +22,7 @@ import com.wxxr.nirvana.context.NirvanaServletContext;
 import com.wxxr.nirvana.context.ServletRequestContext;
 import com.wxxr.nirvana.exception.NirvanaException;
 import com.wxxr.nirvana.workbench.IProduct;
+import com.wxxr.nirvana.workbench.IWebResource;
 import com.wxxr.nirvana.workbench.IWorkbench;
 import com.wxxr.nirvana.workbench.IWorkbenchPage;
 import com.wxxr.nirvana.workbench.impl.Product.PageRef;
@@ -30,9 +33,9 @@ public class WorkbenchContainerImpl implements IWorkbenchContainer {
 	private List<IUIComponentRender> renders = new ArrayList<IUIComponentRender>();
 	private static final String ATTRIBUTE_CONTEXT_STACK =
 	        "org.apache.tiles.AttributeContext.STACK";
-	
-	
 	private boolean initialization = false;
+	
+	private IWebResourceContainer resourceContainer;
 	
 	public void init(HttpServletRequest request, HttpServletResponse response) throws NirvanaException{
 		IWorkbench workbench = ContainerAccess.getWorkbench();
@@ -107,12 +110,24 @@ public class WorkbenchContainerImpl implements IWorkbenchContainer {
 		UIComponent uicomponent = pContext.getCurrentComponent(parameters);
 		for(IUIComponentRender render : renders){
 			if(render.accept(uicomponent)){
-				IRenderContext renderContext = new IRenderContext() {
+				final IRenderContext renderContext = new IRenderContext() {
 					public IRequestContext getRequestContext() {
 						return rc;
 					}
 					public IUIComponentContext getComponentContext() {
 						return pContext;
+					}
+					public WebResourceInfo[] getComponentResource(
+							UIComponent component) {
+						return resourceContainer.getComponentResource(component);
+					}
+					public void render(UIComponent component,
+							IRenderContext context) throws NirvanaException {
+						for(IUIComponentRender render : renders){
+							if(render.accept(component)){
+								render.render(component,  context);
+							}
+						}
 					}
 				};
 				render.render(uicomponent, renderContext);
@@ -154,8 +169,17 @@ public class WorkbenchContainerImpl implements IWorkbenchContainer {
 		workbenchProxy.setCurrentProduct(product);
 		openPage(page);
 		initialization = true;
+		afterBootstrop(request,response);
 	}
 	
+	private void afterBootstrop(HttpServletRequest request, HttpServletResponse response) throws NirvanaException {
+		if(resourceContainer == null){
+			resourceContainer = new WebResourceContainerImpl();
+		}
+		resourceContainer.init(request, response);
+		
+	}
+
 	public void openPage(String ...pagename) throws NirvanaException{
 		if(pagename.length > 1) throw new NirvanaException("open one page");
 		WorkbenchProxy workbenchProxy = (WorkbenchProxy) ContainerAccess.getSessionWorkbench();
@@ -199,6 +223,18 @@ public class WorkbenchContainerImpl implements IWorkbenchContainer {
     }
     
 	public void destroy() {
-		
+		resourceContainer.destroy();
+	}
+
+	/**
+	 * TODO
+	 */
+	public void reset(HttpServletRequest request, HttpServletResponse response)
+			throws NirvanaException {
+		resourceContainer.reset(request,response);
+	}
+
+	public IWebResourceContainer getWebResourceContainer() {
+		return resourceContainer;
 	}
 }

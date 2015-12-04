@@ -10,10 +10,11 @@ package com.wxxr.nirvana.workbench;
 
 
 /**
- * @author neillin
+ * @author fudapeng
  *
  */
 public interface IWebResource extends IContributionItem {
 	String getType();
+	String getUri();
 	void destroy();
 }

@@ -11,7 +11,7 @@ package com.wxxr.nirvana.workbench;
 import java.security.Principal;
 
 /**
- * @author neillin
+ * @author fudapeng
  *
  */
 public interface ISecurityManager {

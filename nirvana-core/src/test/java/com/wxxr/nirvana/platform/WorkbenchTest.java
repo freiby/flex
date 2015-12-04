@@ -15,7 +15,7 @@ import com.wxxr.nirvana.workbench.IProduct;
 import com.wxxr.nirvana.workbench.IView;
 import com.wxxr.nirvana.workbench.IWebResource;
 import com.wxxr.nirvana.workbench.IWorkbenchPage;
-import com.wxxr.nirvana.workbench.impl.View;
+import com.wxxr.nirvana.workbench.impl.ResourceRef;
 import com.wxxr.nirvana.workbench.impl.Workbench;
 
 public class WorkbenchTest {
@@ -64,7 +64,7 @@ public class WorkbenchTest {
 		
 		IView view = workbench.getViewManager().find("com.wxxr.nirvana.test.chart2");
 		assertNotNull(view);
-		View.ResourceRef[] vrr = view.getResourcesRef();
+		ResourceRef[] vrr = view.getResourcesRef();
 		assertEquals(3, vrr	.length);
 		
 		List<IWebResource> webrs = workbench.getWebResourceManager().getResources();

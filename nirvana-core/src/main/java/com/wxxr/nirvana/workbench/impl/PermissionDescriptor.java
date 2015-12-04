@@ -16,7 +16,7 @@ import com.wxxr.nirvana.workbench.IPermissionsManager;
 import com.wxxr.nirvana.workbench.config.BaseContributionItem;
 
 /**
- * @author neillin
+ * @author fudapeng
  *
  */
 public class PermissionDescriptor extends BaseContributionItem implements IPermissionDescriptor {

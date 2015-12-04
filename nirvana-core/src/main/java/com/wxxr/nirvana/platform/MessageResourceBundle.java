@@ -12,7 +12,7 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 /**
- * @author neillin
+ * @author fudapeng
  *
  */
 public interface MessageResourceBundle {
