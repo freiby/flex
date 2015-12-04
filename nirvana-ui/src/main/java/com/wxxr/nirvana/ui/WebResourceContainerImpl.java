@@ -47,11 +47,13 @@ public class WebResourceContainerImpl implements IWebResourceContainer {
     	String themeref = product.getTheme();
     	ISessionWorkbench workbench = ContainerAccess.getSessionWorkbench();
     	themeRefs = workbench.getThemeManager().getTheme(themeref).getResourceRefs();
-    	this.themeResources = new IWebResource[themeRefs.length];
-    	for(int i= 0; i<themeRefs.length; i++){
-    		this.themeResources[i] =  workbench.getWebResourceManager().getResource(themeRefs[i].getRef());
-    		collection(themeRefs[i].getPoint(),this.themeResources[i]);
-		}
+    	if(themeRefs != null){
+    		this.themeResources = new IWebResource[themeRefs.length];
+        	for(int i= 0; i<themeRefs.length; i++){
+        		this.themeResources[i] =  workbench.getWebResourceManager().getResource(themeRefs[i].getRef());
+        		collection(themeRefs[i].getPoint(),this.themeResources[i]);
+    		}
+    	}
     	PageRef[] pagerefs = product.getAllPages();
     	for(PageRef pageref : pagerefs){
     		IWorkbenchPage page = workbench.getWorkbenchPageManager().getWorkbenchPage(pageref.id);
@@ -59,6 +61,7 @@ public class WebResourceContainerImpl implements IWebResourceContainer {
     		for(ViewRef viewref : viewrefs){
     			IView view = workbench.getViewManager().find(viewref.getId());
     			ResourceRef[] viewRrefs = view.getResourcesRef();
+    			if(viewRrefs == null) continue;
     			WebResourceInfo[] infos = new WebResourceInfo[viewRrefs.length];
     			for(int i= 0; i<viewRrefs.length; i++){
     				IWebResource webr =  workbench.getWebResourceManager().getResource(viewRrefs[i].getRef());

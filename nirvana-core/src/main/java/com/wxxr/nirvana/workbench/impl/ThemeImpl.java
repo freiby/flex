@@ -71,6 +71,7 @@ public class ThemeImpl extends BaseContributionItem implements ITheme {
 			for(IConfigurationElement child : children){
 				ResourceRef ref = new ResourceRef(child);
 				resourcerefs[i] = ref;
+				i++;
 			}
 		}
 		

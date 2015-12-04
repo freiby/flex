@@ -31,6 +31,7 @@ public class View extends UIComponent implements IView{
 	
 	protected void initResources(IConfigurationElement config) {
 		IConfigurationElement[] rConfigs = config.getChildren(RESOURCE_ELEMENT);
+		if(rConfigs == null) return ;
 		resourcesRefs = new ResourceRef[rConfigs.length];
 		for (int j = 0; j < rConfigs.length; j++) {
 			ResourceRef rr = new ResourceRef(rConfigs[j]);

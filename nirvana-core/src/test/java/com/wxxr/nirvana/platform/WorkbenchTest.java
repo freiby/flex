@@ -65,7 +65,7 @@ public class WorkbenchTest {
 		IView view = workbench.getViewManager().find("com.wxxr.nirvana.test.chart2");
 		assertNotNull(view);
 		ResourceRef[] vrr = view.getResourcesRef();
-		assertEquals(3, vrr	.length);
+		assertEquals(1, vrr.length);
 		
 		List<IWebResource> webrs = workbench.getWebResourceManager().getResources();
 		assertEquals(3, webrs.size());

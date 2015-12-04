@@ -47,15 +47,11 @@
     
     <modules>
 
-        <module>tiles-api</module>
-        <module>tiles-core</module>
-        <module>tiles-jsp</module>
-        <module>tiles-test</module>
-        <module>assembly</module>
 		<module>nirvana-core</module>
-		<module>tiles</module>
 		<module>nirvana-ui</module>
 		<module>nirvana-web</module>
+		<module>nirvana-workbench</module>
+		
   </modules>
     
     <distributionManagement>
