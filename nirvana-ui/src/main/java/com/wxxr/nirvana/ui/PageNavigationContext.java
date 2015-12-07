@@ -20,6 +20,10 @@ public class PageNavigationContext extends UIComponentContext{
 		public IWorkbenchPage[] getAllPages() {
 			return pages;
 		}
+		@Override
+		public String getName() {
+			return "PageNavigation";
+		}
 	}
 	public PageNavigationContext(PageRef[] pagerefs) {
 		super(null);

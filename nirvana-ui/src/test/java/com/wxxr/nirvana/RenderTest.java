@@ -1,11 +1,14 @@
 package com.wxxr.nirvana;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Stack;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextListener;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -20,7 +23,6 @@ import org.junit.Test;
 import com.wxxr.nirvana.context.NirvanaServletContext;
 import com.wxxr.nirvana.exception.NirvanaException;
 import com.wxxr.nirvana.platform.WorkbenchTest;
-import com.wxxr.nirvana.ui.WebResourceContainerImpl;
 import com.wxxr.nirvana.ui.WorkbenchContainerFactory;
 import com.wxxr.nirvana.ui.WorkbenchProxy;
 import com.wxxr.nirvana.workbench.IWebResource;
@@ -54,17 +56,29 @@ public class RenderTest {
 	}
 
 	@Test
-	public void testBoostrap() throws NirvanaException{
+	public void testBoostrap() throws NirvanaException, ServletException, IOException{
 		String product = "nirvana";
 		String page = "tiger";
 		
 		HttpServletRequest request = EasyMock.createMock(HttpServletRequest.class);
 		HttpServletResponse response = EasyMock.createMock(HttpServletResponse.class);
 		HttpSession session = EasyMock.createMock(HttpSession.class);
+		RequestDispatcher dispatcher = EasyMock.createMock(RequestDispatcher.class);
+		
+		
 		
 		EasyMock.expect(request.getSession()).andReturn(session).anyTimes();
 		EasyMock.expect(session.getServletContext()).andReturn(servletContext).anyTimes();
 		EasyMock.expect(session.getAttribute(ContainerAccess.CONTAINER_ATTRIBUTE)).andReturn(null).anyTimes();
+		
+		EasyMock.expect(request.getRequestDispatcher("view/chart1.jsp")).andReturn(dispatcher).anyTimes();
+		EasyMock.expect(request.getRequestDispatcher("view/chart3.jsp")).andReturn(dispatcher).anyTimes();
+		EasyMock.expect(request.getRequestDispatcher("view/c3-1.html")).andReturn(dispatcher).times(2);
+		EasyMock.expect(request.getRequestDispatcher("desktopuri")).andReturn(dispatcher).anyTimes();
+		EasyMock.expect(request.getRequestDispatcher("pagelayouturi")).andReturn(dispatcher).anyTimes();
+		
+		
+		dispatcher.include(request, response);
 		
 		IWorkbenchContainer container = null;
 		container = WorkbenchContainerFactory.createWorkbench();
@@ -106,8 +120,11 @@ public class RenderTest {
 		JspTagMock pageTag = new JspTagMock(container, "page", pageContext, null);
 		JspTagMock navTag = new JspTagMock(container, "navigation", pageContext, null);
 		
-		desktop.addTag(pageTag);
 		desktop.addTag(navTag);
+		desktop.addTag(pageTag);
+		
+		
+		
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("anchor", "headerone");

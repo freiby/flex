@@ -20,7 +20,6 @@ public abstract class ResourceTag extends BodyTagSupport {
 	private IWorkbenchContainer workbenchContainer;
 	
 	private String point;
-	private String type;
 	private List<IWebResource> rs = new ArrayList<IWebResource>();
 
 	@Override
@@ -30,9 +29,7 @@ public abstract class ResourceTag extends BodyTagSupport {
 		IWebResource[] resources = webResourceContainer.getResources(point);
 		List<IWebResource> rs = new ArrayList<IWebResource>();
 		for(IWebResource item : resources){
-			if(item.getType().equals(type)){
 				rs.add(item);
-			}
 		}
 		return EVAL_BODY_BUFFERED;
 	}
@@ -75,14 +72,6 @@ public abstract class ResourceTag extends BodyTagSupport {
 		this.point = point;
 	}
 	
-	public String getType() {
-		return type;
-	}
-
-	public void setType(String type) {
-		this.type = type;
-	}
-//	
 //	/**
 //     * Implementation of <code>TagExtraInfo</code> which identifies the
 //     * scripting object(s) to be made visible.

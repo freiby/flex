@@ -6,40 +6,35 @@
 	<constant name="struts.enable.DynamicMethodInvocation" value="false" />
 	<constant name="struts.devMode" value="true" />
 	<include file="example.xml" />
-	<!-- <package name="default" namespace="/" extends="struts-default"> <default-action-ref 
-		name="index"/> <action name="index"> <result type="redirectAction"> <param 
-		name="actionName">HelloWorld</param> <param name="namespace">/example</param> 
-		</result> </action> </package> -->
+	<!-- <package name="default" namespace="/" extends="struts-default"> <default-action-ref
+	name="index"/> <action name="index"> <result type="redirectAction"> <param
+	name="actionName">HelloWorld</param> <param name="namespace">/example</param>
+	</result> </action> </package> -->
 	<package name="default" extends="struts-default">
 		<result-types>
-			<result-type name="tiles"
-				class="org.apache.struts2.views.tiles.TilesResult" />
-			<result-type name="ntiles" class="com.wxxr.nirvana.result.ProductResult" />
+			<result-type name="product" class="com.wxxr.nirvana.result.ProductResult" />
+			<result-type name="page" class="com.wxxr.nirvana.result.PageResult" />
 		</result-types>
 		<action name="startProduct" method="startProduct"
-			class="com.wxxr.nirvana.action.ProductAction">
-			<result name="start" type="ntiles">${productName}</result>
+		class="com.wxxr.nirvana.action.ProductAction">
+			<result name="start" type="product">${productName}</result>
 		</action>
-
-		<action name="goPage" method="goPage"
-			class="com.wxxr.nirvana.action.ProductAction">
-			<result name="go" type="ntiles">${pageName}</result>
+		<action name="startPage" method="startPage"
+		class="com.wxxr.nirvana.action.ProductAction">
+			<result name="start" type="page">${pageName}</result>
 		</action>
 
 	</package>
-
 	<package name="json" extends="json-default" namespace="/test">
 		<action name="testByAction" class="com.wxxr.tiles.example.JsonTestAction"
-			method="testByAction">
+		method="testByAction">
 			<result type="json">
 				<!-- 这里指定将被Struts2序列化的属性，该属性在action中必须有对应的getter方法 -->
 				<param name="root">dataMap</param>
 			</result>
 		</action>
-		
-		
 		<action name="sdmByAction" class="com.wxxr.tiles.example.SMDActionTest1"
-			>
+		>
 			<interceptor-ref name="json">
 				<param name="enableSMD">true</param>
 			</interceptor-ref>
@@ -47,10 +42,9 @@
 				<param name="enableSMD">true</param>
 			</result>
 		</action>
-
 		<action name="HelloWorld" class="com.wxxr.tiles.example.HelloWorld">
-            <result>/WEB-INF/example/HelloWorld.jsp</result>
-        </action>
+			<result>/WEB-INF/example/HelloWorld.jsp</result>
+		</action>
 	</package>
 
 	<!-- Add addition packages and configuration here. -->

@@ -59,6 +59,7 @@ public class PageLayoutManager extends BaseExtensionPointManager implements
 			return layout;
 		}
 		layout = new PageLayout();
+		layout.init(this, elem);
 		synchronized (layouts) {
 			layouts.put(id, layout);
 		}

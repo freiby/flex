@@ -18,24 +18,35 @@ public abstract class UIComponentRender implements IUIComponentRender {
 		WebResourceInfo[] wrs = context.getComponentResource(component);
 
 		IWebResource[] bwrs = injecPoint(wrs,true);
-		if (bwrs.length > 0) {
-			ResourceUIComponent resourceui = new ResourceUIComponent(bwrs);
+		if (bwrs != null && bwrs.length > 0) {
+			ResourceUIComponent resourceui = new ResourceUIComponent(bwrs){
+				@Override
+				public String getName() {
+					return "view nest Resource component for inject resource";
+				}
+			};
 			context.render(resourceui, context);
 		}
 		
 		doRenderComponent(component, context);
 		
 		IWebResource[] afwrs = injecPoint(wrs,false);
-		if (afwrs.length > 0) {
-			ResourceUIComponent resourceui = new ResourceUIComponent(afwrs);
+		if (afwrs != null && afwrs.length > 0) {
+			ResourceUIComponent resourceui = new ResourceUIComponent(afwrs){
+				@Override
+				public String getName() {
+					return "view nest Resource component for inject resource";
+				}
+			};
 			context.render(resourceui, context);
 		}
 		
 	}
 
-	protected abstract void doRenderComponent(UIComponent component, IRenderContext context);
+	protected abstract void doRenderComponent(UIComponent component, IRenderContext context)throws NirvanaException;
 
 	private IWebResource[] injecPoint(WebResourceInfo[] wrs,boolean before) {
+		if(wrs == null) return null;
 		List<IWebResource> b = new ArrayList<IWebResource>();
 		List<IWebResource> a = new ArrayList<IWebResource>();
 		for(WebResourceInfo r : wrs){

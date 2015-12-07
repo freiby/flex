@@ -38,7 +38,7 @@ public class ProductContext extends UIComponentContext{
 			PageRef[] pagerefs = product.getAllPages();
 			result = new PageNavigationContext(pagerefs);
 			result.init(this);
-			addChildContext(IUIComponentContext.PAGE, result);
+			addChildContext(IUIComponentContext.PAGENAV, result);
 		}
 		return result;
 	}

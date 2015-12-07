@@ -3,6 +3,7 @@ package com.wxxr.nirvana.workbench.impl;
 import com.wxxr.nirvana.platform.IConfigurationElement;
 import com.wxxr.nirvana.theme.IPageLayout;
 import com.wxxr.nirvana.workbench.IDispatchUI;
+import com.wxxr.nirvana.workbench.IPageLayoutManager;
 
 public class PageLayout extends UIComponent implements IPageLayout,IDispatchUI {
 
@@ -18,7 +19,10 @@ public class PageLayout extends UIComponent implements IPageLayout,IDispatchUI {
 	}
 
 	public void destroy() {
-		
+	}
+
+	public void init(IPageLayoutManager manager, IConfigurationElement config) {
+		init(config);
 	}
 
 }

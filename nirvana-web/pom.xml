@@ -27,10 +27,6 @@
 			<scope>test</scope>
 		</dependency>
 
-		<dependency>
-			<groupId>com.wxxr.nirvana</groupId>
-			<artifactId>struts2-tiles-plugin</artifactId>
-		</dependency>
 
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
@@ -60,5 +56,18 @@
 			<artifactId>commons-lang3</artifactId>
 			<scope>provided</scope>
 		</dependency>
+		
+		<dependency>
+			<groupId>com.wxxr.nirvana</groupId>
+			<artifactId>nirvana-ui</artifactId>
+			<scope>compile</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.apache.struts</groupId>
+			<artifactId>struts2-core</artifactId>
+			<scope>compile</scope>
+		</dependency>
+		
 	</dependencies>
 </project>

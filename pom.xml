@@ -124,23 +124,11 @@
 				<scope>test</scope>
 			</dependency>
 
-			<dependency>
-				<groupId>com.wxxr.nirvana</groupId>
-				<artifactId>tiles-core-wxxr</artifactId>
-				<version>${project.version}</version>
-			</dependency>
+			
 
-			 <dependency>
-			  <groupId>com.wxxr.nirvana</groupId>
-			  <artifactId>tiles-api-wxxr</artifactId>
-			  <version>${project.version}</version>
-			</dependency>
+			
 
-			<dependency>
-				<groupId>com.wxxr.nirvana</groupId>
-				<artifactId>tiles-jsp-wxxr</artifactId>
-				<version>${project.version}</version>
-            </dependency>
+			
 
 			<dependency>
 				<groupId>javax.servlet</groupId>
@@ -163,18 +151,24 @@
               <scope>test</scope>
           </dependency>
 
-		  <dependency>
-            <groupId>com.wxxr.nirvana</groupId>
-            <artifactId>struts2-tiles-plugin</artifactId>
-			<version>${project.version}</version>
-          </dependency>
-
 
 		  <dependency>
             <groupId>com.wxxr.nirvana</groupId>
             <artifactId>nirvana-core</artifactId>
 			<version>${project.version}</version>
           </dependency>
+
+		  <dependency>
+            <groupId>com.wxxr.nirvana</groupId>
+			<artifactId>nirvana-ui</artifactId>
+			<version>${project.version}</version>
+          </dependency>
+
+		  <dependency>
+			<groupId>com.wxxr.nirvana</groupId>
+			<artifactId>nirvana-web</artifactId>
+			<version>${project.version}</version>
+		</dependency>
 
 		  <dependency>
             <groupId>org.apache.commons</groupId>

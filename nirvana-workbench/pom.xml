@@ -82,13 +82,6 @@
 		</dependency>
 
 		<dependency>
-			<groupId>com.wxxr.nirvana</groupId>
-			<artifactId>struts2-tiles-plugin</artifactId>
-			<version>${version.tiles}</version>
-			<scope>compile</scope>
-		</dependency>
-
-		<dependency>
 			<artifactId>slf4j-simple</artifactId>
 			<groupId>org.slf4j</groupId>
 			<version>1.7.12</version>
@@ -106,8 +99,7 @@
 
 		<dependency>
 			<groupId>com.wxxr.nirvana</groupId>
-			<artifactId>nirvana-core</artifactId>
-			<version>1.0.0</version>
+			<artifactId>nirvana-web</artifactId>
 			<scope>compile</scope>
 		</dependency>
 

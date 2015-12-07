@@ -21,8 +21,10 @@ import com.wxxr.nirvana.context.JspRequestContext;
 import com.wxxr.nirvana.context.NirvanaServletContext;
 import com.wxxr.nirvana.context.ServletRequestContext;
 import com.wxxr.nirvana.exception.NirvanaException;
+import com.wxxr.nirvana.ui.render.DispatchRender;
+import com.wxxr.nirvana.ui.render.PageRender;
+import com.wxxr.nirvana.ui.render.ViewRender;
 import com.wxxr.nirvana.workbench.IProduct;
-import com.wxxr.nirvana.workbench.IWebResource;
 import com.wxxr.nirvana.workbench.IWorkbench;
 import com.wxxr.nirvana.workbench.IWorkbenchPage;
 import com.wxxr.nirvana.workbench.impl.Product.PageRef;
@@ -42,6 +44,14 @@ public class WorkbenchContainerImpl implements IWorkbenchContainer {
 		if (workbench == null) {
 			throw new NirvanaException("workbench is not init");
 		}
+		
+		DispatchRender r = new DispatchRender();
+		PageRender p = new PageRender();
+		ViewRender v = new ViewRender();
+		
+		registryUIRender(r);
+		registryUIRender(p);
+		registryUIRender(v);
 	}
 
 	public IUIComponentContext getUIComponentContext(IRequestContext rcontext) {
@@ -180,6 +190,9 @@ public class WorkbenchContainerImpl implements IWorkbenchContainer {
 		rootcontext.init(null);
 		pushContext(themeContext, rcontext);
 		workbenchProxy.setCurrentProduct(product);
+		if(page == null){
+			page = product.getDefaultPage();
+		}
 		openPage(request, response, page);
 		initialization = true;
 		afterBootstrop(request, response);

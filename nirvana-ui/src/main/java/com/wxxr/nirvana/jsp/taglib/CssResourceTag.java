@@ -8,11 +8,8 @@ public class CssResourceTag extends ResourceTag {
 
 	@Override
 	protected String getScript(IWebResource r) throws IOException {
-		if(r.getType().equals(CSS_TYPE)){
 			String uri = r.getUri();
 			return "<link href="+ uri + " rel=\"stylesheet\">";
-		}
-		return null;
 	}
 
 }

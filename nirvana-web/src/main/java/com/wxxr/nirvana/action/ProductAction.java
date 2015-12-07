@@ -2,8 +2,15 @@ package com.wxxr.nirvana.action;
 
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.apache.struts2.ServletActionContext;
+
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
+import com.wxxr.nirvana.context.NirvanaServletContext;
 
 /**
  * @author fudapeng
@@ -14,13 +21,15 @@ public class ProductAction extends ActionSupport {
 	private String productName;
 	private String pageName;
 	public String startProduct(){
+		setContext();
 		Map<String, Object> params = ActionContext.getContext().getParameters();
-		productName = ((String[]) params.get("productName"))[0];
+		productName = ((String[]) params.get("name"))[0];
 		return "start";
 	}
-	public String goPage(){
+	public String startPage(){
+		setContext();
 		Map<String, Object> params = ActionContext.getContext().getParameters();
-		pageName = ((String[]) params.get("pageName"))[0];
+		pageName = ((String[]) params.get("name"))[0];
 		return "start";
 	}
 	public String getProductName() {
@@ -34,6 +43,15 @@ public class ProductAction extends ActionSupport {
 	}
 	public void setPageName(String pageName) {
 		this.pageName = pageName;
+	}
+	
+	private void setContext(){
+		HttpServletRequest request = ServletActionContext.getRequest();
+		HttpServletResponse response = ServletActionContext.getResponse();
+		HttpSession session = request.getSession();
+		NirvanaServletContext.setRequest(request);
+		NirvanaServletContext.setResponse(response);
+		NirvanaServletContext.setHttpSession(session);
 	}
 }
 
