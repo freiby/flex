@@ -36,7 +36,7 @@ public interface IWorkbenchContainer extends IContainer{
 	 * @param pagename
 	 * @throws NirvanaException
 	 */
-	public void openPage(String ...pagename) throws NirvanaException;
+	public void openPage(HttpServletRequest request, HttpServletResponse response, String ...pagename) throws NirvanaException;
 	
 	/**
 	 * 为要渲染的组件的建立一个环境

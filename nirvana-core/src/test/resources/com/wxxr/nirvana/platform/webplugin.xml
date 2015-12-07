@@ -24,8 +24,8 @@
             >
 			</desktop>
 
-			<resource ref="com.wxxr.nirvana.test.dj" point="header"></resource>
-			<resource ref="com.wxxr.nirvana.test.cj" point="header"></resource>
+			<resource ref="com.wxxr.nirvana.style.dj" point="header"></resource>
+			<resource ref="com.wxxr.nirvana.style.cj" point="header"></resource>
 			
       </theme>
 	 </extension>

@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.jsp.PageContext;
 
+import junit.framework.Assert;
+
 import org.easymock.EasyMock;
 import org.junit.Before;
 import org.junit.Test;
@@ -18,8 +20,10 @@ import org.junit.Test;
 import com.wxxr.nirvana.context.NirvanaServletContext;
 import com.wxxr.nirvana.exception.NirvanaException;
 import com.wxxr.nirvana.platform.WorkbenchTest;
+import com.wxxr.nirvana.ui.WebResourceContainerImpl;
 import com.wxxr.nirvana.ui.WorkbenchContainerFactory;
 import com.wxxr.nirvana.ui.WorkbenchProxy;
+import com.wxxr.nirvana.workbench.IWebResource;
 import com.wxxr.nirvana.workbench.impl.Workbench;
 
 public class RenderTest {
@@ -121,7 +125,11 @@ public class RenderTest {
 		
 		invokeContext.setCurrentNode(desktop);
 		
-//		container.startContext("desktop", pageContext);
-//		container.render("desktop", pageContext, null);
+		IWebResourceContainer webResourceContainer = container.getWebResourceContainer();
+		IWebResource[] resources = webResourceContainer.getResources("header");
+		Assert.assertEquals(2, resources.length);
+		resources = webResourceContainer.getResources("before");
+		Assert.assertEquals(1, resources.length);
 	}
+	
 }
