@@ -32,8 +32,7 @@ public class WorkbenchTest {
 		String parstylefile = "testStyle.par";
 		url = PlatformTest.class.getResource(parstylefile);
 		PlatformLocator.getPlatform().deployPlugin(url);
-		
-		PlatformLocator.getPlatform().activatePlugins();
+		Thread.currentThread().sleep(5000L);
 	}
 
 	@Test

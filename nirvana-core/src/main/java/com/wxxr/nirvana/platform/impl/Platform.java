@@ -15,10 +15,12 @@ import java.io.InputStream;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.net.URLConnection;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.Timer;
@@ -33,6 +35,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.wxxr.nirvana.exception.NirvanaException;
 import com.wxxr.nirvana.platform.CoreException;
 import com.wxxr.nirvana.platform.IConfigurationElement;
 import com.wxxr.nirvana.platform.IContributor;
@@ -42,9 +45,11 @@ import com.wxxr.nirvana.platform.IExtensionPoint;
 import com.wxxr.nirvana.platform.IExtensionRegistry;
 import com.wxxr.nirvana.platform.INameStrategy;
 import com.wxxr.nirvana.platform.IPlatform;
+import com.wxxr.nirvana.platform.IPlatformListener;
 import com.wxxr.nirvana.platform.IPluginDescriptor;
 import com.wxxr.nirvana.platform.IRuntimeLibrary;
 import com.wxxr.nirvana.platform.IServiceRegistry;
+import com.wxxr.nirvana.platform.PlatformEvent;
 import com.wxxr.nirvana.platform.PluginVersionIdentifier;
 import com.wxxr.nirvana.util.JarUtils;
 import com.wxxr.nirvana.util.StringPropertyReplacer;
@@ -57,6 +62,7 @@ public class Platform implements IPlatform{
 	private static final Log log = LogFactory.getLog(Platform.class);
 	private static final String DEFAULT_PLUGIN_ROOT="${data.dir}/webplugins";
 	private static final IPluginDescriptor[] NO_PLUGINS = new IPluginDescriptor[0];
+	private List<IPlatformListener> listeners = new ArrayList<IPlatformListener>();
 	private char[] c = {'c'};
 	private static class PluginVersion {
 		String pluginId;
@@ -240,6 +246,9 @@ public class Platform implements IPlatform{
 //		parentClassLoader = new CompositeClassLoader(getClass().getClassLoader());
 //		platformClassLoader = new UnifiedClassLoader3(null,null,parentClassLoader,loaderRepository);
 //		loaderRepository.registerClassLoader((UnifiedClassLoader3)platformClassLoader);
+		if(pluginRootDir == null){
+			pluginRootDir = StringPropertyReplacer.replaceProperties(DEFAULT_PLUGIN_ROOT);
+		}
 		currentInstance = this;
 	}
 
@@ -558,6 +567,9 @@ public class Platform implements IPlatform{
 		//dispatch event
 //		IEvent event = new PluginRegistryChangeEvent(plugin,PluginRegistryChangeEvent.REMOVED);
 //		EventManager.getInstance().notifyEvent(event);
+		
+		PlatformEvent event = new PlatformEvent(plugin.getUniqueIdentifier(),plugin.getVersionIdentifier().toString());
+		fireDeactivePluginEvent(event);
 	}
 
 	/* (non-Javadoc)
@@ -775,6 +787,9 @@ public class Platform implements IPlatform{
 				//dispatch event
 //				IEvent event = new PluginRegistryChangeEvent(p,PluginRegistryChangeEvent.ADDED);
 //				EventManager.getInstance().notifyEvent(event);
+				PlatformEvent event = new PlatformEvent(p.getUniqueIdentifier(),version);
+				fireActivePluginEvent(event);
+				
 			} catch (Exception e) {
 				log.warn("Failed to activate plugin :"+pluginId+" of version :"+version, e);
 				throw new CoreException("Failed to activate plugin :"+pluginId+" of version :"+version, e);
@@ -794,13 +809,24 @@ public class Platform implements IPlatform{
 		}
 	}
 
-
-
-	public void start() throws Exception {
+  
+	
+	private boolean initialization = false;
+	public synchronized void start() throws Exception {
+		if(initialization == true){
+			return ;
+		}
 		PluginConfigurationElement pe = initPluginRoot();
 		if(pe != null){
 			activatePlugin(pe.getNamespaceIndentifier(), pe.getPluginVersion().toString());
 		}
+		
+		
+		
+		scanPluginRoot();
+		timer = new Timer();
+		timer.scheduleAtFixedRate(scanTask, 5000L, 5000L);
+		initialization = true;
 	}
 
 	public void stop() {
@@ -839,9 +865,6 @@ public class Platform implements IPlatform{
 
 
 	private PluginConfigurationElement initPluginRoot() throws Exception {
-		if(pluginRootDir == null){
-			pluginRootDir = StringPropertyReplacer.replaceProperties(DEFAULT_PLUGIN_ROOT);
-		}
 		File pluginRoot = new File(pluginRootDir);
 		if(!pluginRoot.exists()){
 			if(!pluginRoot.mkdirs()){
@@ -1262,6 +1285,32 @@ public class Platform implements IPlatform{
 
 	public String getPackageUploadURL() {
 		return null;
+	}
+
+
+	public void addPlatformListener(IPlatformListener listener) {
+		if(!listeners.contains(listener)){
+			listeners.add(listener);
+		}
+	}
+
+
+	public void removePlatformListener(IPlatformListener listener) {
+		if(listeners.contains(listener)){
+			listeners.remove(listener);
+		}
+	}
+	
+	private void fireActivePluginEvent(PlatformEvent event){
+		for(IPlatformListener listener : listeners){
+			listener.onActivePlugin(event);
+		}
+	}
+	
+	private void fireDeactivePluginEvent(PlatformEvent event){
+		for(IPlatformListener listener : listeners){
+			listener.onDeactivePlugin(event);
+		}
 	}
 
 }

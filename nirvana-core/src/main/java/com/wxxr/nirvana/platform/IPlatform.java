@@ -130,8 +130,10 @@ public interface IPlatform {
   public String listActiveVersionOfPlugin(String pluginId);
   public String[] listAllPluginNames() ;
   public String[] listAllVersionsOfPlugin(String pluginId);
-  public void activatePlugins()  throws Exception;
+//  public void activatePlugins()  throws Exception;
   
   public void start() throws Exception;
+  public void addPlatformListener(IPlatformListener listener);
+  public void removePlatformListener(IPlatformListener listener);
 
 }

@@ -25,7 +25,7 @@ public class PlatformTest {
 		url = PlatformTest.class.getResource(parstylefile);
 		PlatformLocator.getPlatform().deployPlugin(url);
 		
-		PlatformLocator.getPlatform().activatePlugins();
+		Thread.currentThread().sleep(5000L);
 		IPluginDescriptor pluginDescription = PlatformLocator.getPlatform().getPluginDescriptor("com.wxxr.nirvana.test");
 		assertNotNull(pluginDescription);
 		
