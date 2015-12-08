@@ -70,18 +70,6 @@ public interface IWorkbenchContainer extends IContainer{
 	void endContext(PageContext context);
 	
 	/**
-	 * 注册渲染组件
-	 * @param render
-	 */
-	void registryUIRender(IUIComponentRender render);
-	
-	/**
-	 * 注销渲染组件
-	 * @param render
-	 */
-	void unregistryUIRender(IUIComponentRender render);
-	
-	/**
 	 * 获取资源容器，资源容器依赖workbenchContaiter存在
 	 * @return
 	 */

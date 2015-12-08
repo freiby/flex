@@ -4,16 +4,11 @@ import java.io.IOException;
 
 import com.wxxr.nirvana.IRenderContext;
 import com.wxxr.nirvana.exception.NirvanaException;
-import com.wxxr.nirvana.ui.UIComponentRender;
 import com.wxxr.nirvana.workbench.IDispatchUI;
-import com.wxxr.nirvana.workbench.IView;
 import com.wxxr.nirvana.workbench.impl.UIComponent;
 
-public class ViewRender extends UIComponentRender {
+public class ViewRenderProvider extends UIComponentRender {
 
-	public boolean accept(UIComponent component) {
-		return component instanceof IView;
-	}
 
 	@Override
 	protected void doRenderComponent(UIComponent component,
@@ -25,6 +20,10 @@ public class ViewRender extends UIComponentRender {
 		} catch (IOException e) {
 			throw new NirvanaException(e);
 		}
+	}
+
+	public String processComponent() {
+		return "view";
 	}
 
 }

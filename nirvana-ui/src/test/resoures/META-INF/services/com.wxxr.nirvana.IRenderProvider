@@ -1,0 +1,6 @@
+#com.wxxr.nirvana.ui.render.PageRenderProvider
+com.wxxr.nirvana.ui.render.ViewRenderProvider
+com.wxxr.nirvana.ui.render.ResourceRenderProvider
+#com.wxxr.nirvana.ui.render.DesktopRenderProvider
+#com.wxxr.nirvana.ui.render.NavigationRenderProvider
+#com.wxxr.nirvana.RenderMock

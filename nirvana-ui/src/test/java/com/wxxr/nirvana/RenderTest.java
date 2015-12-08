@@ -1,6 +1,7 @@
 package com.wxxr.nirvana;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Stack;
@@ -16,6 +17,7 @@ import javax.servlet.jsp.PageContext;
 
 import junit.framework.Assert;
 
+import org.apache.commons.io.output.StringBuilderWriter;
 import org.easymock.EasyMock;
 import org.junit.Before;
 import org.junit.Test;
@@ -24,6 +26,7 @@ import com.wxxr.nirvana.context.NirvanaServletContext;
 import com.wxxr.nirvana.exception.NirvanaException;
 import com.wxxr.nirvana.platform.WorkbenchTest;
 import com.wxxr.nirvana.ui.WorkbenchContainerFactory;
+import com.wxxr.nirvana.ui.WorkbenchContainerImpl;
 import com.wxxr.nirvana.ui.WorkbenchProxy;
 import com.wxxr.nirvana.workbench.IWebResource;
 import com.wxxr.nirvana.workbench.impl.Workbench;
@@ -65,8 +68,9 @@ public class RenderTest {
 		HttpSession session = EasyMock.createMock(HttpSession.class);
 		RequestDispatcher dispatcher = EasyMock.createMock(RequestDispatcher.class);
 		
-		
-		
+		StringBuilderWriter sbw = new StringBuilderWriter();
+		PrintWriter pw = new PrintWriter(sbw);
+		EasyMock.expect(response.getWriter()).andReturn(pw).anyTimes();
 		EasyMock.expect(request.getSession()).andReturn(session).anyTimes();
 		EasyMock.expect(session.getServletContext()).andReturn(servletContext).anyTimes();
 		EasyMock.expect(session.getAttribute(ContainerAccess.CONTAINER_ATTRIBUTE)).andReturn(null).anyTimes();
@@ -80,8 +84,15 @@ public class RenderTest {
 		
 		dispatcher.include(request, response);
 		
-		IWorkbenchContainer container = null;
-		container = WorkbenchContainerFactory.createWorkbench();
+		InvokeContext invokeContext = new InvokeContext();
+		final RenderMock rm = new RenderMock(invokeContext);
+		IWorkbenchContainer container = new WorkbenchContainerImpl(){
+			@Override
+			protected void initProvider() {
+				super.initProvider();
+				renderProviders.put(rm.processComponent(), rm);
+			}
+		};
 		
 		Stack<IUIComponentContext> contextStack = new Stack<IUIComponentContext>();
 		EasyMock.expect(request.getAttribute("org.apache.tiles.AttributeContext.STACK")).andReturn(contextStack).anyTimes();
@@ -113,9 +124,6 @@ public class RenderTest {
 		
 		container.bootstrap(request, response,product, page);
 		
-		InvokeContext invokeContext = new InvokeContext();
-		RenderMock rm = new RenderMock(invokeContext);
-		container.registryUIRender(rm);
 		JspTagMock desktop = new JspTagMock(container, "desktop", pageContext, null);
 		JspTagMock pageTag = new JspTagMock(container, "page", pageContext, null);
 		JspTagMock navTag = new JspTagMock(container, "navigation", pageContext, null);

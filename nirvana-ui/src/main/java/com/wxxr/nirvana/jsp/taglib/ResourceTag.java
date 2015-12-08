@@ -34,8 +34,6 @@ public abstract class ResourceTag extends BodyTagSupport {
 		return EVAL_BODY_BUFFERED;
 	}
 	
-	public static final String CSS_TYPE="js";
-	public static final String JS_TYPE="js";
 	@Override
 	public int doEndTag() throws JspException {
 		try {

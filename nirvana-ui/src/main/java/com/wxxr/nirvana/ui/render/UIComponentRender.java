@@ -1,17 +1,18 @@
-package com.wxxr.nirvana.ui;
+package com.wxxr.nirvana.ui.render;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import com.wxxr.nirvana.IRenderContext;
-import com.wxxr.nirvana.IUIComponentRender;
+import com.wxxr.nirvana.IRenderProvider;
 import com.wxxr.nirvana.IWebResourceContainer;
 import com.wxxr.nirvana.IWebResourceContainer.WebResourceInfo;
 import com.wxxr.nirvana.exception.NirvanaException;
+import com.wxxr.nirvana.ui.ResourceUIComponent;
 import com.wxxr.nirvana.workbench.IWebResource;
 import com.wxxr.nirvana.workbench.impl.UIComponent;
 
-public abstract class UIComponentRender implements IUIComponentRender {
+public abstract class UIComponentRender implements IRenderProvider {
 
 	public void render(UIComponent component, IRenderContext context)
 			throws NirvanaException {
@@ -22,7 +23,7 @@ public abstract class UIComponentRender implements IUIComponentRender {
 			ResourceUIComponent resourceui = new ResourceUIComponent(bwrs){
 				@Override
 				public String getName() {
-					return "view nest Resource component for inject resource";
+					return "resource";
 				}
 			};
 			context.render(resourceui, context);
@@ -35,7 +36,7 @@ public abstract class UIComponentRender implements IUIComponentRender {
 			ResourceUIComponent resourceui = new ResourceUIComponent(afwrs){
 				@Override
 				public String getName() {
-					return "view nest Resource component for inject resource";
+					return "resource";
 				}
 			};
 			context.render(resourceui, context);

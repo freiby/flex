@@ -6,7 +6,7 @@ import org.apache.commons.logging.LogFactory;
 import com.wxxr.nirvana.exception.NirvanaException;
 import com.wxxr.nirvana.workbench.impl.UIComponent;
 
-public class RenderMock implements IUIComponentRender {
+public class RenderMock implements IRenderProvider {
 
 	private InvokeContext invokeContext;
 	private Log log = LogFactory.getLog(RenderMock.class);
@@ -33,6 +33,10 @@ public class RenderMock implements IUIComponentRender {
 				e.printStackTrace();
 			}
 		}
+	}
+
+	public String processComponent() {
+		return "*";
 	}
 
 }

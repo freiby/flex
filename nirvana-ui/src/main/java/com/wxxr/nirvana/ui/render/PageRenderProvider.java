@@ -4,13 +4,13 @@ import java.io.IOException;
 
 import com.wxxr.nirvana.IPageContext;
 import com.wxxr.nirvana.IRenderContext;
-import com.wxxr.nirvana.IUIComponentRender;
+import com.wxxr.nirvana.IRenderProvider;
 import com.wxxr.nirvana.exception.NirvanaException;
 import com.wxxr.nirvana.theme.IPageLayout;
 import com.wxxr.nirvana.workbench.impl.UIComponent;
 import com.wxxr.nirvana.workbench.impl.WorkbenchPage;
 
-public class PageRender implements IUIComponentRender {
+public class PageRenderProvider implements IRenderProvider {
 
 	public boolean accept(UIComponent component) {
 		return component instanceof WorkbenchPage;
@@ -27,6 +27,10 @@ public class PageRender implements IUIComponentRender {
 			throw new NirvanaException(e);
 		}
 		
+	}
+
+	public String processComponent() {
+		return "page";
 	}
 
 }
