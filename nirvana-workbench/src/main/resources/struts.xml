@@ -23,8 +23,8 @@
 		class="com.wxxr.nirvana.action.ProductAction">
 			<result name="start" type="page">${pageName}</result>
 		</action>
-
 	</package>
+
 	<package name="json" extends="json-default" namespace="/test">
 		<action name="testByAction" class="com.wxxr.tiles.example.JsonTestAction"
 		method="testByAction">
@@ -44,6 +44,25 @@
 		</action>
 		<action name="HelloWorld" class="com.wxxr.tiles.example.HelloWorld">
 			<result>/WEB-INF/example/HelloWorld.jsp</result>
+		</action>
+	</package>
+
+	<package name="deploy" extends="struts-default">
+		
+		<action name="deployPlugin"
+		class="com.wxxr.nirvana.action.DeployerAction">
+			<result>deploymanager.jsp</result>
+		</action>
+
+		<action name="deploy" method="doDeploy"
+		class="com.wxxr.nirvana.action.DeployerAction">
+			<result name="success">deployshow.jsp</result>
+			<result name="error" >deployshow.jsp</result>
+		</action>
+		<action name="undeploy" method="doUndeploy"
+		class="com.wxxr.nirvana.action.DeployerAction">
+		    <result name="success">deployshow.jsp</result>
+			<result name="error" >deployshow.jsp</result>
 		</action>
 	</package>
 

@@ -102,6 +102,13 @@
 			<artifactId>nirvana-web</artifactId>
 			<scope>compile</scope>
 		</dependency>
+		
+		
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<scope>compile</scope>
+		</dependency>
 
 	</dependencies>
 

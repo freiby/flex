@@ -25,7 +25,6 @@ import org.junit.Test;
 import com.wxxr.nirvana.context.NirvanaServletContext;
 import com.wxxr.nirvana.exception.NirvanaException;
 import com.wxxr.nirvana.platform.WorkbenchTest;
-import com.wxxr.nirvana.ui.WorkbenchContainerFactory;
 import com.wxxr.nirvana.ui.WorkbenchContainerImpl;
 import com.wxxr.nirvana.ui.WorkbenchProxy;
 import com.wxxr.nirvana.workbench.IWebResource;

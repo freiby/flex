@@ -817,11 +817,6 @@ public class Platform implements IPlatform{
 			return ;
 		}
 		PluginConfigurationElement pe = initPluginRoot();
-		if(pe != null){
-			activatePlugin(pe.getNamespaceIndentifier(), pe.getPluginVersion().toString());
-		}
-		
-		
 		
 		scanPluginRoot();
 		timer = new Timer();

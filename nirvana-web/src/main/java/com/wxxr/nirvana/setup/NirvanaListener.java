@@ -1,5 +1,7 @@
 package com.wxxr.nirvana.setup;
 
+import java.util.HashMap;
+
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -38,9 +40,8 @@ public class NirvanaListener
      */
     public void contextInitialized(ServletContextEvent event) {
         ServletContext servletContext = event.getServletContext();
+        NirvanaServletContext.setContext(new NirvanaServletContext(new HashMap<String, Object>()));
         NirvanaServletContext.setServletContext(servletContext);
-        String data_dir = servletContext.getInitParameter("dataDir");
-        System.setProperty("data.dir", data_dir);
         String webRoot = servletContext.getRealPath("/");
         //1 boostrap deployer listener platform
         PluginDeployer deployer = PluginDeployer.getPluginDeployer();
