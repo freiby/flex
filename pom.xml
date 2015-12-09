@@ -51,6 +51,8 @@
 		<module>nirvana-ui</module>
 		<module>nirvana-web</module>
 		<module>nirvana-workbench</module>
+		<module>nirvana-plugins</module>
+
 		
   </modules>
     
