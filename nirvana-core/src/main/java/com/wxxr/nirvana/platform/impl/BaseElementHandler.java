@@ -7,6 +7,7 @@ import com.wxxr.nirvana.platform.IConfigurationElement;
 public abstract class BaseElementHandler implements IConfigureElementHandler {
 
 	private int childCount = 0;
+
 	/**
 	 * Constructor for BaseElementHandler.
 	 */
@@ -29,13 +30,14 @@ public abstract class BaseElementHandler implements IConfigureElementHandler {
 	}
 
 	/**
-	 * @see com.bmo.dol.frontend.configuration.xmlparser.IConfigureElementHandler#setContents(String, ConfigureObject)
+	 * @see com.bmo.dol.frontend.configuration.xmlparser.IConfigureElementHandler#setContents(String,
+	 *      ConfigureObject)
 	 */
 	public void addChild(IConfigurationElement conf) {
 		getXMLConfigureObject().addChild(conf);
 		childCount++;
-		if(conf instanceof XMLConfigurationElement)
-			((XMLConfigurationElement)conf).setSeqNumber(childCount);
+		if (conf instanceof XMLConfigurationElement)
+			((XMLConfigurationElement) conf).setSeqNumber(childCount);
 	}
 
 	/**
@@ -53,6 +55,7 @@ public abstract class BaseElementHandler implements IConfigureElementHandler {
 	}
 
 	protected abstract XMLConfigurationElement getXMLConfigureObject();
+
 	/**
 	 * @see com.bmo.dol.frontend.appfw.configuration.xmlparser.IConfigureElementHandler#getElementName()
 	 */

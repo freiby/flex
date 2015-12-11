@@ -17,21 +17,20 @@ import com.wxxr.nirvana.workbench.config.BaseContributionItem;
  *
  */
 public class WebResource extends BaseContributionItem implements IWebResource {
-	
+
 	public static final String ATT_SOURCE_DIR = "uri";
 	private static final String ATT_SOURCE_TYPE = "type";
-	
-	
 
 	public WebResource(IConfigurationElement elem) {
-		if(elem == null){
+		if (elem == null) {
 			throw new IllegalArgumentException();
 		}
 		setConfigurationElement(elem);
 	}
 
-
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.wxxr.web.ui.resources.IWebResource#getType()
 	 */
 	public String getType() {
@@ -40,7 +39,6 @@ public class WebResource extends BaseContributionItem implements IWebResource {
 
 	public void destroy() {
 	}
-	
 
 	public String getUri() {
 		return elem.getAttribute(ATT_SOURCE_DIR);

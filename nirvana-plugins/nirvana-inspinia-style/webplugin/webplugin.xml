@@ -20,13 +20,14 @@
 				id="nirvanadesktop"
 				name="desktop"
 				description="desktopdesc"
-				uri="desktopuri"
+				uri="baseLayout.jsp"
             >
-			</desktop>
-
-			<resource ref="com.wxxr.nirvana.style.dj" point="header"></resource>
-			<resource ref="com.wxxr.nirvana.style.cj" point="header"></resource>
-			
+			</desktop>	
+			<resource ref="com.wxxr.nirvana.style.bootstrap" point="header"></resource>
+			<resource ref="com.wxxr.nirvana.style.awesome" point="header"></resource>
+			<resource ref="com.wxxr.nirvana.style.toastr" point="header"></resource>
+			<resource ref="com.wxxr.nirvana.style.animate" point="header"></resource>
+			<resource ref="com.wxxr.nirvana.style.style" point="header"></resource>
       </theme>
 	 </extension>
 
@@ -37,7 +38,7 @@
 				id="nirvanapagelayout"
 				name="layout"
 				description="layoutdesc"
-				uri="pagelayouturi">
+				uri="pageContainer.jsp">
 			</pageLayout>
 
 
@@ -45,31 +46,49 @@
 				id="nirvanapagelayout2"
 				name="layout"
 				description="layoutdesc"
-				uri="pagelayouturi">
+				uri="pageContainer.jsp">
 			</pageLayout>
    </extension>
 
 
    <extension point="com.wxxr.nirvana.platform.resources" id="pages.niravanaPage">
-		  <resource
-				id="dj"
-				label="tiger"      
-				uri="js/d3.min.js"
-				type="js"
+		<resource
+				id="bootstrap"   
+				uri="css/bootstrap.min.css"
+				type="css"
 				>
-		  </resource>
+		</resource>
 
-		  <resource
-				id="cj"
-				label="tiger"      
-				uri="js/c3.min.js"
-				type="js"
+		<resource
+				id="awesome"   
+				uri="css/font-awesome.css"
+				type="css"
 				>
-		  </resource>
-
-
-		  
-     </extension>
+		</resource>
+		
+		<resource
+				id="toastr"   
+				uri="css/toastr.min.css"
+				type="css"
+				>
+		</resource>
+		
+		<resource
+				id="animate"   
+				uri="css/animate.css"
+				type="css"
+				>
+		</resource>
+		
+		<resource
+				id="style"   
+				uri="css/style.css"
+				type="css"
+				>
+		</resource>
+		
+	 
+   </extension>
 
 
    

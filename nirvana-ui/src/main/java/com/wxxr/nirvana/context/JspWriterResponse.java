@@ -27,7 +27,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletResponseWrapper;
 import javax.servlet.jsp.PageContext;
 
-
 /**
  * It works as an {@link HttpServletResponse} by wrapping a
  * {@link javax.servlet.jsp.JspWriter} around a {@link PrintWriter}.
@@ -36,32 +35,32 @@ import javax.servlet.jsp.PageContext;
  */
 public class JspWriterResponse extends HttpServletResponseWrapper {
 
-    /**
-     * The page context to use.
-     */
-    private PageContext context;
+	/**
+	 * The page context to use.
+	 */
+	private PageContext context;
 
-    /**
-     * The created print writer.
-     */
-    private PrintWriter writer;
+	/**
+	 * The created print writer.
+	 */
+	private PrintWriter writer;
 
-    /**
-     * Constructor.
-     *
-     * @param pageContext The page context to use.
-     */
-    public JspWriterResponse(PageContext pageContext) {
-        super((HttpServletResponse) pageContext.getResponse());
-        this.context = pageContext;
-    }
+	/**
+	 * Constructor.
+	 *
+	 * @param pageContext
+	 *            The page context to use.
+	 */
+	public JspWriterResponse(PageContext pageContext) {
+		super((HttpServletResponse) pageContext.getResponse());
+		this.context = pageContext;
+	}
 
-
-    /** {@inheritDoc} */
-    public PrintWriter getWriter() throws IOException {
-        if (writer == null) {
-            writer = new PrintWriter(context.getOut());
-        }
-        return writer;
-    }
+	/** {@inheritDoc} */
+	public PrintWriter getWriter() throws IOException {
+		if (writer == null) {
+			writer = new PrintWriter(context.getOut());
+		}
+		return writer;
+	}
 }

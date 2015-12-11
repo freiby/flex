@@ -13,5 +13,5 @@ package com.wxxr.nirvana.platform;
  *
  */
 public interface ILifeSignDetector {
-  boolean isAlive();
+	boolean isAlive();
 }

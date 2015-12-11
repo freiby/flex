@@ -8,9 +8,7 @@
  */
 package com.wxxr.nirvana.workbench.impl;
 
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
@@ -21,6 +19,7 @@ import com.wxxr.nirvana.platform.CoreException;
 import com.wxxr.nirvana.platform.IConfigurationElement;
 import com.wxxr.nirvana.platform.IExtension;
 import com.wxxr.nirvana.platform.IPluginDescriptor;
+import com.wxxr.nirvana.workbench.IRender;
 import com.wxxr.nirvana.workbench.IWorkbench;
 import com.wxxr.nirvana.workbench.IWorkbenchPage;
 import com.wxxr.nirvana.workbench.IWorkbenchPageManager;
@@ -39,6 +38,7 @@ public class WorkbenchPageManager extends BaseExtensionPointManager implements
 	public static final String ATT_PAGE_ID = "id";
 	public static final String ATT_TOOLTIP = "toolTip";
 	public static final String ATT_NAME = "name";
+	private static final String ATT_CLASS = "class";
 
 	private static final Log log = LogFactory
 			.getLog(WorkbenchPageManager.class);
@@ -46,6 +46,7 @@ public class WorkbenchPageManager extends BaseExtensionPointManager implements
 	protected Map<String, IWorkbenchPage> pages = new HashMap<String, IWorkbenchPage>();
 	protected String currentPageId;
 	protected IWorkbench workbench;
+
 	public WorkbenchPageManager() {
 		super(UIConstants.UI_NAMESPACE, UIConstants.EXTENSION_POINT_PAGES);
 	}
@@ -59,13 +60,21 @@ public class WorkbenchPageManager extends BaseExtensionPointManager implements
 	 */
 	protected IWorkbenchPage createNewPage(IConfigurationElement elem)
 			throws Exception {
-		String pageId = elem.getNamespaceIdentifier() + "." + elem.getAttribute(ATT_PAGE_ID);
+		String pageId = elem.getNamespaceIdentifier() + "."
+				+ elem.getAttribute(ATT_PAGE_ID);
 		IWorkbenchPage page = getWorkbenchPage(pageId);
 		if (page != null) {
 			return page;
 		}
 		page = new WorkbenchPage();
-		page.init(this, elem);
+		String clazz = elem.getAttribute(ATT_CLASS);
+		IRender render = null;
+		if (StringUtils.isNotBlank(clazz)) {
+			IPluginDescriptor plugin = getUIPlatform().getPluginDescriptor(
+					elem.getNamespaceIdentifier());
+			render = (IRender) createPluginObject(clazz, plugin);
+		}
+		page.init(this, elem, render);
 		synchronized (pages) {
 			pages.put(pageId, page);
 		}
@@ -126,9 +135,6 @@ public class WorkbenchPageManager extends BaseExtensionPointManager implements
 		}
 	}
 
-	
-	
-
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -179,8 +185,8 @@ public class WorkbenchPageManager extends BaseExtensionPointManager implements
 	}
 
 	public IWorkbenchPage getCurrentWorkbenchPage() {
-		 if(currentPageId != null)
-		 return getWorkbenchPage(currentPageId);
+		if (currentPageId != null)
+			return getWorkbenchPage(currentPageId);
 		return null;
 	}
 
@@ -224,8 +230,10 @@ public class WorkbenchPageManager extends BaseExtensionPointManager implements
 			IConfigurationElement elem = configs[i];
 			if ((elem != null)
 					&& PAGE_ELEMENT_NAME.equalsIgnoreCase(elem.getName())) {
-				pages.remove(elem.getNamespaceIdentifier() + "." + elem.getAttribute(ATT_PAGE_ID));
-				destroyPage(elem.getNamespaceIdentifier() + "." + elem.getAttribute(ATT_PAGE_ID));
+				pages.remove(elem.getNamespaceIdentifier() + "."
+						+ elem.getAttribute(ATT_PAGE_ID));
+				destroyPage(elem.getNamespaceIdentifier() + "."
+						+ elem.getAttribute(ATT_PAGE_ID));
 			}
 		}
 	}
@@ -233,8 +241,6 @@ public class WorkbenchPageManager extends BaseExtensionPointManager implements
 	public IWorkbench getWorkbench() {
 		return workbench;
 	}
-
-	
 
 	public String getDefaultPageId() {
 		return null;

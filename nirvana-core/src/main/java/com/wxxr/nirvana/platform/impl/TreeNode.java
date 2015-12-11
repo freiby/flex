@@ -6,10 +6,10 @@ import java.util.Vector;
 /**
  * @author nelin
  *
- * To change this generated comment edit the template variable "typecomment":
- * Window>Preferences>Java>Templates.
- * To enable and disable the creation of type comments go to
- * Window>Preferences>Java>Code Generation.
+ *         To change this generated comment edit the template variable
+ *         "typecomment": Window>Preferences>Java>Templates. To enable and
+ *         disable the creation of type comments go to
+ *         Window>Preferences>Java>Code Generation.
  */
 public class TreeNode implements Serializable {
 
@@ -26,6 +26,7 @@ public class TreeNode implements Serializable {
 
 	/**
 	 * Gets the parent.
+	 * 
 	 * @return Returns a XmlModel
 	 */
 	public TreeNode getParentNode() {
@@ -34,7 +35,9 @@ public class TreeNode implements Serializable {
 
 	/**
 	 * Sets the parent.
-	 * @param parent The parent to set
+	 * 
+	 * @param parent
+	 *            The parent to set
 	 */
 	public void setParentNode(TreeNode parent) {
 		this.parent = parent;
@@ -42,6 +45,7 @@ public class TreeNode implements Serializable {
 
 	/**
 	 * Gets the child.
+	 * 
 	 * @return Returns a XmlModel
 	 */
 	public Vector getChildNodes() {
@@ -50,7 +54,9 @@ public class TreeNode implements Serializable {
 
 	/**
 	 * Sets the child.
-	 * @param child The child to set
+	 * 
+	 * @param child
+	 *            The child to set
 	 */
 	public void addChildNode(TreeNode child) {
 		this.children.add(child);
@@ -83,6 +89,7 @@ public class TreeNode implements Serializable {
 
 	/**
 	 * Returns the nodeName.
+	 * 
 	 * @return String
 	 */
 	public String getNodeName() {
@@ -91,7 +98,9 @@ public class TreeNode implements Serializable {
 
 	/**
 	 * Sets the nodeName.
-	 * @param nodeName The nodeName to set
+	 * 
+	 * @param nodeName
+	 *            The nodeName to set
 	 */
 	public void setNodeName(String nodeName) {
 		this.nodeName = nodeName;

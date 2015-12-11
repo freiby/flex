@@ -21,60 +21,74 @@ import com.wxxr.nirvana.workbench.ISecurityManager;
  */
 public class SecurityManager implements ISecurityManager {
 
-	/* (non-Javadoc)
-	 * @see com.wxxr.web.ui.ISecurityManager#currentUserHasARoleOf(java.lang.String[])
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.wxxr.web.ui.ISecurityManager#currentUserHasARoleOf(java.lang.String
+	 * [])
 	 */
 	public boolean currentUserHasARoleOf(String[] roles) {
-		if((roles == null)||(roles.length == 0)){
+		if ((roles == null) || (roles.length == 0)) {
 			throw new IllegalArgumentException();
 		}
 		for (int i = 0; i < roles.length; i++) {
 			String role = roles[i];
-			if(StringUtils.isNotBlank(role)&&currentUserHasRole(role)){
+			if (StringUtils.isNotBlank(role) && currentUserHasRole(role)) {
 				return true;
-			}			
+			}
 		}
 		return false;
 	}
 
-	/* (non-Javadoc)
-	 * @see com.wxxr.web.ui.ISecurityManager#currentUserHasRole(java.lang.String)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.wxxr.web.ui.ISecurityManager#currentUserHasRole(java.lang.String)
 	 */
 	public boolean currentUserHasRole(String role) {
-		if(StringUtils.isBlank(role)){
+		if (StringUtils.isBlank(role)) {
 			throw new IllegalArgumentException();
 		}
-		return false;//FacesContext.getCurrentInstance().getExternalContext().isUserInRole(role);
+		return false;// FacesContext.getCurrentInstance().getExternalContext().isUserInRole(role);
 	}
 
-	/* (non-Javadoc)
-	 * @see com.wxxr.web.ui.ISecurityManager#currentUserHasRoles(java.lang.String[])
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.wxxr.web.ui.ISecurityManager#currentUserHasRoles(java.lang.String[])
 	 */
 	public boolean currentUserHasRoles(String[] roles) {
-		if((roles == null)||(roles.length == 0)){
+		if ((roles == null) || (roles.length == 0)) {
 			throw new IllegalArgumentException();
 		}
 		for (int i = 0; i < roles.length; i++) {
 			String role = roles[i];
-			if(StringUtils.isNotBlank(role)&&(!currentUserHasRole(role))){
+			if (StringUtils.isNotBlank(role) && (!currentUserHasRole(role))) {
 				return false;
-			}			
+			}
 		}
 		return true;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.wxxr.web.ui.ISecurityManager#destroy()
 	 */
 	public void destroy() {
 
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.wxxr.web.ui.ISecurityManager#getCurrentUser()
 	 */
 	public Principal getCurrentUser() {
-		return null;//FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal();
+		return null;// FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal();
 	}
 
 }

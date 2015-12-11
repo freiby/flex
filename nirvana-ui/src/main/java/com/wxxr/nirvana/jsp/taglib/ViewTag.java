@@ -14,11 +14,11 @@ public class ViewTag extends UITag {
 	public void setAnchor(String anchor) {
 		this.anchor = anchor;
 	}
-	
-	protected Map<String,Object> getParameters() {
+
+	protected Map<String, Object> getParameters() {
 		Map<String, Object> parameters = new HashMap<String, Object>();
 		parameters.put("anchor", anchor);
 		return parameters;
 	}
-	
+
 }

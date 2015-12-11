@@ -20,6 +20,8 @@
  */
 package com.wxxr.nirvana.jsp.taglib;
 
+import java.io.IOException;
+
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.BodyTagSupport;
@@ -30,6 +32,7 @@ import org.apache.commons.logging.LogFactory;
 import com.wxxr.nirvana.ContainerAccess;
 import com.wxxr.nirvana.IUIComponentContext;
 import com.wxxr.nirvana.IWorkbenchContainer;
+import com.wxxr.nirvana.exception.NirvanaException;
 
 /**
  * Base tag for the tiles tags which interact with the container. Provides
@@ -78,8 +81,7 @@ public abstract class ContainerTagSupport extends BodyTagSupport {
 	 *             If the container has not been initialized.
 	 */
 	public int doStartTag() throws JspException {
-		container = ContainerAccess.getContainer(pageContext
-				.getServletContext());
+		container = ContainerAccess.getContainer();
 		if (container != null) {
 			startContext(pageContext);
 			return EVAL_BODY_BUFFERED;
@@ -90,12 +92,11 @@ public abstract class ContainerTagSupport extends BodyTagSupport {
 
 	/** {@inheritDoc} */
 	public int doEndTag() throws JspException {
-		try {
-			return super.doEndTag();
-		} finally {
-			endContext(pageContext);
-		}
+		execute();
+		return EVAL_PAGE;
 	}
+
+	abstract void execute() throws JspException;
 
 	/** {@inheritDoc} */
 	public void release() {

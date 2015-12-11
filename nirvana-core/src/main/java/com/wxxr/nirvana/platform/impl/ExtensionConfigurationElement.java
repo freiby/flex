@@ -16,18 +16,20 @@ public class ExtensionConfigurationElement extends XMLConfigurationElement {
 	/**
 	 * return the Identifier of extension point which this extension extends
 	 * added at 2007-12-20
+	 * 
 	 * @return
 	 */
-	public String getExtensionPointId(){
+	public String getExtensionPointId() {
 		return getAttribute(CoreConstants.EXTENSION_TARGET);
 	}
-	
+
 	/**
-	 * return the id of extension  which this extension declare
-	 * added at 2007-12-20
+	 * return the id of extension which this extension declare added at
+	 * 2007-12-20
+	 * 
 	 * @return
 	 */
-	public String getExtensionId(){
+	public String getExtensionId() {
 		return getAttribute(CoreConstants.EXTENSION_ID);
 	}
 }

@@ -1,13 +1,13 @@
-<%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
+<%@ taglib uri="/nirvana-tag" prefix="nirvana"%>
 <div class="row  border-bottom white-bg dashboard-header" style="display:block">
     <div class="col-sm-3">
-        <tiles:insertAttribute name="chart1"/>
+        <nirvana:ui name="view" anchor="headerone"/>
     </div>
     <div class="col-sm-6">
-        <tiles:insertAttribute name="chart2" />
+        <nirvana:ui name="view" anchor="headertwo"/>
     </div>
     <div class="col-sm-3">
-        <tiles:insertAttribute name="chart3" />
+        <nirvana:ui name="view" anchor="headerthree"/>
     </div>
 </div>
 <div class="row" style="display:block">

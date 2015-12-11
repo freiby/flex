@@ -60,7 +60,7 @@ public abstract class AbstractParMojo extends AbstractMojo {
 	 */
 	@Parameter(defaultValue = "${basedir}/src/main/webapp", required = true)
 	private File sourceDirectory;
-	
+
 	/**
 	 * Single directory for extra files to include in the WAR. This is where you
 	 * place your JSP js css files.
@@ -72,7 +72,7 @@ public abstract class AbstractParMojo extends AbstractMojo {
      */
 	@Parameter(defaultValue = "${project.build.directory}", required = true)
 	private File targetDir;
-	
+
 	/**
      */
 	@Parameter(defaultValue = "${project.build.finalName}.jar", required = true)
@@ -92,7 +92,7 @@ public abstract class AbstractParMojo extends AbstractMojo {
 	 */
 	@Parameter(defaultValue = "${project.build.directory}/${project.build.finalName}/html", required = true)
 	private File htmlDirectory;
-	
+
 	/**
      */
 	@Parameter(defaultValue = "${project.build.directory}/${project.build.finalName}/message", required = true)
@@ -126,11 +126,11 @@ public abstract class AbstractParMojo extends AbstractMojo {
 	@Parameter(alias = "parName", property = "par.finalName", defaultValue = "${project.build.finalName}")
 	private String finalName;
 
-//	/**
-//	 * The Jar archiver.
-//	 */
-//	@Component(role = Archiver.class, hint = "par")
-//	private JarArchiver parArchiver;
+	// /**
+	// * The Jar archiver.
+	// */
+	// @Component(role = Archiver.class, hint = "par")
+	// private JarArchiver parArchiver;
 
 	/**
 	 * The Maven project.
@@ -292,7 +292,7 @@ public abstract class AbstractParMojo extends AbstractMojo {
 		} else {
 
 			// 打包 jar
-//			createJavaArchive();
+			// createJavaArchive();
 			// 创建par包的目录
 			try {
 				buildExplodedApp();
@@ -312,6 +312,7 @@ public abstract class AbstractParMojo extends AbstractMojo {
 
 	/**
 	 * 应该是jar的优先级高，所以先执行了所以这里不用执行
+	 * 
 	 * @throws MojoExecutionException
 	 */
 	private void createJavaArchive() throws MojoExecutionException {
@@ -352,158 +353,180 @@ public abstract class AbstractParMojo extends AbstractMojo {
 		getHtmlDirectory().mkdirs();
 		getHtmlDirectory().mkdirs();
 		// copy jar --> lib/
-		File jar = new File(getTargetDir(),getJarFileName());
-		if(jar.exists()){
-			getLog().info("copy: "+  jar.getPath() + " to " + getLibDirectory().getPath());
+		File jar = new File(getTargetDir(), getJarFileName());
+		if (jar.exists()) {
+			getLog().info(
+					"copy: " + jar.getPath() + " to "
+							+ getLibDirectory().getPath());
 			try {
-				copyFileToDirectory(jar,getLibDirectory());
+				copyFileToDirectory(jar, getLibDirectory());
 			} catch (IOException e) {
-				throw new MojoExecutionException("copy jar error ",e);
+				throw new MojoExecutionException("copy jar error ", e);
 			}
 		}
-		
-		//copy html --> html
+
+		// copy html --> html
 		try {
-			copyDirToDir(getSourceDirectory(), getHtmlDirectory(),null);
-			getLog().info("copy: "+  getSourceDirectory().getPath() + " to " + getHtmlDirectory().getPath());
+			copyDirToDir(getSourceDirectory(), getHtmlDirectory(), null);
+			getLog().info(
+					"copy: " + getSourceDirectory().getPath() + " to "
+							+ getHtmlDirectory().getPath());
 		} catch (IOException e) {
-			throw new MojoExecutionException("copy html error ",e);
+			throw new MojoExecutionException("copy html error ", e);
 		}
-		
+
 		// copy webplugin.xml --> webplugin
-		File webplugin = new File(getWebplugin(),"webplugin.xml");
+		File webplugin = new File(getWebplugin(), "webplugin.xml");
 		try {
-			copyFileToDirectory(webplugin,getAppDirectory());
+			copyFileToDirectory(webplugin, getAppDirectory());
 		} catch (IOException e) {
-			throw new MojoExecutionException("copy jar error ",e);
+			throw new MojoExecutionException("copy jar error ", e);
 		}
-		
-	}
-	
-	public void copyDirToDir(File srcDir, File destDir, FileFilter filter) throws IOException{
-		if (srcDir == null) {
-            throw new NullPointerException("Source must not be null");
-        }
-        if (srcDir.exists() && srcDir.isDirectory() == false) {
-            throw new IllegalArgumentException("Source '" + destDir + "' is not a directory");
-        }
-        if (destDir == null) {
-            throw new NullPointerException("Destination must not be null");
-        }
-        if (destDir.exists() && destDir.isDirectory() == false) {
-            throw new IllegalArgumentException("Destination '" + destDir + "' is not a directory");
-        }
-		List<String> exclusionList = null;
-        if (destDir.getCanonicalPath().startsWith(srcDir.getCanonicalPath())) {
-            File[] srcFiles = filter == null ? srcDir.listFiles() : srcDir.listFiles(filter);
-            if (srcFiles != null && srcFiles.length > 0) {
-                exclusionList = new ArrayList<String>(srcFiles.length);
-                for (File srcFile : srcFiles) {
-                    File copiedFile = new File(destDir, srcFile.getName());
-                    exclusionList.add(copiedFile.getCanonicalPath());
-                }
-            }
-        }
-        doCopyDirectory(srcDir, destDir, filter, exclusionList);
-	}
-	
-	private void doCopyDirectory(File srcDir, File destDir, FileFilter filter,List<String> exclusionList) throws IOException{
-		// recurse
-        File[] srcFiles = filter == null ? srcDir.listFiles() : srcDir.listFiles(filter);
-        if (srcFiles == null) {  // null if abstract pathname does not denote a directory, or if an I/O error occurs
-            throw new IOException("Failed to list contents of " + srcDir);
-        }
-        if (destDir.exists()) {
-            if (destDir.isDirectory() == false) {
-                throw new IOException("Destination '" + destDir + "' exists but is not a directory");
-            }
-        } else {
-            if (!destDir.mkdirs() && !destDir.isDirectory()) {
-                throw new IOException("Destination '" + destDir + "' directory cannot be created");
-            }
-        }
-        if (destDir.canWrite() == false) {
-            throw new IOException("Destination '" + destDir + "' cannot be written to");
-        }
-        for (File srcFile : srcFiles) {
-            File dstFile = new File(destDir, srcFile.getName());
-            if (exclusionList == null || !exclusionList.contains(srcFile.getCanonicalPath())) {
-                if (srcFile.isDirectory()) {
-                    doCopyDirectory(srcFile, dstFile, filter, exclusionList);
-                } else {
-                	doCopyFile(srcFile, dstFile);
-                }
-            }
-        }
-		
+
 	}
 
-	private final int buffersize = 1024*1024*30;
-	
-	
-	private void copyFileToDirectory(File srcFile, File destDir) throws IOException {
-        if (destDir == null) {
-            throw new NullPointerException("Destination must not be null");
-        }
-        if (destDir.exists() && destDir.isDirectory() == false) {
-            throw new IllegalArgumentException("Destination '" + destDir + "' is not a directory");
-        }
-        File destFile = new File(destDir, srcFile.getName());
-        copyFile(srcFile, destFile);
-    }
-	
-	private void copyFile(File srcFile, File destFile)throws IOException {
+	public void copyDirToDir(File srcDir, File destDir, FileFilter filter)
+			throws IOException {
+		if (srcDir == null) {
+			throw new NullPointerException("Source must not be null");
+		}
+		if (srcDir.exists() && srcDir.isDirectory() == false) {
+			throw new IllegalArgumentException("Source '" + destDir
+					+ "' is not a directory");
+		}
+		if (destDir == null) {
+			throw new NullPointerException("Destination must not be null");
+		}
+		if (destDir.exists() && destDir.isDirectory() == false) {
+			throw new IllegalArgumentException("Destination '" + destDir
+					+ "' is not a directory");
+		}
+		List<String> exclusionList = null;
+		if (destDir.getCanonicalPath().startsWith(srcDir.getCanonicalPath())) {
+			File[] srcFiles = filter == null ? srcDir.listFiles() : srcDir
+					.listFiles(filter);
+			if (srcFiles != null && srcFiles.length > 0) {
+				exclusionList = new ArrayList<String>(srcFiles.length);
+				for (File srcFile : srcFiles) {
+					File copiedFile = new File(destDir, srcFile.getName());
+					exclusionList.add(copiedFile.getCanonicalPath());
+				}
+			}
+		}
+		doCopyDirectory(srcDir, destDir, filter, exclusionList);
+	}
+
+	private void doCopyDirectory(File srcDir, File destDir, FileFilter filter,
+			List<String> exclusionList) throws IOException {
+		// recurse
+		File[] srcFiles = filter == null ? srcDir.listFiles() : srcDir
+				.listFiles(filter);
+		if (srcFiles == null) { // null if abstract pathname does not denote a
+								// directory, or if an I/O error occurs
+			throw new IOException("Failed to list contents of " + srcDir);
+		}
+		if (destDir.exists()) {
+			if (destDir.isDirectory() == false) {
+				throw new IOException("Destination '" + destDir
+						+ "' exists but is not a directory");
+			}
+		} else {
+			if (!destDir.mkdirs() && !destDir.isDirectory()) {
+				throw new IOException("Destination '" + destDir
+						+ "' directory cannot be created");
+			}
+		}
+		if (destDir.canWrite() == false) {
+			throw new IOException("Destination '" + destDir
+					+ "' cannot be written to");
+		}
+		for (File srcFile : srcFiles) {
+			File dstFile = new File(destDir, srcFile.getName());
+			if (exclusionList == null
+					|| !exclusionList.contains(srcFile.getCanonicalPath())) {
+				if (srcFile.isDirectory()) {
+					doCopyDirectory(srcFile, dstFile, filter, exclusionList);
+				} else {
+					doCopyFile(srcFile, dstFile);
+				}
+			}
+		}
+
+	}
+
+	private final int buffersize = 1024 * 1024 * 30;
+
+	private void copyFileToDirectory(File srcFile, File destDir)
+			throws IOException {
+		if (destDir == null) {
+			throw new NullPointerException("Destination must not be null");
+		}
+		if (destDir.exists() && destDir.isDirectory() == false) {
+			throw new IllegalArgumentException("Destination '" + destDir
+					+ "' is not a directory");
+		}
+		File destFile = new File(destDir, srcFile.getName());
+		copyFile(srcFile, destFile);
+	}
+
+	private void copyFile(File srcFile, File destFile) throws IOException {
 		if (srcFile == null) {
-            throw new NullPointerException("Source must not be null");
-        }
-        if (destFile == null) {
-            throw new NullPointerException("Destination must not be null");
-        }
-        if (srcFile.exists() == false) {
-            throw new FileNotFoundException("Source '" + srcFile + "' does not exist");
-        }
-        if (srcFile.isDirectory()) {
-            throw new IOException("Source '" + srcFile + "' exists but is a directory");
-        }
-        if (srcFile.getCanonicalPath().equals(destFile.getCanonicalPath())) {
-            throw new IOException("Source '" + srcFile + "' and destination '" + destFile + "' are the same");
-        }
-        File parentFile = destFile.getParentFile();
-        if (parentFile != null) {
-            if (!parentFile.mkdirs() && !parentFile.isDirectory()) {
-                throw new IOException("Destination '" + parentFile + "' directory cannot be created");
-            }
-        }
-        if (destFile.exists() && destFile.canWrite() == false) {
-            throw new IOException("Destination '" + destFile + "' exists but is read-only");
-        }
-        doCopyFile(srcFile, destFile);
-		
+			throw new NullPointerException("Source must not be null");
+		}
+		if (destFile == null) {
+			throw new NullPointerException("Destination must not be null");
+		}
+		if (srcFile.exists() == false) {
+			throw new FileNotFoundException("Source '" + srcFile
+					+ "' does not exist");
+		}
+		if (srcFile.isDirectory()) {
+			throw new IOException("Source '" + srcFile
+					+ "' exists but is a directory");
+		}
+		if (srcFile.getCanonicalPath().equals(destFile.getCanonicalPath())) {
+			throw new IOException("Source '" + srcFile + "' and destination '"
+					+ destFile + "' are the same");
+		}
+		File parentFile = destFile.getParentFile();
+		if (parentFile != null) {
+			if (!parentFile.mkdirs() && !parentFile.isDirectory()) {
+				throw new IOException("Destination '" + parentFile
+						+ "' directory cannot be created");
+			}
+		}
+		if (destFile.exists() && destFile.canWrite() == false) {
+			throw new IOException("Destination '" + destFile
+					+ "' exists but is read-only");
+		}
+		doCopyFile(srcFile, destFile);
+
 	}
 
 	private void doCopyFile(File src, File destFile) throws IOException {
 		if (destFile.exists() && destFile.isDirectory()) {
-            throw new IOException("Destination '" + destFile + "' exists but is a directory");
-        }
+			throw new IOException("Destination '" + destFile
+					+ "' exists but is a directory");
+		}
 		FileChannel sourceCh = null;
 		FileChannel destCh = null;
-		
-		try{
+
+		try {
 			FileInputStream fis = new FileInputStream(src);
 			FileOutputStream fos = new FileOutputStream(destFile);
 			sourceCh = fis.getChannel();
 			destCh = fos.getChannel();
-			
+
 			long size = sourceCh.size();
-            long pos = 0;
-            long count = 0;
-            while (pos < size) {
-                count = size - pos > buffersize ? buffersize : size - pos;
-                pos += destCh.transferFrom(sourceCh, pos, count);
-            }
-		}catch(Exception e){
-			throw new IOException("copy file error ",e);
-		}finally{
+			long pos = 0;
+			long count = 0;
+			while (pos < size) {
+				count = size - pos > buffersize ? buffersize : size - pos;
+				pos += destCh.transferFrom(sourceCh, pos, count);
+			}
+		} catch (Exception e) {
+			throw new IOException("copy file error ", e);
+		} finally {
 			try {
 				sourceCh.close();
 				destCh.close();
@@ -511,7 +534,7 @@ public abstract class AbstractParMojo extends AbstractMojo {
 				getLog().warn(e);
 			}
 		}
-		
+
 	}
 
 	private String[] getIncludes() {

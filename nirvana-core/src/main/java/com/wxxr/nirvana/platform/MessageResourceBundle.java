@@ -16,8 +16,11 @@ import java.util.ResourceBundle;
  *
  */
 public interface MessageResourceBundle {
-  ResourceBundle getResourceBundle();
-  ResourceBundle getResourceBundle(Locale locale);
-  String getLocalizedMessage(String key);
-  String getLocalizedMessage(String key,Locale locale);
+	ResourceBundle getResourceBundle();
+
+	ResourceBundle getResourceBundle(Locale locale);
+
+	String getLocalizedMessage(String key);
+
+	String getLocalizedMessage(String key, Locale locale);
 }

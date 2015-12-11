@@ -9,32 +9,48 @@ import com.wxxr.nirvana.workbench.impl.Product.PageRef;
 import com.wxxr.nirvana.workbench.impl.UIComponent;
 import com.wxxr.nirvana.workbench.impl.WorkbenchPage;
 
-public class PageNavigationContext extends UIComponentContext{
-	
+public class PageNavigationContext extends UIComponentContext {
+
 	private IWorkbenchPage[] pages;
 	private PageRef[] pagerefs;
-	
+
 	private PageNavigation pageNavigation;
-	
-	public class PageNavigation extends UIComponent{
+
+	public class PageNavigation extends UIComponent {
 		public IWorkbenchPage[] getAllPages() {
 			return pages;
 		}
+
 		@Override
 		public String getName() {
 			return "PageNavigation";
 		}
+
+		@Override
+		public String getContributorVersion() {
+			return (pages != null && pages.length > 0) ? ((WorkbenchPage) pages[0])
+					.getContributorVersion() : null;
+		}
+
+		@Override
+		public String getContributorId() {
+			return (pages != null && pages.length > 0) ? ((WorkbenchPage) pages[0])
+					.getContributorId() : null;
+		}
 	}
+
 	public PageNavigationContext(PageRef[] pagerefs) {
 		super(null);
 		this.pagerefs = pagerefs;
 	}
+
 	@Override
 	public void init(IUIComponentContext parent) {
 		super.init(parent);
 		pages = new WorkbenchPage[pagerefs.length];
-		for(int i=0; i<pagerefs.length; i++){
-			IWorkbenchPage page = ContainerAccess.getSessionWorkbench().getWorkbenchPageManager().getWorkbenchPage(pagerefs[i].id);
+		for (int i = 0; i < pagerefs.length; i++) {
+			IWorkbenchPage page = ContainerAccess.getSessionWorkbench()
+					.getWorkbenchPageManager().getWorkbenchPage(pagerefs[i].id);
 			pages[i] = page;
 		}
 		pageNavigation = new PageNavigation();

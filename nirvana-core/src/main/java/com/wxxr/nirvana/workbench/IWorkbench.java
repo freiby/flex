@@ -27,16 +27,16 @@ public interface IWorkbench {
 	IViewManager getViewManager();
 
 	ITheme getCurrentTheme();
-	
+
 	IThemeManager getThemeManager();
 
 	IWorkbenchPageManager getWorkbenchPageManager();
 
 	IProductManager getProductManager();
-	
+
 	IWebResourceManager getWebResourceManager();
-	
+
 	IPageLayoutManager getPageLayoutManager();
-	
+
 	void destroy();
 }

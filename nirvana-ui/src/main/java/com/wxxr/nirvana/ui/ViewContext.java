@@ -13,17 +13,18 @@ public class ViewContext extends UIComponentContext {
 
 	private ViewRef[] viewrefs;
 	private ISessionWorkbench workbench = null;
-	public ViewContext(IContributionItem uiContribute,ViewRef[] viewrefs) {
+
+	public ViewContext(IContributionItem uiContribute, ViewRef[] viewrefs) {
 		super(uiContribute);
 		this.viewrefs = viewrefs;
 		workbench = ContainerAccess.getSessionWorkbench();
 	}
-	
-	private IView pickUp(Map<String,Object> parameters){
-		if(parameters.containsKey("anchor")){
+
+	private IView pickUp(Map<String, Object> parameters) {
+		if (parameters.containsKey("anchor")) {
 			String anchor = (String) parameters.get("anchor");
-			for(ViewRef item : viewrefs){
-				if(item.get("attachment").equals(anchor)){
+			for (ViewRef item : viewrefs) {
+				if (item.get("attachment").equals(anchor)) {
 					IView view = workbench.getViewManager().find(item.getId());
 					return view;
 				}
@@ -31,8 +32,8 @@ public class ViewContext extends UIComponentContext {
 		}
 		return null;
 	}
-	
-	public UIComponent getCurrentComponent(Map<String,Object> parameters) {
+
+	public UIComponent getCurrentComponent(Map<String, Object> parameters) {
 		IView view = pickUp(parameters);
 		return (UIComponent) view;
 	}

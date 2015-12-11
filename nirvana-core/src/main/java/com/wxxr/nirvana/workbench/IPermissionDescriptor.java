@@ -16,9 +16,14 @@ import com.wxxr.nirvana.platform.IConfigurationElement;
  */
 public interface IPermissionDescriptor extends IContributionItem {
 	String[] getRwRoles();
+
 	String[] getRRoles();
+
 	String[] getXRoles();
+
 	String getTargetId();
-    void init(IPermissionsManager manager, IConfigurationElement config);   
-    void destroy();
+
+	void init(IPermissionsManager manager, IConfigurationElement config);
+
+	void destroy();
 }

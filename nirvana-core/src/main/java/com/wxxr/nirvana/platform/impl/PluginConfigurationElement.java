@@ -19,55 +19,62 @@ import com.wxxr.nirvana.platform.PluginVersionIdentifier;
  *
  */
 public class PluginConfigurationElement extends XMLConfigurationElement {
-  
-  private PluginVersionIdentifier version;
-  private boolean deployed;  //it is not in use
-  private URL pluginxmlURL;
-  
-  public String getNamespaceIndentifier(){
-    return getAttribute(CoreConstants.PLUGIN_ID);
-  }
 
-  /* (non-Javadoc)
-   * @see com.wxxr.web.platform.core.impl.XMLConfigurationElement#getContributor()
-   */
-  @Override
-  public IContributor getContributor() {
-    return PlatformLocator.getPlatform().getContributor(getNamespaceIndentifier());
-  }
+	private PluginVersionIdentifier version;
+	private boolean deployed; // it is not in use
+	private URL pluginxmlURL;
 
-  public PluginVersionIdentifier getPluginVersion(){
-    if(version == null){
-      version = new PluginVersionIdentifier(getAttribute(Plugin.PLUGIN_VERSION));
-    }
-    return version;
-  }
+	public String getNamespaceIndentifier() {
+		return getAttribute(CoreConstants.PLUGIN_ID);
+	}
 
-  /**
-   * @return the deployed
-   */
-  public boolean isDeployed() {
-    return deployed;
-  }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.wxxr.web.platform.core.impl.XMLConfigurationElement#getContributor()
+	 */
+	@Override
+	public IContributor getContributor() {
+		return PlatformLocator.getPlatform().getContributor(
+				getNamespaceIndentifier());
+	}
 
-  /**
-   * @param deployed the deployed to set
-   */
-  public void setDeployed(boolean deployed) {
-    this.deployed = deployed;
-  }
+	public PluginVersionIdentifier getPluginVersion() {
+		if (version == null) {
+			version = new PluginVersionIdentifier(
+					getAttribute(Plugin.PLUGIN_VERSION));
+		}
+		return version;
+	}
 
-  /**
-   * @return the pluginxmlURL
-   */
-  public URL getPluginxmlURL() {
-    return pluginxmlURL;
-  }
+	/**
+	 * @return the deployed
+	 */
+	public boolean isDeployed() {
+		return deployed;
+	}
 
-  /**
-   * @param pluginxmlURL the pluginxmlURL to set
-   */
-  public void setPluginxmlURL(URL pluginxmlURL) {
-    this.pluginxmlURL = pluginxmlURL;
-  }
+	/**
+	 * @param deployed
+	 *            the deployed to set
+	 */
+	public void setDeployed(boolean deployed) {
+		this.deployed = deployed;
+	}
+
+	/**
+	 * @return the pluginxmlURL
+	 */
+	public URL getPluginxmlURL() {
+		return pluginxmlURL;
+	}
+
+	/**
+	 * @param pluginxmlURL
+	 *            the pluginxmlURL to set
+	 */
+	public void setPluginxmlURL(URL pluginxmlURL) {
+		this.pluginxmlURL = pluginxmlURL;
+	}
 }

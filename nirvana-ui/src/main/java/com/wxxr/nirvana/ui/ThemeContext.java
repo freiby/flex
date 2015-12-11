@@ -10,8 +10,9 @@ import com.wxxr.nirvana.workbench.impl.ThemeImpl;
 import com.wxxr.nirvana.workbench.impl.UIComponent;
 
 public class ThemeContext extends UIComponentContext {
-	
+
 	private ThemeImpl theme;
+
 	public ThemeContext(IContributionItem uiContribute) {
 		super(uiContribute);
 		theme = (ThemeImpl) uiContribute;
@@ -20,7 +21,7 @@ public class ThemeContext extends UIComponentContext {
 	@Override
 	protected IUIComponentContext createUIContext(String componentName) {
 		IUIComponentContext result = null;
-		if(componentName.equals(IUIComponentContext.DESKTOP)){
+		if (componentName.equals(IUIComponentContext.DESKTOP)) {
 			IDesktop destop = theme.getDesktop();
 			result = new DesktopContext(destop);
 			result.init(this);
@@ -28,8 +29,8 @@ public class ThemeContext extends UIComponentContext {
 		}
 		return result;
 	}
-	
-	public UIComponent getCurrentComponent(Map<String,Object> parameters) {
+
+	public UIComponent getCurrentComponent(Map<String, Object> parameters) {
 		return null;
 	}
 

@@ -6,17 +6,19 @@ import java.util.EventObject;
 public class PlatformEvent extends EventObject {
 	private String id;
 	private String version;
-	public PlatformEvent(String id,String version) {
+
+	public PlatformEvent(String id, String version) {
 		super("");
 		this.id = id;
-		this.version =  version;
+		this.version = version;
 	}
+
 	public String getId() {
 		return id;
 	}
+
 	public String getVersion() {
 		return version;
 	}
-	
 
 }

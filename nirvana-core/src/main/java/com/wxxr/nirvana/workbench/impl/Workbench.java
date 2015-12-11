@@ -14,49 +14,49 @@ import com.wxxr.nirvana.workbench.IWorkbench;
 import com.wxxr.nirvana.workbench.IWorkbenchPageManager;
 
 public class Workbench implements IWorkbench {
-	
+
 	private IThemeManager themeManager;
 
 	private ISecurityManager securityManager;
-	
+
 	private IPermissionsManager permissionsManager;
 
 	private IWorkbenchPageManager workbenchPageManager;
-	
+
 	private IViewManager viewManager;
-	
+
 	private IProductManager productManager;
-	
+
 	private IWebResourceManager webresourceManager;
-	
+
 	private IPageLayoutManager pageLayoutManager;
-	
+
 	public IWebResourceManager getWebResourceManager() {
-		if(webresourceManager == null){
+		if (webresourceManager == null) {
 			webresourceManager = new WebResourceManager();
 			webresourceManager.start();
 		}
 		return webresourceManager;
 	}
-	
+
 	public IWorkbenchPageManager getWorkbenchPageManager() {
-		if(workbenchPageManager == null){
+		if (workbenchPageManager == null) {
 			workbenchPageManager = new WorkbenchPageManager();
 			workbenchPageManager.start();
 		}
 		return workbenchPageManager;
 	}
-	
+
 	public IProductManager getProductManager() {
-		if(productManager == null){
+		if (productManager == null) {
 			productManager = new ProductManager();
 			productManager.start();
 		}
 		return productManager;
 	}
-	
+
 	public IThemeManager getThemeManager() {
-		if(themeManager == null){
+		if (themeManager == null) {
 			themeManager = new ThemeManager();
 			themeManager.start();
 		}
@@ -64,7 +64,7 @@ public class Workbench implements IWorkbench {
 	}
 
 	public IPermissionsManager getPermissionsManager() {
-		if(permissionsManager == null){
+		if (permissionsManager == null) {
 			permissionsManager = new PermissionsManager();
 			permissionsManager.start();
 		}
@@ -80,12 +80,13 @@ public class Workbench implements IWorkbench {
 	}
 
 	public IViewManager getViewManager() {
-		if(viewManager == null){
+		if (viewManager == null) {
 			viewManager = new ViewManager();
 			viewManager.start();
 		}
 		return viewManager;
 	}
+
 	public ITheme getCurrentTheme() {
 		return themeManager.getDefaultTheme();
 	}
@@ -94,7 +95,7 @@ public class Workbench implements IWorkbench {
 	}
 
 	public IPageLayoutManager getPageLayoutManager() {
-		if(pageLayoutManager == null){
+		if (pageLayoutManager == null) {
 			pageLayoutManager = new PageLayoutManager();
 			pageLayoutManager.start();
 		}

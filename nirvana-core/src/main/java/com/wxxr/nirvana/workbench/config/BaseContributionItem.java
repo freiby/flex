@@ -19,18 +19,18 @@ public class BaseContributionItem implements IContributionItem {
 
 	protected IConfigurationElement elem;
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.wxxr.web.ui.IContributionItem#getConfigurationElement()
 	 */
 	public IConfigurationElement getConfigurationElement() {
 		return elem;
 	}
-	
-	
-	protected void setConfigurationElement(IConfigurationElement config){
+
+	protected void setConfigurationElement(IConfigurationElement config) {
 		this.elem = config;
 	}
-
 
 	/**
 	 * @return the contributorId
@@ -38,7 +38,6 @@ public class BaseContributionItem implements IContributionItem {
 	public String getContributorId() {
 		return (elem != null) ? elem.getNamespaceIdentifier() : null;
 	}
-
 
 	public String getExtensionId() {
 		return (elem != null) ? elem.getDeclaringExtensionId() : null;

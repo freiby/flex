@@ -8,13 +8,18 @@
  */
 package com.wxxr.nirvana.theme;
 
-
 public interface IThemeManager {
-  ITheme getTheme(String themeId);
-  ITheme removeTheme(String themeId);
-  ITheme[] getAllThemes();
-  String[] getAllThemeIds(); 
-  ITheme getDefaultTheme();
-  void destroy();
-  void start();
+	ITheme getTheme(String themeId);
+
+	ITheme removeTheme(String themeId);
+
+	ITheme[] getAllThemes();
+
+	String[] getAllThemeIds();
+
+	ITheme getDefaultTheme();
+
+	void destroy();
+
+	void start();
 }

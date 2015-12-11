@@ -18,9 +18,9 @@ public abstract class UIComponentRender implements IRenderProvider {
 			throws NirvanaException {
 		WebResourceInfo[] wrs = context.getComponentResource(component);
 
-		IWebResource[] bwrs = injecPoint(wrs,true);
+		IWebResource[] bwrs = injecPoint(wrs, true);
 		if (bwrs != null && bwrs.length > 0) {
-			ResourceUIComponent resourceui = new ResourceUIComponent(bwrs){
+			ResourceUIComponent resourceui = new ResourceUIComponent(bwrs) {
 				@Override
 				public String getName() {
 					return "resource";
@@ -28,12 +28,12 @@ public abstract class UIComponentRender implements IRenderProvider {
 			};
 			context.render(resourceui, context);
 		}
-		
+
 		doRenderComponent(component, context);
-		
-		IWebResource[] afwrs = injecPoint(wrs,false);
+
+		IWebResource[] afwrs = injecPoint(wrs, false);
 		if (afwrs != null && afwrs.length > 0) {
-			ResourceUIComponent resourceui = new ResourceUIComponent(afwrs){
+			ResourceUIComponent resourceui = new ResourceUIComponent(afwrs) {
 				@Override
 				public String getName() {
 					return "resource";
@@ -41,27 +41,30 @@ public abstract class UIComponentRender implements IRenderProvider {
 			};
 			context.render(resourceui, context);
 		}
-		
+
 	}
 
-	protected abstract void doRenderComponent(UIComponent component, IRenderContext context)throws NirvanaException;
+	protected abstract void doRenderComponent(UIComponent component,
+			IRenderContext context) throws NirvanaException;
 
-	private IWebResource[] injecPoint(WebResourceInfo[] wrs,boolean before) {
-		if(wrs == null) return null;
+	private IWebResource[] injecPoint(WebResourceInfo[] wrs, boolean before) {
+		if (wrs == null)
+			return null;
 		List<IWebResource> b = new ArrayList<IWebResource>();
 		List<IWebResource> a = new ArrayList<IWebResource>();
-		for(WebResourceInfo r : wrs){
-			if(r.getPoint().equals(IWebResourceContainer.PREFIX_BEFORE) && before){
+		for (WebResourceInfo r : wrs) {
+			if (r.getPoint().equals(IWebResourceContainer.PREFIX_BEFORE)
+					&& before) {
 				b.add(r.getR());
-			}else{
+			} else {
 				a.add(r.getR());
 			}
 		}
-		if(before){
+		if (before) {
 			return b.toArray(new IWebResource[b.size()]);
-		}else{
+		} else {
 			return a.toArray(new IWebResource[a.size()]);
 		}
-		
+
 	}
 }

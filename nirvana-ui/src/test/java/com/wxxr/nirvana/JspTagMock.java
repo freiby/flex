@@ -15,27 +15,21 @@ public class JspTagMock {
 	private PageContext context;
 	private Map<String, Object> parameters = new HashMap<String, Object>();
 	public List<JspTagMock> children = new ArrayList<JspTagMock>();
-	
-	
-	
+
 	public JspTagMock(IWorkbenchContainer container, String component,
-			PageContext context, Map<String, Object> parameters
-			) {
+			PageContext context, Map<String, Object> parameters) {
 		super();
 		this.container = container;
 		this.component = component;
 		this.context = context;
 		this.parameters = parameters;
 	}
-	
-	public void addTag(JspTagMock tag){
+
+	public void addTag(JspTagMock tag) {
 		children.add(tag);
 	}
 
-
-
-
-	public void show() throws NirvanaException{
+	public void show() throws NirvanaException {
 		container.startContext(component, context);
 		container.render(component, context, parameters);
 		container.endContext(context);

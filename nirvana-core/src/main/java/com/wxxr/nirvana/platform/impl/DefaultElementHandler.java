@@ -14,14 +14,18 @@ package com.wxxr.nirvana.platform.impl;
  */
 public class DefaultElementHandler extends BaseElementHandler {
 
-  private XMLConfigurationElement element = new XMLConfigurationElement();
+	private XMLConfigurationElement element = new XMLConfigurationElement();
 
-  /* (non-Javadoc)
-   * @see com.wxxr.web.platform.core.impl.BaseElementHandler#getXMLConfigureObject()
-   */
-  @Override
-  protected XMLConfigurationElement getXMLConfigureObject() {
-    return element;
-  }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.wxxr.web.platform.core.impl.BaseElementHandler#getXMLConfigureObject
+	 * ()
+	 */
+	@Override
+	protected XMLConfigurationElement getXMLConfigureObject() {
+		return element;
+	}
 
 }

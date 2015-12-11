@@ -8,14 +8,17 @@
  */
 package com.wxxr.nirvana.platform;
 
-import java.net.URL;
+import java.io.File;
 
 /**
  * @author fudapeng
  *
  */
 public interface IRuntimeLibrary {
-  String getPluginId();
-  URL[] getJarFiles();
-  String getExports();
+	String getPluginId();
+
+	// URL[] getJarFiles();
+	File getJarDir();
+
+	String getExports();
 }

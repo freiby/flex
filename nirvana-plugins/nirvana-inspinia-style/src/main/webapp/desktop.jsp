@@ -1,6 +1,6 @@
-<%@ taglib uri="http://freiby.nirvana.org/tags-nirvana" prefix="nirvana"%>
+<%@ taglib uri="/nirvana-tag" prefix="nirvana"%>
 <div>
-	<nirvana:ui name="navigation" />
+	<nirvana:ui name="navigation" render="menu.jsp" />
 </div>
 <div>
 	<nirvana:ui name="page" />

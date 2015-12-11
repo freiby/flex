@@ -15,21 +15,24 @@ import com.wxxr.nirvana.platform.IContributor;
  *
  */
 public class Contributor implements IContributor {
-  
-  private String name;
 
-  /* (non-Javadoc)
-   * @see com.wxxr.web.platform.core.IContributor#getName()
-   */
-  public String getName() {
-    return name;
-  }
+	private String name;
 
-  /**
-   * @param name the name to set
-   */
-  public void setName(String name) {
-    this.name = name;
-  }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.wxxr.web.platform.core.IContributor#getName()
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * @param name
+	 *            the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
 
 }

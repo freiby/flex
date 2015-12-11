@@ -15,9 +15,13 @@ import java.security.Principal;
  *
  */
 public interface ISecurityManager {
-  boolean currentUserHasRole(String role);
-  boolean currentUserHasARoleOf(String[] roles);
-  boolean currentUserHasRoles(String[] roles);
-  Principal getCurrentUser();
-  void destroy();
+	boolean currentUserHasRole(String role);
+
+	boolean currentUserHasARoleOf(String[] roles);
+
+	boolean currentUserHasRoles(String[] roles);
+
+	Principal getCurrentUser();
+
+	void destroy();
 }

@@ -57,7 +57,8 @@
             uri="view/c3-1.html"
             id="chart2"
 			>
-			
+			<resource ref="com.wxxr.nirvana.test.dj" point="header"></resource>
+			<resource ref="com.wxxr.nirvana.test.cj" point="header"></resource>
 			<resource ref="com.wxxr.nirvana.test.hj" point="before"></resource>
 
       </view>
@@ -81,12 +82,26 @@
 
 	 <extension point="com.wxxr.nirvana.platform.resources" id="pages.niravanaPage">
 		  <resource
-				id="hj"
-				label="tiger"      
+				id="hj"     
 				uri="js/hello.js"
 				type="js"
 				>
 		  </resource> 
+		  
+		  
+		  <resource
+				id="dj"      
+				uri="js/d3.min.js"
+				type="js"
+				>
+		  </resource>
+
+		  <resource
+				id="cj"   
+				uri="js/c3.min.js"
+				type="js"
+				>
+		  </resource>
      </extension>
 
 

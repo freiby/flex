@@ -19,25 +19,27 @@ import com.wxxr.nirvana.workbench.impl.ResourceRef;
 public interface ITheme extends IContributionItem {
 
 	String getId();
-	
+
 	String getDescription();
-	
+
 	/**
 	 * this method should be called after a new instance was created.
 	 * 
 	 * added at 2007-11-5
+	 * 
 	 * @param manager
-	 * @param config represents the default layout data
+	 * @param config
+	 *            represents the default layout data
 	 */
-	void init(IThemeManager manager,IConfigurationElement config);
-	
+	void init(IThemeManager manager, IConfigurationElement config);
+
 	void destroy();
 
 	IThemeManager getThemeManager();
-	
+
 	IDesktop getDesktop();
-	
+
 	ResourceRef[] getResourceRefs();
-	
+
 	boolean isDefault();
 }

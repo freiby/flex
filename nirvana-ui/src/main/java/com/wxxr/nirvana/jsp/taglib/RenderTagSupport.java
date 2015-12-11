@@ -42,130 +42,160 @@ import com.wxxr.nirvana.exception.NirvanaException;
  * @since Tiles 2.0
  * @version $Rev$ $Date$
  */
-public abstract class RenderTagSupport extends ContainerTagSupport{
+public abstract class RenderTagSupport extends ContainerTagSupport {
 
-    /**
-     * The view preparer to use before the rendering.
-     */
-    protected String preparer;
+	/**
+	 * The view preparer to use before the rendering.
+	 */
+	protected String preparer;
 
-    /**
-     * This flag, if <code>true</code>, flushes the content before rendering.
-     */
-    protected boolean flush;
+	/**
+	 * This flag, if <code>true</code>, flushes the content before rendering.
+	 */
+	protected boolean flush;
 
-    /**
-     * This flag, if <code>true</code>, ignores exception thrown by preparers
-     * and those caused by problems with definitions.
-     */
-    protected boolean ignore;
+	/**
+	 * This flag, if <code>true</code>, ignores exception thrown by preparers
+	 * and those caused by problems with definitions.
+	 */
+	protected boolean ignore;
 
-    /**
-     * Returns the preparer name.
-     *
-     * @return The preparer name.
-     */
-    public String getPreparer() {
-        return preparer;
-    }
+	/**
+	 * Returns the preparer name.
+	 *
+	 * @return The preparer name.
+	 */
+	public String getPreparer() {
+		return preparer;
+	}
 
-    /**
-     * Sets the preparer name.
-     *
-     * @param preparer The preparer name.
-     */
-    public void setPreparer(String preparer) {
-        this.preparer = preparer;
-    }
+	/**
+	 * Sets the preparer name.
+	 *
+	 * @param preparer
+	 *            The preparer name.
+	 */
+	public void setPreparer(String preparer) {
+		this.preparer = preparer;
+	}
 
-    /**
-     * Returns the flush flag. If <code>true</code>, current page out stream
-     * is flushed before insertion.
-     *
-     * @return The flush flag.
-     */
-    public boolean isFlush() {
-        return flush;
-    }
+	/**
+	 * Returns the flush flag. If <code>true</code>, current page out stream is
+	 * flushed before insertion.
+	 *
+	 * @return The flush flag.
+	 */
+	public boolean isFlush() {
+		return flush;
+	}
 
-    /**
-     * Sets the flush flag. If <code>true</code>, current page out stream
-     * is flushed before insertion.
-     *
-     * @param flush The flush flag.
-     */
-    public void setFlush(boolean flush) {
-        this.flush = flush;
-    }
+	/**
+	 * Sets the flush flag. If <code>true</code>, current page out stream is
+	 * flushed before insertion.
+	 *
+	 * @param flush
+	 *            The flush flag.
+	 */
+	public void setFlush(boolean flush) {
+		this.flush = flush;
+	}
 
-    /**
-     * Returns the ignore flag. If it is set to true, and the attribute
-     * specified by the name does not exist, simply return without writing
-     * anything. The default value is false, which will cause a runtime
-     * exception to be thrown.
-     *
-     * @return The ignore flag.
-     */
-    public boolean isIgnore() {
-        return ignore;
-    }
+	/**
+	 * Returns the ignore flag. If it is set to true, and the attribute
+	 * specified by the name does not exist, simply return without writing
+	 * anything. The default value is false, which will cause a runtime
+	 * exception to be thrown.
+	 *
+	 * @return The ignore flag.
+	 */
+	public boolean isIgnore() {
+		return ignore;
+	}
 
-    /**
-     * Sets the ignore flag. If this attribute is set to true, and the attribute
-     * specified by the name does not exist, simply return without writing
-     * anything. The default value is false, which will cause a runtime
-     * exception to be thrown.
-     *
-     * @param ignore The ignore flag.
-     */
-    public void setIgnore(boolean ignore) {
-        this.ignore = ignore;
-    }
+	/**
+	 * Sets the ignore flag. If this attribute is set to true, and the attribute
+	 * specified by the name does not exist, simply return without writing
+	 * anything. The default value is false, which will cause a runtime
+	 * exception to be thrown.
+	 *
+	 * @param ignore
+	 *            The ignore flag.
+	 */
+	public void setIgnore(boolean ignore) {
+		this.ignore = ignore;
+	}
 
+	private String render;
 
-    /** {@inheritDoc} */
-    public void release() {
-        preparer = null;
-        flush = false;
-        ignore = false;
-        super.release();
-    }
+	/** {@inheritDoc} */
+	public void release() {
+		preparer = null;
+		flush = false;
+		ignore = false;
+		super.release();
+	}
 
-    /** {@inheritDoc} */
-    public int doStartTag() throws JspException {
-        super.doStartTag();
-        return isAccessAllowed() ? EVAL_BODY_BUFFERED : SKIP_BODY;
-    }
+	/** {@inheritDoc} */
+	public int doStartTag() throws JspException {
+		super.doStartTag();
+		return isAccessAllowed() ? EVAL_BODY_BUFFERED : SKIP_BODY;
+	}
 
-    protected boolean isAccessAllowed() {
+	protected boolean isAccessAllowed() {
 		return true;
 	}
 
 	/**
-     * Execute the tag by invoking the preparer, if defined, and then
-     * rendering.
-     *
-     * @throws NirvanaException if a prepare or render exception occurs.
-     * @throws JspException if a jsp exception occurs.
-     * @throws IOException if an io exception occurs.
-     */
-    protected void execute() throws NirvanaException, JspException, IOException {
-        if (preparer != null) {
-            container.prepare(preparer, pageContext);
-        }
-        render();
-        if (flush) {
-            pageContext.getOut().flush();
-        }
-    }
+	 * Execute the tag by invoking the preparer, if defined, and then rendering.
+	 *
+	 * @throws NirvanaException
+	 *             if a prepare or render exception occurs.
+	 * @throws JspException
+	 *             if a jsp exception occurs.
+	 * @throws IOException
+	 *             if an io exception occurs.
+	 */
+	protected void execute() throws JspException {
+		if (preparer != null) {
+			try {
+				container.prepare(preparer, pageContext);
+			} catch (NirvanaException e) {
+				throw new JspException(e);
+			}
+		}
+		try {
+			render();
+		} catch (Exception e) {
+			throw new JspException(e);
+		}
+		if (flush) {
+			try {
+				pageContext.getOut().flush();
+			} catch (IOException e) {
+				throw new JspException(e);
+			}
+		}
+	}
 
-    /**
-     * Render the specified content.
-     *
-     * @throws NirvanaException if a prepare or render exception occurs.
-     * @throws JspException if a jsp exception occurs.
-     * @throws IOException if an io exception occurs.
-     */
-    protected abstract void render() throws JspException, NirvanaException, IOException;
+	/**
+	 * Render the specified content.
+	 *
+	 * @throws NirvanaException
+	 *             if a prepare or render exception occurs.
+	 * @throws JspException
+	 *             if a jsp exception occurs.
+	 * @throws IOException
+	 *             if an io exception occurs.
+	 */
+	protected abstract void render() throws JspException, NirvanaException,
+			IOException;
+
+	public String getRender() {
+		return render;
+	}
+
+	public void setRender(String render) {
+		this.render = render;
+	}
 
 }

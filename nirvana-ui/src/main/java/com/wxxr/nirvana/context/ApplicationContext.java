@@ -26,46 +26,50 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * Defines a set of methods which tiles use to communicate to
- * the tiles container and runtime environment.  There is only
- * one application context per container.
+ * Defines a set of methods which tiles use to communicate to the tiles
+ * container and runtime environment. There is only one application context per
+ * container.
  *
  * @since 2.0
  * @version $Rev$ $Date$
  */
 public interface ApplicationContext {
 
-    /**
-     * Returns a mutable Map that maps application scope attribute names to
-     * their values.
-     *
-     * @return Map of key value pairs.
-     */
-    Map<String, Object> getApplicationScope();
+	/**
+	 * Returns a mutable Map that maps application scope attribute names to
+	 * their values.
+	 *
+	 * @return Map of key value pairs.
+	 */
+	Map<String, Object> getApplicationScope();
 
-    /**
-     * Return an immutable Map that maps context application initialization
-     * parameters to their values.
-     *
-     * @return initialization parameters
-     */
-    Map<String, String> getInitParams();
+	/**
+	 * Return an immutable Map that maps context application initialization
+	 * parameters to their values.
+	 *
+	 * @return initialization parameters
+	 */
+	Map<String, String> getInitParams();
 
-    /**
-     * Return a URL for the application resource mapped to the specified path.
-     *
-     * @param path to the desired resource.
-     * @return the first located resource which matches the given path.
-     * @throws IOException if the path is malformed
-     */
-    URL getResource(String path) throws IOException;
+	/**
+	 * Return a URL for the application resource mapped to the specified path.
+	 *
+	 * @param path
+	 *            to the desired resource.
+	 * @return the first located resource which matches the given path.
+	 * @throws IOException
+	 *             if the path is malformed
+	 */
+	URL getResource(String path) throws IOException;
 
-    /**
-     * Return a URL for the application resource mapped to the specified path.
-     *
-     * @param path to the desired resource.
-     * @return all resources which match the given path.
-     * @throws IOException if the url is illegal
-     */
-    Set<URL> getResources(String path) throws IOException;
+	/**
+	 * Return a URL for the application resource mapped to the specified path.
+	 *
+	 * @param path
+	 *            to the desired resource.
+	 * @return all resources which match the given path.
+	 * @throws IOException
+	 *             if the url is illegal
+	 */
+	Set<URL> getResources(String path) throws IOException;
 }

@@ -24,5 +24,5 @@ package com.wxxr.tiles.example;
  * An enumeration for JSON serialization testing
  */
 public enum AnEnum {
-    ValueA, ValueB, ValueC
+	ValueA, ValueB, ValueC
 }

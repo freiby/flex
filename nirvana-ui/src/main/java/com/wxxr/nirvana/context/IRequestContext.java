@@ -33,23 +33,30 @@ import javax.servlet.jsp.PageContext;
  */
 public interface IRequestContext {
 
-    /**
-     * Dispatches the request to a specified path.
-     *
-     * @param path The path to dispatch to.
-     * @throws IOException If something goes wrong during dispatching.
-     */
-    void dispatch(String path) throws IOException;
+	/**
+	 * Dispatches the request to a specified path.
+	 *
+	 * @param path
+	 *            The path to dispatch to.
+	 * @throws IOException
+	 *             If something goes wrong during dispatching.
+	 */
+	void dispatch(String path) throws IOException;
 
-    /**
-     * Includes the response from the specified URL in the current response output.
-     *
-     * @param path The path to include.
-     * @throws IOException If something goes wrong during inclusion.
-     */
-    void include(String path) throws IOException;
-    
-    PrintWriter getWriter() throws IOException;
-    
-    PageContext getPageContext();
+	/**
+	 * Includes the response from the specified URL in the current response
+	 * output.
+	 *
+	 * @param path
+	 *            The path to include.
+	 * @throws IOException
+	 *             If something goes wrong during inclusion.
+	 */
+	void include(String path) throws IOException;
+
+	PrintWriter getWriter() throws IOException;
+
+	PageContext getPageContext();
+
+	void goHome() throws IOException;
 }

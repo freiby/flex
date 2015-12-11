@@ -9,26 +9,25 @@ import com.wxxr.nirvana.platform.IExtension;
 import com.wxxr.nirvana.platform.IExtensionPoint;
 import com.wxxr.nirvana.platform.InvalidRegistryObjectException;
 
-
 public class ExtensionPoint implements IExtensionPoint {
-  
-  private static final IExtension[] EMPTY_EXTENSIONS = new IExtension[0];
 
-	private Map<String,IExtension> extensions = new ConcurrentHashMap<String, IExtension>();
+	private static final IExtension[] EMPTY_EXTENSIONS = new IExtension[0];
+
+	private Map<String, IExtension> extensions = new ConcurrentHashMap<String, IExtension>();
 	private ExtensionPointConfigurationElement config;
-	
+
 	/**
    * 
    */
-  public ExtensionPoint(ExtensionPointConfigurationElement config) {
-    super();
-    if(config == null){
-      throw new IllegalArgumentException();
-    }
-    this.config = config;
-  }
+	public ExtensionPoint(ExtensionPointConfigurationElement config) {
+		super();
+		if (config == null) {
+			throw new IllegalArgumentException();
+		}
+		this.config = config;
+	}
 
-  public IConfigurationElement[] getConfigurationElements()
+	public IConfigurationElement[] getConfigurationElements()
 			throws InvalidRegistryObjectException {
 		return config.getChildren();
 	}
@@ -68,31 +67,32 @@ public class ExtensionPoint implements IExtensionPoint {
 	}
 
 	public String getUniqueIdentifier() throws InvalidRegistryObjectException {
-		return getNamespaceIdentifier()+"."+getSimpleIdentifier();
+		return getNamespaceIdentifier() + "." + getSimpleIdentifier();
 	}
 
 	public boolean isValid() {
 		return true;
 	}
-	public void addExtensions(IExtension ext) 
+
+	public void addExtensions(IExtension ext)
 			throws InvalidRegistryObjectException {
-		if(ext == null){
-		  throw new IllegalArgumentException();
+		if (ext == null) {
+			throw new IllegalArgumentException();
 		}
 		extensions.put(ext.getUniqueIdentifier(), ext);
 	}
-	
+
 	public boolean removeExtension(IExtension ext) {
-    if(ext == null){
-      throw new IllegalArgumentException();
-    }
-    return (removeExtension(ext.getUniqueIdentifier()) != null);	  
+		if (ext == null) {
+			throw new IllegalArgumentException();
+		}
+		return (removeExtension(ext.getUniqueIdentifier()) != null);
 	}
-	
+
 	public IExtension removeExtension(String extensionId) {
-		return extensions.remove(extensionId);    
+		return extensions.remove(extensionId);
 	}
-  
+
 	public IConfigurationElement getConfiguration() {
 		return config;
 	}

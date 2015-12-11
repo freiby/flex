@@ -25,21 +25,21 @@ package com.wxxr.tiles.example;
  */
 public enum AnEnumBean {
 
-    One("A", "B"), Two("C", "D"), Three("E", "F");
+	One("A", "B"), Two("C", "D"), Three("E", "F");
 
-    private String propA;
-    private String propB;
+	private String propA;
+	private String propB;
 
-    AnEnumBean(String propA, String propB) {
-        this.propA = propA;
-        this.propB = propB;
-    }
+	AnEnumBean(String propA, String propB) {
+		this.propA = propA;
+		this.propB = propB;
+	}
 
-    public String getPropA() {
-        return propA;
-    }
+	public String getPropA() {
+		return propA;
+	}
 
-    public String getPropB() {
-        return propB;
-    }
+	public String getPropB() {
+		return propB;
+	}
 }

@@ -14,5 +14,6 @@ package com.wxxr.nirvana.platform;
  */
 public interface IServiceRegistryEventListener {
 	void serviceRegsitered(Class api, Object service);
+
 	void serviceUnregsitered(Class api, Object service);
 }

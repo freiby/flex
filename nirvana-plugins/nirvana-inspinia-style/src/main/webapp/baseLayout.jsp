@@ -1,27 +1,11 @@
-<%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
+<%@ taglib uri="/nirvana-tag" prefix="nirvana"%>
 <!DOCTYPE html>
-<html>
-
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><tiles:insertAttribute name="title" /></title>
-    <link href="./framework/theme/inspinia/css/bootstrap.min.css" rel="stylesheet">
-    <link href="./framework/theme/inspinia/css/font-awesome.css" rel="stylesheet">
-    <!-- Toastr style -->
-    <link href="./framework/theme/inspinia/css/toastr.min.css" rel="stylesheet">
-    <link href="./framework/theme/inspinia/css/animate.css" rel="stylesheet">
-    <link href="./framework/theme/inspinia/css/style.css" rel="stylesheet">
-    <tiles:insertAttribute name="resourcejsheader" />
-    
-</head>
 
 <body class="pace-done">
 
 	<div id="wrapper">
-		<tiles:insertAttribute name="menu" />
-		<tiles:insertAttribute name="content" />
+		<nirvana:ui name="navigation" render="menu.jsp" />
+		<nirvana:ui name="page" />
 	</div>
 	<div class="theme-config"><!--  right config panel -->
         <div class="theme-config-box">
@@ -167,5 +151,3 @@
     <!-- ChartJS-->
     <!-- // <script src="./framework/theme/inspinia/js/Chart.min.js"></script> -->
     <tiles:insertAttribute name="resourcejsfooter" />
-</body>
-</html>

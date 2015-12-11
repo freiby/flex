@@ -19,83 +19,94 @@ import com.wxxr.nirvana.workbench.config.BaseContributionItem;
  * @author fudapeng
  *
  */
-public class PermissionDescriptor extends BaseContributionItem implements IPermissionDescriptor {
-	
-	private static final String ELEMENT_RW_NAME="rwRoles";
-	private static final String ELEMENT_R_NAME="rRoles";
-	private static final String ELEMENT_X_NAME="xRoles";
-	private static final String ATT_TRAGET_ID="targetId";
+public class PermissionDescriptor extends BaseContributionItem implements
+		IPermissionDescriptor {
+
+	private static final String ELEMENT_RW_NAME = "rwRoles";
+	private static final String ELEMENT_R_NAME = "rRoles";
+	private static final String ELEMENT_X_NAME = "xRoles";
+	private static final String ATT_TRAGET_ID = "targetId";
 
 	protected String[] rRoles;
 	protected String[] rwRoles;
 	protected String[] xRoles;
 	protected String targetId;
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.wxxr.web.ui.permissions.IPermissionDescriptor#getRRoles()
 	 */
 	public String[] getRRoles() {
 		return rRoles;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.wxxr.web.ui.permissions.IPermissionDescriptor#getRWRoles()
 	 */
 	public String[] getRwRoles() {
 		return rwRoles;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.wxxr.web.ui.permissions.IPermissionDescriptor#getTargetId()
 	 */
 	public String getTargetId() {
 		return targetId;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.wxxr.web.ui.permissions.IPermissionDescriptor#getXRoles()
 	 */
 	public String[] getXRoles() {
 		return xRoles;
 	}
 
-
 	/**
-	 * @param roles the rRoles to set
+	 * @param roles
+	 *            the rRoles to set
 	 */
 	public void setRRoles(String[] roles) {
 		rRoles = roles;
 	}
 
 	/**
-	 * @param rwRoles the rwRoles to set
+	 * @param rwRoles
+	 *            the rwRoles to set
 	 */
 	public void setRwRoles(String[] rwRoles) {
 		this.rwRoles = rwRoles;
 	}
 
 	/**
-	 * @param roles the xRoles to set
+	 * @param roles
+	 *            the xRoles to set
 	 */
 	public void setXRoles(String[] roles) {
 		xRoles = roles;
 	}
 
 	/**
-	 * @param targetId the targetId to set
+	 * @param targetId
+	 *            the targetId to set
 	 */
 	public void setTargetId(String targetId) {
 		this.targetId = targetId;
 	}
 
-	
 	public void destroy() {
-		
+
 	}
 
 	public void init(IPermissionsManager manager, IConfigurationElement config) {
 		setConfigurationElement(config);
-		if(config != null){
+		if (config != null) {
 			targetId = elem.getAttribute(ATT_TRAGET_ID);
 			rwRoles = processPermissions(config, ELEMENT_RW_NAME);
 			rRoles = processPermissions(config, ELEMENT_R_NAME);
@@ -103,16 +114,17 @@ public class PermissionDescriptor extends BaseContributionItem implements IPermi
 		}
 	}
 
-	private String[] processPermissions(IConfigurationElement config,String elemName) {
+	private String[] processPermissions(IConfigurationElement config,
+			String elemName) {
 		IConfigurationElement[] elems = config.getChildren(elemName);
 		StringBuffer buf = new StringBuffer();
 		int cnt = 0;
-		for (int i = 0; (elems != null)&&(i < elems.length); i++) {
+		for (int i = 0; (elems != null) && (i < elems.length); i++) {
 			IConfigurationElement elem = elems[i];
-			if(elem != null){
+			if (elem != null) {
 				String s = elem.getValue();
-				if(StringUtils.isNotBlank(s)){
-					if(cnt > 0){
+				if (StringUtils.isNotBlank(s)) {
+					if (cnt > 0) {
 						buf.append(',');
 					}
 					buf.append(StringUtils.trim(s));
@@ -120,7 +132,7 @@ public class PermissionDescriptor extends BaseContributionItem implements IPermi
 				}
 			}
 		}
-		if(buf.length() != 0){
+		if (buf.length() != 0) {
 			return buf.toString().split(",");
 		}
 		return null;

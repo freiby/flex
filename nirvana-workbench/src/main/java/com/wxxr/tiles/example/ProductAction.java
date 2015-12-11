@@ -10,6 +10,11 @@ import com.opensymphony.xwork2.ActionSupport;
  *
  */
 public class ProductAction extends ActionSupport {
-	public String tiger() { return "tiger"; }
-	public String lion() { return "lion"; }
+	public String tiger() {
+		return "tiger";
+	}
+
+	public String lion() {
+		return "lion";
+	}
 }

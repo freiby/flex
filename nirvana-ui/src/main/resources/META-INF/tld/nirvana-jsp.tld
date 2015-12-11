@@ -28,7 +28,7 @@
    <tlib-version>2.0</tlib-version>
    <jsp-version>1.2</jsp-version>
    <short-name>nirvana</short-name>
-   <uri>http://tiles.apache.org/tags-tiles</uri>
+   <uri>/nirvana-tag</uri>
    <description>
    <![CDATA[
    <p>This tag library provides Tiles tags.</p>
@@ -45,6 +45,16 @@
       <attribute>
          <name>name</name>
          <required>true</required>
+         <rtexprvalue>false</rtexprvalue>
+         <description>
+         <![CDATA[
+         
+         ]]>
+         </description>
+      </attribute>
+      <attribute>
+         <name>render</name>
+         <required>false</required>
          <rtexprvalue>false</rtexprvalue>
          <description>
          <![CDATA[

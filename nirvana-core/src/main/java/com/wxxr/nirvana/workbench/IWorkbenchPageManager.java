@@ -8,25 +8,27 @@
  */
 package com.wxxr.nirvana.workbench;
 
-
 /**
  * @author fudapeng
  *
  */
 public interface IWorkbenchPageManager {
-	
-  /**
-   * return layout initialized with default layout data
-   * 
-   * @param layoutId
-   * @return
-   */
-  IWorkbenchPage getWorkbenchPage(String pageId);
 
-  IWorkbenchPage[] getAllPages();
-  String[] getAllPageIds(); 
-//  String getCurrentWorkbenchPageId();
-  void destroy();
-  void start();
+	/**
+	 * return layout initialized with default layout data
+	 * 
+	 * @param layoutId
+	 * @return
+	 */
+	IWorkbenchPage getWorkbenchPage(String pageId);
+
+	IWorkbenchPage[] getAllPages();
+
+	String[] getAllPageIds();
+
+	// String getCurrentWorkbenchPageId();
+	void destroy();
+
+	void start();
 
 }

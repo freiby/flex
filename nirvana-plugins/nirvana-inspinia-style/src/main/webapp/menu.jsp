@@ -1,4 +1,5 @@
 <%@taglib uri="/struts-tags" prefix="s"%>
+<%@ taglib uri="/nirvana-tag" prefix="nirvana"%>
 
 <nav class="navbar-default navbar-static-side" role="navigation">
     <div class="sidebar-collapse">

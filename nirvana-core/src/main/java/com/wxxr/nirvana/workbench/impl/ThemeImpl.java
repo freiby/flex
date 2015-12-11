@@ -8,13 +8,22 @@
  */
 package com.wxxr.nirvana.workbench.impl;
 
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import com.wxxr.nirvana.platform.IConfigurationElement;
+import com.wxxr.nirvana.platform.IPluginDescriptor;
+import com.wxxr.nirvana.platform.InvalidRegistryObjectException;
+import com.wxxr.nirvana.platform.PlatformLocator;
 import com.wxxr.nirvana.theme.IDesktop;
 import com.wxxr.nirvana.theme.IPageLayout;
 import com.wxxr.nirvana.theme.ITheme;
 import com.wxxr.nirvana.theme.IThemeManager;
+import com.wxxr.nirvana.workbench.IRender;
 import com.wxxr.nirvana.workbench.IWebResource;
 import com.wxxr.nirvana.workbench.config.BaseContributionItem;
+import com.wxxr.nirvana.workbench.impl.ThemeManager.ICreateClassContext;
 
 /**
  * @author fudapeng
@@ -28,8 +37,16 @@ public class ThemeImpl extends BaseContributionItem implements ITheme {
 	private Desktop desktop;
 	private boolean defaultTheme = false;
 	private ResourceRef[] resourcerefs;
-	
+
 	private String ATT_RESOURCE = "resource";
+	private static final String ATT_CLASS = "class";
+	private ICreateClassContext context;
+
+	private final Log log = LogFactory.getLog(ThemeImpl.class);
+
+	public ThemeImpl(ICreateClassContext context) {
+		this.context = context;
+	}
 
 	/*
 	 * (non-Javadoc)
@@ -59,28 +76,39 @@ public class ThemeImpl extends BaseContributionItem implements ITheme {
 	public void init(IThemeManager manager, IConfigurationElement config) {
 		this.manager = manager;
 		applyConfigure(config, true);
-		initDesktop(config.getChildren("desktop")[0]);
+		try {
+			initDesktop(config.getChildren("desktop")[0]);
+		} catch (Exception e) {
+			log.error(" initDesktop error ", e);
+		}
 		initResources(config);
 	}
 
 	private void initResources(IConfigurationElement config) {
 		IConfigurationElement[] children = config.getChildren(ATT_RESOURCE);
-		if(children != null && children.length > 0){
+		if (children != null && children.length > 0) {
 			resourcerefs = new ResourceRef[children.length];
 			int i = 0;
-			for(IConfigurationElement child : children){
+			for (IConfigurationElement child : children) {
 				ResourceRef ref = new ResourceRef(child);
 				resourcerefs[i] = ref;
 				i++;
 			}
 		}
-		
+
 	}
 
-	private void initDesktop(IConfigurationElement config) {
-		if(desktop == null){
+	private void initDesktop(IConfigurationElement config) throws Exception {
+		if (desktop == null) {
 			desktop = new Desktop();
-			desktop.init(config);
+			String clazz = elem.getAttribute(ATT_CLASS);
+			IRender render = null;
+			if (StringUtils.isNotBlank(clazz)) {
+				IPluginDescriptor plugin = PlatformLocator.getPlatform()
+						.getPluginDescriptor(elem.getNamespaceIdentifier());
+				render = context.createInstance(clazz, IRender.class);
+			}
+			desktop.init(config, null);
 		}
 	}
 
@@ -88,9 +116,10 @@ public class ThemeImpl extends BaseContributionItem implements ITheme {
 		if (init) {
 			id = config.getAttribute("id");
 			description = config.getAttribute("description");
-			defaultTheme = config.getAttribute("default") == null ? false : true;
+			defaultTheme = config.getAttribute("default") == null ? false
+					: true;
 			setConfigurationElement(config);
-			
+
 		}
 	}
 
@@ -124,5 +153,5 @@ public class ThemeImpl extends BaseContributionItem implements ITheme {
 	public ResourceRef[] getResourceRefs() {
 		return resourcerefs;
 	}
-	
+
 }

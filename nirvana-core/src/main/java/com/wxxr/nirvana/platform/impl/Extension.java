@@ -6,12 +6,11 @@ import com.wxxr.nirvana.platform.IExtension;
 import com.wxxr.nirvana.platform.IExtensionPoint;
 import com.wxxr.nirvana.platform.InvalidRegistryObjectException;
 
-
 public class Extension implements IExtension {
-	
+
 	private ExtensionConfigurationElement configuration;
-	
-	public Extension(ExtensionConfigurationElement elem){
+
+	public Extension(ExtensionConfigurationElement elem) {
 		this.configuration = elem;
 	}
 
@@ -43,7 +42,7 @@ public class Extension implements IExtension {
 	}
 
 	public String getUniqueIdentifier() throws InvalidRegistryObjectException {
-		return getNamespaceIdentifier()+"."+getSimpleIdentifier();
+		return getNamespaceIdentifier() + "." + getSimpleIdentifier();
 	}
 
 	public boolean isValid() {
@@ -58,29 +57,29 @@ public class Extension implements IExtension {
 	}
 
 	/*
- * (non-javadoc)
- */
-private IExtensionPoint iExtensionPoint;
- 
-/**
- * Getter of the property <tt>iExtensionPoint</tt>
- *
- * @return Returns the iExtensionPoint.
- * 
- */
-public IExtensionPoint getIExtensionPoint()
-{
-	return iExtensionPoint;
-}
+	 * (non-javadoc)
+	 */
+	private IExtensionPoint iExtensionPoint;
 
-/**
- * Setter of the property <tt>iExtensionPoint</tt>
- *
- * @param iExtensionPoint The iExtensionPoint to set.
- *
- */
-public void setIExtensionPoint(IExtensionPoint iExtensionPoint ){
-	this.iExtensionPoint = iExtensionPoint;
-}
+	/**
+	 * Getter of the property <tt>iExtensionPoint</tt>
+	 *
+	 * @return Returns the iExtensionPoint.
+	 * 
+	 */
+	public IExtensionPoint getIExtensionPoint() {
+		return iExtensionPoint;
+	}
+
+	/**
+	 * Setter of the property <tt>iExtensionPoint</tt>
+	 *
+	 * @param iExtensionPoint
+	 *            The iExtensionPoint to set.
+	 *
+	 */
+	public void setIExtensionPoint(IExtensionPoint iExtensionPoint) {
+		this.iExtensionPoint = iExtensionPoint;
+	}
 
 }

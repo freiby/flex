@@ -17,6 +17,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.wxxr.nirvana.platform.IConfigurationElement;
+import com.wxxr.nirvana.workbench.IRender;
 import com.wxxr.nirvana.workbench.IView;
 import com.wxxr.nirvana.workbench.IViewManager;
 import com.wxxr.nirvana.workbench.IWorkbenchPage;
@@ -33,14 +34,15 @@ public class WorkbenchPage extends UIComponent implements IWorkbenchPage {
 	protected IWorkbenchPageManager manager;
 	protected String defaultRegionId;
 	protected Map<String, List<String>> viewsOfRegion = new HashMap<String, List<String>>();
-	
+
 	public static final String VIEW_ELEMENT = "view";
-	
+
 	private String[] viewids;
-	
+
 	private ViewRef[] viewRefs;
-	
+
 	private IViewManager viewManager;
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -50,31 +52,32 @@ public class WorkbenchPage extends UIComponent implements IWorkbenchPage {
 		return manager;
 	}
 
-	public void init(IWorkbenchPageManager manager, IConfigurationElement config) {
-		super.init(config);
+	public void init(IWorkbenchPageManager manager,
+			IConfigurationElement config, IRender render) {
+		super.init(config, render);
 		initViews(config);
 	}
-	
-	
+
 	protected void initViews(IConfigurationElement config) {
 		IConfigurationElement[] viewConfigs = config.getChildren(VIEW_ELEMENT);
-		if(viewConfigs == null) return;
+		if (viewConfigs == null)
+			return;
 		viewids = new String[viewConfigs.length];
 		viewRefs = new ViewRef[viewConfigs.length];
 		for (int j = 0; j < viewConfigs.length; j++) {
-			
+
 			IConfigurationElement viewConfig = viewConfigs[j];
 			String viewid = viewConfig.getAttribute(UIComponent.ATT_REF);
 			viewids[j] = viewid;
-			ViewRef v = new ViewRef(viewid,viewConfig);
+			ViewRef v = new ViewRef(viewid, viewConfig);
 			viewRefs[j] = v;
 		}
 	}
-	
-	public boolean hasView(String vid){
-		if(viewids != null){
-			for(String id : viewids){
-				if(id.equals(vid)){
+
+	public boolean hasView(String vid) {
+		if (viewids != null) {
+			for (String id : viewids) {
+				if (id.equals(vid)) {
 					return true;
 				}
 			}
@@ -83,7 +86,7 @@ public class WorkbenchPage extends UIComponent implements IWorkbenchPage {
 	}
 
 	public IView getViewsById(String id) {
-		if(hasView(id)){
+		if (hasView(id)) {
 			return viewManager.find(id);
 		}
 		return null;
@@ -94,30 +97,31 @@ public class WorkbenchPage extends UIComponent implements IWorkbenchPage {
 	}
 
 	public void destroy() {
-		
+
 	}
-	
-	public class ViewRef{
-		
+
+	public class ViewRef {
+
 		private String id;
 		private IConfigurationElement elem;
-		
+
 		public ViewRef(String id, IConfigurationElement elem) {
 			super();
 			this.id = id;
 			this.elem = elem;
 		}
-		public String get(String attr){
-			if(elem != null){
+
+		public String get(String attr) {
+			if (elem != null) {
 				return elem.getAttribute(attr);
 			}
 			return null;
 		}
-		
-		public String getId(){
+
+		public String getId() {
 			return id;
 		}
-		
+
 	}
 
 	public ViewRef[] getAllViewRefs() {
@@ -125,9 +129,9 @@ public class WorkbenchPage extends UIComponent implements IWorkbenchPage {
 	}
 
 	public ViewRef getViewRefById(String id) {
-		if(viewRefs != null && StringUtils.isNotBlank(id)){
-			for(ViewRef item : viewRefs){
-				if(item.getId().equals(id)){
+		if (viewRefs != null && StringUtils.isNotBlank(id)) {
+			for (ViewRef item : viewRefs) {
+				if (item.getId().equals(id)) {
 					return item;
 				}
 			}

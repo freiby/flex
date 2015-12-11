@@ -31,43 +31,48 @@ import java.io.IOException;
  */
 public class NirvanaIOException extends IOException {
 
-    /**
-     * Default constructor.
-     * @since 2.0.6
-     */
-    public NirvanaIOException() {
-    }
+	/**
+	 * Default constructor.
+	 * 
+	 * @since 2.0.6
+	 */
+	public NirvanaIOException() {
+	}
 
-    /**
-     * Constructor.
-     *
-     * @param message Message of the exception.
-     * @since 2.0.6
-     */
-    public NirvanaIOException(String message) {
-        super(message);
-    }
+	/**
+	 * Constructor.
+	 *
+	 * @param message
+	 *            Message of the exception.
+	 * @since 2.0.6
+	 */
+	public NirvanaIOException(String message) {
+		super(message);
+	}
 
-    /**
-     * Constructor.
-     *
-     * @param cause The cause of the exception.
-     * @since 2.0.6
-     */
-    public NirvanaIOException(Throwable cause) {
-        super();
-        this.initCause(cause);
-    }
+	/**
+	 * Constructor.
+	 *
+	 * @param cause
+	 *            The cause of the exception.
+	 * @since 2.0.6
+	 */
+	public NirvanaIOException(Throwable cause) {
+		super();
+		this.initCause(cause);
+	}
 
-    /**
-     * Constructor.
-     *
-     * @param message Message of the exception.
-     * @param cause The cause of the exception.
-     * @since 2.0.6
-     */
-    public NirvanaIOException(String message, Throwable cause) {
-        super(message);
-        this.initCause(cause);
-    }
+	/**
+	 * Constructor.
+	 *
+	 * @param message
+	 *            Message of the exception.
+	 * @param cause
+	 *            The cause of the exception.
+	 * @since 2.0.6
+	 */
+	public NirvanaIOException(String message, Throwable cause) {
+		super(message);
+		this.initCause(cause);
+	}
 }

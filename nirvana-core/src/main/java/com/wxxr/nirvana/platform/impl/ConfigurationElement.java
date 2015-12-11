@@ -26,13 +26,14 @@ public class ConfigurationElement implements IConfigurationElement {
 	private String[] attributeNames;
 	private String namespace;
 	private String extensionUniqueId;
-	
-	public ConfigurationElement(Element elem,IConfigurationElement parent){
+
+	public ConfigurationElement(Element elem, IConfigurationElement parent) {
 		this.elem = elem;
 		this.parent = parent;
 	}
 
-	void throwException(String message, Throwable exception) throws CoreException {
+	void throwException(String message, Throwable exception)
+			throws CoreException {
 		throw new CoreException();
 	}
 
@@ -77,7 +78,8 @@ public class ConfigurationElement implements IConfigurationElement {
 					for (i = 0; i < parms.length; i++) {
 						pname = parms[i].getAttribute("name"); //$NON-NLS-1$
 						if (pname != null)
-							initParms.put(pname, parms[i].getAttribute("value")); //$NON-NLS-1$
+							initParms
+									.put(pname, parms[i].getAttribute("value")); //$NON-NLS-1$
 					}
 					if (!initParms.isEmpty())
 						initData = initParms;
@@ -104,15 +106,18 @@ public class ConfigurationElement implements IConfigurationElement {
 		}
 
 		// create a new instance
-		IContributor defaultContributor = null; //Platform.getPlatformContext().getObjectFactory().getContributor(contributorId); 
-		Object result = null;//Platform.getPlatformContext().getObjectFactory().createExecutableExtension(defaultContributor, className, contributorName);
+		IContributor defaultContributor = null; // Platform.getPlatformContext().getObjectFactory().getContributor(contributorId);
+		Object result = null;// Platform.getPlatformContext().getObjectFactory().createExecutableExtension(defaultContributor,
+								// className, contributorName);
 
 		// Check if we have extension adapter and initialize;
 		// Make the call even if the initialization string is null
 		try {
-			// We need to take into account both "old" and "new" style executable extensions 
+			// We need to take into account both "old" and "new" style
+			// executable extensions
 			if (result instanceof IExecutableExtension)
-				((IExecutableExtension) result).setInitializationData(this, attributeName, initData);
+				((IExecutableExtension) result).setInitializationData(this,
+						attributeName, initData);
 		} catch (CoreException ce) {
 			// user code threw exception
 			throw ce;
@@ -132,9 +137,10 @@ public class ConfigurationElement implements IConfigurationElement {
 			throws InvalidRegistryObjectException {
 		return elem.getAttribute(name);
 	}
-	public Map<String,String> getAttrs(){
+
+	public Map<String, String> getAttrs() {
 		String[] aNames = getAttributeNames();
-		Map<String,String> attrsMap = new HashMap<String, String>();
+		Map<String, String> attrsMap = new HashMap<String, String>();
 		for (String string : aNames) {
 			attrsMap.put(string, getAttribute(string));
 		}
@@ -142,7 +148,7 @@ public class ConfigurationElement implements IConfigurationElement {
 	}
 
 	public String[] getAttributeNames() throws InvalidRegistryObjectException {
-		if(attributeNames == null){
+		if (attributeNames == null) {
 			initAttributeNames();
 		}
 		return attributeNames;
@@ -154,64 +160,62 @@ public class ConfigurationElement implements IConfigurationElement {
 	private void initAttributeNames() {
 		NamedNodeMap attrs = elem.getAttributes();
 		int size = attrs.getLength();
-		if((attrs != null)&&( size > 0)){
+		if ((attrs != null) && (size > 0)) {
 			LinkedList<String> list = new LinkedList<String>();
-			for(int i=0 ; i < size ;i++){
-				Attr attr = (Attr)attrs.item(i);
-				if(attr != null){
+			for (int i = 0; i < size; i++) {
+				Attr attr = (Attr) attrs.item(i);
+				if (attr != null) {
 					list.add(attr.getName());
 				}
 			}
-			if(list.isEmpty()){
-			  attributeNames = EMPTY_STRING;
-			}else{
-			  attributeNames = list.toArray(new String[list.size()]);
+			if (list.isEmpty()) {
+				attributeNames = EMPTY_STRING;
+			} else {
+				attributeNames = list.toArray(new String[list.size()]);
 			}
 		}
 	}
 
 	public IConfigurationElement[] getChildren()
 			throws InvalidRegistryObjectException {
-		if(!elem.hasChildNodes()){
+		if (!elem.hasChildNodes()) {
 			return NONE_CHILDREN;
 		}
-		if(children == null){
+		if (children == null) {
 			initChildren();
 		}
 		return children;
 	}
-	
-	private void initChildren(){
+
+	private void initChildren() {
 		LinkedList<ConfigurationElement> list = new LinkedList<ConfigurationElement>();
-		for(Node el = elem.getFirstChild(); el != null ; el = el.getNextSibling()){
-			if(el instanceof Element){
-				list.add(new ConfigurationElement((Element)el,this));
+		for (Node el = elem.getFirstChild(); el != null; el = el
+				.getNextSibling()) {
+			if (el instanceof Element) {
+				list.add(new ConfigurationElement((Element) el, this));
 			}
 		}
-		if(list.isEmpty()){
+		if (list.isEmpty()) {
 			children = NONE_CHILDREN;
-		}else{
+		} else {
 			children = list.toArray(new ConfigurationElement[list.size()]);
 		}
 	}
-
-	
-	
 
 	public IConfigurationElement[] getChildren(String name)
 			throws InvalidRegistryObjectException {
 		IConfigurationElement[] all = getChildren();
 		int len = all.length;
-		if(len == 0){
+		if (len == 0) {
 			return NONE_CHILDREN;
 		}
 		LinkedList<IConfigurationElement> list = new LinkedList<IConfigurationElement>();
-		for(int i=0 ; i < len ; i++){
-			if(name.equalsIgnoreCase(all[i].getName())){
+		for (int i = 0; i < len; i++) {
+			if (name.equalsIgnoreCase(all[i].getName())) {
 				list.add(all[i]);
 			}
 		}
-		if(! list.isEmpty()){
+		if (!list.isEmpty()) {
 			return list.toArray(new IConfigurationElement[list.size()]);
 		}
 		return NONE_CHILDREN;
@@ -232,29 +236,31 @@ public class ConfigurationElement implements IConfigurationElement {
 
 	public String getNamespaceIdentifier()
 			throws InvalidRegistryObjectException {
-		if(namespace == null){
+		if (namespace == null) {
 			initNamespace();
 		}
 		return namespace;
 	}
-	
-	private void initNamespace(){
+
+	private void initNamespace() {
 		IConfigurationElement plugin = null;
-		for(IConfigurationElement p = this ; p != null ; p = (IConfigurationElement)p.getParent()){
+		for (IConfigurationElement p = this; p != null; p = (IConfigurationElement) p
+				.getParent()) {
 			plugin = p;
 		}
 		namespace = plugin.getAttribute(CoreConstants.PLUGIN_ID);
 	}
 
-	private IConfigurationElement getExtensionElement(){
-		for(IConfigurationElement p = this ; p != null ; p = (IConfigurationElement)p.getParent()){
-			if(CoreConstants.EXTENSION.equalsIgnoreCase(p.getName())){
+	private IConfigurationElement getExtensionElement() {
+		for (IConfigurationElement p = this; p != null; p = (IConfigurationElement) p
+				.getParent()) {
+			if (CoreConstants.EXTENSION.equalsIgnoreCase(p.getName())) {
 				return p;
 			}
 		}
 		return null;
 	}
-	
+
 	public Object getParent() throws InvalidRegistryObjectException {
 		return parent;
 	}
@@ -275,7 +281,8 @@ public class ConfigurationElement implements IConfigurationElement {
 	}
 
 	/**
-	 * @param extensionUniqueId the extensionUniqueId to set
+	 * @param extensionUniqueId
+	 *            the extensionUniqueId to set
 	 */
 	public void setExtensionUniqueId(String extensionUniqueId) {
 		this.extensionUniqueId = extensionUniqueId;

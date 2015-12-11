@@ -8,21 +8,24 @@
  */
 package com.wxxr.nirvana.platform.impl;
 
-
 /**
  * @author fudapeng
  *
  */
 public class PluginElementHandler extends BaseElementHandler {
 
-  private PluginConfigurationElement element = new PluginConfigurationElement();
+	private PluginConfigurationElement element = new PluginConfigurationElement();
 
-  /* (non-Javadoc)
-   * @see com.wxxr.web.platform.core.impl.BaseElementHandler#getXMLConfigureObject()
-   */
-  @Override
-  protected XMLConfigurationElement getXMLConfigureObject() {
-    return element;
-  }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.wxxr.web.platform.core.impl.BaseElementHandler#getXMLConfigureObject
+	 * ()
+	 */
+	@Override
+	protected XMLConfigurationElement getXMLConfigureObject() {
+		return element;
+	}
 
 }

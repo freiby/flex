@@ -1,5 +1,6 @@
 package com.wxxr.nirvana.ui;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ServiceLoader;
@@ -29,7 +30,8 @@ import com.wxxr.nirvana.workbench.impl.UIComponent;
 
 public class WorkbenchContainerImpl implements IWorkbenchContainer {
 
-//	private List<IUIComponentRender> renders = new ArrayList<IUIComponentRender>();
+	// private List<IUIComponentRender> renders = new
+	// ArrayList<IUIComponentRender>();
 	private static final String ATTRIBUTE_CONTEXT_STACK = "org.apache.tiles.AttributeContext.STACK";
 	private boolean initialization = false;
 
@@ -45,19 +47,16 @@ public class WorkbenchContainerImpl implements IWorkbenchContainer {
 		}
 		initProvider();
 	}
-	
-	
 
 	protected void initProvider() {
-		ServiceLoader<IRenderProvider> services = ServiceLoader.load(IRenderProvider.class);
-		if(services != null){
-			for(IRenderProvider service : services){
+		ServiceLoader<IRenderProvider> services = ServiceLoader
+				.load(IRenderProvider.class);
+		if (services != null) {
+			for (IRenderProvider service : services) {
 				renderProviders.put(service.processComponent(), service);
 			}
 		}
 	}
-
-
 
 	public IUIComponentContext getUIComponentContext(IRequestContext rcontext) {
 		IUIComponentContext context = getContext(rcontext);
@@ -119,16 +118,17 @@ public class WorkbenchContainerImpl implements IWorkbenchContainer {
 	}
 
 	public void render(String component, PageContext context,
-			Map<String, Object> parameters) throws NirvanaException {
+			final Map<String, Object> parameters) throws NirvanaException {
 		if (!initialization) {
 			throw new NirvanaException("workbench not bootstrap");
 		}
 		final IRequestContext rc = getRequestContext(context);
 		final IUIComponentContext pContext = getContext(rc);
 		UIComponent uicomponent = pContext.getCurrentComponent(parameters);
-		if(renderProviders.containsKey(component) || renderProviders.containsKey("*")){
+		if (renderProviders.containsKey(component)
+				|| renderProviders.containsKey("*")) {
 			IRenderProvider render = renderProviders.get(component);
-			if(render == null){
+			if (render == null) {
 				render = renderProviders.get("*");
 			}
 			final IRenderContext renderContext = new IRenderContext() {
@@ -142,20 +142,23 @@ public class WorkbenchContainerImpl implements IWorkbenchContainer {
 
 				public WebResourceInfo[] getComponentResource(
 						UIComponent component) {
-					return resourceContainer
-							.getComponentResource(component);
+					return resourceContainer.getComponentResource(component);
 				}
 
-				public void render(UIComponent component,
-						IRenderContext context) throws NirvanaException {
-						if(renderProviders.containsKey(component.getName())){
-							renderProviders.get(component.getName()).render(component, context);
-						}
+				public void render(UIComponent component, IRenderContext context)
+						throws NirvanaException {
+					if (renderProviders.containsKey(component.getName())) {
+						renderProviders.get(component.getName()).render(
+								component, context);
 					}
+				}
+
+				public Map<String, Object> getParameterMap() {
+					return parameters;
+				}
 			};
 			render.render(uicomponent, renderContext);
 		}
-		
 	}
 
 	public void bootstrap(HttpServletRequest request,
@@ -174,6 +177,18 @@ public class WorkbenchContainerImpl implements IWorkbenchContainer {
 			throw new NirvanaException(
 					"workbench has not product that can visit");
 		}
+		workbenchProxy.setCurrentProduct(product);
+		if (page == null) {
+			page = product.getDefaultPage();
+		}
+		setupProductContext(product, request, response);
+		initialization = true;
+		openPage(request, response, page);
+		afterBootstrop(request, response);
+	}
+
+	private void setupProductContext(IProduct product,
+			HttpServletRequest request, HttpServletResponse response) {
 		ProductContext rootcontext = new ProductContext(product);
 		IRequestContext rcontext = getRequestContext(request, response);
 		rootcontext.init(null);
@@ -183,55 +198,68 @@ public class WorkbenchContainerImpl implements IWorkbenchContainer {
 				.getChildUIContext("theme");
 		rootcontext.init(null);
 		pushContext(themeContext, rcontext);
-		workbenchProxy.setCurrentProduct(product);
-		if(page == null){
-			page = product.getDefaultPage();
-		}
-		openPage(request, response, page);
-		initialization = true;
-		afterBootstrop(request, response);
 	}
 
 	protected void afterBootstrop(HttpServletRequest request,
 			HttpServletResponse response) throws NirvanaException {
-		
+
 	}
 
-	public void openPage(HttpServletRequest request, HttpServletResponse response, String ...pagename) throws NirvanaException{
-		if(pagename.length > 1) throw new NirvanaException("open one page");
-		try{
-			WorkbenchProxy workbenchProxy = (WorkbenchProxy) ContainerAccess.getSessionWorkbench();
+	public void openPage(HttpServletRequest request,
+			HttpServletResponse response, String... pagename)
+			throws NirvanaException {
+		if (pagename.length > 1)
+			throw new NirvanaException("open one page");
+		try {
+			WorkbenchProxy workbenchProxy = (WorkbenchProxy) ContainerAccess
+					.getSessionWorkbench();
+			if (workbenchProxy.getProductManager() == null) {
+				throw new NirvanaException("please boostrap product");
+			}
+			setupProductContext(workbenchProxy.getCurrentProduct(), request,
+					response);
 			PageRef[] pages = workbenchProxy.getCurrentProduct().getAllPages();
-			PageRef defaultPage  = null;
-			for(PageRef p : pages){
-				if(p.defaultPage){
+			PageRef defaultPage = null;
+			for (PageRef p : pages) {
+				if (p.defaultPage) {
 					defaultPage = p;
 				}
-				if(pagename.length == 1){
-					IWorkbenchPage page = workbenchProxy.getWorkbenchPageManager().getWorkbenchPage(p.id);
-					if(page.getUniqueIndentifier().equalsIgnoreCase(p.id) && page.getName().equalsIgnoreCase(pagename[0])){
+				if (pagename.length == 1) {
+					IWorkbenchPage page = workbenchProxy
+							.getWorkbenchPageManager().getWorkbenchPage(p.id);
+					if (page.getUniqueIndentifier().equalsIgnoreCase(p.id)
+							&& page.getName().equalsIgnoreCase(pagename[0])) {
 						workbenchProxy.setCurrentPage(page);
 						return;
 					}
 				}
-				if(pagename.length == 0){
-					IWorkbenchPage page = workbenchProxy.getWorkbenchPageManager().getWorkbenchPage(p.id);
+				if (pagename.length == 0) {
+					IWorkbenchPage page = workbenchProxy
+							.getWorkbenchPageManager().getWorkbenchPage(
+									defaultPage.id);
 					workbenchProxy.setCurrentPage(page);
 					return;
 				}
 			}
-			
-			IWorkbenchPage page = workbenchProxy.getWorkbenchPageManager().getWorkbenchPage(defaultPage.id);
+
+			IWorkbenchPage page = workbenchProxy.getWorkbenchPageManager()
+					.getWorkbenchPage(defaultPage.id);
 			workbenchProxy.setCurrentPage(page);
-		}finally{
+		} finally {
 			if (resourceContainer == null) {
 				resourceContainer = new WebResourceContainerImpl();
 			}
-			if(resourceContainer != null){
+			if (resourceContainer != null) {
 				resourceContainer.destroy();
 			}
 			resourceContainer.init(request, response);
 		}
+		try {
+			getRequestContext(request, response).goHome();
+		} catch (IOException e) {
+			throw new NirvanaException(e);
+		}
+		;
 	}
 
 	/**
@@ -264,5 +292,9 @@ public class WorkbenchContainerImpl implements IWorkbenchContainer {
 
 	public IWebResourceContainer getWebResourceContainer() {
 		return resourceContainer;
+	}
+
+	public boolean isBoostrap() {
+		return initialization;
 	}
 }

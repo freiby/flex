@@ -16,16 +16,17 @@ import com.wxxr.nirvana.workbench.impl.UIComponent;
 
 public class ResourceRenderProvider implements IRenderProvider {
 
-	public static final String CSS_TYPE="js";
-	public static final String JS_TYPE="js";
+	public static final String CSS_TYPE = "js";
+	public static final String JS_TYPE = "js";
+
 	public void render(UIComponent component, IRenderContext context)
 			throws NirvanaException {
 		try {
 			PrintWriter out = context.getRequestContext().getWriter();
-			ResourceUIComponent rui = (ResourceUIComponent)component;
-			for(IWebResource item : rui.getResorces()){
+			ResourceUIComponent rui = (ResourceUIComponent) component;
+			for (IWebResource item : rui.getResorces()) {
 				String script = getScript(item);
-				if(StringUtils.isNoneBlank(script)){
+				if (StringUtils.isNoneBlank(script)) {
 					out.append(script);
 				}
 			}
@@ -35,14 +36,14 @@ public class ResourceRenderProvider implements IRenderProvider {
 	}
 
 	private String getScript(IWebResource item) {
-		if(item.getType().equals(JS_TYPE)){
-			return "<script type=\"text/javascript\" src=\"" +  item.getUri() + 
-				"\"></script>";
-		}else if(item.getType().equals(CSS_TYPE)){
-			return "<link href="+ item.getUri() + " rel=\"stylesheet\">";
+		if (item.getType().equals(JS_TYPE)) {
+			return "<script type=\"text/javascript\" src=\"" + item.getUri()
+					+ "\"></script>";
+		} else if (item.getType().equals(CSS_TYPE)) {
+			return "<link href=" + item.getUri() + " rel=\"stylesheet\">";
 		}
 		return "";
-			
+
 	}
 
 	public String processComponent() {

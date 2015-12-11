@@ -8,13 +8,14 @@
  */
 package com.wxxr.nirvana.platform.impl;
 
+import java.io.File;
+import java.io.FileFilter;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLClassLoader;
 import java.util.Enumeration;
-import java.util.Iterator;
-import java.util.LinkedList;
 
-import com.wxxr.nirvana.platform.CoreException;
 import com.wxxr.nirvana.platform.IRuntimeLibrary;
 
 /**
@@ -22,67 +23,107 @@ import com.wxxr.nirvana.platform.IRuntimeLibrary;
  *
  */
 public class PluginClassLoader extends ClassLoader {
-
 	private IRuntimeLibrary library;
-	private String[] exports;
-//	private UnifiedLoaderRepository3 repository;
-//	private LinkedList<RepositoryClassLoader> loaders = new LinkedList<RepositoryClassLoader>();
-	private ClassLoader delegate;
+	private URLClassLoader delegate;
+	private ClassLoader parent;
+	private boolean init;
+
 	/**
 	 * @param urls
 	 */
-	public PluginClassLoader(IRuntimeLibrary library,ClassLoader parent) {
+	public PluginClassLoader(IRuntimeLibrary library, ClassLoader parent) {
 		super(parent);
 		this.library = library;
-//		this.repository = repository;
-		URL[] jars = library.getJarFiles();
-		if((jars == null)||(jars.length == 0)){
-			throw new IllegalArgumentException("Invalid library !!!");
+		this.parent = parent;
+	}
+
+	private void init(IRuntimeLibrary library, ClassLoader parent) {
+		URL[] jars = null;
+		try {
+			jars = getLibraries(library.getJarDir());
+		} catch (MalformedURLException e) {
+			throw new RuntimeException("Invalid library !!!");
 		}
-		for (int i = 0; i < jars.length; i++) {
-			URL url = jars[i];
-			if(url != null){
-				try {
-//					UnifiedClassLoader3 loader = new UnifiedClassLoader3(url,url,parent,repository);
-//					repository.registerClassLoader(loader);
-//					loaders.add(loader);
-				} catch (Exception e) {
-					throw new CoreException("Failed to created plugin class loader for plugin :"+library.getPluginId());
+		if ((jars == null) || (jars.length == 0)) {
+			init = true;
+			return;
+		}
+		delegate = new URLClassLoader(jars, parent);
+		init = true;
+	}
+
+	/**
+	 * 查看安装的目录lib下所有的jar包都加载
+	 * 
+	 * @return
+	 * @throws MalformedURLException
+	 */
+	private URL[] getLibraries(File jarDir) throws MalformedURLException {
+		URL[] libs = null;
+		File libDir = jarDir;
+		if (libDir.exists() && libDir.isDirectory()) {
+			File[] jars = libDir.listFiles(new FileFilter() {
+				public boolean accept(File pathname) {
+					return pathname.getName().endsWith("jar");
+				}
+			});
+			if (jars != null && jars.length > 0) {
+				libs = new URL[jars.length];
+				int i = 0;
+				for (File fitem : jars) {
+					libs[i] = fitem.toURI().toURL();
+					i++;
 				}
 			}
+			return libs;
 		}
-//		delegate = loaders.iterator().next();
+		return null;
 	}
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.ClassLoader#findClass(java.lang.String)
 	 */
 	@Override
 	protected Class<?> findClass(String name) throws ClassNotFoundException {
-
-		return delegate.loadClass(name);
+		if (!init) {
+			init(library, parent);
+		}
+		return delegate == null ? parent.loadClass(name) : delegate
+				.loadClass(name);
 	}
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.ClassLoader#findResource(java.lang.String)
 	 */
 	@Override
 	protected URL findResource(String name) {
-		return delegate.getResource(name);
+		if (!init) {
+			init(library, parent);
+		}
+		return delegate == null ? parent.getResource(name) : delegate
+				.getResource(name);
 	}
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.ClassLoader#findResources(java.lang.String)
 	 */
 	@Override
 	protected Enumeration<URL> findResources(String name) throws IOException {
-		return delegate.getResources(name);
+		if (!init) {
+			init(library, parent);
+		}
+		return delegate == null ? parent.getResources(name) : delegate
+				.getResources(name);// delegate.getResources(name);
 	}
 
-	public void destroy(){
-//		for (Iterator iterator = loaders.iterator(); iterator.hasNext();) {
-//			RepositoryClassLoader loader = (RepositoryClassLoader) iterator.next();
-//			if(loader != null){
-//				loader.unregister();
-//			}		
-//		}
+	public void destroy() {
+		delegate = null;
 	}
 
 }

@@ -19,6 +19,7 @@ import java.util.Enumeration;
 public class CompositeClassLoader extends ClassLoader {
 
 	private ClassLoader webClassLoder;
+
 	/**
 	 * @param deferTo
 	 */
@@ -26,35 +27,41 @@ public class CompositeClassLoader extends ClassLoader {
 		super(parent);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.ClassLoader#findClass(java.lang.String)
 	 */
 	@Override
 	protected Class<?> findClass(String name) throws ClassNotFoundException {
-		if(webClassLoder != null){
+		if (webClassLoder != null) {
 			return webClassLoder.loadClass(name);
-		}else{
+		} else {
 			throw new ClassNotFoundException(name);
 		}
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.ClassLoader#findResource(java.lang.String)
 	 */
 	@Override
 	protected URL findResource(String name) {
-		if(webClassLoder != null){
+		if (webClassLoder != null) {
 			return webClassLoder.getResource(name);
 		}
 		return null;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.ClassLoader#findResources(java.lang.String)
 	 */
 	@Override
 	protected Enumeration<URL> findResources(String name) throws IOException {
-		if(webClassLoder != null){
+		if (webClassLoder != null) {
 			return webClassLoder.getResources(name);
 		}
 		return null;
@@ -68,11 +75,11 @@ public class CompositeClassLoader extends ClassLoader {
 	}
 
 	/**
-	 * @param webClassLoder the webClassLoder to set
+	 * @param webClassLoder
+	 *            the webClassLoder to set
 	 */
 	public void setWebClassLoder(ClassLoader webClassLoder) {
 		this.webClassLoder = webClassLoder;
 	}
-
 
 }

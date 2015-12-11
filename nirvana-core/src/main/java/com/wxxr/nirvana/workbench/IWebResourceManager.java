@@ -4,8 +4,11 @@ import java.util.List;
 
 public interface IWebResourceManager {
 	public IWebResource getResource(String id);
+
 	public List<IWebResource> getResources();
+
 	void start();
+
 	void destroy();
-	
+
 }

@@ -15,7 +15,9 @@ import com.wxxr.nirvana.platform.IConfigurationElement;
  *
  */
 public interface IContributionItem {
-  String getContributorId();
-  IConfigurationElement getConfigurationElement();
-  String getExtensionId();
+	String getContributorId();
+
+	IConfigurationElement getConfigurationElement();
+
+	String getExtensionId();
 }

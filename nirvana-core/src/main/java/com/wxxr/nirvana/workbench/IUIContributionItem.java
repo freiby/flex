@@ -13,32 +13,34 @@ package com.wxxr.nirvana.workbench;
  *
  */
 public interface IUIContributionItem extends IContributionItem {
-    /**
-     * Returns a unique identifier for this item.
-     *
-     * @return the item id
-     */
-    public String getId();
-    
-    /**
-     * Returns the tool tip text for this item.
-     *
-     * @return the tool tip text, or <code>null</code> if none
-     */
-    public String getToolTipText();
+	/**
+	 * Returns a unique identifier for this item.
+	 *
+	 * @return the item id
+	 */
+	public String getId();
 
-    /**
-     * Returns the hover image for this item as an image uri.
-    *
-     * @return the image uri, or <code>null</code> if this item has no such image
-     */
-    String getSubcontextURI();
-    
-    String getUniqueIndentifier();
-    
-    String getName();
-    
-    String getDescription();
-    
+	/**
+	 * Returns the tool tip text for this item.
+	 *
+	 * @return the tool tip text, or <code>null</code> if none
+	 */
+	public String getToolTipText();
+
+	/**
+	 * Returns the hover image for this item as an image uri.
+	 *
+	 * @return the image uri, or <code>null</code> if this item has no such
+	 *         image
+	 */
+	String getSubcontextURI();
+
+	String getUniqueIndentifier();
+
+	String getName();
+
+	String getDescription();
+
+	IRender getRender();
 
 }

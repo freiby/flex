@@ -19,7 +19,7 @@ import com.wxxr.nirvana.platform.impl.Platform;
  */
 public class PlatformLocator {
 	private static IPlatform platform;
-	
+
 	private static Log log = LogFactory.getLog(PlatformLocator.class);
 
 	private PlatformLocator() {

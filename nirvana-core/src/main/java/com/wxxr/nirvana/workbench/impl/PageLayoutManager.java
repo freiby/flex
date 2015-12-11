@@ -3,24 +3,28 @@ package com.wxxr.nirvana.workbench.impl;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.wxxr.nirvana.platform.IConfigurationElement;
 import com.wxxr.nirvana.platform.IExtension;
+import com.wxxr.nirvana.platform.IPluginDescriptor;
 import com.wxxr.nirvana.theme.IPageLayout;
 import com.wxxr.nirvana.workbench.IPageLayoutManager;
+import com.wxxr.nirvana.workbench.IRender;
 import com.wxxr.nirvana.workbench.UIConstants;
 import com.wxxr.nirvana.workbench.config.BaseExtensionPointManager;
 
 public class PageLayoutManager extends BaseExtensionPointManager implements
 		IPageLayoutManager {
-	
+
 	private Log log = LogFactory.getLog(PageLayoutManager.class);
-	
+
 	private static final String ELEMENT_NAME = "pageLayout";
-	
-	
+
+	private static final String ATT_CLASS = "class";
+
 	protected Map<String, IPageLayout> layouts = new HashMap<String, IPageLayout>();
 
 	public PageLayoutManager() {
@@ -52,14 +56,24 @@ public class PageLayoutManager extends BaseExtensionPointManager implements
 		}
 	}
 
-	private IPageLayout createNewLayout(IConfigurationElement elem) {
-		String id = elem.getNamespaceIdentifier() + "." + elem.getAttribute("id");
+	private IPageLayout createNewLayout(IConfigurationElement elem)
+			throws Exception {
+		String id = elem.getNamespaceIdentifier() + "."
+				+ elem.getAttribute("id");
 		IPageLayout layout = getPageLayout(id);
 		if (layout != null) {
 			return layout;
 		}
+
+		String clazz = elem.getAttribute(ATT_CLASS);
+		IRender render = null;
+		if (StringUtils.isNotBlank(clazz)) {
+			IPluginDescriptor plugin = getUIPlatform().getPluginDescriptor(
+					elem.getNamespaceIdentifier());
+			render = (IRender) createPluginObject(clazz, plugin);
+		}
 		layout = new PageLayout();
-		layout.init(this, elem);
+		layout.init(this, elem, render);
 		synchronized (layouts) {
 			layouts.put(id, layout);
 		}
@@ -68,14 +82,15 @@ public class PageLayoutManager extends BaseExtensionPointManager implements
 
 	@Override
 	protected void processExtensionRemoved(IExtension ext) {
-		
+
 		IConfigurationElement[] configs = ext.getConfigurationElements();
 		for (int i = 0; i < configs.length; i++) {
 			IConfigurationElement elem = configs[i];
-			if ((elem != null)
-					&& ELEMENT_NAME.equalsIgnoreCase(elem.getName())) {
-				layouts.remove(elem.getNamespaceIdentifier() + "." + elem.getAttribute("id"));
-				destroyLayout(elem.getNamespaceIdentifier() + "." + elem.getAttribute("id"));
+			if ((elem != null) && ELEMENT_NAME.equalsIgnoreCase(elem.getName())) {
+				layouts.remove(elem.getNamespaceIdentifier() + "."
+						+ elem.getAttribute("id"));
+				destroyLayout(elem.getNamespaceIdentifier() + "."
+						+ elem.getAttribute("id"));
 			}
 		}
 	}
@@ -86,7 +101,7 @@ public class PageLayoutManager extends BaseExtensionPointManager implements
 	}
 
 	public void destroy() {
-		
+
 	}
 
 }

@@ -28,47 +28,52 @@ package com.wxxr.nirvana.exception;
  */
 public class NirvanaException extends Exception {
 
-    /**
-     * Constructor.
-     */
-    public NirvanaException() {
-        super();
-    }
+	/**
+	 * Constructor.
+	 */
+	public NirvanaException() {
+		super();
+	}
 
-    /**
-     * Constructor.
-     *
-     * @param message The error or warning message.
-     */
-    public NirvanaException(String message) {
-        super(message);
-    }
+	/**
+	 * Constructor.
+	 *
+	 * @param message
+	 *            The error or warning message.
+	 */
+	public NirvanaException(String message) {
+		super(message);
+	}
 
+	/**
+	 * Create a new <code>TilesException</code> wrapping an existing exception.
+	 * <p/>
+	 * <p>
+	 * The existing exception will be embedded in the new one, and its message
+	 * will become the default message for the TilesException.
+	 * </p>
+	 *
+	 * @param e
+	 *            The exception to be wrapped.
+	 */
+	public NirvanaException(Exception e) {
+		super(e);
+	}
 
-    /**
-     * Create a new <code>TilesException</code> wrapping an existing exception.
-     * <p/>
-     * <p>The existing exception will be embedded in the new
-     * one, and its message will become the default message for
-     * the TilesException.</p>
-     *
-     * @param e The exception to be wrapped.
-     */
-    public NirvanaException(Exception e) {
-        super(e);
-    }
-
-
-    /**
-     * Create a new <code>TilesException</code> from an existing exception.
-     * <p/>
-     * <p>The existing exception will be embedded in the new
-     * one, but the new exception will have its own message.</p>
-     *
-     * @param message The detail message.
-     * @param e       The exception to be wrapped.
-     */
-    public NirvanaException(String message, Exception e) {
-        super(message, e);
-    }
+	/**
+	 * Create a new <code>TilesException</code> from an existing exception.
+	 * <p/>
+	 * <p>
+	 * The existing exception will be embedded in the new one, but the new
+	 * exception will have its own message.
+	 * </p>
+	 *
+	 * @param message
+	 *            The detail message.
+	 * @param e
+	 *            The exception to be wrapped.
+	 */
+	public NirvanaException(String message, Exception e) {
+		super(message, e);
+	}
 }

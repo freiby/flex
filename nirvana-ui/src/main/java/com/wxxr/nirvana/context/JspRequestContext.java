@@ -31,68 +31,70 @@ import javax.servlet.jsp.PageContext;
 import com.wxxr.nirvana.util.JspUtil;
 
 /**
- * Context implementation used for executing tiles within a
- * jsp tag library.
+ * Context implementation used for executing tiles within a jsp tag library.
  *
  * @version $Rev$ $Date$
  */
-public class JspRequestContext extends ServletRequestContext
-    implements IRequestContext {
+public class JspRequestContext extends ServletRequestContext implements
+		IRequestContext {
 
-    /**
-     * The current page context.
-     */
-    private PageContext pageContext;
+	/**
+	 * The current page context.
+	 */
+	private PageContext pageContext;
 
-    /**
-     * The writer response to use.
-     */
-    private JspWriterResponse response;
+	/**
+	 * The writer response to use.
+	 */
+	private JspWriterResponse response;
 
-    /**
-     * Constructor.
-     *
-     * @param context The servlet context to use.
-     * @param pageContext The page context to use.
-     */
-    public JspRequestContext(ServletContext context, PageContext pageContext) {
-        super(context,
-            (HttpServletRequest) pageContext.getRequest(),
-            (HttpServletResponse) pageContext.getResponse());
-        this.pageContext = pageContext;
-    }
+	/**
+	 * Constructor.
+	 *
+	 * @param context
+	 *            The servlet context to use.
+	 * @param pageContext
+	 *            The page context to use.
+	 */
+	public JspRequestContext(ServletContext context, PageContext pageContext) {
+		super(context, (HttpServletRequest) pageContext.getRequest(),
+				(HttpServletResponse) pageContext.getResponse());
+		this.pageContext = pageContext;
+	}
 
-    /**
-     * Dispatches a path. In fact it "includes" it!
-     *
-     * @param path The path to dispatch to.
-     * @throws IOException If something goes wrong during dispatching.
-     * @see org.apache.ServletRequestContext.servlet.context.ServletTilesRequestContext#dispatch(java.lang.String)
-     */
-    public void dispatch(String path) throws IOException {
-        include(path);
-    }
+	/**
+	 * Dispatches a path. In fact it "includes" it!
+	 *
+	 * @param path
+	 *            The path to dispatch to.
+	 * @throws IOException
+	 *             If something goes wrong during dispatching.
+	 * @see org.apache.ServletRequestContext.servlet.context.ServletTilesRequestContext#dispatch(java.lang.String)
+	 */
+	public void dispatch(String path) throws IOException {
+		include(path);
+	}
 
-    /** {@inheritDoc} */
-    public void include(String path) throws IOException {
-        JspUtil.setForceInclude(pageContext, true);
-        try {
-            pageContext.include(path, false);
-        } catch (ServletException e) {
-            throw wrapServletException(e, "JSPException including path '"
-                    + path + "'.");
-        }
-    }
+	/** {@inheritDoc} */
+	public void include(String path) throws IOException {
+		JspUtil.setForceInclude(pageContext, true);
+		try {
+			pageContext.include(path, false);
+		} catch (ServletException e) {
+			throw wrapServletException(e, "JSPException including path '"
+					+ path + "'.");
+		}
+	}
 
-    /** {@inheritDoc} */
-    public HttpServletResponse getResponse() {
-        if (response == null) {
-            response = new JspWriterResponse(pageContext);
-        }
-        return response;
-    }
-    
-    public PageContext getPageContext() {
+	/** {@inheritDoc} */
+	public HttpServletResponse getResponse() {
+		if (response == null) {
+			response = new JspWriterResponse(pageContext);
+		}
+		return response;
+	}
+
+	public PageContext getPageContext() {
 		return pageContext;
 	}
 

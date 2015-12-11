@@ -8,21 +8,24 @@
  */
 package com.wxxr.nirvana.platform.impl;
 
-
 /**
  * @author fudapeng
  *
  */
 public class ExtensionPointElementHandler extends BaseElementHandler {
 
-  private ExtensionPointConfigurationElement element = new ExtensionPointConfigurationElement();
+	private ExtensionPointConfigurationElement element = new ExtensionPointConfigurationElement();
 
-  /* (non-Javadoc)
-   * @see com.wxxr.web.platform.core.impl.BaseElementHandler#getXMLConfigureObject()
-   */
-  @Override
-  protected XMLConfigurationElement getXMLConfigureObject() {
-    return element;
-  }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.wxxr.web.platform.core.impl.BaseElementHandler#getXMLConfigureObject
+	 * ()
+	 */
+	@Override
+	protected XMLConfigurationElement getXMLConfigureObject() {
+		return element;
+	}
 
 }

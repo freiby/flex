@@ -1,0 +1,2 @@
+	在项目core里面已经定义了模型(workbench --> theme ---> deskop ---> navigation --> page ---> view)，
+	这个项目是用jsp 把模型绘制出来.同时如果想用其他技术绘制可以去实现。比如 freemark等模板技术

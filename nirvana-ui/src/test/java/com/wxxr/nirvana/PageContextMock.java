@@ -24,9 +24,7 @@ public class PageContextMock extends PageContext {
 	private HttpSession session;
 	private ServletContext servletContext;
 	private Servlet servelt;
-	
-	
-	
+
 	public PageContextMock(HttpServletRequest request,
 			HttpServletResponse response, HttpSession session,
 			ServletContext servletContext) {
@@ -96,7 +94,7 @@ public class PageContextMock extends PageContext {
 	public void include(String arg0, boolean arg1) throws ServletException,
 			IOException {
 		request.getRequestDispatcher(arg0).include(request, response);
-		if(arg1){
+		if (arg1) {
 			response.getOutputStream().flush();
 		}
 	}
@@ -110,7 +108,7 @@ public class PageContextMock extends PageContext {
 
 	@Override
 	public void release() {
-		
+
 	}
 
 	@Override
@@ -135,7 +133,7 @@ public class PageContextMock extends PageContext {
 
 	@Override
 	public int getAttributesScope(String arg0) {
-		
+
 		return 0;
 	}
 
@@ -146,13 +144,13 @@ public class PageContextMock extends PageContext {
 
 	@Override
 	public JspWriter getOut() {
-		
+
 		return null;
 	}
 
 	@Override
 	public VariableResolver getVariableResolver() {
-		
+
 		return null;
 	}
 

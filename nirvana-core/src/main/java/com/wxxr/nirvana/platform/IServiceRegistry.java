@@ -15,9 +15,14 @@ package com.wxxr.nirvana.platform;
 public interface IServiceRegistry {
 
 	void registerService(Class api, Object service);
+
 	boolean unregisterService(Class api, Object service);
+
 	Object getService(final Class key);
+
 	boolean hasService(final Class key);
+
 	void addEventListener(IServiceRegistryEventListener l);
+
 	boolean removeEventListener(IServiceRegistryEventListener l);
 }
