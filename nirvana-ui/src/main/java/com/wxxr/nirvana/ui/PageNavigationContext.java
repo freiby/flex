@@ -4,6 +4,7 @@ import java.util.Map;
 
 import com.wxxr.nirvana.ContainerAccess;
 import com.wxxr.nirvana.IUIComponentContext;
+import com.wxxr.nirvana.workbench.IRender;
 import com.wxxr.nirvana.workbench.IWorkbenchPage;
 import com.wxxr.nirvana.workbench.impl.Product.PageRef;
 import com.wxxr.nirvana.workbench.impl.UIComponent;
@@ -15,6 +16,8 @@ public class PageNavigationContext extends UIComponentContext {
 	private PageRef[] pagerefs;
 
 	private PageNavigation pageNavigation;
+	
+	private String navigationRef;
 
 	public class PageNavigation extends UIComponent {
 		public IWorkbenchPage[] getAllPages() {
@@ -26,22 +29,33 @@ public class PageNavigationContext extends UIComponentContext {
 			return "PageNavigation";
 		}
 
+//		@Override
+//		public String getContributorVersion() {
+//			String pageContribute = (pages != null && pages.length > 0) ? ((WorkbenchPage) pages[0])
+//					.getContributorVersion() : null;
+//					getRender().get
+//			return 
+//		}
+//
+//		@Override
+//		public String getContributorId() {
+//			return (pages != null && pages.length > 0) ? ((WorkbenchPage) pages[0])
+//					.getContributorId() : null;
+//		}
+		
 		@Override
-		public String getContributorVersion() {
-			return (pages != null && pages.length > 0) ? ((WorkbenchPage) pages[0])
-					.getContributorVersion() : null;
-		}
-
-		@Override
-		public String getContributorId() {
-			return (pages != null && pages.length > 0) ? ((WorkbenchPage) pages[0])
-					.getContributorId() : null;
+		public IRender getRender() {
+			if(navigationRef != null){
+				return  ContainerAccess.getSessionWorkbench().getUIRenderManager().find(navigationRef);
+			}
+			return null;
 		}
 	}
 
-	public PageNavigationContext(PageRef[] pagerefs) {
+	public PageNavigationContext(PageRef[] pagerefs, String navigationRef) {
 		super(null);
 		this.pagerefs = pagerefs;
+		this.navigationRef = navigationRef;
 	}
 
 	@Override

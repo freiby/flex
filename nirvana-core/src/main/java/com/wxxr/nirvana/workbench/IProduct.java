@@ -11,6 +11,8 @@ public interface IProduct extends IContributionItem {
 	PageRef[] getAllPages();
 
 	String getName();
+	
+	String getNavigationRef();
 
 	void init(IProductManager manager, IConfigurationElement config);
 

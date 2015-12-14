@@ -89,14 +89,16 @@ public class RenderTest {
 				.andReturn(dispatcher).anyTimes();
 		EasyMock.expect(
 				request.getRequestDispatcher("plugins/com.wxxr.nirvana.test/1.0.0/html/view/c3-1.html"))
-				.andReturn(dispatcher).times(2);
+				.andReturn(dispatcher).anyTimes();
 		EasyMock.expect(
-				request.getRequestDispatcher("plugins/com.wxxr.nirvana.style/1.0.0/html/desktopuri"))
+				request.getRequestDispatcher("/plugins/com.wxxr.nirvana.style/1.0.0/html/desktopuri"))
 				.andReturn(dispatcher).anyTimes();
 		EasyMock.expect(
 				request.getRequestDispatcher("plugins/com.wxxr.nirvana.style/1.0.0/html/pagelayouturi"))
 				.andReturn(dispatcher).anyTimes();
-
+		
+		
+		
 		dispatcher.include(request, response);
 
 		InvokeContext invokeContext = new InvokeContext();

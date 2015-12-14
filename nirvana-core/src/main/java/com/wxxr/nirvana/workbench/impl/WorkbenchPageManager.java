@@ -20,11 +20,13 @@ import com.wxxr.nirvana.platform.IConfigurationElement;
 import com.wxxr.nirvana.platform.IExtension;
 import com.wxxr.nirvana.platform.IPluginDescriptor;
 import com.wxxr.nirvana.workbench.IRender;
+import com.wxxr.nirvana.workbench.IUIRenderManager;
 import com.wxxr.nirvana.workbench.IWorkbench;
 import com.wxxr.nirvana.workbench.IWorkbenchPage;
 import com.wxxr.nirvana.workbench.IWorkbenchPageManager;
 import com.wxxr.nirvana.workbench.UIConstants;
 import com.wxxr.nirvana.workbench.config.BaseExtensionPointManager;
+import com.wxxr.nirvana.workbench.impl.Workbench.ICreateRenderContext;
 
 /**
  * @author fudapeng
@@ -39,6 +41,7 @@ public class WorkbenchPageManager extends BaseExtensionPointManager implements
 	public static final String ATT_TOOLTIP = "toolTip";
 	public static final String ATT_NAME = "name";
 	private static final String ATT_CLASS = "class";
+	private static final String ATT_RENDER="render";
 
 	private static final Log log = LogFactory
 			.getLog(WorkbenchPageManager.class);
@@ -46,9 +49,12 @@ public class WorkbenchPageManager extends BaseExtensionPointManager implements
 	protected Map<String, IWorkbenchPage> pages = new HashMap<String, IWorkbenchPage>();
 	protected String currentPageId;
 	protected IWorkbench workbench;
+	private ICreateRenderContext context;
 
-	public WorkbenchPageManager() {
+	public WorkbenchPageManager(ICreateRenderContext iCreateRenderContext) {
 		super(UIConstants.UI_NAMESPACE, UIConstants.EXTENSION_POINT_PAGES);
+		this.context = iCreateRenderContext;
+		
 	}
 
 	/*
@@ -67,12 +73,10 @@ public class WorkbenchPageManager extends BaseExtensionPointManager implements
 			return page;
 		}
 		page = new WorkbenchPage();
-		String clazz = elem.getAttribute(ATT_CLASS);
+		String rid = elem.getAttribute(ATT_RENDER);
 		IRender render = null;
-		if (StringUtils.isNotBlank(clazz)) {
-			IPluginDescriptor plugin = getUIPlatform().getPluginDescriptor(
-					elem.getNamespaceIdentifier());
-			render = (IRender) createPluginObject(clazz, plugin);
+		if (StringUtils.isNotBlank(rid)) {
+			render = context.createRender(rid);
 		}
 		page.init(this, elem, render);
 		synchronized (pages) {

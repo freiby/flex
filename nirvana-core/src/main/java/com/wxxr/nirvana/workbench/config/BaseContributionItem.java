@@ -9,6 +9,8 @@
 package com.wxxr.nirvana.workbench.config;
 
 import com.wxxr.nirvana.platform.IConfigurationElement;
+import com.wxxr.nirvana.platform.impl.PluginConfigurationElement;
+import com.wxxr.nirvana.platform.impl.XMLConfigurationElement;
 import com.wxxr.nirvana.workbench.IContributionItem;
 
 /**
@@ -18,6 +20,8 @@ import com.wxxr.nirvana.workbench.IContributionItem;
 public class BaseContributionItem implements IContributionItem {
 
 	protected IConfigurationElement elem;
+	private String contributeId;
+	private String contributeVersion;
 
 	/*
 	 * (non-Javadoc)
@@ -30,6 +34,11 @@ public class BaseContributionItem implements IContributionItem {
 
 	protected void setConfigurationElement(IConfigurationElement config) {
 		this.elem = config;
+		PluginConfigurationElement element = getPluginConfigurationElement();
+		if (element != null) {
+			this.contributeId = element.getNamespaceIndentifier();
+			this.contributeVersion = element.getPluginVersion().toString();
+		}
 	}
 
 	/**
@@ -41,6 +50,20 @@ public class BaseContributionItem implements IContributionItem {
 
 	public String getExtensionId() {
 		return (elem != null) ? elem.getDeclaringExtensionId() : null;
+	}
+
+	protected PluginConfigurationElement getPluginConfigurationElement() {
+		XMLConfigurationElement elem = (XMLConfigurationElement) this.elem;
+		for (; elem != null; elem = elem.getParent()) {
+			if (elem instanceof PluginConfigurationElement) {
+				return (PluginConfigurationElement) elem;
+			}
+		}
+		return null;
+	}
+
+	public String getContributorVersion() {
+		return contributeVersion;
 	}
 
 }

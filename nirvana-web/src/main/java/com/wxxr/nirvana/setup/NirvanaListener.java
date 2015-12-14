@@ -12,7 +12,7 @@ import org.apache.commons.logging.LogFactory;
 import com.sun.media.jfxmediaimpl.platform.Platform;
 import com.wxxr.nirvana.ContainerAccess;
 import com.wxxr.nirvana.context.NirvanaServletContext;
-import com.wxxr.nirvana.deploy.PluginDeployer;
+import com.wxxr.nirvana.deploy.tomcat.PluginDeployer;
 import com.wxxr.nirvana.exception.NirvanaException;
 import com.wxxr.nirvana.platform.PlatformLocator;
 import com.wxxr.nirvana.ui.WorkbenchProxy;

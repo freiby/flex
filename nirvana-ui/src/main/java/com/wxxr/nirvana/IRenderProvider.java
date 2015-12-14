@@ -11,7 +11,7 @@ public interface IRenderProvider {
 	 * @param context
 	 * @throws NirvanaException
 	 */
-	void render(UIComponent component, IRenderContext context)
+	void render(UIComponent component, IUIRenderContext context)
 			throws NirvanaException;
 
 	String processComponent();

@@ -21,8 +21,8 @@ public class UITag extends RenderTagSupport {
 	}
 
 	protected Map<String, Object> getParameters() {
-		if (StringUtils.isNoneBlank(getRender())) {
-			parameters.put("render", getRender());
+		if(getAnchor() != null){
+			parameters.put("anchor", getAnchor());
 		}
 		return parameters;
 	}

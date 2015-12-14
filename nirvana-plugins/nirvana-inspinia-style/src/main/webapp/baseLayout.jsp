@@ -4,7 +4,7 @@
 <body class="pace-done">
 
 	<div id="wrapper">
-		<nirvana:ui name="navigation" render="menu.jsp" />
+		<nirvana:ui name="navigation" />
 		<nirvana:ui name="page" />
 	</div>
 	<div class="theme-config"><!--  right config panel -->

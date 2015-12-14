@@ -7,7 +7,9 @@ import com.wxxr.nirvana.theme.IThemeManager;
 import com.wxxr.nirvana.workbench.IPageLayoutManager;
 import com.wxxr.nirvana.workbench.IPermissionsManager;
 import com.wxxr.nirvana.workbench.IProductManager;
+import com.wxxr.nirvana.workbench.IRender;
 import com.wxxr.nirvana.workbench.ISecurityManager;
+import com.wxxr.nirvana.workbench.IUIRenderManager;
 import com.wxxr.nirvana.workbench.IViewManager;
 import com.wxxr.nirvana.workbench.IWebResourceManager;
 import com.wxxr.nirvana.workbench.IWorkbench;
@@ -30,6 +32,12 @@ public class Workbench implements IWorkbench {
 	private IWebResourceManager webresourceManager;
 
 	private IPageLayoutManager pageLayoutManager;
+	
+	private IUIRenderManager renderManager;
+	
+	public interface ICreateRenderContext{
+		IRender createRender(String id);
+	};
 
 	public IWebResourceManager getWebResourceManager() {
 		if (webresourceManager == null) {
@@ -41,7 +49,7 @@ public class Workbench implements IWorkbench {
 
 	public IWorkbenchPageManager getWorkbenchPageManager() {
 		if (workbenchPageManager == null) {
-			workbenchPageManager = new WorkbenchPageManager();
+			workbenchPageManager = new WorkbenchPageManager(getCreateContext());
 			workbenchPageManager.start();
 		}
 		return workbenchPageManager;
@@ -57,7 +65,7 @@ public class Workbench implements IWorkbench {
 
 	public IThemeManager getThemeManager() {
 		if (themeManager == null) {
-			themeManager = new ThemeManager();
+			themeManager = new ThemeManager(getCreateContext());
 			themeManager.start();
 		}
 		return themeManager;
@@ -81,10 +89,19 @@ public class Workbench implements IWorkbench {
 
 	public IViewManager getViewManager() {
 		if (viewManager == null) {
-			viewManager = new ViewManager();
+			viewManager = new ViewManager(getCreateContext());
 			viewManager.start();
 		}
 		return viewManager;
+	}
+	
+	private ICreateRenderContext getCreateContext(){
+		ICreateRenderContext context = new ICreateRenderContext(){
+			public IRender createRender(String id) {
+				return getUIRenderManager().find(id);
+			}
+		};
+		return context;
 	}
 
 	public ITheme getCurrentTheme() {
@@ -96,10 +113,18 @@ public class Workbench implements IWorkbench {
 
 	public IPageLayoutManager getPageLayoutManager() {
 		if (pageLayoutManager == null) {
-			pageLayoutManager = new PageLayoutManager();
+			pageLayoutManager = new PageLayoutManager(getCreateContext());
 			pageLayoutManager.start();
 		}
 		return pageLayoutManager;
+	}
+	
+	public IUIRenderManager getUIRenderManager() {
+		if(renderManager == null){
+			renderManager = new UIRenderManager();
+			renderManager.start();
+		}
+		return renderManager;
 	}
 
 }

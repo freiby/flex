@@ -37,6 +37,8 @@ public interface IWorkbench {
 	IWebResourceManager getWebResourceManager();
 
 	IPageLayoutManager getPageLayoutManager();
+	
+	IUIRenderManager getUIRenderManager();
 
 	void destroy();
 }

@@ -65,7 +65,6 @@ public class WorkbenchPage extends UIComponent implements IWorkbenchPage {
 		viewids = new String[viewConfigs.length];
 		viewRefs = new ViewRef[viewConfigs.length];
 		for (int j = 0; j < viewConfigs.length; j++) {
-
 			IConfigurationElement viewConfig = viewConfigs[j];
 			String viewid = viewConfig.getAttribute(UIComponent.ATT_REF);
 			viewids[j] = viewid;

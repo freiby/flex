@@ -7,10 +7,11 @@ import javax.servlet.jsp.JspWriter;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.wxxr.nirvana.IRenderContext;
+import com.wxxr.nirvana.IUIRenderContext;
 import com.wxxr.nirvana.IRenderProvider;
 import com.wxxr.nirvana.exception.NirvanaException;
 import com.wxxr.nirvana.ui.ResourceUIComponent;
+import com.wxxr.nirvana.util.JspUtil;
 import com.wxxr.nirvana.workbench.IWebResource;
 import com.wxxr.nirvana.workbench.impl.UIComponent;
 
@@ -19,7 +20,7 @@ public class ResourceRenderProvider implements IRenderProvider {
 	public static final String CSS_TYPE = "js";
 	public static final String JS_TYPE = "js";
 
-	public void render(UIComponent component, IRenderContext context)
+	public void render(UIComponent component, IUIRenderContext context)
 			throws NirvanaException {
 		try {
 			PrintWriter out = context.getRequestContext().getWriter();
@@ -37,10 +38,10 @@ public class ResourceRenderProvider implements IRenderProvider {
 
 	private String getScript(IWebResource item) {
 		if (item.getType().equals(JS_TYPE)) {
-			return "<script type=\"text/javascript\" src=\"" + item.getUri()
+			return "<script type=\"text/javascript\" src=\"" + JspUtil.getRealResourcePath(item.getContributorId(), item.getContributorVersion(), item.getUri())
 					+ "\"></script>";
 		} else if (item.getType().equals(CSS_TYPE)) {
-			return "<link href=" + item.getUri() + " rel=\"stylesheet\">";
+			return "<link href=" + JspUtil.getRealResourcePath(item.getContributorId(), item.getContributorVersion(), item.getUri()) + " rel=\"stylesheet\">";
 		}
 		return "";
 

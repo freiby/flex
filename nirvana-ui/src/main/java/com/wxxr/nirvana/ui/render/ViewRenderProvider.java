@@ -2,7 +2,7 @@ package com.wxxr.nirvana.ui.render;
 
 import java.io.IOException;
 
-import com.wxxr.nirvana.IRenderContext;
+import com.wxxr.nirvana.IUIRenderContext;
 import com.wxxr.nirvana.exception.NirvanaException;
 import com.wxxr.nirvana.util.JspUtil;
 import com.wxxr.nirvana.workbench.IDispatchUI;
@@ -12,7 +12,7 @@ public class ViewRenderProvider extends UIComponentRender {
 
 	@Override
 	protected void doRenderComponent(UIComponent component,
-			IRenderContext context) throws NirvanaException {
+			IUIRenderContext context) throws NirvanaException {
 		IDispatchUI disppach = (IDispatchUI) component;
 		String uri = disppach.getURI();
 		try {

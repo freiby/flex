@@ -14,16 +14,13 @@ import org.apache.commons.logging.LogFactory;
 
 import com.wxxr.nirvana.platform.IConfigurationElement;
 import com.wxxr.nirvana.platform.IPluginDescriptor;
-import com.wxxr.nirvana.platform.InvalidRegistryObjectException;
 import com.wxxr.nirvana.platform.PlatformLocator;
 import com.wxxr.nirvana.theme.IDesktop;
-import com.wxxr.nirvana.theme.IPageLayout;
 import com.wxxr.nirvana.theme.ITheme;
 import com.wxxr.nirvana.theme.IThemeManager;
 import com.wxxr.nirvana.workbench.IRender;
-import com.wxxr.nirvana.workbench.IWebResource;
 import com.wxxr.nirvana.workbench.config.BaseContributionItem;
-import com.wxxr.nirvana.workbench.impl.ThemeManager.ICreateClassContext;
+import com.wxxr.nirvana.workbench.impl.Workbench.ICreateRenderContext;
 
 /**
  * @author fudapeng
@@ -40,12 +37,13 @@ public class ThemeImpl extends BaseContributionItem implements ITheme {
 
 	private String ATT_RESOURCE = "resource";
 	private static final String ATT_CLASS = "class";
-	private ICreateClassContext context;
+	private static final String ATT_RENDER = "render";
+	private ICreateRenderContext context;
 
 	private final Log log = LogFactory.getLog(ThemeImpl.class);
 
-	public ThemeImpl(ICreateClassContext context) {
-		this.context = context;
+	public ThemeImpl(ICreateRenderContext createRender) {
+		this.context = createRender;
 	}
 
 	/*
@@ -101,14 +99,12 @@ public class ThemeImpl extends BaseContributionItem implements ITheme {
 	private void initDesktop(IConfigurationElement config) throws Exception {
 		if (desktop == null) {
 			desktop = new Desktop();
-			String clazz = elem.getAttribute(ATT_CLASS);
+			String renderId = elem.getAttribute(ATT_RENDER);
 			IRender render = null;
-			if (StringUtils.isNotBlank(clazz)) {
-				IPluginDescriptor plugin = PlatformLocator.getPlatform()
-						.getPluginDescriptor(elem.getNamespaceIdentifier());
-				render = context.createInstance(clazz, IRender.class);
+			if (StringUtils.isNotBlank(renderId)) {
+				render = context.createRender(renderId);
 			}
-			desktop.init(config, null);
+			desktop.init(config, render);
 		}
 	}
 

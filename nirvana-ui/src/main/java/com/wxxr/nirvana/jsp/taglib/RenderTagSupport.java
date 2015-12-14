@@ -125,7 +125,7 @@ public abstract class RenderTagSupport extends ContainerTagSupport {
 		this.ignore = ignore;
 	}
 
-	private String render;
+	private String anchor;
 
 	/** {@inheritDoc} */
 	public void release() {
@@ -190,12 +190,11 @@ public abstract class RenderTagSupport extends ContainerTagSupport {
 	protected abstract void render() throws JspException, NirvanaException,
 			IOException;
 
-	public String getRender() {
-		return render;
+	public String getAnchor() {
+		return anchor;
 	}
 
-	public void setRender(String render) {
-		this.render = render;
+	public void setAnchor(String anchor) {
+		this.anchor = anchor;
 	}
-
 }

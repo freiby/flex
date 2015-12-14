@@ -9,6 +9,7 @@ import com.wxxr.nirvana.workbench.IPermissionsManager;
 import com.wxxr.nirvana.workbench.IProduct;
 import com.wxxr.nirvana.workbench.IProductManager;
 import com.wxxr.nirvana.workbench.ISecurityManager;
+import com.wxxr.nirvana.workbench.IUIRenderManager;
 import com.wxxr.nirvana.workbench.IViewManager;
 import com.wxxr.nirvana.workbench.IWebResourceManager;
 import com.wxxr.nirvana.workbench.IWorkbench;
@@ -88,5 +89,9 @@ public class WorkbenchProxy implements ISessionWorkbench {
 
 	public IPageLayoutManager getPageLayoutManager() {
 		return workbench.getPageLayoutManager();
+	}
+
+	public IUIRenderManager getUIRenderManager() {
+		return workbench.getUIRenderManager();
 	}
 }

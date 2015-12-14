@@ -107,7 +107,7 @@ public class UIComponent implements IUIContributionItem {
 		}
 	}
 
-	public IRender getRender() {
+	public IRender getRender(){
 		return render;
 	}
 }

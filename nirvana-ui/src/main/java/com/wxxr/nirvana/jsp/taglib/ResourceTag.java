@@ -29,7 +29,6 @@ public abstract class ResourceTag extends BodyTagSupport {
 		IWebResource[] resources = webResourceContainer.getResources(point);
 		if (resources == null || resources.length == 0)
 			return EVAL_BODY_BUFFERED;
-		List<IWebResource> rs = new ArrayList<IWebResource>();
 		for (IWebResource item : resources) {
 			rs.add(item);
 		}

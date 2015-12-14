@@ -3,8 +3,7 @@ package com.wxxr.nirvana.ui.render;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.wxxr.nirvana.IRenderContext;
-import com.wxxr.nirvana.IRenderProvider;
+import com.wxxr.nirvana.IUIRenderContext;
 import com.wxxr.nirvana.IWebResourceContainer;
 import com.wxxr.nirvana.IWebResourceContainer.WebResourceInfo;
 import com.wxxr.nirvana.exception.NirvanaException;
@@ -12,9 +11,9 @@ import com.wxxr.nirvana.ui.ResourceUIComponent;
 import com.wxxr.nirvana.workbench.IWebResource;
 import com.wxxr.nirvana.workbench.impl.UIComponent;
 
-public abstract class UIComponentRender implements IRenderProvider {
+public abstract class UIComponentRender extends CommonRenderProvider {
 
-	public void render(UIComponent component, IRenderContext context)
+	public void doRender(UIComponent component, IUIRenderContext context)
 			throws NirvanaException {
 		WebResourceInfo[] wrs = context.getComponentResource(component);
 
@@ -45,7 +44,7 @@ public abstract class UIComponentRender implements IRenderProvider {
 	}
 
 	protected abstract void doRenderComponent(UIComponent component,
-			IRenderContext context) throws NirvanaException;
+			IUIRenderContext context) throws NirvanaException;
 
 	private IWebResource[] injecPoint(WebResourceInfo[] wrs, boolean before) {
 		if (wrs == null)

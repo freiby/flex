@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.jsp.PageContext;
 
 import com.wxxr.nirvana.ContainerAccess;
-import com.wxxr.nirvana.IRenderContext;
+import com.wxxr.nirvana.IUIRenderContext;
 import com.wxxr.nirvana.IRenderProvider;
 import com.wxxr.nirvana.IUIComponentContext;
 import com.wxxr.nirvana.IWebResourceContainer;
@@ -131,7 +131,7 @@ public class WorkbenchContainerImpl implements IWorkbenchContainer {
 			if (render == null) {
 				render = renderProviders.get("*");
 			}
-			final IRenderContext renderContext = new IRenderContext() {
+			final IUIRenderContext renderContext = new IUIRenderContext() {
 				public IRequestContext getRequestContext() {
 					return rc;
 				}
@@ -145,7 +145,7 @@ public class WorkbenchContainerImpl implements IWorkbenchContainer {
 					return resourceContainer.getComponentResource(component);
 				}
 
-				public void render(UIComponent component, IRenderContext context)
+				public void render(UIComponent component, IUIRenderContext context)
 						throws NirvanaException {
 					if (renderProviders.containsKey(component.getName())) {
 						renderProviders.get(component.getName()).render(

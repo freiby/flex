@@ -9,6 +9,7 @@
             description="nirvana"
 			themeref="com.wxxr.nirvana.style.nirvanaStyle_theme"
             id="nirvana"
+            navRender="com.wxxr.nirvana.style.nirvanapagelayout"
             >
 			<page ref="com.wxxr.nirvana.test.niravanaPage" index="1" defaulPage="true" layout="com.wxxr.nirvana.style.nirvanapagelayout"/>
 			<page ref="com.wxxr.nirvana.test.lionPage" index="2" layout="com.wxxr.nirvana.style.nirvanapagelayout2"/>

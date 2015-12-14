@@ -15,7 +15,7 @@ import com.wxxr.nirvana.workbench.impl.UIComponent;
  * @author fudapeng
  *
  */
-public interface IRenderContext {
+public interface IUIRenderContext {
 	/**
 	 * 获取用户请求环境
 	 * 
@@ -45,6 +45,6 @@ public interface IRenderContext {
 	 */
 	Map<String, Object> getParameterMap();
 
-	void render(UIComponent component, IRenderContext context)
+	void render(UIComponent component, IUIRenderContext context)
 			throws NirvanaException;
 }

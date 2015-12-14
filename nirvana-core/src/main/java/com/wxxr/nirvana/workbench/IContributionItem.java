@@ -18,6 +18,8 @@ public interface IContributionItem {
 	String getContributorId();
 
 	IConfigurationElement getConfigurationElement();
+	
+	String getContributorVersion();
 
 	String getExtensionId();
 }

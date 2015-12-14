@@ -257,6 +257,14 @@ public class Plugin implements IPluginDescriptor, IPluginInitializer {
 		if (runtimeLibrary == null) {
 			RuntimeLibrary rLibrary = new RuntimeLibrary();
 			String path = getInstallURL();
+			URL url = null;
+			try {
+				url = new URL(path);
+				path = url.getFile();
+			} catch (MalformedURLException e) {
+				log.error(e);
+			}
+			
 			File libdir = new File(path + File.separatorChar + "lib");
 			rLibrary.setJarDir(libdir);
 			rLibrary.setPluginId(getUniqueIdentifier());

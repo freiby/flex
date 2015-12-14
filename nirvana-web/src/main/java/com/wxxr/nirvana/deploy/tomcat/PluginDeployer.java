@@ -1,4 +1,4 @@
-package com.wxxr.nirvana.deploy;
+package com.wxxr.nirvana.deploy.tomcat;
 
 import java.io.File;
 import java.io.IOException;
@@ -79,7 +79,9 @@ public class PluginDeployer {
 		// 1、lib -- jar file
 		String sourceLibdir = rootPath + File.separatorChar + id
 				+ File.separatorChar + version + File.separatorChar + "lib";
-		String targetLib = targetPath + File.separatorChar + WEBINFOLIB_DIR;
+//		String targetLib = targetPath + File.separatorChar + WEBINFOLIB_DIR;
+		String targetLib = targetPath + File.separatorChar + PLUGINS_DIR + id
+				+ File.separatorChar + version + File.separatorChar;
 		File slibdir = new File(sourceLibdir);
 		File[] files = slibdir.listFiles();
 		File targetLibdir = new File(targetLib);
@@ -87,14 +89,17 @@ public class PluginDeployer {
 			targetLibdir.mkdirs();
 		}
 
-		List<File> jarfiles = new ArrayList<File>();
-		if (files != null) {
-			for (File jarfile : files) {
-				FileUtils.copyFileToDirectory(jarfile, new File(targetLib));
-				jarfiles.add(jarfile);
-			}
-		}
-		jars.put(id, jarfiles);
+//		List<File> jarfiles = new ArrayList<File>();
+//		if (files != null) {
+//			for (File jarfile : files) {
+//				FileUtils.copyFileToDirectory(jarfile, new File(targetLib));
+//				jarfiles.add(jarfile);
+//			}
+//		}
+//		jars.put(id, jarfiles);
+		
+		if (slibdir.exists())
+			FileUtils.copyDirectoryToDirectory(slibdir, targetLibdir);
 
 		// 2 、html
 		String sourceHtmldir = rootPath + File.separatorChar + id

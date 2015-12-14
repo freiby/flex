@@ -16,7 +16,7 @@ public class PageResult extends ServletDispatcherResult {
 	
 	public void doExecute(String location, ActionInvocation invocation) throws Exception {
 		HttpSession session = ServletActionContext.getRequest().getSession();
-		IWorkbenchContainer container = ContainerAccess.getContainer(session);
+		IWorkbenchContainer container = ContainerAccess.getContainer();
 		setLocation(location);
 
         HttpServletRequest request = ServletActionContext.getRequest();

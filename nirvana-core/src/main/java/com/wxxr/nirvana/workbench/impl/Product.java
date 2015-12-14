@@ -13,12 +13,15 @@ public class Product extends UIComponent implements IProduct {
 	private static final String ATT_DEFAULT_PAGE = "defaulPage";
 	private static final String ATT_INDEX = "index";
 	private static final String ATT_LAYOUT = "layout";
+	private static final String ATT_NAV_RENDER = "navRender";
 	private String theme;
 	private PageRef[] pagerefs;
 
 	private String[] pageIds;
 
 	private String defaultPage;
+	
+	private String navRender;
 
 	public String getTheme() {
 		return theme;
@@ -29,10 +32,13 @@ public class Product extends UIComponent implements IProduct {
 		theme = config.getAttribute("themeref");
 		initPages(config);
 	}
+	
+	
 
 	private void initPages(IConfigurationElement config) {
 		IConfigurationElement[] pageConfigs = config.getChildren(PAGE_ELEMENT);
 		pagerefs = new PageRef[pageConfigs.length];
+		navRender = config.getAttribute(ATT_NAV_RENDER);
 		for (int j = 0; j < pageConfigs.length; j++) {
 			PageRef ref = new PageRef();
 			IConfigurationElement viewConfig = pageConfigs[j];
@@ -76,6 +82,10 @@ public class Product extends UIComponent implements IProduct {
 
 	public PageRef[] getAllPages() {
 		return pagerefs;
+	}
+
+	public String getNavigationRef() {
+		return navRender;
 	}
 
 }

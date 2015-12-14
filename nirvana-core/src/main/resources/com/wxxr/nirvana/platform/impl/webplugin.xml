@@ -25,4 +25,5 @@
    <extension-point id="resources" name="%initLayout" schema="schema/initLayout.exsd"/>
    <extension-point id="products" name="%initLayout" schema="schema/initLayout.exsd"/>
    <extension-point id="pagelayouts" name="%initLayout" schema="schema/initLayout.exsd"/>
+   <extension-point id="uirenders" name="%uirenders" schema="schema/uirenders.exsd"/>
 </plugin>

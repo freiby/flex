@@ -16,7 +16,7 @@ public class ProductResult extends ServletDispatcherResult {
 	
 	public void doExecute(String location, ActionInvocation invocation) throws Exception {
 		HttpSession session = ServletActionContext.getRequest().getSession();
-		IWorkbenchContainer container = ContainerAccess.getContainer(session);
+		IWorkbenchContainer container = ContainerAccess.getContainer();
 		HttpServletRequest request = ServletActionContext.getRequest();
 	    HttpServletResponse response = ServletActionContext.getResponse();
 		container.bootstrap(request, response, location, null);

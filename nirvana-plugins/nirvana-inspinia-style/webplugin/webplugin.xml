@@ -49,6 +49,18 @@
 				uri="pageContainer.jsp">
 			</pageLayout>
    </extension>
+   
+   
+   <extension
+         id="pagenavigation"
+         point="com.wxxr.nirvana.platform.uirenders">
+	  	<uirender
+				id="nirvanapagelayout"
+				description="nirvanapagelayout"
+				uri="menu.jsp"
+				class="com.wxxr.nirvana.inspinia.style.PageNavigationRender">
+		</uirender>
+   </extension>
 
 
    <extension point="com.wxxr.nirvana.platform.resources" id="pages.niravanaPage">

@@ -27,6 +27,7 @@ import com.wxxr.nirvana.workbench.IViewManager;
 import com.wxxr.nirvana.workbench.IWorkbench;
 import com.wxxr.nirvana.workbench.UIConstants;
 import com.wxxr.nirvana.workbench.config.BaseExtensionPointManager;
+import com.wxxr.nirvana.workbench.impl.Workbench.ICreateRenderContext;
 
 /**
  * @author fudapeng
@@ -45,13 +46,16 @@ public class ViewManager extends BaseExtensionPointManager implements
 	private static final String ATT_VIEW_ID = "id";
 	private static final String ATT_TYPE = "type";
 	private static final String ATT_CLASS = "class";
+	private static final String ATT_RENDER = "render";
 
 	protected Map<String, IView> views = new ConcurrentHashMap<String, IView>();
 	protected Map<String, List<String>> exts = new ConcurrentHashMap<String, List<String>>();
 	protected IWorkbench workbench;
+	protected ICreateRenderContext context;
 
-	public ViewManager() {
+	public ViewManager(ICreateRenderContext context) {
 		super(UIConstants.UI_NAMESPACE, UIConstants.EXTENSION_POINT_VIEWS);
+		this.context = context;
 	}
 
 	public IView find(String id) {
@@ -77,12 +81,10 @@ public class ViewManager extends BaseExtensionPointManager implements
 		IView view = find(id);
 		if (view == null) {
 			view = new View();
-			String clazz = elem.getAttribute(ATT_CLASS);
+			String renderId = elem.getAttribute(ATT_RENDER);
 			IRender render = null;
-			if (StringUtils.isNotBlank(clazz)) {
-				IPluginDescriptor plugin = getUIPlatform().getPluginDescriptor(
-						elem.getNamespaceIdentifier());
-				render = (IRender) createPluginObject(clazz, plugin);
+			if (StringUtils.isNotBlank(renderId)) {
+				render = context.createRender(renderId);
 			}
 			view.init(this, elem, render);
 			views.put(view.getUniqueIndentifier(), view);

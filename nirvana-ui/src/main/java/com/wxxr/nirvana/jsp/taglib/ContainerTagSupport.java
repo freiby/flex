@@ -92,7 +92,11 @@ public abstract class ContainerTagSupport extends BodyTagSupport {
 
 	/** {@inheritDoc} */
 	public int doEndTag() throws JspException {
-		execute();
+		try{
+			execute();
+		}finally{
+			endContext(pageContext);
+		}
 		return EVAL_PAGE;
 	}
 

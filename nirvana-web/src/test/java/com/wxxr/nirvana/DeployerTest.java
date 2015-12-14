@@ -8,7 +8,7 @@ import java.net.URL;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.wxxr.nirvana.deploy.PluginDeployer;
+import com.wxxr.nirvana.deploy.tomcat.PluginDeployer;
 import com.wxxr.nirvana.platform.IPluginDescriptor;
 import com.wxxr.nirvana.platform.PlatformLocator;
 import com.wxxr.nirvana.platform.PlatformTest;

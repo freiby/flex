@@ -20,7 +20,7 @@ public class RenderMock implements IRenderProvider {
 		return true;
 	}
 
-	public void render(UIComponent component, IRenderContext context)
+	public void render(UIComponent component, IUIRenderContext context)
 			throws NirvanaException {
 		if (component == null) {
 			log.info(" rendering " + null);

@@ -22,9 +22,9 @@ import com.wxxr.nirvana.platform.IExtension;
 import com.wxxr.nirvana.platform.IPluginDescriptor;
 import com.wxxr.nirvana.theme.ITheme;
 import com.wxxr.nirvana.theme.IThemeManager;
-import com.wxxr.nirvana.workbench.IRender;
 import com.wxxr.nirvana.workbench.UIConstants;
 import com.wxxr.nirvana.workbench.config.BaseExtensionPointManager;
+import com.wxxr.nirvana.workbench.impl.Workbench.ICreateRenderContext;
 
 /**
  * @author fudapeng
@@ -40,9 +40,11 @@ public class ThemeManager extends BaseExtensionPointManager implements
 	private static final String ATT_CLASS = "class";
 	private static final String DEFAULT_THEME_ID = "industrial";
 	private ITheme defaultTheme;
+	private ICreateRenderContext createRender;
 
-	public ThemeManager() {
+	public ThemeManager(ICreateRenderContext context) {
 		super(UIConstants.UI_NAMESPACE, UIConstants.EXTENSION_POINT_THEMES);
+		createRender = context;
 	}
 
 	protected Map<String, ITheme> themes = new HashMap<String, ITheme>();
@@ -87,25 +89,12 @@ public class ThemeManager extends BaseExtensionPointManager implements
 
 	}
 
-	public interface ICreateClassContext {
-		<T> T createInstance(String clazz, Class<T> type) throws Exception;
-	}
-
 	protected ITheme createNewTheme(final IConfigurationElement elem)
 			throws Exception {
 		String id = elem.getNamespaceIdentifier() + "."
 				+ elem.getAttribute(ATT_ID);
 		ITheme theme = null;
-		ICreateClassContext context = new ICreateClassContext() {
-			public <T> T createInstance(String clazz, Class<T> type)
-					throws Exception {
-				IPluginDescriptor plugin = getUIPlatform().getPluginDescriptor(
-						elem.getNamespaceIdentifier());
-				return type.cast(createPluginObject(clazz, plugin));
-			}
-
-		};
-		theme = new ThemeImpl(context);
+		theme = new ThemeImpl(createRender);
 		theme.init(this, elem);
 
 		synchronized (themes) {

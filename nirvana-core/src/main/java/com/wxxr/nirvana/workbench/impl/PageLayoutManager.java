@@ -15,6 +15,7 @@ import com.wxxr.nirvana.workbench.IPageLayoutManager;
 import com.wxxr.nirvana.workbench.IRender;
 import com.wxxr.nirvana.workbench.UIConstants;
 import com.wxxr.nirvana.workbench.config.BaseExtensionPointManager;
+import com.wxxr.nirvana.workbench.impl.Workbench.ICreateRenderContext;
 
 public class PageLayoutManager extends BaseExtensionPointManager implements
 		IPageLayoutManager {
@@ -26,9 +27,13 @@ public class PageLayoutManager extends BaseExtensionPointManager implements
 	private static final String ATT_CLASS = "class";
 
 	protected Map<String, IPageLayout> layouts = new HashMap<String, IPageLayout>();
+	
+	private ICreateRenderContext createContext;
+	private static final String ATT_RENDER = "render";
 
-	public PageLayoutManager() {
+	public PageLayoutManager(ICreateRenderContext iCreateRenderContext) {
 		super(UIConstants.UI_NAMESPACE, UIConstants.EXTENSION_POINT_PAGELAYOUT);
+		this.createContext = iCreateRenderContext;
 	}
 
 	public IPageLayout getPageLayout(String id) {
@@ -65,12 +70,10 @@ public class PageLayoutManager extends BaseExtensionPointManager implements
 			return layout;
 		}
 
-		String clazz = elem.getAttribute(ATT_CLASS);
+		String rid = elem.getAttribute(ATT_RENDER);
 		IRender render = null;
-		if (StringUtils.isNotBlank(clazz)) {
-			IPluginDescriptor plugin = getUIPlatform().getPluginDescriptor(
-					elem.getNamespaceIdentifier());
-			render = (IRender) createPluginObject(clazz, plugin);
+		if (StringUtils.isNotBlank(rid)) {
+			render = createContext.createRender(rid);
 		}
 		layout = new PageLayout();
 		layout.init(this, elem, render);
