@@ -1,0 +1,9 @@
+<%@ taglib uri="/nirvana-tag" prefix="nirvana"%>
+<div id="navigationwrap">
+	<nirvana:ui name="navigation" />
+</div><!-- end navigationwrap-->
+<div  id="pagewrap">
+	<nirvana:ui name="page" />
+</div><!-- end pagewrap-->
+
+<nirvana:js point="current"/> 

@@ -78,6 +78,13 @@ public final class JspUtil {
 				.append(UIConstants.separatorChar).append(path).toString();
 	}
 	
+	public static String getRealPath(String id, String version) {
+		return new StringBuffer().append(UIConstants.PLUGIN_PAHT)
+				.append(UIConstants.separatorChar).append(id)
+				.append(UIConstants.separatorChar).append(version)
+				.append(UIConstants.separatorChar).append(UIConstants.HTML_PAHT).toString();
+	}
+	
 	public static String getRealResourcePath(String id, String version, String path) {
 		return new StringBuffer().append(UIConstants.PLUGIN_PAHT)
 				.append(UIConstants.separatorChar).append(id)

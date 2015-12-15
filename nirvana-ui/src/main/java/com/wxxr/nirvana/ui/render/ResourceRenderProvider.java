@@ -39,9 +39,9 @@ public class ResourceRenderProvider implements IRenderProvider {
 	private String getScript(IWebResource item) {
 		if (item.getType().equals(JS_TYPE)) {
 			return "<script type=\"text/javascript\" src=\"" + JspUtil.getRealResourcePath(item.getContributorId(), item.getContributorVersion(), item.getUri())
-					+ "\"></script>";
+					+ "\"></script>\r\n";
 		} else if (item.getType().equals(CSS_TYPE)) {
-			return "<link href=" + JspUtil.getRealResourcePath(item.getContributorId(), item.getContributorVersion(), item.getUri()) + " rel=\"stylesheet\">";
+			return "<link href=" + JspUtil.getRealResourcePath(item.getContributorId(), item.getContributorVersion(), item.getUri()) + " rel=\"stylesheet\">\r\n";
 		}
 		return "";
 

@@ -53,6 +53,9 @@ public class WebResourceContainerImpl implements IWebResourceContainer {
 			for (int i = 0; i < themeRefs.length; i++) {
 				this.themeResources[i] = workbench.getWebResourceManager()
 						.getResource(themeRefs[i].getRef());
+				if(this.themeResources[i] == null){
+					throw new NirvanaException("theme import resource " + themeRefs[i].getRef() + " not found resource! please cheouk out webplugin.xml!!!");
+				}
 				collection(themeRefs[i].getPoint(), this.themeResources[i]);
 			}
 		}
@@ -69,6 +72,9 @@ public class WebResourceContainerImpl implements IWebResourceContainer {
 				WebResourceInfo info = new WebResourceInfo(webr,
 						viewRrefs[i].getPoint());
 				infos[i] = info;
+				if(webr == null){
+					throw new NirvanaException("view import resource " + viewRrefs[i].getRef() + " not found resource! please cheouk out webplugin.xml!!!");
+				}
 				collection(viewRrefs[i].getPoint(), webr);
 			}
 			viewResourceMap.put(view.getUniqueIndentifier(), infos);
@@ -92,6 +98,11 @@ public class WebResourceContainerImpl implements IWebResourceContainer {
 	}
 
 	public void destroy() {
+		viewResourceMap.clear();
+		pointMap.clear();
+		themeRefs = null;
+		themeResources = null;
+		resources = null;
 		page = null;
 		product = null;
 	}

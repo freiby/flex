@@ -1,8 +1,11 @@
 <%@ taglib uri="/nirvana-tag" prefix="nirvana"%>
+<!DOCTYPE html>
+
+<body class="pace-done">
 	<div id="wrapper">
 		<nirvana:ui name="navigation" />
 		<nirvana:ui name="page" />
-	</div><!--end wrapper-->
+	</div>
 	<div class="theme-config"><!--  right config panel -->
         <div class="theme-config-box">
             <div class="spin-icon">
@@ -111,6 +114,6 @@
                 </div>
             </div>
         </div>
-    </div><!--  end-theme-config -->
+    </div>
     
     <nirvana:js point="current"/> 

@@ -55,7 +55,7 @@ public abstract class UIComponentRender extends CommonRenderProvider {
 			if (r.getPoint().equals(IWebResourceContainer.PREFIX_BEFORE)
 					&& before) {
 				b.add(r.getR());
-			} else {
+			} else if(r.getPoint().equals(IWebResourceContainer.PREFIX_AFTER) && !before) {
 				a.add(r.getR());
 			}
 		}

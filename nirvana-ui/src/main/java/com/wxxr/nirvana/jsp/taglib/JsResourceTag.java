@@ -12,7 +12,7 @@ public class JsResourceTag extends ResourceTag {
 		if (r.getType().equals("js")) {
 			String uri = r.getUri();
 			return "<script type=\"text/javascript\" src=\"" + JspUtil.getRealResourcePath(r.getContributorId(), r.getContributorVersion(), uri)
-					+ "\"></script>";
+					+ "\"></script>\r\n";
 		}
 		return null;
 	}

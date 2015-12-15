@@ -1,16 +1,15 @@
 <%@ taglib uri="/nirvana-tag" prefix="nirvana"%>
-<div id="page-wrapper" class="gray-bg dashbard-1" style="min-height: 100%;">
 <div class="row  border-bottom white-bg dashboard-header" style="display:block">
-    <div class="col-sm-3"><!-- view1wrap -->
+    <div class="col-sm-3">
         <nirvana:ui name="view" anchor="headerone"/>
-    </div><!-- end view1wrap -->
-    <div class="col-sm-6"><!--view2wrap-->
+    </div>
+    <div class="col-sm-6">
         <nirvana:ui name="view" anchor="headertwo"/>
-    </div><!-- end view2wrap -->
-    <div class="col-sm-3"><!--view3wrap-->
+    </div>
+    <div class="col-sm-3">
         <nirvana:ui name="view" anchor="headerthree"/>
-    </div><!-- end view3wrap -->
-</div><!--row1 end-->
+    </div>
+</div>
 <div class="row" style="display:block">
     <div class="col-lg-12">
         <div class="wrapper wrapper-content">
@@ -151,7 +150,7 @@
                                 <div class="feed-activity-list">
                                     <div class="feed-element">
                                         <a href="http://webapplayers.com/inspinia_admin-v2.3/profile.html" class="pull-left">
-                                            <img alt="image" class="img-circle" src="${path}/img/profile.jpg">
+                                            <img alt="image" class="img-circle" src="./framework/theme/inspinia/img/profile.jpg">
                                         </a>
                                         <div class="media-body ">
                                             <small class="pull-right">5m ago</small>
@@ -162,7 +161,7 @@
                                     </div>
                                     <div class="feed-element">
                                         <a href="http://webapplayers.com/inspinia_admin-v2.3/profile.html" class="pull-left">
-                                            <img alt="image" class="img-circle" src="${path}/img/a2.jpg">
+                                            <img alt="image" class="img-circle" src="./framework/theme/inspinia/img/a2.jpg">
                                         </a>
                                         <div class="media-body ">
                                             <small class="pull-right">2h ago</small>
@@ -173,7 +172,7 @@
                                     </div>
                                     <div class="feed-element">
                                         <a href="http://webapplayers.com/inspinia_admin-v2.3/profile.html" class="pull-left">
-                                            <img alt="image" class="img-circle" src="${path}/img/a3.jpg">
+                                            <img alt="image" class="img-circle" src="./framework/theme/inspinia/img/a3.jpg">
                                         </a>
                                         <div class="media-body ">
                                             <small class="pull-right">2h ago</small>
@@ -184,7 +183,7 @@
                                     </div>
                                     <div class="feed-element">
                                         <a href="http://webapplayers.com/inspinia_admin-v2.3/profile.html" class="pull-left">
-                                            <img alt="image" class="img-circle" src="${path}/img/a4.jpg">
+                                            <img alt="image" class="img-circle" src="./framework/theme/inspinia/img/a4.jpg">
                                         </a>
                                         <div class="media-body ">
                                             <small class="pull-right text-navy">5h ago</small>
@@ -199,7 +198,7 @@
                                     </div>
                                     <div class="feed-element">
                                         <a href="http://webapplayers.com/inspinia_admin-v2.3/profile.html" class="pull-left">
-                                            <img alt="image" class="img-circle" src="${path}/img/a5.jpg">
+                                            <img alt="image" class="img-circle" src="./framework/theme/inspinia/img/a5.jpg">
                                         </a>
                                         <div class="media-body ">
                                             <small class="pull-right">2h ago</small>
@@ -216,7 +215,7 @@
                                     </div>
                                     <div class="feed-element">
                                         <a href="http://webapplayers.com/inspinia_admin-v2.3/profile.html" class="pull-left">
-                                            <img alt="image" class="img-circle" src="${path}/img/profile.jpg">
+                                            <img alt="image" class="img-circle" src="./framework/theme/inspinia/img/profile.jpg">
                                         </a>
                                         <div class="media-body ">
                                             <small class="pull-right">23h ago</small>
@@ -227,7 +226,7 @@
                                     </div>
                                     <div class="feed-element">
                                         <a href="http://webapplayers.com/inspinia_admin-v2.3/profile.html" class="pull-left">
-                                            <img alt="image" class="img-circle" src="${path}/img/a7.jpg">
+                                            <img alt="image" class="img-circle" src="./framework/theme/inspinia/img/a7.jpg">
                                         </a>
                                         <div class="media-body ">
                                             <small class="pull-right">46h ago</small>
@@ -367,5 +366,4 @@
             </div>
         </div>
     </div>
-</div><!--row2 end-->
-</div><!--end page -->
+</div>

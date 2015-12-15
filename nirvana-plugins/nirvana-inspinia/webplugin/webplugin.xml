@@ -84,7 +84,7 @@
 	 <extension point="com.wxxr.nirvana.platform.resources" id="pages.niravanaPage">
 		  <resource
 				id="hj"     
-				uri="js/hello.js"
+				uri="view/js/hello.js"
 				type="js"
 				>
 		  </resource> 
@@ -92,14 +92,14 @@
 		  
 		  <resource
 				id="dj"      
-				uri="js/d3.min.js"
+				uri="view/js/d3.min.js"
 				type="js"
 				>
 		  </resource>
 
 		  <resource
 				id="cj"   
-				uri="js/c3.min.js"
+				uri="view/js/c3.min.js"
 				type="js"
 				>
 		  </resource>

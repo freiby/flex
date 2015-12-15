@@ -14,7 +14,7 @@
         a.async = 1;
         a.src = g;
         m.parentNode.insertBefore(a, m)
-    })(window, document, 'script', './framework/theme/inspinia/js/analytics.js', 'ga');
+    })(window, document, 'script', './plugins/com.wxxr.nirvana.style/1.0.0/html/js/analytics.js', 'ga');
 
     ga('create', 'UA-4625583-2', 'webapplayers.com');
     ga('send', 'pageview');

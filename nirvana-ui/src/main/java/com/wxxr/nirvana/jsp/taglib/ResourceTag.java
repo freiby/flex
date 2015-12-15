@@ -15,15 +15,24 @@ import com.wxxr.nirvana.IWebResourceContainer;
 import com.wxxr.nirvana.IWorkbenchContainer;
 import com.wxxr.nirvana.workbench.IWebResource;
 
+@SuppressWarnings("serial")
 public abstract class ResourceTag extends BodyTagSupport {
 	private IWebResourceContainer webResourceContainer;
 	private IWorkbenchContainer workbenchContainer;
 
+	/**
+	 * header ---- import html header
+	 * footer ---- import after body
+	 * before ---- import befor view
+	 * after  ---- import after view
+	 * current --- import current postion  
+	 */
 	private String point;
 	private List<IWebResource> rs = new ArrayList<IWebResource>();
 
 	@Override
 	public int doStartTag() throws JspException {
+		rs.clear();
 		workbenchContainer = ContainerAccess.getContainer();
 		webResourceContainer = workbenchContainer.getWebResourceContainer();
 		IWebResource[] resources = webResourceContainer.getResources(point);

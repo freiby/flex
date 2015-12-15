@@ -1,12 +1,12 @@
 <%@taglib uri="/struts-tags" prefix="s"%>
 <%@ taglib uri="/nirvana-tag" prefix="nirvana"%>
 
-<nav class="navbar-default navbar-static-side" role="navigation"><!-- start nav -->
+<nav class="navbar-default navbar-static-side" role="navigation">
     <div class="sidebar-collapse">
         <ul class="nav metismenu" id="side-menu">
             <li class="nav-header">
                 <div class="dropdown profile-element"> <span>
-                    <img alt="image" class="img-circle" src="${path}/img/profile_small.jpg">
+                    <img alt="image" class="img-circle" src="./framework/theme/inspinia/img/profile_small.jpg">
                      </span>
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                         <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">David Williams</strong>
@@ -215,4 +215,4 @@
             </li>
         </ul>
     </div>
-</nav><!-- end nav -->
+</nav>

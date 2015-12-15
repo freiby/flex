@@ -11,7 +11,7 @@ public class CssResourceTag extends ResourceTag {
 	protected String getScript(IWebResource r) throws IOException {
 		if (r.getType().equals("css")) {
 			String uri = r.getUri();
-			return "<link href=" + JspUtil.getRealResourcePath(r.getContributorId(), r.getContributorVersion(), uri) + " rel=\"stylesheet\">";
+			return "<link href=" + JspUtil.getRealResourcePath(r.getContributorId(), r.getContributorVersion(), uri) + " rel=\"stylesheet\">\r\n";
 		}
 		return null;
 	}
