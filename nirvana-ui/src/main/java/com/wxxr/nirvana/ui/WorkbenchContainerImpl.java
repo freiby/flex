@@ -253,13 +253,12 @@ public class WorkbenchContainerImpl implements IWorkbenchContainer {
 				resourceContainer.destroy();
 			}
 			resourceContainer.init(request, response);
+			try {
+				getRequestContext(request, response).goHome();
+			} catch (IOException e) {
+				throw new NirvanaException(e);
+			}
 		}
-		try {
-			getRequestContext(request, response).goHome();
-		} catch (IOException e) {
-			throw new NirvanaException(e);
-		}
-		;
 	}
 
 	/**

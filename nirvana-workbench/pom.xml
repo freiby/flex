@@ -6,7 +6,7 @@
 		<groupId>com.wxxr.nirvana</groupId>
 		<version>1.0.0</version>
 	</parent>
-	
+
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>nirvana-workbench</artifactId>
 	<version>1.0.0</version>
@@ -39,7 +39,7 @@
 			<artifactId>struts2-config-browser-plugin</artifactId>
 			<version>${struts2.version}</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.apache.struts</groupId>
 			<artifactId>struts2-json-plugin</artifactId>
@@ -101,11 +101,24 @@
 			<artifactId>nirvana-web</artifactId>
 			<scope>compile</scope>
 		</dependency>
-		
-		
+
+
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
+			<scope>compile</scope>
+		</dependency>
+
+
+		<dependency>
+			<groupId>jstl</groupId>
+			<artifactId>jstl</artifactId>
+			<scope>compile</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>taglibs</groupId>
+			<artifactId>standard</artifactId>
 			<scope>compile</scope>
 		</dependency>
 

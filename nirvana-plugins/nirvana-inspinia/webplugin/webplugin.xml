@@ -36,7 +36,7 @@
             name="lion">
 
 			<view ref="com.wxxr.nirvana.test.chart1" attachment="headerone"></view>
-            <view ref="com.wxxr.nirvana.test.chart2" attachment="headertwo">></view>
+            <view ref="com.wxxr.nirvana.test.helloWorld" attachment="headertwo">></view>
             <view ref="com.wxxr.nirvana.test.chart3" attachment="headerthree">></view>
       </page>
       
@@ -69,6 +69,14 @@
             description=""
             uri="view/chart3.jsp"
             id="chart3">
+			
+      </view>
+      
+      <view
+            name="helloWorld"
+            description=""
+            uri="view/hello.jsp"
+            id="helloWorld">
 			
       </view>
      </extension>
