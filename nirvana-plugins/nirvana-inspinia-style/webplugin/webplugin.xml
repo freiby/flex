@@ -23,31 +23,31 @@
 				uri="baseLayout.jsp"
             >
 			</desktop>	
-			<resource ref="com.wxxr.nirvana.style.bootstrap" point="header"></resource>
-			<resource ref="com.wxxr.nirvana.style.awesome" point="header"></resource>
-			<resource ref="com.wxxr.nirvana.style.toastrcss" point="header"></resource>
-			<resource ref="com.wxxr.nirvana.style.animate" point="header"></resource>
-			<resource ref="com.wxxr.nirvana.style.style" point="header"></resource>
+			<resource ref="com.wxxr.nirvana.resources.bootstrap" point="header"></resource>
+			<resource ref="com.wxxr.nirvana.resources.awesome" point="header"></resource>
+			<resource ref="com.wxxr.nirvana.resources.toastrcss" point="header"></resource>
+			<resource ref="com.wxxr.nirvana.resources.animate" point="header"></resource>
+			<resource ref="com.wxxr.nirvana.resources.style" point="header"></resource>
 			
 			
-			<resource ref="com.wxxr.nirvana.style.jquery" point="current"></resource>
-			<resource ref="com.wxxr.nirvana.style.bootstrapjs" point="current"></resource>
-			<resource ref="com.wxxr.nirvana.style.jquery_metisMenu" point="current"></resource>
-			<resource ref="com.wxxr.nirvana.style.jquery_slimscroll" point="current"></resource>
-			<resource ref="com.wxxr.nirvana.style.jquer_ui" point="current"></resource>
-			<resource ref="com.wxxr.nirvana.style.inspinia" point="current"></resource>
-			<resource ref="com.wxxr.nirvana.style.toastrjs" point="current"></resource>
-			<resource ref="com.wxxr.nirvana.style.Chart" point="current"></resource>
-			<resource ref="com.wxxr.nirvana.style.embeddedjs1" point="current"></resource>
-			<resource ref="com.wxxr.nirvana.style.embeddedjs2" point="current"></resource>
-			<resource ref="com.wxxr.nirvana.style.embeddedjs3" point="current"></resource>
-			<resource ref="com.wxxr.nirvana.style.jquery_flot" point="current"></resource>
-			<resource ref="com.wxxr.nirvana.style.query_flot_tooltip" point="current"></resource>
-			<resource ref="com.wxxr.nirvana.style.jquery_flot_spline" point="current"></resource>
-			<resource ref="com.wxxr.nirvana.style.jquery_flot_resize" point="current"></resource>
-			<resource ref="com.wxxr.nirvana.style.jquery_flot_pie_js" point="current"></resource>
-			<resource ref="com.wxxr.nirvana.style.sparkline" point="current"></resource>
-			<resource ref="com.wxxr.nirvana.style.sparkline_demo" point="current"></resource>
+			<resource ref="com.wxxr.nirvana.resources.jquery" point="current"></resource>
+			<resource ref="com.wxxr.nirvana.resources.bootstrapjs" point="current"></resource>
+			<resource ref="com.wxxr.nirvana.resources.jquery_metisMenu" point="current"></resource>
+			<resource ref="com.wxxr.nirvana.resources.jquery_slimscroll" point="current"></resource>
+			<resource ref="com.wxxr.nirvana.resources.jquer_ui" point="current"></resource>
+			<resource ref="com.wxxr.nirvana.resources.inspinia" point="current"></resource>
+			<resource ref="com.wxxr.nirvana.resources.toastrjs" point="current"></resource>
+			<resource ref="com.wxxr.nirvana.resources.Chart" point="current"></resource>
+			<resource ref="com.wxxr.nirvana.resources.embeddedjs1" point="current"></resource>
+			<resource ref="com.wxxr.nirvana.resources.embeddedjs2" point="current"></resource>
+			<resource ref="com.wxxr.nirvana.resources.embeddedjs3" point="current"></resource>
+			<resource ref="com.wxxr.nirvana.resources.jquery_flot" point="current"></resource>
+			<resource ref="com.wxxr.nirvana.resources.query_flot_tooltip" point="current"></resource>
+			<resource ref="com.wxxr.nirvana.resources.jquery_flot_spline" point="current"></resource>
+			<resource ref="com.wxxr.nirvana.resources.jquery_flot_resize" point="current"></resource>
+			<resource ref="com.wxxr.nirvana.resources.jquery_flot_pie_js" point="current"></resource>
+			<resource ref="com.wxxr.nirvana.resources.sparkline" point="current"></resource>
+			<resource ref="com.wxxr.nirvana.resources.sparkline_demo" point="current"></resource>
 			
 			
 			
@@ -85,169 +85,6 @@
 		</uirender>
    </extension>
 
-
-   <extension point="com.wxxr.nirvana.platform.resources" id="pages.niravanaPage">
-		<resource
-				id="bootstrap"   
-				uri="css/bootstrap.min.css"
-				type="css"
-				>
-		</resource>
-
-		<resource
-				id="awesome"   
-				uri="css/font-awesome.css"
-				type="css"
-				>
-		</resource>
-		
-		<resource
-				id="toastrcss"   
-				uri="css/toastr.min.css"
-				type="css"
-				>
-		</resource>
-		
-		<resource
-				id="animate"   
-				uri="css/animate.css"
-				type="css"
-				>
-		</resource>
-		
-		<resource
-				id="style"   
-				uri="css/style.css"
-				type="css"
-				>
-		</resource>
-		
-		<resource
-				id="jquery"   
-				uri="js/jquery-2.1.1.js"
-				type="js"
-				>
-		</resource>
-		
-		<resource
-				id="bootstrapjs"   
-				uri="js/bootstrap.min.js"
-				type="js"
-				>
-		</resource>
-		
-		<resource
-				id="jquery_metisMenu"   
-				uri="js/jquery.metisMenu.js"
-				type="js"
-				>
-		</resource>
-		<resource
-				id="jquery_slimscroll"   
-				uri="js/jquery.slimscroll.min.js"
-				type="js"
-				>
-		</resource>
-		
-		<resource
-				id="jquer_ui"   
-				uri="js/jquery-ui.min.js"
-				type="js"
-				>
-		</resource>
-		
-		<resource
-				id="inspinia"   
-				uri="js/inspinia.js"
-				type="js"
-				>
-		</resource>
-		
-		<resource
-				id="toastrjs"   
-				uri="js/toastr.min.js"
-				type="js"
-				>
-		</resource>
-		
-		
-		<resource
-				id="embeddedjs1"   
-				uri="js/embeddedjs1.js"
-				type="js"
-				>
-		</resource>
-		
-		<resource
-				id="embeddedjs2"   
-				uri="js/embeddedjs2.js"
-				type="js"
-				>
-		</resource>
-		
-		<resource
-				id="embeddedjs3"   
-				uri="js/embeddedjs3.js"
-				type="js"
-				>
-		</resource>
-		
-		<resource
-				id="jquery_flot"   
-				uri="js/jquery.flot.js"
-				type="js"
-				>
-		</resource>
-		
-		<resource
-				id="query_flot_tooltip"   
-				uri="js/jquery.flot.tooltip.min.js"
-				type="js"
-				>
-		</resource>
-		
-		<resource
-				id="jquery_flot_spline"   
-				uri="js/jquery.flot.spline.js"
-				type="js"
-				>
-		</resource>
-		
-		<resource
-				id="jquery_flot_resize"   
-				uri="js/jquery.flot.resize.js"
-				type="js"
-				>
-		</resource>
-		
-		<resource
-				id="jquery_flot_pie_js"   
-				uri="js/jquery.flot.pie.js"
-				type="js"
-				>
-		</resource>
-		
-	 	<resource
-				id="sparkline"   
-				uri="js/jquery.sparkline.min.js"
-				type="js"
-				>
-		</resource>
-		
-		<resource
-				id="sparkline_demo"   
-				uri="js/sparkline-demo.js"
-				type="js"
-				>
-		</resource>
-		
-		<resource
-				id="Chart"   
-				uri="js/Chart.min.js"
-				type="js"
-				>
-		</resource>
-   </extension>
 
 
    

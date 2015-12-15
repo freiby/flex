@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<plugin
+   id="com.wxxr.nirvana.resources"
+   name="FlexWebUI"
+   version="1.0.0"
+   provider-name="wxxr.com.cn"
+   contextURI="flexWeb"
+   messagebundle="styleMessage"
+   >
+
+   <extension point="com.wxxr.nirvana.platform.resources" id="pages.niravanaPage">
+		<resource
+				id="bootstrap"   
+				uri="css/bootstrap.min.css"
+				type="css"
+				>
+		</resource>
+
+		<resource
+				id="awesome"   
+				uri="css/font-awesome.css"
+				type="css"
+				>
+		</resource>
+		
+		<resource
+				id="toastrcss"   
+				uri="css/toastr.min.css"
+				type="css"
+				>
+		</resource>
+		
+		<resource
+				id="animate"   
+				uri="css/animate.css"
+				type="css"
+				>
+		</resource>
+		
+		<resource
+				id="style"   
+				uri="css/style.css"
+				type="css"
+				>
+		</resource>
+		
+		<resource
+				id="jquery"   
+				uri="js/jquery-2.1.1.js"
+				type="js"
+				>
+		</resource>
+		
+		<resource
+				id="bootstrapjs"   
+				uri="js/bootstrap.min.js"
+				type="js"
+				>
+		</resource>
+		
+		<resource
+				id="jquery_metisMenu"   
+				uri="js/jquery.metisMenu.js"
+				type="js"
+				>
+		</resource>
+		<resource
+				id="jquery_slimscroll"   
+				uri="js/jquery.slimscroll.min.js"
+				type="js"
+				>
+		</resource>
+		
+		<resource
+				id="jquer_ui"   
+				uri="js/jquery-ui.min.js"
+				type="js"
+				>
+		</resource>
+		
+		<resource
+				id="inspinia"   
+				uri="js/inspinia.js"
+				type="js"
+				>
+		</resource>
+		
+		<resource
+				id="toastrjs"   
+				uri="js/toastr.min.js"
+				type="js"
+				>
+		</resource>
+		
+		
+		<resource
+				id="embeddedjs1"   
+				uri="js/embeddedjs1.js"
+				type="js"
+				>
+		</resource>
+		
+		<resource
+				id="embeddedjs2"   
+				uri="js/embeddedjs2.js"
+				type="js"
+				>
+		</resource>
+		
+		<resource
+				id="embeddedjs3"   
+				uri="js/embeddedjs3.js"
+				type="js"
+				>
+		</resource>
+		
+		<resource
+				id="jquery_flot"   
+				uri="js/jquery.flot.js"
+				type="js"
+				>
+		</resource>
+		
+		<resource
+				id="query_flot_tooltip"   
+				uri="js/jquery.flot.tooltip.min.js"
+				type="js"
+				>
+		</resource>
+		
+		<resource
+				id="jquery_flot_spline"   
+				uri="js/jquery.flot.spline.js"
+				type="js"
+				>
+		</resource>
+		
+		<resource
+				id="jquery_flot_resize"   
+				uri="js/jquery.flot.resize.js"
+				type="js"
+				>
+		</resource>
+		
+		<resource
+				id="jquery_flot_pie_js"   
+				uri="js/jquery.flot.pie.js"
+				type="js"
+				>
+		</resource>
+		
+	 	<resource
+				id="sparkline"   
+				uri="js/jquery.sparkline.min.js"
+				type="js"
+				>
+		</resource>
+		
+		<resource
+				id="sparkline_demo"   
+				uri="js/sparkline-demo.js"
+				type="js"
+				>
+		</resource>
+		
+		<resource
+				id="Chart"   
+				uri="js/Chart.min.js"
+				type="js"
+				>
+		</resource>
+   </extension>
+
+
+   
+</plugin> 
