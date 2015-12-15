@@ -78,12 +78,7 @@
 				>
 		</resource>
 		
-		<resource
-				id="inspinia"   
-				uri="js/inspinia.js"
-				type="js"
-				>
-		</resource>
+		
 		
 		<resource
 				id="toastrjs"   
@@ -93,26 +88,7 @@
 		</resource>
 		
 		
-		<resource
-				id="embeddedjs1"   
-				uri="js/embeddedjs1.js"
-				type="js"
-				>
-		</resource>
 		
-		<resource
-				id="embeddedjs2"   
-				uri="js/embeddedjs2.js"
-				type="js"
-				>
-		</resource>
-		
-		<resource
-				id="embeddedjs3"   
-				uri="js/embeddedjs3.js"
-				type="js"
-				>
-		</resource>
 		
 		<resource
 				id="jquery_flot"   

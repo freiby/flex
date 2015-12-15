@@ -35,12 +35,12 @@
 			<resource ref="com.wxxr.nirvana.resources.jquery_metisMenu" point="current"></resource>
 			<resource ref="com.wxxr.nirvana.resources.jquery_slimscroll" point="current"></resource>
 			<resource ref="com.wxxr.nirvana.resources.jquer_ui" point="current"></resource>
-			<resource ref="com.wxxr.nirvana.resources.inspinia" point="current"></resource>
+			<resource ref="com.wxxr.nirvana.style.inspinia" point="current"></resource>
 			<resource ref="com.wxxr.nirvana.resources.toastrjs" point="current"></resource>
 			<resource ref="com.wxxr.nirvana.resources.Chart" point="current"></resource>
-			<resource ref="com.wxxr.nirvana.resources.embeddedjs1" point="current"></resource>
-			<resource ref="com.wxxr.nirvana.resources.embeddedjs2" point="current"></resource>
-			<resource ref="com.wxxr.nirvana.resources.embeddedjs3" point="current"></resource>
+			<resource ref="com.wxxr.nirvana.style.embeddedjs1" point="current"></resource>
+			<resource ref="com.wxxr.nirvana.style.embeddedjs2" point="current"></resource>
+			<resource ref="com.wxxr.nirvana.style.embeddedjs3" point="current"></resource>
 			<resource ref="com.wxxr.nirvana.resources.jquery_flot" point="current"></resource>
 			<resource ref="com.wxxr.nirvana.resources.query_flot_tooltip" point="current"></resource>
 			<resource ref="com.wxxr.nirvana.resources.jquery_flot_spline" point="current"></resource>
@@ -86,6 +86,33 @@
    </extension>
 
 
-
-   
+   <extension point="com.wxxr.nirvana.platform.resources" id="pages.niravanaPage">
+		<resource
+				id="embeddedjs1"   
+				uri="js/embeddedjs1.js"
+				type="js"
+				>
+		</resource>
+		
+		<resource
+				id="embeddedjs2"   
+				uri="js/embeddedjs2.js"
+				type="js"
+				>
+		</resource>
+		
+		<resource
+				id="embeddedjs3"   
+				uri="js/embeddedjs3.js"
+				type="js"
+				>
+		</resource>
+		
+		<resource
+				id="inspinia"   
+				uri="js/inspinia.js"
+				type="js"
+				>
+		</resource>
+   </extension>
 </plugin> 
