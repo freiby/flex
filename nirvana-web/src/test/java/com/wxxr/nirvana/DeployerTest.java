@@ -9,6 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.wxxr.nirvana.deploy.tomcat.PluginDeployer;
+import com.wxxr.nirvana.platform.IPlatform;
 import com.wxxr.nirvana.platform.IPluginDescriptor;
 import com.wxxr.nirvana.platform.PlatformLocator;
 import com.wxxr.nirvana.platform.PlatformTest;
@@ -23,9 +24,10 @@ public class DeployerTest {
 	@Test
 	public void testDeployer() throws InterruptedException {
 		// 1 boostrap deployer listener platform
+		IPlatform platform = PlatformLocator.getPlatform();
 		PluginDeployer deployer = PluginDeployer.getPluginDeployer();
 		deployer.init("target/web");
-		deployer.start();
+		deployer.start(platform);
 
 		// 2 boostrap platform
 		try {

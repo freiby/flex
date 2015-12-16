@@ -4,6 +4,7 @@ import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNotNull;
 
 import java.net.URL;
+import java.util.HashMap;
 import java.util.List;
 
 import org.junit.Before;
@@ -42,7 +43,7 @@ public class WorkbenchTest {
 
 	@Test
 	public void testWorkbenchCreate() {
-		Workbench workbench = new Workbench();
+		Workbench workbench = new Workbench(new HashMap<String, Object>());
 		IProduct p = workbench.getProductManager().getProductById(
 				"com.wxxr.nirvana.test.nirvana");
 		assertNotNull(p);

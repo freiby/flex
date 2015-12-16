@@ -2,12 +2,11 @@ package com.wxxr.nirvana.inspinia.style;
 
 import javax.servlet.jsp.PageContext;
 
-import com.wxxr.nirvana.ContainerAccess;
 import com.wxxr.nirvana.context.IRequestContext;
 import com.wxxr.nirvana.exception.NirvanaException;
 import com.wxxr.nirvana.ui.PageNavigationContext.PageNavigation;
+import com.wxxr.nirvana.ui.support.PageBeanWrap;
 import com.wxxr.nirvana.util.JspUtil;
-import com.wxxr.nirvana.workbench.IProduct;
 import com.wxxr.nirvana.workbench.IRenderContext;
 import com.wxxr.nirvana.workbench.IWorkbenchPage;
 import com.wxxr.nirvana.workbench.impl.CommonRender;
@@ -21,16 +20,9 @@ public class PageNavigationRender extends CommonRender {
 		try {
 			if(pages != null){
 				PageBeanWrap[] pagebeans = new PageBeanWrap[pages.length];
-				IProduct product = ContainerAccess.getSessionWorkbench().getCurrentProduct();
-				IWorkbenchPage currentPage = ContainerAccess.getSessionWorkbench().getCurrentPage();
 				int i = 0;
 				for(IWorkbenchPage page : pages){
-					PageBeanWrap pbw = new PageBeanWrap();
-					pbw.setLink("startPage.action?page=" + page.getName());//startProduct.action?name=nirvana
-					if(currentPage.getId() .equals(page.getId())){
-						pbw.setActive(true);
-					}
-					pbw.setName(page.getName());
+					PageBeanWrap pbw = new PageBeanWrap(page);
 					pagebeans[i] = pbw;
 					i++;
 				}

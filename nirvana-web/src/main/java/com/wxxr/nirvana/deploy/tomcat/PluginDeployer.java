@@ -2,17 +2,16 @@ package com.wxxr.nirvana.deploy.tomcat;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.io.FileUtils;
 
-import com.wxxr.nirvana.exception.NirvanaException;
 import com.wxxr.nirvana.platform.CoreException;
 import com.wxxr.nirvana.platform.IPlatform;
 import com.wxxr.nirvana.platform.IPlatformListener;
+import com.wxxr.nirvana.platform.IPluginDeployerContext;
 import com.wxxr.nirvana.platform.PlatformEvent;
 import com.wxxr.nirvana.platform.PlatformLocator;
 
@@ -22,16 +21,18 @@ import com.wxxr.nirvana.platform.PlatformLocator;
  * @author fudapeng
  *
  */
-public class PluginDeployer {
+public class PluginDeployer implements IPluginDeployerContext{
 	private static PluginDeployer ins = null;
 	private PlatformListener listener = new PlatformListener();
 	private String targetPath;
 
-	private static final String PLUGINS_DIR = "plugins" + File.separatorChar;
+	private static final String PLUGINS_DIR = "plugins" ;
 	private static final String WEBINFOLIB_DIR = "WEB-INF" + File.separatorChar
 			+ "lib" + File.separatorChar;
+	
+	public static final String HTML_DIR = "html";
 	private Map<String, List<File>> jars = new HashMap<String, List<File>>();
-
+	
 	private class PlatformListener implements IPlatformListener {
 		public void onActivePlugin(PlatformEvent event) throws CoreException {
 			try {
@@ -62,8 +63,7 @@ public class PluginDeployer {
 		this.targetPath = target;
 	}
 
-	public void start() {
-		IPlatform platform = PlatformLocator.getPlatform();
+	public void start(IPlatform platform) {
 		platform.addPlatformListener(listener);
 	}
 
@@ -73,21 +73,24 @@ public class PluginDeployer {
 	}
 
 	private void deployPlugin(String id, String version) throws IOException {
+		String deploy = System.getProperty("start.deploy");
+		if(deploy != null && deploy.equals("n")){
+			return;
+		}
 		IPlatform platform = PlatformLocator.getPlatform();
 		String rootPath = platform.getPluginRootDir();
 
 		// 1、lib -- jar file
-		String sourceLibdir = rootPath + File.separatorChar + id
-				+ File.separatorChar + version + File.separatorChar + "lib";
-//		String targetLib = targetPath + File.separatorChar + WEBINFOLIB_DIR;
-		String targetLib = targetPath + File.separatorChar + PLUGINS_DIR + id
-				+ File.separatorChar + version + File.separatorChar;
-		File slibdir = new File(sourceLibdir);
-		File[] files = slibdir.listFiles();
-		File targetLibdir = new File(targetLib);
-		if (!targetLibdir.exists()) {
-			targetLibdir.mkdirs();
-		}
+//		String sourceLibdir = rootPath + File.separatorChar + id
+//				+ File.separatorChar + version + File.separatorChar + "lib";
+//		String targetLib = targetPath + File.separatorChar + PLUGINS_DIR + id
+//				+ File.separatorChar + version + File.separatorChar;
+//		File slibdir = new File(sourceLibdir);
+//		File[] files = slibdir.listFiles();
+//		File targetLibdir = new File(targetLib);
+//		if (!targetLibdir.exists()) {
+//			targetLibdir.mkdirs();
+//		}
 
 //		List<File> jarfiles = new ArrayList<File>();
 //		if (files != null) {
@@ -98,13 +101,13 @@ public class PluginDeployer {
 //		}
 //		jars.put(id, jarfiles);
 		
-		if (slibdir.exists())
-			FileUtils.copyDirectoryToDirectory(slibdir, targetLibdir);
+//		if (slibdir.exists())
+//			FileUtils.copyDirectoryToDirectory(slibdir, targetLibdir);
 
 		// 2 、html
 		String sourceHtmldir = rootPath + File.separatorChar + id
-				+ File.separatorChar + version + File.separatorChar + "html";
-		String targetHtml = targetPath + File.separatorChar + PLUGINS_DIR + id
+				+ File.separatorChar + version + File.separatorChar + HTML_DIR;
+		String targetHtml = targetPath + File.separatorChar + PLUGINS_DIR + File.separatorChar + id
 				+ File.separatorChar + version + File.separatorChar;
 		File shtmldir = new File(sourceHtmldir);
 		File targetdir = new File(targetHtml);
@@ -124,10 +127,18 @@ public class PluginDeployer {
 			}
 		}
 		jars.remove(id);
-		String targetHtml = targetPath + File.separatorChar + PLUGINS_DIR + id
+		String targetHtml = targetPath + File.separatorChar + PLUGINS_DIR + File.separatorChar + id
 				+ File.separatorChar + version;
 		FileUtils.deleteDirectory(new File(targetHtml));
 
+	}
+
+	public String getPluginDir() {
+		return PLUGINS_DIR;
+	}
+
+	public String getPluginHtmlDIR() {
+		return HTML_DIR;
 	}
 
 }

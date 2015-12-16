@@ -8,6 +8,7 @@
  */
 package com.wxxr.nirvana.workbench;
 
+import com.wxxr.nirvana.exception.NirvanaException;
 import com.wxxr.nirvana.platform.IPlatform;
 import com.wxxr.nirvana.theme.ITheme;
 import com.wxxr.nirvana.theme.IThemeManager;
@@ -17,6 +18,8 @@ import com.wxxr.nirvana.theme.IThemeManager;
  *
  */
 public interface IWorkbench {
+	
+	void start()  throws NirvanaException;
 
 	IPermissionsManager getPermissionsManager();
 

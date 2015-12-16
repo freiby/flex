@@ -1,6 +1,7 @@
 package com.wxxr.nirvana.ui;
 
 import com.wxxr.nirvana.ISessionWorkbench;
+import com.wxxr.nirvana.exception.NirvanaException;
 import com.wxxr.nirvana.platform.IPlatform;
 import com.wxxr.nirvana.theme.ITheme;
 import com.wxxr.nirvana.theme.IThemeManager;
@@ -28,15 +29,15 @@ public class WorkbenchProxy implements ISessionWorkbench {
 		this.workbench = workbench;
 	}
 
-	public void setCurrentPage(IWorkbenchPage currentPage) {
+	public synchronized void setCurrentPage(IWorkbenchPage currentPage) {
 		this.currentPage = currentPage;
 	}
 
-	public IProduct getCurrentProduct() {
+	public synchronized IProduct getCurrentProduct() {
 		return currentProduct;
 	}
 
-	public void setCurrentProduct(IProduct currentProduct) {
+	public synchronized void setCurrentProduct(IProduct currentProduct) {
 		this.currentProduct = currentProduct;
 	}
 
@@ -83,7 +84,7 @@ public class WorkbenchProxy implements ISessionWorkbench {
 	public void destroy() {
 	}
 
-	public IWorkbenchPage getCurrentPage() {
+	public synchronized IWorkbenchPage getCurrentPage() {
 		return currentPage;
 	}
 
@@ -93,5 +94,9 @@ public class WorkbenchProxy implements ISessionWorkbench {
 
 	public IUIRenderManager getUIRenderManager() {
 		return workbench.getUIRenderManager();
+	}
+
+	public void start() throws NirvanaException {
+		
 	}
 }
