@@ -11,9 +11,9 @@ import com.wxxr.nirvana.util.JspUtil;
 import com.wxxr.nirvana.workbench.impl.UIComponent;
 import com.wxxr.nirvana.workbench.impl.WorkbenchPage;
 
-public class PageRenderProvider implements IRenderProvider {
+public class PageRenderProvider extends CommonRenderProvider{
 
-	public void render(UIComponent component, IUIRenderContext context)
+	public void doRender(UIComponent component, IUIRenderContext context)
 			throws NirvanaException {
 		IPageContext pagecontext = (IPageContext) context.getComponentContext();
 		IPageLayout layout = pagecontext.getPageLayout();
@@ -25,7 +25,6 @@ public class PageRenderProvider implements IRenderProvider {
 		} catch (IOException e) {
 			throw new NirvanaException(e);
 		}
-
 	}
 
 	public String processComponent() {

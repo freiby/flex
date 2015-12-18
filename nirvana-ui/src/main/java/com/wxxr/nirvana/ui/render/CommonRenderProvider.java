@@ -1,6 +1,7 @@
 package com.wxxr.nirvana.ui.render;
 
 import com.wxxr.nirvana.IRenderProvider;
+import com.wxxr.nirvana.IUIComponentContext;
 import com.wxxr.nirvana.IUIRenderContext;
 import com.wxxr.nirvana.context.IRequestContext;
 import com.wxxr.nirvana.exception.NirvanaException;
@@ -22,8 +23,8 @@ public abstract class CommonRenderProvider implements IRenderProvider {
 	private IRenderContext createContext(final IUIRenderContext context) {
 		IRenderContext rcontext = new IRenderContext() {
 			public <T> T get(Class<T> type) {
-				if(type == IRequestContext.class){
-					return type.cast(context.getRequestContext());
+				if(type == IUIRenderContext.class){
+					return type.cast(context);
 				}
 				return null;
 			}

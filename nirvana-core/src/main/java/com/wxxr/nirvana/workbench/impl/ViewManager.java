@@ -17,10 +17,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.wxxr.nirvana.platform.CoreException;
 import com.wxxr.nirvana.platform.IConfigurationElement;
 import com.wxxr.nirvana.platform.IExtension;
-import com.wxxr.nirvana.platform.IPluginDescriptor;
 import com.wxxr.nirvana.workbench.IRender;
 import com.wxxr.nirvana.workbench.IView;
 import com.wxxr.nirvana.workbench.IViewManager;
@@ -39,13 +37,9 @@ public class ViewManager extends BaseExtensionPointManager implements
 	private static final Log log = LogFactory.getLog(ViewManager.class);
 	private static final IView[] EMPTY_VIEWS = new IView[0];
 
-	private static final String VIEW_TYPE_SIMPLE = "simple";
-	private static final String VIEW_TYPE_COMPOSITE = "composite";
 
 	private static final String VIEW_ELEMENT_NAME = "view";
 	private static final String ATT_VIEW_ID = "id";
-	private static final String ATT_TYPE = "type";
-	private static final String ATT_CLASS = "class";
 	private static final String ATT_RENDER = "render";
 
 	protected Map<String, IView> views = new ConcurrentHashMap<String, IView>();
@@ -53,13 +47,53 @@ public class ViewManager extends BaseExtensionPointManager implements
 	protected IWorkbench workbench;
 	protected ICreateRenderContext context;
 
+	public static final String ID_SEP = ":";
+
 	public ViewManager(ICreateRenderContext context) {
 		super(UIConstants.UI_NAMESPACE, UIConstants.EXTENSION_POINT_VIEWS);
 		this.context = context;
 	}
 
-	public IView find(String id) {
-		return views.get(id);
+	public static String extractSecondaryId(String compoundId) {
+		int i = compoundId.lastIndexOf(ID_SEP);
+		if (i == -1) {
+			return null;
+		}
+		return compoundId.substring(i + 1);
+	}
+
+	public static String extractPrimaryId(String compoundId) {
+		int i = compoundId.lastIndexOf(ID_SEP);
+		if (i == -1) {
+			return compoundId;
+		}
+		return compoundId.substring(0, i);
+	}
+
+	public IView find(String compoundId) {
+		String sid = extractSecondaryId(compoundId);
+		String id = extractPrimaryId(compoundId);
+		return find(id, sid);
+
+	}
+
+	public IView find(String id, String secondId) {
+		if (StringUtils.isBlank(secondId)) {
+			return views.get(id);
+		} else {
+			return views.get(id + ":" + secondId);
+		}
+	}
+
+	public IView createViewIfPrimaryIdView(String compoundId) throws Exception{
+		String id = extractPrimaryId(compoundId);
+		String sid = extractSecondaryId(compoundId);
+		IView v = find(id, null);
+		if (v != null && StringUtils.isNoneBlank(sid)) {
+			IConfigurationElement elem = v.getConfigurationElement();
+			return createNewView(elem);
+		}
+		return null;
 	}
 
 	public IView[] getViews() {
@@ -78,7 +112,10 @@ public class ViewManager extends BaseExtensionPointManager implements
 	protected IView createNewView(IConfigurationElement elem) throws Exception {
 		String id = elem.getNamespaceIdentifier() + "."
 				+ elem.getAttribute(ATT_VIEW_ID);
-		IView view = find(id);
+
+		String sid = extractSecondaryId(id);
+		String pid = extractPrimaryId(id);
+		IView view = find(pid, sid);
 		if (view == null) {
 			view = new View();
 			String renderId = elem.getAttribute(ATT_RENDER);
@@ -148,7 +185,7 @@ public class ViewManager extends BaseExtensionPointManager implements
 	}
 
 	public IView removeView(String id) {
-		IView view = find(id);
+		IView view = find(id, null);
 		if (view != null) {
 			views.remove(id);
 		}

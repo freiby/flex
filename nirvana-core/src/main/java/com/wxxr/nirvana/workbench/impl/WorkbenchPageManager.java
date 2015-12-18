@@ -72,7 +72,7 @@ public class WorkbenchPageManager extends BaseExtensionPointManager implements
 		if (page != null) {
 			return page;
 		}
-		page = new WorkbenchPage();
+		page = new WorkbenchPage(context);
 		String rid = elem.getAttribute(ATT_RENDER);
 		IRender render = null;
 		if (StringUtils.isNotBlank(rid)) {

@@ -61,7 +61,7 @@ public class WebResourceContainerImpl implements IWebResourceContainer {
 		}
 		ViewRef[] viewrefs = page.getAllViewRefs();
 		for (ViewRef viewref : viewrefs) {
-			IView view = workbench.getViewManager().find(viewref.getId());
+			IView view = page.getViewsById(viewref.getId());
 			ResourceRef[] viewRrefs = view.getResourcesRef();
 			if (viewRrefs == null)
 				continue;

@@ -2,6 +2,9 @@ package com.wxxr.nirvana.ui;
 
 import java.util.Map;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import com.wxxr.nirvana.ContainerAccess;
 import com.wxxr.nirvana.ISessionWorkbench;
 import com.wxxr.nirvana.workbench.IContributionItem;
@@ -13,6 +16,7 @@ public class ViewContext extends UIComponentContext {
 
 	private ViewRef[] viewrefs;
 	private ISessionWorkbench workbench = null;
+	private Log log = LogFactory.getLog(ViewContext.class);
 
 	public ViewContext(IContributionItem uiContribute, ViewRef[] viewrefs) {
 		super(uiContribute);
@@ -20,12 +24,12 @@ public class ViewContext extends UIComponentContext {
 		workbench = ContainerAccess.getSessionWorkbench();
 	}
 
-	private IView pickUp(Map<String, Object> parameters) {
+	private IView pickUp(Map<String, Object> parameters) throws Exception {
 		if (parameters.containsKey("anchor")) {
 			String anchor = (String) parameters.get("anchor");
 			for (ViewRef item : viewrefs) {
 				if (item.get("attachment").equals(anchor)) {
-					IView view = workbench.getViewManager().find(item.getId());
+					IView view = workbench.getCurrentPage().createViewIfPrimaryIdView(item.getId());
 					return view;
 				}
 			}
@@ -34,7 +38,12 @@ public class ViewContext extends UIComponentContext {
 	}
 
 	public UIComponent getCurrentComponent(Map<String, Object> parameters) {
-		IView view = pickUp(parameters);
+		IView view = null;
+		try {
+			view = pickUp(parameters);
+		} catch (Exception e) {
+			log.error("pickup view error" + e);
+		}
 		return (UIComponent) view;
 	}
 

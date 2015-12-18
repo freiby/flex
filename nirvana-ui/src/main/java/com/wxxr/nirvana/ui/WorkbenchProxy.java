@@ -53,10 +53,6 @@ public class WorkbenchProxy implements ISessionWorkbench {
 		return workbench.getUIPlatform();
 	}
 
-	public IViewManager getViewManager() {
-		return workbench.getViewManager();
-	}
-
 	public ITheme getCurrentTheme() {
 		return workbench.getCurrentTheme();
 	}

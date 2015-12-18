@@ -20,6 +20,10 @@ public interface IWorkbenchPage extends IUIContributionItem {
 			IRender render);
 
 	IView getViewsById(String id);
+	
+	public IView createViewIfPrimaryIdView(String id)  throws Exception;
+	
+	public IView[] getViews();
 
 	String[] getAllViewIds();
 
@@ -28,6 +32,10 @@ public interface IWorkbenchPage extends IUIContributionItem {
 	ViewRef getViewRefById(String id);
 
 	boolean hasView(String vid);
+	
+	void addView(String vid);
+	
+	void removeView(String vid);
 
 	void destroy();
 

@@ -10,6 +10,8 @@ public interface IViewManager {
 	 * @return the descriptor or <code>null</code>
 	 */
 	public IView find(String id);
+	
+	public IView createViewIfPrimaryIdView(String id)  throws Exception;
 
 	/**
 	 * Return a list of views defined in the registry.

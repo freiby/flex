@@ -2,6 +2,7 @@ package com.wxxr.nirvana.inspinia.style;
 
 import javax.servlet.jsp.PageContext;
 
+import com.wxxr.nirvana.IUIRenderContext;
 import com.wxxr.nirvana.context.IRequestContext;
 import com.wxxr.nirvana.exception.NirvanaException;
 import com.wxxr.nirvana.ui.PageNavigationContext.PageNavigation;
@@ -26,7 +27,7 @@ public class PageNavigationRender extends CommonRender {
 					pagebeans[i] = pbw;
 					i++;
 				}
-				context.get(IRequestContext.class).getPageContext().setAttribute("pages", pagebeans, PageContext.REQUEST_SCOPE);
+				context.get(IUIRenderContext.class).getRequestContext().getPageContext().setAttribute("pages", pagebeans, PageContext.REQUEST_SCOPE);
 			}
 			context.get(IRequestContext.class).dispatch((JspUtil.getRealPath(getContributorId(), getContributorVersion(), getUri())));
 		} catch (Exception e) {

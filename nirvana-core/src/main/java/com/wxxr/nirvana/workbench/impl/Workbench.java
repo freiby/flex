@@ -41,8 +41,6 @@ public class Workbench implements IWorkbench {
 
 	private IWorkbenchPageManager workbenchPageManager;
 
-	private IViewManager viewManager;
-
 	private IProductManager productManager;
 
 	private IWebResourceManager webresourceManager;
@@ -56,6 +54,7 @@ public class Workbench implements IWorkbench {
 	private Map<String, Object> config = new HashMap<String, Object>();
 
 	public Workbench(Map<String, Object> config) {
+		if(config != null)
 		this.config = config;
 	}
 
@@ -109,14 +108,6 @@ public class Workbench implements IWorkbench {
 
 	public IPlatform getUIPlatform() {
 		return PlatformLocator.getPlatform();
-	}
-
-	public IViewManager getViewManager() {
-		if (viewManager == null) {
-			viewManager = new ViewManager(getCreateContext());
-			viewManager.start();
-		}
-		return viewManager;
 	}
 
 	private ICreateRenderContext getCreateContext() {

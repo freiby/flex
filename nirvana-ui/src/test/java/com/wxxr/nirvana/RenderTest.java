@@ -44,7 +44,7 @@ public class RenderTest {
 		WorkbenchTest workbenchTest = new WorkbenchTest();
 		workbenchTest.setUp();
 
-		workbench = new Workbench();
+		workbench = new Workbench(null);
 		EasyMock.expect(
 				servletContext
 						.getAttribute(ContainerAccess.WORKBENCH_ATTRIBUTE))
@@ -97,8 +97,9 @@ public class RenderTest {
 				request.getRequestDispatcher("plugins/com.wxxr.nirvana.style/1.0.0/html/pagelayouturi"))
 				.andReturn(dispatcher).anyTimes();
 		
+		request.setAttribute("org.apache.tiles.servlet.context.ServletTilesRequestContext.FORCE_INCLUDE", true);
 		
-		
+		EasyMock.expect(request.getRequestDispatcher("index.jsp")).andReturn(dispatcher).anyTimes();
 		dispatcher.include(request, response);
 
 		InvokeContext invokeContext = new InvokeContext();

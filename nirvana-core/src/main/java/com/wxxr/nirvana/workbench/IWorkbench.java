@@ -27,8 +27,6 @@ public interface IWorkbench {
 
 	IPlatform getUIPlatform();
 
-	IViewManager getViewManager();
-
 	ITheme getCurrentTheme();
 
 	IThemeManager getThemeManager();
