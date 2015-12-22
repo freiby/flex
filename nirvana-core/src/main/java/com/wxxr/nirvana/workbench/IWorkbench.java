@@ -40,6 +40,8 @@ public interface IWorkbench {
 	IPageLayoutManager getPageLayoutManager();
 	
 	IUIRenderManager getUIRenderManager();
+	
+	IActionManager getActionManager();
 
 	void destroy();
 }

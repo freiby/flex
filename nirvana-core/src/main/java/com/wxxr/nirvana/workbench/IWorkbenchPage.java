@@ -35,6 +35,8 @@ public interface IWorkbenchPage extends IUIContributionItem {
 	
 	void addView(String vid);
 	
+	void addView(ViewRef viewRef);
+	
 	void removeView(String vid);
 
 	void destroy();

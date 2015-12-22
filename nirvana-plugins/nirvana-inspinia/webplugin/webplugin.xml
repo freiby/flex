@@ -12,7 +12,7 @@
             navRender="com.wxxr.nirvana.style.nirvanapagelayout"
             >
 			<page ref="com.wxxr.nirvana.test.niravanaPage" index="1" defaulPage="true" layout="com.wxxr.nirvana.style.nirvanapagelayout"/>
-			<page ref="com.wxxr.nirvana.test.lionPage" index="2" layout="com.wxxr.nirvana.style.nirvanapagelayout2"/>
+			<page ref="com.wxxr.nirvana.test.lionPage" index="2" layout="com.wxxr.nirvana.test.nirvanapagelayout2"/>
       </product>
 
    </extension>
@@ -25,8 +25,8 @@
 			>
             
             <view ref="com.wxxr.nirvana.test.chart1" attachment="headerone"></view>
-            <view ref="com.wxxr.nirvana.test.chart2" attachment="headertwo">></view>
-            <view ref="com.wxxr.nirvana.test.chart3" attachment="headerthree">></view>
+            <view ref="com.wxxr.nirvana.test.chart2" attachment="headertwo"></view>
+            <view ref="com.wxxr.nirvana.test.chart3" attachment="headerthree"></view>
             
       </page>
 
@@ -36,8 +36,8 @@
             name="lion">
 
 			<view ref="com.wxxr.nirvana.test.chart1" attachment="headerone"></view>
-            <view ref="com.wxxr.nirvana.test.helloWorld" attachment="headertwo">></view>
-            <view ref="com.wxxr.nirvana.test.chart3" attachment="headerthree">></view>
+            <!-- <view ref="com.wxxr.nirvana.test.helloWorld" attachment="headertwo"></view> -->
+            <view ref="com.wxxr.nirvana.test.chart3" attachment="headerthree"></view>
       </page>
       
    </extension>
@@ -112,6 +112,37 @@
 				>
 		  </resource>
      </extension>
+     
+     <extension point="com.wxxr.nirvana.platform.actions" id="pages.actions">
+		  <action
+				id="addViewAction"     
+				class="com.wxxr.nirvana.inspinia.SomethingAction"
+				>
+		  </action> 
+     </extension>
+     
+     
+     <extension
+         id="nirvana"
+         point="com.wxxr.nirvana.platform.pagelayouts">
+			<pageLayout
+				id="nirvanapagelayout2"
+				name="layout"
+				description="layoutdesc"
+				render="com.wxxr.nirvana.test.pageLayoutRender">
+			</pageLayout>
+   </extension>
+   
+   <extension
+         id="renders"
+         point="com.wxxr.nirvana.platform.uirenders">
+	  	<uirender
+				id="pageLayoutRender"
+				description="nirvanapagelayout"
+				uri="menu.jsp"
+				class="com.wxxr.nirvana.inspinia.PageLayoutRender">
+		</uirender>
+   </extension>
 
 
 

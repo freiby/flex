@@ -26,4 +26,5 @@
    <extension-point id="products" name="%initLayout" schema="schema/initLayout.exsd"/>
    <extension-point id="pagelayouts" name="%initLayout" schema="schema/initLayout.exsd"/>
    <extension-point id="uirenders" name="%uirenders" schema="schema/uirenders.exsd"/>
+   <extension-point id="actions" name="%actions" schema="schema/actions.exsd"/>
 </plugin>

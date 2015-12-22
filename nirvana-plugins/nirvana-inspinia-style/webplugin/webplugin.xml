@@ -69,7 +69,7 @@
 				id="nirvanapagelayout2"
 				name="layout"
 				description="layoutdesc"
-				uri="pageContainer.jsp">
+				class="com.wxxr.nirvana.inspinia.style.PageLayoutRender">
 			</pageLayout>
    </extension>
    

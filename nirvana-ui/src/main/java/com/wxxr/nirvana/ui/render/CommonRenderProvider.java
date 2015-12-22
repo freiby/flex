@@ -20,7 +20,7 @@ public abstract class CommonRenderProvider implements IRenderProvider {
 		doRender(component, context);
 	}
 
-	private IRenderContext createContext(final IUIRenderContext context) {
+	protected IRenderContext createContext(final IUIRenderContext context) {
 		IRenderContext rcontext = new IRenderContext() {
 			public <T> T get(Class<T> type) {
 				if(type == IUIRenderContext.class){

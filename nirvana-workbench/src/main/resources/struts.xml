@@ -13,6 +13,7 @@
 	<package name="default" extends="struts-default">
 		<result-types>
 			<result-type name="boostrapresult" class="com.wxxr.nirvana.result.BoostrapResult" />
+			<result-type name="pageactionresult" class="com.wxxr.nirvana.result.PageActionResult" />
 			
 		</result-types>
 		<action name="startProduct" method="startProduct"
@@ -21,7 +22,12 @@
 		</action>
 		<action name="startPage" method="startPage"
 		class="com.wxxr.nirvana.action.BoostrapAction">
-			<result name="start" type="boostrapresult">${pageName}</result>
+			<result name="start" type="boostrapresult"></result>
+		</action>
+		
+		<action name="doPage" method="invokeAction"
+		class="com.wxxr.nirvana.action.PageAction">
+			<result name="start" type="pageactionresult"></result>
 		</action>
 	</package>
 

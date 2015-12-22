@@ -19,6 +19,7 @@ import com.wxxr.nirvana.platform.IPlatform;
 import com.wxxr.nirvana.platform.PlatformLocator;
 import com.wxxr.nirvana.theme.ITheme;
 import com.wxxr.nirvana.theme.IThemeManager;
+import com.wxxr.nirvana.workbench.IActionManager;
 import com.wxxr.nirvana.workbench.IPageLayoutManager;
 import com.wxxr.nirvana.workbench.IPermissionsManager;
 import com.wxxr.nirvana.workbench.IProductManager;
@@ -48,6 +49,8 @@ public class Workbench implements IWorkbench {
 	private IPageLayoutManager pageLayoutManager;
 
 	private IUIRenderManager renderManager;
+	
+	private IActionManager actionManager;
 
 	private Log log = LogFactory.getLog(Workbench.class);
 
@@ -140,6 +143,14 @@ public class Workbench implements IWorkbench {
 			renderManager.start();
 		}
 		return renderManager;
+	}
+	
+	public IActionManager getActionManager() {
+		if (actionManager == null) {
+			actionManager = new ActionManager();
+			actionManager.start();
+		}
+		return actionManager;
 	}
 
 	public void start() throws NirvanaException {

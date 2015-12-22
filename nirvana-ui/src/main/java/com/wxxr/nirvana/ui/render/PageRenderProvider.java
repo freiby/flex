@@ -8,6 +8,7 @@ import com.wxxr.nirvana.IRenderProvider;
 import com.wxxr.nirvana.exception.NirvanaException;
 import com.wxxr.nirvana.theme.IPageLayout;
 import com.wxxr.nirvana.util.JspUtil;
+import com.wxxr.nirvana.workbench.IRender;
 import com.wxxr.nirvana.workbench.impl.UIComponent;
 import com.wxxr.nirvana.workbench.impl.WorkbenchPage;
 
@@ -17,6 +18,11 @@ public class PageRenderProvider extends CommonRenderProvider{
 			throws NirvanaException {
 		IPageContext pagecontext = (IPageContext) context.getComponentContext();
 		IPageLayout layout = pagecontext.getPageLayout();
+		IRender layoutRender = layout.getRender();
+		if(layoutRender != null){
+			layoutRender.render(component, createContext(context));
+			return;
+		}
 		String uri = layout.getURI();
 		try {
 			context.getRequestContext().dispatch(

@@ -5,6 +5,7 @@ import com.wxxr.nirvana.exception.NirvanaException;
 import com.wxxr.nirvana.platform.IPlatform;
 import com.wxxr.nirvana.theme.ITheme;
 import com.wxxr.nirvana.theme.IThemeManager;
+import com.wxxr.nirvana.workbench.IActionManager;
 import com.wxxr.nirvana.workbench.IPageLayoutManager;
 import com.wxxr.nirvana.workbench.IPermissionsManager;
 import com.wxxr.nirvana.workbench.IProduct;
@@ -93,6 +94,10 @@ public class WorkbenchProxy implements ISessionWorkbench {
 	}
 
 	public void start() throws NirvanaException {
-		
+		throw new NirvanaException(" not support method !!! ");
+	}
+
+	public IActionManager getActionManager() {
+		return workbench.getActionManager();
 	}
 }

@@ -48,10 +48,10 @@
       'doSomethingObjects', params,
       function(result) { 
         alert('Foo bar answered: ' + result); 
-    },
+        },
       function(error)  { 
         console.log('There was an error', error); 
-    }
+        }
     );
 
 </script>

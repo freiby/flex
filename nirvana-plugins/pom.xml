@@ -18,6 +18,8 @@
   <modules>
     <module>nirvana-inspinia-style</module>
     <module>nirvana-inspinia</module>
+	<module>nirvana-plugins</module>
+	
   </modules>
 
 </project>

@@ -93,7 +93,7 @@ public class ViewManager extends BaseExtensionPointManager implements
 			IConfigurationElement elem = v.getConfigurationElement();
 			return createNewView(elem);
 		}
-		return null;
+		return v;
 	}
 
 	public IView[] getViews() {

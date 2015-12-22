@@ -1,44 +1,69 @@
 <?xml version="1.0"?>
-<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <modelVersion>4.0.0</modelVersion>
-  <parent>
-    <groupId>com.wxxr.nirvana</groupId>
-    <artifactId>nirvana-plugins</artifactId>
-    <version>1.0.0</version>
-  </parent>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.wxxr.nirvana</groupId>
+		<artifactId>nirvana-plugins</artifactId>
+		<version>1.0.0</version>
+	</parent>
 
-  <groupId>com.wxxr.nirvana.plugin</groupId>
-  <artifactId>nirvana-inspinia</artifactId>
-  <version>1.0.0</version>
-  <name>nirvana-inspinia</name>
-  
-  <url>http://maven.apache.org</url>
-  <dependencies>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>3.8.1</version>
-      <scope>test</scope>
-    </dependency>
-  </dependencies>
+	<groupId>com.wxxr.nirvana.plugin</groupId>
+	<artifactId>nirvana-inspinia</artifactId>
+	<version>1.0.0</version>
+	<name>nirvana-inspinia</name>
+
+	<url>http://maven.apache.org</url>
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>3.8.1</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jsp-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.wxxr.nirvana</groupId>
+			<artifactId>nirvana-ui</artifactId>
+			<scope>compile</scope>
+		</dependency>
+	</dependencies>
 
 
-  <build>
-  	<plugins>
-      <plugin>
-        <groupId>com.wxxr.nirvana</groupId>
-        <artifactId>par-maven-plugin</artifactId>
-        <version>1.0.0</version>
-      		 <executions>
-          <execution>
-            <goals>
-              <goal>par</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>com.wxxr.nirvana</groupId>
+				<artifactId>par-maven-plugin</artifactId>
+				<version>1.0.0</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>par</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 
-    </plugins>
-  </build>
+		</plugins>
+	</build>
 </project>

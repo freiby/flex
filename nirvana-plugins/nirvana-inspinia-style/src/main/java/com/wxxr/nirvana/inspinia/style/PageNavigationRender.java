@@ -29,7 +29,7 @@ public class PageNavigationRender extends CommonRender {
 				}
 				context.get(IUIRenderContext.class).getRequestContext().getPageContext().setAttribute("pages", pagebeans, PageContext.REQUEST_SCOPE);
 			}
-			context.get(IRequestContext.class).dispatch((JspUtil.getRealPath(getContributorId(), getContributorVersion(), getUri())));
+			context.get(IUIRenderContext.class).getRequestContext().dispatch((JspUtil.getRealPath(getContributorId(), getContributorVersion(), getUri())));
 		} catch (Exception e) {
 			throw new NirvanaException(e);
 		}

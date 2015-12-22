@@ -9,10 +9,8 @@
 package com.wxxr.nirvana.workbench.impl;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -157,6 +155,12 @@ public class WorkbenchPage extends UIComponent implements IWorkbenchPage {
 
 	public IView[] getViews() {
 		return viewManager.getViews();
+	}
+
+	public void addView(ViewRef viewRef) {
+		if(!hasView(viewRef.id)){
+			viewMap.put(viewRef.id, viewRef);
+		}
 	}
 
 }
