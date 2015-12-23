@@ -25,10 +25,10 @@
 
 <div class="undeploy border">
 	<s:form action="undeploy" method="post"> 
-    <s:textfield name="id" label="id"/> 
-    <s:textfield name="version" label="version"/> 
-    <s:submit/> 
-</s:form> 
+	    <s:textfield name="id" label="id"/> 
+	    <s:textfield name="version" label="version"/> 
+	    <s:submit/> 
+	</s:form> 
 </div>
 </body> 
 </html> 

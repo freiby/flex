@@ -22,12 +22,12 @@
 		</action>
 		<action name="startPage" method="startPage"
 		class="com.wxxr.nirvana.action.BoostrapAction">
-			<result name="start" type="boostrapresult"></result>
+			<result name="start" type="boostrapresult">${pageName}</result>
 		</action>
 		
 		<action name="doPage" method="invokeAction"
 		class="com.wxxr.nirvana.action.PageAction">
-			<result name="start" type="pageactionresult"></result>
+			<result name="start" type="pageactionresult">${pageName}</result>
 		</action>
 	</package>
 

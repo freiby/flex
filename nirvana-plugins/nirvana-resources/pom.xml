@@ -11,7 +11,7 @@
   <groupId>com.wxxr.nirvana.plugin</groupId>
   <artifactId>nirvana-resources</artifactId>
   <version>1.0.0</version>
-  <name>nirvana-inspinia</name>
+  <name>nirvana-resources</name>
   
   <url>http://maven.apache.org</url>
   <dependencies>
