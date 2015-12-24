@@ -25,8 +25,8 @@ public class ProductContext extends UIComponentContext {
 		IUIComponentContext result = null;
 		if (componentName.equals(IUIComponentContext.THEME)) {
 			String theme = product.getTheme();
-			IWorkbench workbench = ContainerAccess.getWorkbench();
-			ITheme th = workbench.getThemeManager().getTheme(theme);
+//			IWorkbench workbench = ContainerAccess.getWorkbench();
+			ITheme th = ContainerAccess.getServiceManager().getThemeManager().getTheme(theme);
 			result = new ThemeContext(th);
 			result.init(this);
 			addChildContext(IUIComponentContext.THEME, result);

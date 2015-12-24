@@ -10,7 +10,6 @@ package com.wxxr.nirvana.platform.impl;
 
 import java.io.File;
 import java.io.FileFilter;
-import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -36,7 +35,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.wxxr.nirvana.exception.NirvanaException;
 import com.wxxr.nirvana.platform.CoreException;
 import com.wxxr.nirvana.platform.IConfigurationElement;
 import com.wxxr.nirvana.platform.IContributor;

@@ -27,6 +27,7 @@ import com.wxxr.nirvana.workbench.IWorkbench;
 import com.wxxr.nirvana.workbench.IWorkbenchPage;
 import com.wxxr.nirvana.workbench.impl.Product.PageRef;
 import com.wxxr.nirvana.workbench.impl.UIComponent;
+import com.wxxr.nirvana.workbench.impl.Workbench;
 
 public class WorkbenchContainerImpl implements IWorkbenchContainer {
 
@@ -41,7 +42,7 @@ public class WorkbenchContainerImpl implements IWorkbenchContainer {
 
 	public void init(HttpServletRequest request, HttpServletResponse response)
 			throws NirvanaException {
-		IWorkbench workbench = ContainerAccess.getWorkbench();
+		IWorkbench workbench = ContainerAccess.getSessionWorkbench();
 		if (workbench == null) {
 			throw new NirvanaException("workbench is not init");
 		}
@@ -166,11 +167,11 @@ public class WorkbenchContainerImpl implements IWorkbenchContainer {
 			throws NirvanaException {
 		if (initialization)
 			return;
-		WorkbenchProxy workbenchProxy = (WorkbenchProxy) ContainerAccess
+		Workbench workbenchProxy = (Workbench) ContainerAccess
 				.getSessionWorkbench();
 		IProduct product = workbenchProxy.getCurrentProduct();
 		if (product == null) {
-			product = workbenchProxy.getProductManager().getProductByName(p);
+			product = ContainerAccess.getServiceManager().getProductManager().getProductByName(p);
 			workbenchProxy.setCurrentProduct(product);
 		}
 		if (product == null) {
@@ -211,9 +212,9 @@ public class WorkbenchContainerImpl implements IWorkbenchContainer {
 		if (pagename.length > 1)
 			throw new NirvanaException("open one page");
 		try {
-			WorkbenchProxy workbenchProxy = (WorkbenchProxy) ContainerAccess
+			Workbench workbenchProxy = (Workbench) ContainerAccess
 					.getSessionWorkbench();
-			if (workbenchProxy.getProductManager() == null) {
+			if (ContainerAccess.getServiceManager().getProductManager() == null) {
 				throw new NirvanaException("please boostrap product");
 			}
 			setupProductContext(workbenchProxy.getCurrentProduct(), request,

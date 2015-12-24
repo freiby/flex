@@ -9,9 +9,7 @@
 package com.wxxr.nirvana.workbench;
 
 import com.wxxr.nirvana.exception.NirvanaException;
-import com.wxxr.nirvana.platform.IPlatform;
 import com.wxxr.nirvana.theme.ITheme;
-import com.wxxr.nirvana.theme.IThemeManager;
 
 /**
  * @author fudapeng
@@ -20,28 +18,11 @@ import com.wxxr.nirvana.theme.IThemeManager;
 public interface IWorkbench {
 	
 	void start()  throws NirvanaException;
-
-	IPermissionsManager getPermissionsManager();
-
-	ISecurityManager getSecurityManager();
-
-	IPlatform getUIPlatform();
-
-	ITheme getCurrentTheme();
-
-	IThemeManager getThemeManager();
-
 	IWorkbenchPageManager getWorkbenchPageManager();
-
-	IProductManager getProductManager();
-
-	IWebResourceManager getWebResourceManager();
-
-	IPageLayoutManager getPageLayoutManager();
-	
-	IUIRenderManager getUIRenderManager();
-	
 	IActionManager getActionManager();
-
+	IProduct getCurrentProduct();
+	IWorkbenchPage getCurrentPage();
+	
+	ITheme getCurrentTheme();
 	void destroy();
 }

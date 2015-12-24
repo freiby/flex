@@ -46,7 +46,7 @@ public class PageNavigationContext extends UIComponentContext {
 		@Override
 		public IRender getRender() {
 			if(navigationRef != null){
-				return  ContainerAccess.getSessionWorkbench().getUIRenderManager().find(navigationRef);
+				return  ContainerAccess.getServiceManager().getUIRenderManager().find(navigationRef);
 			}
 			return null;
 		}

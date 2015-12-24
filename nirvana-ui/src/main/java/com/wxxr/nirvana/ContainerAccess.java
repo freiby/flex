@@ -27,6 +27,7 @@ import org.apache.commons.logging.LogFactory;
 
 import com.wxxr.nirvana.context.NirvanaServletContext;
 import com.wxxr.nirvana.exception.NirvanaException;
+import com.wxxr.nirvana.workbench.IServiceManager;
 import com.wxxr.nirvana.workbench.IWorkbench;
 
 /**
@@ -57,20 +58,28 @@ public final class ContainerAccess {
 	public static final String WORKBENCH_ATTRIBUTE = "com.wxxr.nirvana.WORKBENCH";
 
 	public static final String WORKBENCH_SESSION_ATTRIBUTE = "com.wxxr.nirvana.SESSIONWORKBENCH";
-
-	public static IWorkbench getWorkbench() {
-		return (IWorkbench) NirvanaServletContext.getContext()
+	public static final String WORKBENCH_SERVICE_ATTRIBUTE = "com.wxxr.nirvana.service";
+	
+	public static IServiceManager getServiceManager() {
+		return (IServiceManager) NirvanaServletContext.getContext()
 				.getServletContext()
-				.getAttribute(ContainerAccess.WORKBENCH_ATTRIBUTE);
+				.getAttribute(ContainerAccess.WORKBENCH_SERVICE_ATTRIBUTE);
+	}
+	
+	public static void setServiceManager(IServiceManager service) {
+		NirvanaServletContext.getContext()
+				.getServletContext()
+				.setAttribute(ContainerAccess.WORKBENCH_SERVICE_ATTRIBUTE,service);
 	}
 
-	public static ISessionWorkbench getSessionWorkbench() {
-		return (ISessionWorkbench) NirvanaServletContext.getContext()
+	public static IWorkbench getSessionWorkbench() {
+		return (IWorkbench) NirvanaServletContext.getContext()
 				.getSession()
 				.getAttribute(ContainerAccess.WORKBENCH_SESSION_ATTRIBUTE);
 	}
+	
 
-	public static void setSessionWorkbench(ISessionWorkbench value) {
+	public static void setSessionWorkbench(IWorkbench value) {
 		NirvanaServletContext
 				.getContext()
 				.getSession()

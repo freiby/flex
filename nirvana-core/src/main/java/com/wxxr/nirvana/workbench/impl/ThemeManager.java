@@ -19,12 +19,11 @@ import org.apache.commons.logging.LogFactory;
 
 import com.wxxr.nirvana.platform.IConfigurationElement;
 import com.wxxr.nirvana.platform.IExtension;
-import com.wxxr.nirvana.platform.IPluginDescriptor;
 import com.wxxr.nirvana.theme.ITheme;
 import com.wxxr.nirvana.theme.IThemeManager;
+import com.wxxr.nirvana.workbench.ICreateRenderContext;
 import com.wxxr.nirvana.workbench.UIConstants;
 import com.wxxr.nirvana.workbench.config.BaseExtensionPointManager;
-import com.wxxr.nirvana.workbench.impl.Workbench.ICreateRenderContext;
 
 /**
  * @author fudapeng

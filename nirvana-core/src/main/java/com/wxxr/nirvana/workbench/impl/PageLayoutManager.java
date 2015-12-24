@@ -9,13 +9,12 @@ import org.apache.commons.logging.LogFactory;
 
 import com.wxxr.nirvana.platform.IConfigurationElement;
 import com.wxxr.nirvana.platform.IExtension;
-import com.wxxr.nirvana.platform.IPluginDescriptor;
 import com.wxxr.nirvana.theme.IPageLayout;
+import com.wxxr.nirvana.workbench.ICreateRenderContext;
 import com.wxxr.nirvana.workbench.IPageLayoutManager;
 import com.wxxr.nirvana.workbench.IRender;
 import com.wxxr.nirvana.workbench.UIConstants;
 import com.wxxr.nirvana.workbench.config.BaseExtensionPointManager;
-import com.wxxr.nirvana.workbench.impl.Workbench.ICreateRenderContext;
 
 public class PageLayoutManager extends BaseExtensionPointManager implements
 		IPageLayoutManager {

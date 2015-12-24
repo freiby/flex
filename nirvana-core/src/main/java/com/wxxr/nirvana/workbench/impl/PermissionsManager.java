@@ -19,7 +19,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.wxxr.nirvana.platform.CoreException;
 import com.wxxr.nirvana.platform.IConfigurationElement;
 import com.wxxr.nirvana.platform.IExtension;
 import com.wxxr.nirvana.platform.IPluginDescriptor;

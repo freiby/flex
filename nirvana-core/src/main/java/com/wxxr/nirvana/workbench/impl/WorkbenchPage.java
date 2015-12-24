@@ -15,12 +15,12 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.wxxr.nirvana.platform.IConfigurationElement;
+import com.wxxr.nirvana.workbench.ICreateRenderContext;
 import com.wxxr.nirvana.workbench.IRender;
 import com.wxxr.nirvana.workbench.IView;
 import com.wxxr.nirvana.workbench.IViewManager;
 import com.wxxr.nirvana.workbench.IWorkbenchPage;
 import com.wxxr.nirvana.workbench.IWorkbenchPageManager;
-import com.wxxr.nirvana.workbench.impl.Workbench.ICreateRenderContext;
 
 /**
  * @author fudapeng

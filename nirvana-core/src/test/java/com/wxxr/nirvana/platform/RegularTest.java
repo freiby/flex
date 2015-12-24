@@ -11,8 +11,6 @@ import java.util.regex.Pattern;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.wxxr.nirvana.exception.NirvanaException;
-
 public class RegularTest {
 
 	@Before

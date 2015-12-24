@@ -6,16 +6,16 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.wxxr.nirvana.ContainerAccess;
-import com.wxxr.nirvana.ISessionWorkbench;
 import com.wxxr.nirvana.workbench.IContributionItem;
 import com.wxxr.nirvana.workbench.IView;
+import com.wxxr.nirvana.workbench.IWorkbench;
 import com.wxxr.nirvana.workbench.impl.UIComponent;
 import com.wxxr.nirvana.workbench.impl.WorkbenchPage.ViewRef;
 
 public class ViewContext extends UIComponentContext {
 
 	private ViewRef[] viewrefs;
-	private ISessionWorkbench workbench = null;
+	private IWorkbench workbench = null;
 	private Log log = LogFactory.getLog(ViewContext.class);
 
 	public ViewContext(IContributionItem uiContribute, ViewRef[] viewrefs) {

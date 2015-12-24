@@ -10,14 +10,15 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.wxxr.nirvana.exception.NirvanaException;
 import com.wxxr.nirvana.theme.ITheme;
 import com.wxxr.nirvana.workbench.IDispatchUI;
 import com.wxxr.nirvana.workbench.IProduct;
-import com.wxxr.nirvana.workbench.IView;
 import com.wxxr.nirvana.workbench.IWebResource;
+import com.wxxr.nirvana.workbench.IWorkbench;
 import com.wxxr.nirvana.workbench.IWorkbenchPage;
-import com.wxxr.nirvana.workbench.impl.ResourceRef;
-import com.wxxr.nirvana.workbench.impl.Workbench;
+import com.wxxr.nirvana.workbench.impl.WorkbenchBoostrapBefore;
+import com.wxxr.nirvana.workbench.impl.WorkbenchFactory;
 
 public class WorkbenchTest {
 
@@ -42,14 +43,15 @@ public class WorkbenchTest {
 	}
 
 	@Test
-	public void testWorkbenchCreate() {
-		Workbench workbench = new Workbench(new HashMap<String, Object>());
-		IProduct p = workbench.getProductManager().getProductById(
+	public void testWorkbenchCreate() throws NirvanaException {
+		WorkbenchBoostrapBefore boostrap = new WorkbenchBoostrapBefore();
+		boostrap.start(new HashMap<String, Object>()); 
+		IProduct p = boostrap.getServiceManager().getProductManager().getProductById(
 				"com.wxxr.nirvana.test.nirvana");
 		assertNotNull(p);
 		String themeid = p.getTheme();
 		assertEquals("com.wxxr.nirvana.style.nirvanaStyle_theme", themeid);
-		ITheme theme = workbench.getThemeManager().getTheme(themeid);
+		ITheme theme = boostrap.getServiceManager().getThemeManager().getTheme(themeid);
 		assertNotNull(theme);
 		String themeuri = ((IDispatchUI) theme.getDesktop()).getURI();
 		assertEquals("desktopuri", themeuri);
@@ -60,6 +62,7 @@ public class WorkbenchTest {
 		assertEquals("com.wxxr.nirvana.test.niravanaPage", defaultPage);
 		assertEquals(2, p.getAllPages().length);
 
+		IWorkbench workbench = WorkbenchFactory.createWorkbench();
 		IWorkbenchPage page = workbench.getWorkbenchPageManager()
 				.getWorkbenchPage(defaultPage);
 		assertNotNull(page);
@@ -75,7 +78,7 @@ public class WorkbenchTest {
 //		ResourceRef[] vrr = view.getResourcesRef();
 //		assertEquals(1, vrr.length);
 
-		List<IWebResource> webrs = workbench.getWebResourceManager()
+		List<IWebResource> webrs = boostrap.getServiceManager().getWebResourceManager()
 				.getResources();
 		assertEquals(3, webrs.size());
 

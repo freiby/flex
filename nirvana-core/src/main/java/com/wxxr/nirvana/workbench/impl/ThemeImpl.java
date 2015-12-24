@@ -13,14 +13,12 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.wxxr.nirvana.platform.IConfigurationElement;
-import com.wxxr.nirvana.platform.IPluginDescriptor;
-import com.wxxr.nirvana.platform.PlatformLocator;
 import com.wxxr.nirvana.theme.IDesktop;
 import com.wxxr.nirvana.theme.ITheme;
 import com.wxxr.nirvana.theme.IThemeManager;
+import com.wxxr.nirvana.workbench.ICreateRenderContext;
 import com.wxxr.nirvana.workbench.IRender;
 import com.wxxr.nirvana.workbench.config.BaseContributionItem;
-import com.wxxr.nirvana.workbench.impl.Workbench.ICreateRenderContext;
 
 /**
  * @author fudapeng

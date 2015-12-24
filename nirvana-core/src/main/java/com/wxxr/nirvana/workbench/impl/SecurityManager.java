@@ -12,7 +12,6 @@ import java.security.Principal;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.wxxr.nirvana.platform.CoreException;
 import com.wxxr.nirvana.workbench.ISecurityManager;
 
 /**

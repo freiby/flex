@@ -5,7 +5,6 @@ import com.wxxr.nirvana.platform.IConfigurationElement;
 import com.wxxr.nirvana.platform.impl.PluginConfigurationElement;
 import com.wxxr.nirvana.platform.impl.XMLConfigurationElement;
 import com.wxxr.nirvana.workbench.IRender;
-import com.wxxr.nirvana.workbench.IRenderContext;
 
 public abstract class CommonRender implements IRender {
 

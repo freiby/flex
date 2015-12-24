@@ -9,7 +9,6 @@
 package com.wxxr.nirvana.platform.impl;
 
 import java.io.File;
-import java.net.URL;
 
 import com.wxxr.nirvana.platform.IRuntimeLibrary;
 

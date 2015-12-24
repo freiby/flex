@@ -1,8 +1,8 @@
 package com.wxxr.nirvana.platform;
 
-import java.net.URL;
+import static junit.framework.Assert.assertNotNull;
 
-import static junit.framework.Assert.*;
+import java.net.URL;
 
 import org.junit.Before;
 import org.junit.Test;

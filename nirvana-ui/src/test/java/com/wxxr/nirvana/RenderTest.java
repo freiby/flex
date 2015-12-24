@@ -26,14 +26,16 @@ import com.wxxr.nirvana.context.NirvanaServletContext;
 import com.wxxr.nirvana.exception.NirvanaException;
 import com.wxxr.nirvana.platform.WorkbenchTest;
 import com.wxxr.nirvana.ui.WorkbenchContainerImpl;
-import com.wxxr.nirvana.ui.WorkbenchProxy;
+import com.wxxr.nirvana.workbench.IServiceManager;
 import com.wxxr.nirvana.workbench.IWebResource;
+import com.wxxr.nirvana.workbench.impl.ServiceManager;
 import com.wxxr.nirvana.workbench.impl.Workbench;
 
 public class RenderTest {
 
 	ServletContext servletContext;
 	Workbench workbench;
+	IServiceManager serviceManaer;
 
 	@Before
 	public void setUp() throws Exception {
@@ -41,16 +43,22 @@ public class RenderTest {
 				.createMock(ServletContextListener.class);
 		servletContext = EasyMock.createMock(ServletContext.class);
 
+		serviceManaer = new ServiceManager();
+		
 		WorkbenchTest workbenchTest = new WorkbenchTest();
 		workbenchTest.setUp();
 
-		workbench = new Workbench(null);
+		workbench = new Workbench();
 		EasyMock.expect(
 				servletContext
 						.getAttribute(ContainerAccess.WORKBENCH_ATTRIBUTE))
 				.andReturn(workbench).anyTimes();
 		servletContext.setAttribute(ContainerAccess.WORKBENCH_ATTRIBUTE,
 				workbench);
+		
+		EasyMock.expect(
+				servletContext.getAttribute(ContainerAccess.WORKBENCH_SERVICE_ATTRIBUTE)).andReturn(serviceManaer).anyTimes();
+		
 		// EasyMock.expectLastCall().andThrow(new RuntimeException("aaa"));
 		EasyMock.replay(servletContext);
 		ContainerAccess.setWorkbench(servletContext, workbench);
@@ -117,16 +125,14 @@ public class RenderTest {
 				request.getAttribute("org.apache.tiles.AttributeContext.STACK"))
 				.andReturn(contextStack).anyTimes();
 
-		WorkbenchProxy workbenchProxy = null;
-		workbenchProxy = new WorkbenchProxy(workbench);
 
 		session.setAttribute(ContainerAccess.CONTAINER_ATTRIBUTE, container);
 		session.setAttribute(ContainerAccess.WORKBENCH_SESSION_ATTRIBUTE,
-				workbenchProxy);
+				workbench);
 
 		EasyMock.expect(
 				session.getAttribute(ContainerAccess.WORKBENCH_SESSION_ATTRIBUTE))
-				.andReturn(workbenchProxy).anyTimes();
+				.andReturn(workbench).anyTimes();
 
 		PageContext pageContext = new PageContextMock(request, response,
 				session, servletContext);
@@ -143,7 +149,7 @@ public class RenderTest {
 
 		container.init(request, response);
 		ContainerAccess.setContainer(container);
-		ContainerAccess.setSessionWorkbench(workbenchProxy);
+		ContainerAccess.setSessionWorkbench(workbench);
 
 		container.bootstrap(request, response, product, page);
 

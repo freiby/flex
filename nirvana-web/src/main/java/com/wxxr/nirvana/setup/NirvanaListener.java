@@ -10,16 +10,13 @@ import javax.servlet.ServletContextListener;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.sun.media.jfxmediaimpl.platform.Platform;
 import com.wxxr.nirvana.ContainerAccess;
 import com.wxxr.nirvana.context.NirvanaServletContext;
 import com.wxxr.nirvana.deploy.tomcat.PluginDeployer;
 import com.wxxr.nirvana.exception.NirvanaException;
 import com.wxxr.nirvana.platform.IPlatform;
 import com.wxxr.nirvana.platform.PlatformLocator;
-import com.wxxr.nirvana.ui.WorkbenchProxy;
-import com.wxxr.nirvana.workbench.IWorkbench;
-import com.wxxr.nirvana.workbench.impl.WorkbenchFactory;
+import com.wxxr.nirvana.workbench.impl.WorkbenchBoostrapBefore;
 
 /**
  * Listener for the initialization of the Tiles container.
@@ -61,24 +58,15 @@ public class NirvanaListener implements ServletContextListener {
 		} catch (Exception e) {
 			log.error("platform setup error " + e);
 		}
-		// 3 boostrap workbench
-		IWorkbench workbench = createWorkbench(servletContext);
+		// 3 boostrap workbench before
+		WorkbenchBoostrapBefore bootstrapBefore = new WorkbenchBoostrapBefore();
 		try {
-			workbench.start();
+			bootstrapBefore.start(config);
+			ContainerAccess.setServiceManager(bootstrapBefore.getServiceManager());
 		} catch (NirvanaException e1) {
-			log.error("start workbench error ", e1);
-		}
-		try {
-			ContainerAccess.setWorkbench(servletContext, workbench);
-		} catch (NirvanaException e) {
-			throw new IllegalStateException("Unable to instantiate workbench.",
-					e);
+			log.error("start workbench bootstrap error ", e1);
 		}
 	}
-	private IWorkbench createWorkbench(ServletContext servletContext) {
-		return WorkbenchFactory.createWorkbenchFactory(config);
-	}
-
 	/**
 	 * Remove the tiles container from service.
 	 *

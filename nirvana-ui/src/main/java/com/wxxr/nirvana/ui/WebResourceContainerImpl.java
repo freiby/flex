@@ -9,16 +9,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.wxxr.nirvana.ContainerAccess;
-import com.wxxr.nirvana.ISessionWorkbench;
 import com.wxxr.nirvana.IWebResourceContainer;
 import com.wxxr.nirvana.exception.NirvanaException;
 import com.wxxr.nirvana.workbench.IProduct;
 import com.wxxr.nirvana.workbench.IView;
 import com.wxxr.nirvana.workbench.IWebResource;
+import com.wxxr.nirvana.workbench.IWorkbench;
 import com.wxxr.nirvana.workbench.IWorkbenchPage;
 import com.wxxr.nirvana.workbench.impl.ResourceRef;
 import com.wxxr.nirvana.workbench.impl.UIComponent;
-import com.wxxr.nirvana.workbench.impl.Product.PageRef;
 import com.wxxr.nirvana.workbench.impl.WorkbenchPage.ViewRef;
 
 /**
@@ -45,13 +44,12 @@ public class WebResourceContainerImpl implements IWebResourceContainer {
 		page = ContainerAccess.getSessionWorkbench().getCurrentPage();
 		product = ContainerAccess.getSessionWorkbench().getCurrentProduct();
 		String themeref = product.getTheme();
-		ISessionWorkbench workbench = ContainerAccess.getSessionWorkbench();
-		themeRefs = workbench.getThemeManager().getTheme(themeref)
+		themeRefs = ContainerAccess.getServiceManager().getThemeManager().getTheme(themeref)
 				.getResourceRefs();
 		if (themeRefs != null) {
 			this.themeResources = new IWebResource[themeRefs.length];
 			for (int i = 0; i < themeRefs.length; i++) {
-				this.themeResources[i] = workbench.getWebResourceManager()
+				this.themeResources[i] = ContainerAccess.getServiceManager().getWebResourceManager()
 						.getResource(themeRefs[i].getRef());
 				if(this.themeResources[i] == null){
 					throw new NirvanaException("theme import resource " + themeRefs[i].getRef() + " not found resource! please cheouk out webplugin.xml!!!");
@@ -67,7 +65,7 @@ public class WebResourceContainerImpl implements IWebResourceContainer {
 				continue;
 			WebResourceInfo[] infos = new WebResourceInfo[viewRrefs.length];
 			for (int i = 0; i < viewRrefs.length; i++) {
-				IWebResource webr = workbench.getWebResourceManager()
+				IWebResource webr = ContainerAccess.getServiceManager().getWebResourceManager()
 						.getResource(viewRrefs[i].getRef());
 				WebResourceInfo info = new WebResourceInfo(webr,
 						viewRrefs[i].getPoint());
