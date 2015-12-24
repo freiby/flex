@@ -6,7 +6,7 @@ module.exports = function(grunt) {
         concat : {
             domop : {
                 src: ['src/*.js','src/**/*.js'],
-                dest: 'dest/nirvana-view-interaction.js'
+                dest: 'build/nirvana.view.interaction.js'
             }
         },
         uglify : {
@@ -14,8 +14,8 @@ module.exports = function(grunt) {
                 banner : '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
             },
             build : {
-                src : 'dest/nirvana-view-interaction.js',
-                dest : 'dest/nirvana-view-interaction.min.js'
+                src : 'build/nirvana.view.interaction.js',
+                dest : 'build/nirvana.view.interaction.min.js'
             }
         },
 		jshint : {
@@ -27,7 +27,7 @@ module.exports = function(grunt) {
 		watch: {
 		  build: {
 		    files: ['src/*.js'],
-		    tasks: ['jshint'],
+		    tasks: ['jshint','concat'],
 		    options: {
 		      spawn: false,
 		    }
