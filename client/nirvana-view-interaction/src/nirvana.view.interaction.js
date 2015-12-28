@@ -12,10 +12,35 @@
 (function($) {
     'use strict';
 
+    var SelectionProvider = function SelectionProvider_ctor(){
+        this.selected = null;
+        this.listeners = [];
+        this.getSelection = function(){
+            return selected;
+        };
+        this.setSelection = function(value){
+            this.selected = value;
+        };
+        this.addSelectionChangedListener = function(listener){
+            var index = _.indexOf(this.listeners, listener);
+            if(index < 0){
+                this.listeners.push(listener);
+            }
+        };
+        this.removeSelectionChangedListener = function(listener){
+            var index = _.indexOf(this.listeners, listener);
+            if(index < 0){
+                _.remove(this.listeners,listener);
+            }
+        }
+
+    }
+
     var Page = function Page_ctor(id) {
         this.id = id;
         this.views = [];
         this.description = "";
+        this.pageSelectionService = new $.PageSelectionService();
     };
 
     Page.prototype.addView = function(view) {
@@ -27,11 +52,11 @@
         }
     };
 
-    Page.prototype.findViewByName = function(id) {
+    Page.prototype.findViewById = function(id) {
         var index = _.findIndex(this.views, function(chr) {
             return chr.id == id;
         });
-        if (index < 0) {
+        if (index > -1) {
             return this.views[index];
         }
     };
@@ -53,7 +78,19 @@
     var View = function View_ctor(id) {
         this.id = id;
         this.description = "";
+        this.provider = null;
     };
+
+    View.prototype.getSelectionProvider = function(){
+        if(this.provider == null){
+            this.provider = new SelectionProvider();
+        }
+        return this.provider;
+    }
+
+    View.prototype.selectCallbackFn = function(e){
+        
+    }
 
     var PageInit = function(el, options) {
         this.page = null;
@@ -80,20 +117,26 @@
             var view = new View(viewId);
             if (pageIns != null && (typeof pageIns) !== 'undefined') {
                 pageIns.addView(view);
-                that.addMouseDownListener($(this));
+                var provider = view.getSelectionProvider();
+                pageIns.pageSelectionService.addSelectionListener(view.selectCallbackFn);
+                var ref = $(this).attr('focusRef');
+                // that.addMouseDownListener($('#' + ref)); 
+                that.addMouseDownListener($(this),view);
             }
         });
     };
 
-    PageInit.prototype.addMouseDownListener = function($view){
+    PageInit.prototype.addMouseDownListener = function($view,viewIns){
         $view.on('mousedown',function(e){
             console.log(' viewid ' + $view.attr('view'));
+            this.pageSelectionService.setActivePart(viewIns);
+            
         });
     }
 
-    PageInit.prototype.findViewByName = function(viewName) {
+    PageInit.prototype.findViewById = function(viewId) {
         if (this.page != null) {
-            return this.page.findViewByName(viewName);
+            return this.page.findViewById(viewId);
         }
     };
 

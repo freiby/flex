@@ -5,7 +5,7 @@ module.exports = function(grunt) {
         pkg : grunt.file.readJSON('package.json'),
         concat : {
             domop : {
-                src: ['src/*.js','src/**/*.js'],
+                src: ['src/page.selection.service.js','src/nirvana.view.interaction.js'],
                 dest: 'build/nirvana.view.interaction.js'
             }
         },

@@ -8,10 +8,11 @@
 
 (function($) {
     function PageSelectionService() {
-        var partListeners = [];
-        var postPartListeners = [];
-        var activePart;
-        var activeProvider;
+       	this.partListeners = [];
+        this.postPartListeners = [];
+        this.activePart = null;
+        this.activeProvider = null;
+        this.eventDispatch = {};
         var selListener = function(event) {
             var evt = event.clone();
             evt.part = activePart;
@@ -22,9 +23,9 @@
         	if(partId != null) {
 				return;
 			}
-			foreach(method in partListeners) {
-				if(method["listener"] == listener){
-					method["nullSelection"] = nullSelection;
+			for (var i in this.partListeners) {
+				if(this.partListeners[i]["listener"] == listener){
+					this.partListeners[i]["nullSelection"] = nullSelection;
 					return;
 				}
 			}
@@ -37,9 +38,9 @@
 					m.apply(null,[event]);
 				}
 			}
-			// f["listener"] = listener;
-			// f["nullSelection"] = nullSelection;
-			partListeners.push(f);
+			f["listener"] = listener;
+			f["nullSelection"] = nullSelection;
+			this.partListeners.push(f);
 			this.addEventListener(SelectionChangedEvent.TYPE_SELECTION_CHANGED,f);
 			this.addEventListener(SelectionChangedEvent.TYPE_DEACTIVE,f);
         }
@@ -64,26 +65,84 @@
         };
 
         this.setActivePart = function(newPart){
-
+        	if (newPart == activePart) {
+				return;
+			}
+	        
+	        var selectionProvider = null;
+	        
+	        if (newPart !== null && newPart['getSelectionProvider'] !== undefined) {
+	            selectionProvider = newPart.getSelectionProvider();
+	            
+	            if (selectionProvider == null) {
+	                newPart = null;
+	            }
+	        }
+	        
+	        if (newPart == activePart) {
+				return;
+			}
+	        
+	        if (activePart != null) {
+	            if (activeProvider != null) {
+	                activeProvider.removeSelectionChangedListener(this.selListener);
+					var sel1 = this.activeProvider.getSelection();
+	           		this.firedeactivePart(activePart, sel1);
+	                this.activeProvider = null;
+	            }
+	            this.activePart = null;
+	        }
+	
+	        this.activePart = newPart;
+	        
+	        if (newPart != null) {
+	            this.activeProvider = selectionProvider;
+	            // Fire an event if there's an active provider
+	            this.activeProvider.addSelectionChangedListener(this.selListener);
+	            var sel = activeProvider.getSelection();
+	            this.fireSelection(newPart, sel);
+	            // firePostSelection(newPart, sel);
+	        } else {
+	            this.fireSelection(null, null);
+	            // firePostSelection(null, null);
+	        }
         };
 
         this.fireSelection = function(part,selelected){
+        	var evt = new SelectionChangedEvent(SelectionChangedEvent.TYPE_SELECTION_CHANGED,activeProvider,sel);
+	    	evt.part = part;
+	        this.dispatchEvent(evt);
+        };
 
+        this.firedeactivePart = function(part,selelected){
+        	var evt = new SelectionChangedEvent(SelectionChangedEvent.TYPE_DEACTIVE,activeProvider,sel);
+	    	evt.part = part;
+	        this.dispatchEvent(evt);
         }
 
     }
 
     PageSelectionService.prototype.dispatchEvent = function(event) {
+    	if(event != null){
+    		if(this.eventDispatch[event.type] != 'undefined'){
+    			var listener = this.eventDispatch[event.type];
+    			listener.apply(null,[event.selection]);
+    		}
+    	}
     };
 
      PageSelectionService.prototype.addEventListener = function(type, listener) {
+     	if(this.eventDispatch[type] == 'undefined'){
+			this.eventDispatch[type] = listener;
+		}
     };
 
 
 
     function SelectionChangedEvent(type,provider,selection) {//type:String,provider:ISelectionProvider,selection:Object,bubbles:Boolean=false, cancelable:Boolean=false
-    	this._provider = provider;
-		this._selection = selection;
+    	this.provider = provider;
+		this.selection = selection;
+		this.type = type;
 //		private var _selection:ISelection;
 		var _part; //IWorkbenchPart
 		
@@ -96,5 +155,6 @@
 
     SelectionChangedEvent.TYPE_SELECTION_CHANGED = "SelectionChanged";
 	SelectionChangedEvent.TYPE_DEACTIVE = "deactive";	
-    
+
+    $.PageSelectionService = PageSelectionService;
 }(jQuery));
