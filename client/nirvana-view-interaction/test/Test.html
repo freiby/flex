@@ -28,8 +28,14 @@
 </head>
 <body>
 	<div page="a.pageId"  focusRef="pageId">
-		<div id="b.viewid1" view="b.viewid1" focusRef="b.viewid1"></div>
-		<div id="b.viewid1" view="b.viewid2" focusRef="b.viewid2"></div>
+		<div id="b.viewid1" view="b.viewid1" focusRef="b.viewid1">
+			<input type="text" value="ccc"/>
+			<button onclick="selectedFn()">selected</button>    
+		</div>
+		<div id="b.viewid2" view="b.viewid2" focusRef="b.viewid2">
+			<input type="text" value="b.viewid2"/>
+			<button onclick="removeListener()">removeListener</button>
+		</div>
 	 </div>
 
 
@@ -42,10 +48,35 @@
 		$page = $("[page]");
 		$page.webpage();
 		var data = $page.data('page');
-		var view = data.findViewById('b.viewid1');
-		view['selectChanage'] = function(sel){
-			console.log(" selected " + sel);
+		var view = data.findViewById('b.viewid2');
+		// view.getSelectionProvider().setSelection("a");
+		
+		view['selectChanage'] = function(e){
+			console.log("viewid2: " + e.part.id + ", type: " + e.type  + ", selected: " + e.selection );
 		};
-	</script>    
+		view.setSelection("b.viewid2 selected");
+
+		function selectedFn(){
+			$page = $("[page='a.pageId']");
+			var data = $page.data('page');
+			var view = data.findViewById('b.viewid1');
+			var value = $(":text").val();
+			
+			view['selectChanage'] = function(e){
+				console.log("viewid1: " + e.part.id + ", type: " + e.type + ", selected: " + e.selection );
+			};
+			view.setSelection(value);
+		}
+
+
+		function removeListener(){
+			$page = $("[page='a.pageId']");
+			var data = $page.data('page');
+			var view = data.findViewById('b.viewid2');
+			data.removeView(view);
+		}
+
+	</script>
+	
 </body>
 </html>

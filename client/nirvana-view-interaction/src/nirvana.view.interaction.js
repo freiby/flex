@@ -12,26 +12,36 @@
 (function($) {
     'use strict';
 
-    var SelectionProvider = function SelectionProvider_ctor(){
-        this.selected = null;
-        this.listeners = [];
-        this.getSelection = function(){
+    var SelectionProvider = function SelectionProvider_ctor() {
+        var selected = null;
+        var listeners = [];
+        this.getSelection = function() {
             return selected;
         };
-        this.setSelection = function(value){
-            this.selected = value;
+        this.setSelection = function(value) {
+            selected = value;
         };
-        this.addSelectionChangedListener = function(listener){
+        this.addSelectionChangedListener = function(listener) {
             var index = _.indexOf(this.listeners, listener);
-            if(index < 0){
-                this.listeners.push(listener);
+            if (index < 0) {
+                listeners.push(listener);
             }
         };
-        this.removeSelectionChangedListener = function(listener){
-            var index = _.indexOf(this.listeners, listener);
-            if(index < 0){
-                _.remove(this.listeners,listener);
+        this.removeSelectionChangedListener = function(listener) {
+           _.remove(listeners, function(o){
+                return listener == o;
+           });
+        };
+
+        this.fireSelectionChanged = function() {
+            var e = new $.SelectionChangedEvent($.SelectionChangedEvent.TYPE_SELECTION_CHANGED, this, selected);
+            for (var i in listeners) {
+                listeners[i].apply(null, [e]);
             }
+        };
+        this.destroy = function(){
+            selected = null;
+            listeners = null;
         }
 
     }
@@ -69,9 +79,9 @@
         var index = _.findIndex(this.views, function(chr) {
             return chr.id == view.id;
         });
-
-        if (index > 0) {
+        if (index > -1) {
             _.pullAt(this.views, index);
+            view.destroy();
         }
     };
 
@@ -79,17 +89,56 @@
         this.id = id;
         this.description = "";
         this.provider = null;
+        this.page = null;
+        var that = this;
+        this.dom = null;
+        this.selectCallbackFn = function(e) {
+        // console.debug("selectCallbackFn " + e.selection);
+            if (e.part != null && e.part !== undefined && e.part['selectChanage'] !== undefined && e.part['selectChanage'] != null) {
+                var func = that['selectChanage'];
+                if(func !== undefined && func !== null){
+                     func.apply(null, [e]);
+                }
+            }
+        }
+
+        this.selectCallbackFn['id'] = id;
+
     };
 
-    View.prototype.getSelectionProvider = function(){
-        if(this.provider == null){
+    View.prototype.destroy = function(){
+        this.page.pageSelectionService.removeSelectionListener(this.selectCallbackFn);
+        this.removeMouseDownListener();
+        this.provider.destroy();
+        this.page = null;
+        this.provider = null;
+        this.dom = null;
+    };
+
+    View.prototype.getSelectionProvider = function() {
+        if (this.provider == null) {
             this.provider = new SelectionProvider();
         }
         return this.provider;
+    };
+
+    View.prototype.setSelection = function(selection) {
+        var provider = this.getSelectionProvider();
+        provider.setSelection(selection);
+        provider.fireSelectionChanged();
+        return this.provider;
+    };
+
+    View.prototype.addMouseDownListener = function() {
+        var that = this;
+        $(this.dom).on('mousedown', function(e) {
+            console.debug('mouserdowon viewid ' + $(that.dom).attr('view'));
+            that.page.pageSelectionService.setActivePart(that);
+        });
     }
 
-    View.prototype.selectCallbackFn = function(e){
-        
+    View.prototype.removeMouseDownListener = function() {
+        $(this.dom).off('mousedown');
     }
 
     var PageInit = function(el, options) {
@@ -117,22 +166,23 @@
             var view = new View(viewId);
             if (pageIns != null && (typeof pageIns) !== 'undefined') {
                 pageIns.addView(view);
+                view.page = pageIns;
                 var provider = view.getSelectionProvider();
                 pageIns.pageSelectionService.addSelectionListener(view.selectCallbackFn);
                 var ref = $(this).attr('focusRef');
                 // that.addMouseDownListener($('#' + ref)); 
-                that.addMouseDownListener($(this),view);
+                view.dom = this;
+                view.addMouseDownListener();
+                $(this).data('view', view);
             }
         });
+        var $lastview = $('[view]:last');
+        var lastview = $lastview.data("view");
+        pageIns.pageSelectionService.setActivePart(lastview);
+
     };
 
-    PageInit.prototype.addMouseDownListener = function($view,viewIns){
-        $view.on('mousedown',function(e){
-            console.log(' viewid ' + $view.attr('view'));
-            this.pageSelectionService.setActivePart(viewIns);
-            
-        });
-    }
+    
 
     PageInit.prototype.findViewById = function(viewId) {
         if (this.page != null) {
@@ -151,7 +201,7 @@
         if (this.length > 1) {
             console.error("page is only one");
             throw "page is only one";
-        }  
+        }
 
         this.each(function() {
             var $this = $(this);
