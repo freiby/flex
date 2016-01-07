@@ -12,6 +12,7 @@ import com.wxxr.nirvana.workbench.IRenderContext;
 import com.wxxr.nirvana.workbench.IView;
 import com.wxxr.nirvana.workbench.impl.CommonRender;
 import com.wxxr.nirvana.workbench.impl.UIComponent;
+import com.wxxr.nirvana.workbench.impl.View;
 import com.wxxr.nirvana.workbench.impl.WorkbenchPage.ViewRef;
 
 public class PageLayoutRender  extends CommonRender{
@@ -43,13 +44,16 @@ public class PageLayoutRender  extends CommonRender{
 			for(int j=0; j<count; j++){
 				Column c = new Column();
 				ViewRef vr = views[v];
-				IView view = ContainerAccess.getSessionWorkbench().getCurrentPage().getViewsById(vr.getId());
+				IView view = (IView) ContainerAccess.getSessionWorkbench().getCurrentPage().getViewsById(vr.getId());
 				c.setViewUrl(JspUtil.getRealPath(view.getContributorId(),
 						view.getContributorVersion(), view.getURI()));
+				c.setViewId(view.getUniqueIndentifier());
 				r.addColumn(c);
 				v++;
 			}
 		}
+		String pageID = ContainerAccess.getSessionWorkbench().getCurrentPage().getUniqueIndentifier();
+		context.get(IUIRenderContext.class).getRequestContext().getPageContext().setAttribute("pageId", pageID, PageContext.REQUEST_SCOPE);
 		context.get(IUIRenderContext.class).getRequestContext().getPageContext().setAttribute("rows", rows, PageContext.REQUEST_SCOPE);
 		try {
 			context.get(IUIRenderContext.class).getRequestContext().dispatch(JspUtil.getRealPath(ui.getContributorId(),

@@ -94,7 +94,7 @@
         this.dom = null;
         this.selectCallbackFn = function(e) {
         // console.debug("selectCallbackFn " + e.selection);
-            if (e.part != null && e.part !== undefined && e.part['selectChanage'] !== undefined && e.part['selectChanage'] != null) {
+            if (e.part != null && e.part !== undefined && that['selectChanage'] !== undefined && that['selectChanage'] != null) {
                 var func = that['selectChanage'];
                 if(func !== undefined && func !== null){
                      func.apply(null, [e]);
@@ -212,3 +212,9 @@
     };
 
 }(jQuery));
+
+
+$page = $("[page]");
+$page.each(function(){
+    $(this).webpage();
+});

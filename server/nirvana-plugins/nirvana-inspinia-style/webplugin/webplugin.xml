@@ -48,6 +48,10 @@
 			<resource ref="com.wxxr.nirvana.resources.jquery_flot_pie_js" point="current"></resource>
 			<resource ref="com.wxxr.nirvana.resources.sparkline" point="current"></resource>
 			<resource ref="com.wxxr.nirvana.resources.sparkline_demo" point="current"></resource>
+
+
+			<resource ref="com.wxxr.nirvana.resources.lodash" point="current"></resource>
+			<resource ref="com.wxxr.nirvana.resources.interaction" point="current"></resource>
 			
 			
 			

@@ -9,6 +9,7 @@
 <meta name="description" content="workbench">
 <meta name="keywords" content="nirvana">
 <link href="" rel="stylesheet">
+<script type="text/javascript" src="./framework/js/nirvana.init.min.js"></script>
 <nirvana:css point="header"/>
 <nirvana:js point="header"/>  
 </head>

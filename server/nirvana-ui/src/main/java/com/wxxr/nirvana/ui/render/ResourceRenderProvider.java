@@ -41,7 +41,7 @@ public class ResourceRenderProvider implements IRenderProvider {
 			return "<script type=\"text/javascript\" src=\"" + JspUtil.getRealResourcePath(item.getContributorId(), item.getContributorVersion(), item.getUri())
 					+ "\"></script>\r\n";
 		} else if (item.getType().equals(CSS_TYPE)) {
-			return "<link href=" + JspUtil.getRealResourcePath(item.getContributorId(), item.getContributorVersion(), item.getUri()) + " rel=\"stylesheet\">\r\n";
+			return "<link href=\"" + JspUtil.getRealResourcePath(item.getContributorId(), item.getContributorVersion(), item.getUri()) + "\" rel=\"stylesheet\">\r\n";
 		}
 		return "";
 

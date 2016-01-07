@@ -145,6 +145,20 @@
 				type="js"
 				>
 		</resource>
+
+		<resource
+				id="interaction"   
+				uri="js/nirvana.view.interaction.js"
+				type="js"
+				>
+		</resource>
+
+		<resource
+				id="lodash"   
+				uri="js/lodash.js"
+				type="js"
+				>
+		</resource>
    </extension>
 
 

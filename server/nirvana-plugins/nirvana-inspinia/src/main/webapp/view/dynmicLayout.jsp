@@ -2,12 +2,14 @@
 <%@ taglib uri="/nirvana-tag" prefix="nirvana"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<div id="page-wrapper" class="gray-bg dashbard-1" style="min-height: 100%;">
+<div id="page-wrapper" class="gray-bg dashbard-1" style="min-height: 100%;" page="${pageId}">
 	<c:forEach var="row" items="${rows}" >
 		<div class="row ">
 			<c:forEach var="column" items="${row.columns}" >
 			    <div class="col-md-4">
-			    	<jsp:include page="${column.viewUrl}"  flush="false"/>
+			    	<div view="${column.viewId}">
+			    		<jsp:include page="${column.viewUrl}"  flush="false"/>
+			    	</div>
 			    </div>
 			</c:forEach>
 		</div>

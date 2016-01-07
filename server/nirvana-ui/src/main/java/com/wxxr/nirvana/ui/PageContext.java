@@ -47,17 +47,23 @@ public class PageContext extends UIComponentContext implements IPageContext {
 
 	public IPageLayout getPageLayout() {
 		WorkbenchPage page = (WorkbenchPage) workbench.getCurrentPage();
-		String pageId = page.getUniqueIndentifier();
-		if (pagerefs != null) {
-			for (PageRef item : pagerefs) {
-				if (item.id.equalsIgnoreCase(pageId)) {
-					String layoutId = item.layout;
-					IPageLayout pagelayout = ContainerAccess.getServiceManager().getPageLayoutManager()
-							.getPageLayout(layoutId);
-					return pagelayout;
-				}
-			}
+		if(page != null){
+			String layoutId = page.getPageLayout();
+			IPageLayout pagelayout = ContainerAccess.getServiceManager().getPageLayoutManager()
+					.getPageLayout(layoutId);
+			return pagelayout;
 		}
+//		String pageId = page.getUniqueIndentifier();
+//		if (pagerefs != null) {
+//			for (PageRef item : pagerefs) {
+//				if (item.id.equalsIgnoreCase(pageId)) {
+//					String layoutId = page.getPageLayout();
+//					IPageLayout pagelayout = ContainerAccess.getServiceManager().getPageLayoutManager()
+//							.getPageLayout(layoutId);
+//					return pagelayout;
+//				}
+//			}
+//		}
 		return null;
 	}
 

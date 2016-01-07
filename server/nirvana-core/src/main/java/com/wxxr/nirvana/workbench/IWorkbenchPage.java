@@ -9,6 +9,7 @@
 package com.wxxr.nirvana.workbench;
 
 import com.wxxr.nirvana.platform.IConfigurationElement;
+import com.wxxr.nirvana.theme.IPageLayout;
 import com.wxxr.nirvana.workbench.impl.WorkbenchPage.ViewRef;
 
 /**
@@ -30,6 +31,8 @@ public interface IWorkbenchPage extends IUIContributionItem {
 	ViewRef[] getAllViewRefs();
 
 	ViewRef getViewRefById(String id);
+	
+	String getPageLayout(); 
 
 	boolean hasView(String vid);
 	
@@ -42,4 +45,5 @@ public interface IWorkbenchPage extends IUIContributionItem {
 	void destroy();
 
 	IWorkbenchPageManager getWorkbenchPageManager();
+	
 }

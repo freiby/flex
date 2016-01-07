@@ -17,10 +17,10 @@ public class RowColumnsTest extends TestCase {
         Assert.assertEquals(1, rs);
         size = 4;
         rs = call();
-        Assert.assertEquals(1, rs);
+        Assert.assertEquals(2, rs);
         size = 8;
         rs = call();
-        Assert.assertEquals(2, rs);
+        Assert.assertEquals(3, rs);
         size = 9;
         rs = call();
         Assert.assertEquals(3, rs);

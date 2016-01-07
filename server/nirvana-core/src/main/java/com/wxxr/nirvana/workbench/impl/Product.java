@@ -12,7 +12,6 @@ public class Product extends UIComponent implements IProduct {
 	private static final String PAGE_ELEMENT = "page";
 	private static final String ATT_DEFAULT_PAGE = "defaulPage";
 	private static final String ATT_INDEX = "index";
-	private static final String ATT_LAYOUT = "layout";
 	private static final String ATT_NAV_RENDER = "navRender";
 	private String theme;
 	private PageRef[] pagerefs;
@@ -47,7 +46,7 @@ public class Product extends UIComponent implements IProduct {
 			ref.defaultPage = viewConfig.getAttribute(ATT_DEFAULT_PAGE) == null ? false
 					: true;
 			ref.index = Integer.valueOf(viewConfig.getAttribute(ATT_INDEX));
-			ref.layout = viewConfig.getAttribute(ATT_LAYOUT);
+//			ref.layout = viewConfig.getAttribute(ATT_LAYOUT);
 			if (ref.defaultPage) {
 				this.defaultPage = ref.id;
 			}
@@ -66,7 +65,7 @@ public class Product extends UIComponent implements IProduct {
 		public String id;
 		public int index;
 		public boolean defaultPage;
-		public String layout;
+//		public String layout;
 
 		public int compare(PageRef o1, PageRef o2) {
 			return o1.index - o2.index;

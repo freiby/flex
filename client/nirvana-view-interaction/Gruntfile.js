@@ -11,11 +11,18 @@ module.exports = function(grunt) {
         },
         uglify : {
             options : {
+				mangle: false, //不混淆变量名
+				preserveComments: 'all', //不删除注释，还可以为 false（删除全部注释），some（保留@preserve @license @cc_on等注释）
                 banner : '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
             },
-            build : {
+            builda : {
                 src : 'build/nirvana.view.interaction.js',
                 dest : 'build/nirvana.view.interaction.min.js'
+            },
+
+            buildb : {
+                src : 'src/nirvana.init.js',
+                dest : 'build/nirvana.init.min.js'
             }
         },
 		jshint : {
@@ -27,7 +34,7 @@ module.exports = function(grunt) {
 		watch: {
 		  build: {
 		    files: ['src/*.js'],
-		    tasks: ['jshint','concat'],
+		    tasks: ['jshint','concat','uglify'],
 		    options: {
 		      spawn: false,
 		    }

@@ -11,8 +11,8 @@
             id="nirvana"
             navRender="com.wxxr.nirvana.style.nirvanapagelayout"
             >
-			<page ref="com.wxxr.nirvana.test.niravanaPage" index="1" defaulPage="true" layout="com.wxxr.nirvana.style.nirvanapagelayout"/>
-			<page ref="com.wxxr.nirvana.test.lionPage" index="2" layout="com.wxxr.nirvana.test.nirvanapagelayout2"/>
+			<page ref="com.wxxr.nirvana.test.niravanaPage" index="1" defaulPage="true" />
+			<page ref="com.wxxr.nirvana.test.lionPage" index="2" />
       </product>
 
    </extension>
@@ -22,6 +22,7 @@
             id="niravanaPage"
             label="tiger"      
             name="tiger"
+            layout="com.wxxr.nirvana.style.nirvanapagelayout"
 			>
             
             <view ref="com.wxxr.nirvana.test.chart1" attachment="headerone"></view>
@@ -33,10 +34,13 @@
       <page
             id="lionPage"
             label="lion"      
-            name="lion">
+            name="lion"
+            layout="com.wxxr.nirvana.test.nirvanapagelayout2">
 
 			<view ref="com.wxxr.nirvana.test.chart1" attachment="headerone"></view>
             <view ref="com.wxxr.nirvana.test.chart3" attachment="headerthree"></view>
+            <view ref="com.wxxr.nirvana.test.nav" attachment="headerthree"></view>
+            <view ref="com.wxxr.nirvana.test.table" attachment="headerthree"></view>
       </page>
       
    </extension>
@@ -76,6 +80,24 @@
             description=""
             uri="view/hello.jsp"
             id="helloWorld">
+			
+      </view>
+      
+      
+      <view
+            name="table"
+            description=""
+            uri="view/table.jsp"
+            id="table">
+			
+      </view>
+      
+      
+      <view
+            name="nav"
+            description=""
+            uri="view/nav.jsp"
+            id="nav">
 			
       </view>
      </extension>

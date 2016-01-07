@@ -11,5 +11,6 @@ public interface IView extends IDispatchUI, Cloneable {
 	ResourceRef[] getResourcesRef();
 
 	String get(String attri);
+	
 
 }

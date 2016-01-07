@@ -46,7 +46,9 @@
 	<script type="text/javascript" src="../build/nirvana.view.interaction.js"></script>
 	<script type="text/javascript">
 		$page = $("[page]");
-		$page.webpage();
+		$page.each(function(){
+			$(this).webpage();
+		});
 		var data = $page.data('page');
 		var view = data.findViewById('b.viewid2');
 		// view.getSelectionProvider().setSelection("a");

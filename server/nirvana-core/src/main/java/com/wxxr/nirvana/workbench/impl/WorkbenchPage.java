@@ -35,10 +35,13 @@ public class WorkbenchPage extends UIComponent implements IWorkbenchPage {
 	protected Map<String, ViewRef> viewMap = new HashMap<String, ViewRef>();
 
 	public static final String VIEW_ELEMENT = "view";
+	private static final String ATT_LAYOUT = "layout";
 
 	private IViewManager viewManager;
 	
 	private ICreateRenderContext createContext;
+	
+	private String layout;
 
 	
 	public WorkbenchPage(ICreateRenderContext createContext) {
@@ -58,6 +61,7 @@ public class WorkbenchPage extends UIComponent implements IWorkbenchPage {
 	public void init(IWorkbenchPageManager manager,
 			IConfigurationElement config, IRender render) {
 		super.init(config, render);
+		layout = config.getAttribute(ATT_LAYOUT);
 		startViewManager();
 		initViews(config);
 	}
@@ -161,6 +165,11 @@ public class WorkbenchPage extends UIComponent implements IWorkbenchPage {
 		if(!hasView(viewRef.id)){
 			viewMap.put(viewRef.id, viewRef);
 		}
+	}
+
+	@Override
+	public String getPageLayout() {
+		return layout;
 	}
 
 }

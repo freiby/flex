@@ -120,12 +120,12 @@ public class PluginDeployer implements IPluginDeployerContext{
 
 	private void undeployPlugin(String id, String version) throws IOException {
 		// delete jar
-		if (jars.containsKey(id)) {
-			List<File> jarfs = jars.get(id);
-			for (File jar : jarfs) {
-				FileUtils.deleteQuietly(jar);
-			}
-		}
+//		if (jars.containsKey(id)) {
+//			List<File> jarfs = jars.get(id);
+//			for (File jar : jarfs) {
+//				FileUtils.deleteQuietly(jar);
+//			}
+//		}
 		jars.remove(id);
 		String targetHtml = targetPath + File.separatorChar + PLUGINS_DIR + File.separatorChar + id
 				+ File.separatorChar + version;

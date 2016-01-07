@@ -821,10 +821,10 @@ public class Platform implements IPlatform {
 							+ "/" + version);
 					log.warn("Failed to undeploy plugin :" + pluginId
 							+ " of version :" + version, ee);
-					throw new CoreException("Failed to undeploy plugin :"
-							+ pluginId + " of version :" + version
-							+ " can't delete pluginRootDir" + "/" + pluginId
-							+ "/" + version, ee);
+//					throw new CoreException("Failed to undeploy plugin :"
+//							+ pluginId + " of version :" + version
+//							+ " can't delete pluginRootDir" + "/" + pluginId
+//							+ "/" + version, ee);
 				} catch (Exception e) {
 					log.warn("Failed to undeploy plugin :" + pluginId
 							+ " of version :" + version, e);
@@ -1109,6 +1109,10 @@ public class Platform implements IPlatform {
 							ins.close();
 						} catch (Exception e) {
 						}
+					}
+				}else{
+					if(deployedPluginVersions.containsKey(pluginName)){
+						deployedPluginVersions.remove(pluginName);
 					}
 				}
 			} catch (Exception e) {
