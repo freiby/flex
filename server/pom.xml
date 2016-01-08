@@ -52,8 +52,7 @@
 		<module>nirvana-web</module>
 		<module>nirvana-workbench</module>
 		<module>nirvana-plugins</module>
-
-		
+    <module>nirvana-rpc</module>
   </modules>
     
     <distributionManagement>
