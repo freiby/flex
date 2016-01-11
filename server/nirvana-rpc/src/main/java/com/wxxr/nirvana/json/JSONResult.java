@@ -229,7 +229,7 @@ public class JSONResult implements Result {
      * @return The encoding associated with this template (defaults to the value
      *         of param 'encoding', if empty default to 'struts.i18n.encoding' property)
      */
-    protected String getEncoding() {
+    public String getEncoding() {
         String encoding = this.encoding;
 
         if (encoding == null) {

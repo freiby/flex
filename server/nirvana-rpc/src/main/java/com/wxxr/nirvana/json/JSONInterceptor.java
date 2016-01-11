@@ -33,6 +33,7 @@ import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.StrutsConstants;
@@ -76,9 +77,23 @@ public class JSONInterceptor extends AbstractInterceptor {
     private boolean excludeNullProperties;
     private String callbackParameter;
     private String contentType;
+    
+    protected void setUpContext() {
+		Map<String, Object> map = new HashMap<String, Object>();
+		NirvanaServletContext context = new NirvanaServletContext(map);
+		NirvanaServletContext.setContext(context);
+		HttpServletRequest request = ServletActionContext.getRequest();
+		HttpServletResponse response = ServletActionContext.getResponse();
+		HttpSession session = request.getSession();
+		NirvanaServletContext.setRequest(request);
+		NirvanaServletContext.setResponse(response);
+		NirvanaServletContext.setHttpSession(session);
+		NirvanaServletContext.setServletContext(session.getServletContext());
+	}
 
     @SuppressWarnings("unchecked")
     public String intercept(ActionInvocation invocation) throws Exception {
+    	setUpContext();
         HttpServletRequest request = ServletActionContext.getRequest();
         HttpServletResponse response = ServletActionContext.getResponse();
         String contentType = request.getHeader("content-type");
@@ -143,17 +158,16 @@ public class JSONInterceptor extends AbstractInterceptor {
             if (this.enableSMD) {
                 // load JSON object
                 Object obj = JSONUtil.deserialize(request.getReader());
-                
-//                ContainerAccess.getServiceManager()
                 if (obj instanceof Map) {
                     Map smd = (Map) obj;
-
+                    String actionId = (String) smd.get("rpcId");
+                    if(NirvanaServletContext.getContext() != null && ContainerAccess.getSessionWorkbench() != null){
+                    	rootObject = ContainerAccess.getSessionWorkbench().getActionManager().getAction(actionId).getAction();
+                    }
+                    
                     if (rootObject == null) // model makes no sense when using RPC
                         rootObject = invocation.getAction();
-                    //look up plugin rpc invork
-                    String uid = (String) smd.get("id");
                     
-
                     // invoke method
                     try {
                         result = this.invoke(rootObject, smd);

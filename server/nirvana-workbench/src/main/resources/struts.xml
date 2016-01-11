@@ -14,8 +14,25 @@
 		<result-types>
 			<result-type name="boostrapresult" class="com.wxxr.nirvana.result.BoostrapResult" />
 			<result-type name="pageactionresult" class="com.wxxr.nirvana.result.PageActionResult" />
-			
+			<result-type name="json" class="com.wxxr.nirvana.json.JSONResult"/>
 		</result-types>
+		
+		<interceptors>
+            <interceptor name="json" class="com.wxxr.nirvana.json.JSONInterceptor"/>
+            <interceptor name="jsonValidation" class="com.wxxr.nirvana.json.JSONValidationInterceptor"/>
+
+            <!-- Sample JSON validation stack -->
+            <interceptor-stack name="jsonValidationWorkflowStack">
+                <interceptor-ref name="basicStack"/>
+                <interceptor-ref name="validation">
+                    <param name="excludeMethods">input,back,cancel</param>
+                </interceptor-ref>
+                <interceptor-ref name="jsonValidation"/>
+                <interceptor-ref name="workflow"/>
+            </interceptor-stack>
+        </interceptors>
+		
+		
 		<action name="startProduct" method="startProduct"
 		class="com.wxxr.nirvana.action.BoostrapAction">
 			<result name="start" type="boostrapresult">${productName}</result>
@@ -29,18 +46,9 @@
 		class="com.wxxr.nirvana.action.PageAction">
 			<result name="start" type="pageactionresult">${pageName}</result>
 		</action>
-	</package>
 
-	<package name="json" extends="json-default" namespace="/test">
-		<action name="testByAction" class="com.wxxr.tiles.example.JsonTestAction"
-		method="testByAction">
-			<result type="json">
-				<!-- 这里指定将被Struts2序列化的属性，该属性在action中必须有对应的getter方法 -->
-				<param name="root">dataMap</param>
-			</result>
-		</action>
-		<action name="sdmByAction" class="com.wxxr.tiles.example.SMDActionTest1"
-		>
+		<action name="doRpc" method="invokeRpc"
+		class="com.wxxr.nirvana.action.RpcAction">
 			<interceptor-ref name="json">
 				<param name="enableSMD">true</param>
 			</interceptor-ref>
@@ -48,10 +56,11 @@
 				<param name="enableSMD">true</param>
 			</result>
 		</action>
-		<action name="HelloWorld" class="com.wxxr.tiles.example.HelloWorld">
-			<result>/WEB-INF/example/HelloWorld.jsp</result>
-		</action>
+
+        
 	</package>
+
+	
 
 	<package name="deploy" extends="struts-default">
 		

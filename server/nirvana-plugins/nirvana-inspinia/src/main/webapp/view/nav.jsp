@@ -1,4 +1,4 @@
-<div class="listNav">
+<div class="listNav" data="zhaoer">
 	<a href="#" class="list-group-item active">
    	赵二
 	</a>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>Loading</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<style type="text/css">
+div, html, body, h1, h3, p {
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    height: 100%;
+}
+
+.container{
+	width: 500px;
+	height: 500px;
+}
+
+
+body {
+    height: 100%;
+    background-color: #eee;
+    overflow: hidden;
+    text-align: center;
+    color: #333;
+}
+
+.hidden {
+    display: none;
+}
+</style>
+<link href="../src/css/showLoading.css" rel="stylesheet">
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="../src/js/loading/jquery.showLoading.js"></script>
+
+</head>
+<body>
+	<div class="container">
+		<p>dfdfdfdfdf</p>
+	</div>
+	
+
+    
+    <script type="text/javascript">
+    	$('.container').showLoading(); 
+    </script>
+</body>
+</html>

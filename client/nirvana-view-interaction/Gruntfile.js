@@ -5,7 +5,7 @@ module.exports = function(grunt) {
         pkg : grunt.file.readJSON('package.json'),
         concat : {
             domop : {
-                src: ['src/page.selection.service.js','src/nirvana.view.interaction.js'],
+                src: ['src/js/page.selection.service.js','src/js/nirvana.view.interaction.js'],
                 dest: 'build/nirvana.view.interaction.js'
             }
         },
@@ -21,19 +21,24 @@ module.exports = function(grunt) {
             },
 
             buildb : {
-                src : 'src/nirvana.init.js',
+                src : 'src/js/nirvana.init.js',
                 dest : 'build/nirvana.init.min.js'
+            },
+
+			buildc : {
+                src : 'src/js/loading/jquery.showLoading.js',
+                dest : 'build/jquery.showLoading.min.js'
             }
         },
 		jshint : {
-			build : ['Gruntfile.js','src/*.js'],
+			build : ['Gruntfile.js','src/js/**/*.js'],
 			options : {
 				jshintrc : '.jshintrc'
 			}
 		},
 		watch: {
 		  build: {
-		    files: ['src/*.js'],
+		    files: ['src/js/**/*.js'],
 		    tasks: ['jshint','concat','uglify'],
 		    options: {
 		      spawn: false,

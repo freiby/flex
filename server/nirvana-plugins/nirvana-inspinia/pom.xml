@@ -46,6 +46,20 @@
 			<artifactId>nirvana-ui</artifactId>
 			<scope>compile</scope>
 		</dependency>
+		
+		<dependency>
+			<groupId>org.apache.struts</groupId>
+			<artifactId>struts2-core</artifactId>
+			<version>${struts2.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.wxxr.nirvana</groupId>
+  			<artifactId>nirvana-rpc</artifactId>
+			<scope>compile</scope>
+		</dependency>
+		
+		
 	</dependencies>
 
 

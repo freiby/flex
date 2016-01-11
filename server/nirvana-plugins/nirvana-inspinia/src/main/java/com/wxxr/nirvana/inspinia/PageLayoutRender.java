@@ -12,7 +12,6 @@ import com.wxxr.nirvana.workbench.IRenderContext;
 import com.wxxr.nirvana.workbench.IView;
 import com.wxxr.nirvana.workbench.impl.CommonRender;
 import com.wxxr.nirvana.workbench.impl.UIComponent;
-import com.wxxr.nirvana.workbench.impl.View;
 import com.wxxr.nirvana.workbench.impl.WorkbenchPage.ViewRef;
 
 public class PageLayoutRender  extends CommonRender{

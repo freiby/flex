@@ -2,6 +2,7 @@
 <plugin id="com.wxxr.nirvana.test" name="nirvana"
 	version="1.0.0" provider-name="wxxr.com.cn"
 	>
+	<requires>com.wxxr.nirvana.style</requires>
 	<!-- <requires>com.wxxr.nirvana.test</requires> -->
 	<extension id="nirvana" point="com.wxxr.nirvana.platform.products">
        <product
@@ -138,6 +139,12 @@
 		  <action
 				id="addViewAction"     
 				class="com.wxxr.nirvana.inspinia.SomethingAction"
+				>
+		  </action>
+		  
+		  <action
+				id="invorkAction"     
+				class="com.wxxr.nirvana.inspinia.SMDActionTest1"
 				>
 		  </action> 
      </extension>

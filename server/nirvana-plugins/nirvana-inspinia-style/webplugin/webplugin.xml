@@ -7,6 +7,7 @@
    contextURI="flexWeb"
    messagebundle="styleMessage"
    >
+    <requires>com.wxxr.nirvana.resources</requires>
     <extension
          id="nirvanaStyle"
          point="com.wxxr.nirvana.platform.themes">
@@ -52,7 +53,7 @@
 
 			<resource ref="com.wxxr.nirvana.resources.lodash" point="current"></resource>
 			<resource ref="com.wxxr.nirvana.resources.interaction" point="current"></resource>
-			
+			<resource ref="com.wxxr.nirvana.resources.jsonrpcclient" point="current"></resource>
 			
 			
       </theme>

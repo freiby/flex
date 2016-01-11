@@ -159,6 +159,15 @@
 				type="js"
 				>
 		</resource>
+
+		<resource
+				id="jsonrpcclient"   
+				uri="js/jquery.jsonrpcclient.js"
+				type="js"
+				>
+		</resource>
+
+		
    </extension>
 
 

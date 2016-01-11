@@ -40,11 +40,7 @@
 			<version>${struts2.version}</version>
 		</dependency>
 
-		<dependency>
-			<groupId>org.apache.struts</groupId>
-			<artifactId>struts2-json-plugin</artifactId>
-			<version>${struts2.version}</version>
-		</dependency>
+		
 
 		<dependency>
 			<groupId>org.apache.struts</groupId>
@@ -99,6 +95,12 @@
 		<dependency>
 			<groupId>com.wxxr.nirvana</groupId>
 			<artifactId>nirvana-web</artifactId>
+			<scope>compile</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.wxxr.nirvana</groupId>
+			<artifactId>nirvana-rpc</artifactId>
 			<scope>compile</scope>
 		</dependency>
 
