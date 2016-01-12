@@ -28,6 +28,10 @@ module.exports = function(grunt) {
 			buildc : {
                 src : 'src/js/loading/jquery.showLoading.js',
                 dest : 'build/jquery.showLoading.min.js'
+            },
+			buildd : {
+                src : 'src/js/nirvana.rpc.js',
+                dest : 'build/nirvana.rpc.min.js'
             }
         },
 		jshint : {

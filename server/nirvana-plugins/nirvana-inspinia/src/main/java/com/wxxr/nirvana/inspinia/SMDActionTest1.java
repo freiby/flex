@@ -85,6 +85,11 @@ public class SMDActionTest1 extends ActionSupport {
 			c = new City("Uma","Pune","411027");
 			citys.add(c);
 		}
+		try {
+			Thread.sleep(2000);//让客户端显示加载的效果
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		return citys;
 	}
 

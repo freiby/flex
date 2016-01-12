@@ -167,6 +167,33 @@
 				>
 		</resource>
 
+		<resource
+				id="showLoadingstyle"   
+				uri="css/showLoading.css"
+				type="css"
+				>
+		</resource>
+
+		<resource
+				id="showLoading"   
+				uri="js/jquery.showLoading.js"
+				type="js"
+				>
+		</resource>
+
+
+
+		<resource
+				id="nirvanarpc"   
+				uri="js/nirvana.rpc.js"
+				type="js"
+				>
+		</resource>
+
+
+
+
+
 		
    </extension>
 

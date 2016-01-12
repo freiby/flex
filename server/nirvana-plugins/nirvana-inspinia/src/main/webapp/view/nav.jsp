@@ -1,5 +1,5 @@
-<div class="listNav" data="zhaoer">
-	<a href="#" class="list-group-item active">
+<div class="listNav" >
+	<a href="#" class="list-group-item active" data="zhaoer">
    	赵二
 	</a>
 	<a href="#" class="list-group-item" data="zhangsan">张三</a>

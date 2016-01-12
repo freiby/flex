@@ -31,10 +31,15 @@
             function(){
             var data = $page.data('page'); //找到page
             var view = data.findViewById('com.wxxr.nirvana.test.table');//从page里面得到view 这个view就是当前view
+            var selection = null;
             view['selectChanage'] = function(e){//注册监听函数，得到某个view选择的事件
                   console.log("view: " + e.part.id + ", type: " + e.type  + ", selected: " + e.selection );
-                  var ajaxurl = "doRpc.action"
-                  var foo = new $.JsonRpcClient({ajaxUrl: ajaxurl });
+                  if(selection == e.selection){
+                    return;
+                  }
+                  selection = e.selection;
+                  var ajaxurl = "doRpc.action";
+                  
                   params = [];
                   var bean = {};
                   bean.booleanField = true;
@@ -51,32 +56,31 @@
                   // params.push(map);
                   // params.push(array);
                   params.push(e.selection);
-                  foo.call(
-                    'getList', params, "com.wxxr.nirvana.test.invorkAction",
+                  //(ajaxurl, method, params, rpcId, successCb, errorCb)
+                  var foo = new $.invorkRpc(ajaxurl, 'getList', params, "com.wxxr.nirvana.test.invorkAction", 
                     function(result) { 
-                      console.log('Foo bar answered: ' + result); 
-                      var $body = $('#citybody');
-                      $body.empty();
-                      for(var i in result){
-                        var $tr = $('<tr/>');
-                        
-                        var city = result[i];
-                        for(var j=0; j<3; j++){
-                           var $td = $('<td/>')
-                           $td.text(city.name);
-                           $tr.append($td);
+                        console.log('Foo bar answered: ' + result); 
+                        var $body = $('#citybody');
+                        $body.empty();
+                        for(var i in result){
+                          var $tr = $('<tr/>');
+                          
+                          var city = result[i];
+                          for(var j=0; j<3; j++){
+                             var $td = $('<td/>')
+                             $td.text(city.name);
+                             $tr.append($td);
+                          }
+                         
+                          $body.append($tr);
                         }
-                       
-                        $body.append($tr);
-                      }
 
                       },
                     function(error)  { 
-                      console.log('There was an error', error); 
-                      }
+                        console.log('There was an error', error); 
+                      },
+                      true
                   );
-            
-            
                };
             }
             
