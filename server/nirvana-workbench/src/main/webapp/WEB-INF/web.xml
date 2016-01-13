@@ -5,7 +5,7 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
 	<display-name>Struts Blank</display-name>
 	<listener>
-  		<listener-class>com.wxxr.nirvana.setup.NirvanaListener</listener-class>
+		<listener-class>com.wxxr.nirvana.setup.NirvanaListener</listener-class>
 	</listener>
 	<filter>
 		<filter-name>struts2</filter-name>
@@ -15,6 +15,25 @@ xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j
 		<filter-name>struts2</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
+	
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>admin page</web-resource-name>
+			<url-pattern>*.action</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>client</role-name>
+		</auth-constraint>
+	</security-constraint>
+	
+	<login-config>
+		<auth-method>FORM</auth-method>
+		<form-login-config>
+			<form-login-page>/login.html</form-login-page>
+			<form-error-page>/loginerror.html</form-error-page>
+		</form-login-config>
+	</login-config>
+	
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
 	</welcome-file-list>

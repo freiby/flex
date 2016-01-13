@@ -68,7 +68,7 @@
             function(error) {
                 console.log( method + ' error result' + error);
                 if(errorCb !== null){
-                	errorCb.apply(null,[result]);
+                	errorCb.apply(null,[error]);
                 	hideMonitor(ajaxurl + method);
                 }
             }
