@@ -18,5 +18,21 @@ public class ResourceRef {
 	public String getPoint() {
 		return elem.getAttribute(ATT_POINT);
 	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (!(obj instanceof ResourceRef)) {
+			return false;
+		}
+		ResourceRef nr = (ResourceRef) obj;
+		if(nr.getRef().equals(nr.getRef())){
+			return true;
+		}
+		return false;
+	}
+	@Override
+    public int hashCode() {
+        return getRef().hashCode();
+    }
 
 }

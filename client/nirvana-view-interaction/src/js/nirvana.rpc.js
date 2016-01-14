@@ -48,7 +48,6 @@
     };
 
     $.invorkRpc = function(ajaxurl, method, params, rpcId, successCb, errorCb, isMonitor) {
-
         var jsonRpcClient = new $.JsonRpcClient({'ajaxUrl': ajaxurl});
         if(isMonitor){
         	monitorIns.showMonitor(ajaxurl + method, "invork method " + method);

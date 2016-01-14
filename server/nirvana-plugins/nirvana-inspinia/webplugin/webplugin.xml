@@ -37,11 +37,11 @@
             label="lion"      
             name="lion"
             layout="com.wxxr.nirvana.test.nirvanapagelayout2">
-
-			<view ref="com.wxxr.nirvana.test.chart1" attachment="headerone"></view>
-            <view ref="com.wxxr.nirvana.test.chart3" attachment="headerthree"></view>
-            <view ref="com.wxxr.nirvana.test.nav" attachment="headerthree"></view>
-            <view ref="com.wxxr.nirvana.test.table" attachment="headerthree"></view>
+            <view ref="com.wxxr.nirvana.test.nav" ></view>
+            <view ref="com.wxxr.nirvana.test.table" ></view>
+            <view ref="com.wxxr.nirvana.test.cpu" ></view>
+            <view ref="com.wxxr.nirvana.test.menory"></view>
+            <view ref="com.wxxr.nirvana.test.net"></view>          
       </page>
       
    </extension>
@@ -62,6 +62,7 @@
             uri="view/c3-1.html"
             id="chart2"
 			>
+			<resource ref="com.wxxr.nirvana.test.c3style" point="header"></resource>
 			<resource ref="com.wxxr.nirvana.test.dj" point="header"></resource>
 			<resource ref="com.wxxr.nirvana.test.cj" point="header"></resource>
 			<resource ref="com.wxxr.nirvana.test.hj" point="before"></resource>
@@ -90,6 +91,7 @@
             description=""
             uri="view/table.jsp"
             id="table">
+            
 			
       </view>
       
@@ -100,6 +102,38 @@
             uri="view/nav.jsp"
             id="nav">
 			
+      </view>
+      
+      
+      <view
+            name="cpu"
+            description=""
+            uri="view/cpu.html"
+            id="cpu">
+			<resource ref="com.wxxr.nirvana.test.c3style" point="header"></resource>
+			<resource ref="com.wxxr.nirvana.test.dj" point="header"></resource>
+			<resource ref="com.wxxr.nirvana.test.cj" point="header"></resource>
+      </view>
+      
+      
+      <view
+            name="menory"
+            description=""
+            uri="view/memory.html"
+            id="menory">
+			<resource ref="com.wxxr.nirvana.test.c3style" point="header"></resource>
+			<resource ref="com.wxxr.nirvana.test.dj" point="header"></resource>
+			<resource ref="com.wxxr.nirvana.test.cj" point="header"></resource>
+      </view>
+      
+      <view
+            name="net"
+            description=""
+            uri="view/net.html"
+            id="net">
+			<resource ref="com.wxxr.nirvana.test.c3style" point="header"></resource>
+			<resource ref="com.wxxr.nirvana.test.dj" point="header"></resource>
+			<resource ref="com.wxxr.nirvana.test.cj" point="header"></resource>
       </view>
      </extension>
  
@@ -133,6 +167,14 @@
 				type="js"
 				>
 		  </resource>
+
+		  <resource
+				id="c3style"   
+				uri="view/css/c3.css"
+				type="css"
+				>
+		  </resource>
+		  
      </extension>
      
      <extension point="com.wxxr.nirvana.platform.actions" id="pages.actions">
@@ -147,6 +189,12 @@
 				class="com.wxxr.nirvana.inspinia.SMDActionTest1"
 				>
 		  </action> 
+		  
+		  <action
+				id="chartData"     
+				class="com.wxxr.nirvana.inspinia.ChartDemoService"
+				>
+		  </action>
      </extension>
      
      

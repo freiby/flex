@@ -1,47 +1,54 @@
-<div id="chart1"></div>
+<div id="cpu"></div>
 <script type="text/javascript">
 (function() {
     ready(function() {
         var ajaxurl = "doRpc.action";
         var chart = null;
         var params = ['cpu'];
-        var interval = setInterval(function() {
-            // clearInterval(interval);
+
+        var timemout = -1
+
+        function invork() {
+            if(timemout != -1){
+                clearTimeout(timemout);
+            }
             $.invorkRpc(ajaxurl, 'getDataList', params, "com.wxxr.nirvana.test.chartData",
                 function(result) {
                     console.log('chart answered: ' + result);
                     result.splice(0, 0, 'cpu');
                     if (chart == null) {
-
                         chart = createChart(result);
                     } else {
                         loadChart(result);
                     }
+                    timemout = setTimeout(invork,3500);
                 },
                 function(error) {
                     console.log('There was an error', error);
                 }
-            );
+            )
+        };
 
-            function loadChart(data) {
-                chart.load({
 
-                    columns: [
-                        data
-                    ]
-                });
-            };
-        }, 5000);
+        function loadChart(data) {
+            chart.load({
 
+                columns: [
+                    data
+                ]
+            });
+        };
 
         function createChart(data) {
             var chart = c3.generate({
-                bindto: '#chart1',
-                 
+                bindto: '#cpu',
+
                 data: {
-                     x: 'x',
-                     xFormat: '%Y-%m-%d %H:%M:%S',
-                    columns: [ ['x', '2004-01-01 10:10:2', '2005-02-01 08:10:2', '2006-03-01 10:50:02', '2007-04-01 00:10:2', '2008-05-01 12:10:2', '2009-06-01 10:10:2', '2010-07-01 10:45:2', '2011-08-01 15:10:2', '2012-09-01 10:55:2', '2013-10-01 10:10:2'],data]
+                    x: 'x',
+                    xFormat: '%Y-%m-%d %H:%M:%S',
+                    columns: [
+                        ['x', '2004-01-01 10:10:2', '2005-02-01 08:10:2', '2006-03-01 10:50:02', '2007-04-01 00:10:2', '2008-05-01 12:10:2', '2009-06-01 10:10:2', '2010-07-01 10:45:2', '2011-08-01 15:10:2', '2012-09-01 10:55:2', '2013-10-01 10:10:2'], data
+                    ]
                 },
                 axis: {
                     y: {
@@ -65,9 +72,8 @@
                 }
             });
             return chart;
-        }
+        };
+        invork();
     });
-
-
 })();
 </script>

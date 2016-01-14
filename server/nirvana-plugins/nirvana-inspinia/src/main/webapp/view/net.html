@@ -1,0 +1,77 @@
+<div id="net"></div>
+<script type="text/javascript">
+(function() {
+    ready(function() {
+        var ajaxurl = "doRpc.action";
+        var chart = null;
+        var params = ['net'];
+        var timemout = -1;
+
+        function invork() {
+            if(timemout != -1){
+                clearTimeout(timemout);
+            }
+            $.invorkRpc(ajaxurl, 'getDataList', params, "com.wxxr.nirvana.test.chartData",
+                function(result) {
+                    console.log('chart answered: ' + result);
+                    if (chart == null) {
+                        chart = createChart(result);
+                    } else {
+                        loadChart(result);
+                    }
+                    timemout = setTimeout(invork,3500);
+                },
+                function(error) {
+                    console.log('There was an error', error);
+                }
+            )
+        };
+
+        function loadChart(data) {
+            chart.load({
+
+                columns: [
+                        ['department1',data[1]],
+                         ['department2',data[2]],
+                         ['department3',data[3]]
+                    ]
+            });
+        };
+
+
+
+
+
+        function createChart(data) {
+            var chart = c3.generate({
+                bindto: '#net',
+                data: {
+                    columns: [
+                        ['department1',data[1]],
+                         ['department2',data[2]],
+                         ['department3',data[3]]
+                    ],
+                    type: 'pie',
+                    onclick: function(d, i) {
+                        console.log("onclick", d, i);
+                    },
+                    onmouseover: function(d, i) {
+                        console.log("onmouseover", d, i);
+                    },
+                    onmouseout: function(d, i) {
+                        console.log("onmouseout", d, i);
+                    }
+                },
+
+                color: {
+                    pattern: ['#23c6c8', '#aec7e8', '#ff7f0e', '#ffbb78', '#2ca02c', '#98df8a', '#d62728', '#ff9896', '#9467bd', '#c5b0d5', '#8c564b', '#c49c94', '#e377c2', '#f7b6d2', '#7f7f7f', '#c7c7c7', '#bcbd22', '#dbdb8d', '#17becf', '#9edae5']
+                }
+            });
+            return chart;
+        };
+        invork();
+    });
+
+
+})();
+</script>

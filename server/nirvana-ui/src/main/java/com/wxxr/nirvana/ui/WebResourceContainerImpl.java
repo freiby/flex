@@ -2,8 +2,10 @@ package com.wxxr.nirvana.ui;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -58,6 +60,7 @@ public class WebResourceContainerImpl implements IWebResourceContainer {
 			}
 		}
 		ViewRef[] viewrefs = page.getAllViewRefs();
+		Set<ResourceRef> sets = new HashSet<ResourceRef>();
 		for (ViewRef viewref : viewrefs) {
 			IView view = page.getViewsById(viewref.getId());
 			ResourceRef[] viewRrefs = view.getResourcesRef();
@@ -65,15 +68,19 @@ public class WebResourceContainerImpl implements IWebResourceContainer {
 				continue;
 			WebResourceInfo[] infos = new WebResourceInfo[viewRrefs.length];
 			for (int i = 0; i < viewRrefs.length; i++) {
-				IWebResource webr = ContainerAccess.getServiceManager().getWebResourceManager()
-						.getResource(viewRrefs[i].getRef());
-				WebResourceInfo info = new WebResourceInfo(webr,
-						viewRrefs[i].getPoint());
-				infos[i] = info;
-				if(webr == null){
-					throw new NirvanaException("view import resource " + viewRrefs[i].getRef() + " not found resource! please cheouk out webplugin.xml!!!");
+				boolean isAdd = sets.add(viewRrefs[i]);//防止多个view引用一个资源重复引用到页面
+				if(isAdd){
+					IWebResource webr = ContainerAccess.getServiceManager().getWebResourceManager()
+							.getResource(viewRrefs[i].getRef());
+					WebResourceInfo info = new WebResourceInfo(webr,
+							viewRrefs[i].getPoint());
+					infos[i] = info;
+					if(webr == null){
+						throw new NirvanaException("view import resource " + viewRrefs[i].getRef() + " not found resource! please cheouk out webplugin.xml!!!");
+					}
+					collection(viewRrefs[i].getPoint(), webr);
 				}
-				collection(viewRrefs[i].getPoint(), webr);
+				
 			}
 			viewResourceMap.put(view.getUniqueIndentifier(), infos);
 		}
