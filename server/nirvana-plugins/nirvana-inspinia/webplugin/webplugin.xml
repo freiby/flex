@@ -215,7 +215,6 @@
 	  	<uirender
 				id="pageLayoutRender"
 				description="nirvanapagelayout"
-				uri="menu.jsp"
 				class="com.wxxr.nirvana.inspinia.PageLayoutRender">
 		</uirender>
    </extension>

@@ -761,26 +761,29 @@ public class Platform implements IPlatform {
 					if (deployDir.exists()) {
 						FileUtils.deleteDirectory(deployDir);
 					}
-					// 2 remove pulgin from deployedPluginVersions
-					deployedPluginVersions.remove(pluginId);
-					// 3 change it to deActive state at the same time
-					deactivate((Plugin) getPluginDescriptor(pluginId));
-					log.info(" plugin :" + pluginId + "was undeploy !");
 				} catch (IOException ee) {
 					log.warn(" can't delete pluginRootDir" + "/" + pluginId
 							+ "/" + version);
 					log.warn("Failed to deactivate plugin :" + pluginId
 							+ " of version :" + version, ee);
-					throw new CoreException("Failed to deactivate plugin :"
-							+ pluginId + " of version :" + version
-							+ " can't delete pluginRootDir" + "/" + pluginId
-							+ "/" + version, ee);
+//					throw new CoreException("Failed to deactivate plugin :"
+//							+ pluginId + " of version :" + version
+//							+ " can't delete pluginRootDir" + "/" + pluginId
+//							+ "/" + version, ee);
 				} catch (Exception e) {
-					log.warn("Failed to deactivate plugin :" + pluginId
+					log.error("Failed to deactivate plugin :" + pluginId
 							+ " of version :" + version, e);
 					throw new CoreException("Failed to deactivate plugin :"
 							+ pluginId + " of version :" + version, e);
 				}
+				
+				
+				// 2 remove pulgin from deployedPluginVersions
+				deployedPluginVersions.remove(pluginId);
+				// 3 change it to deActive state at the same time
+				deactivate((Plugin) getPluginDescriptor(pluginId));
+				log.info(" plugin :" + pluginId + "was undeploy !");
+				
 			} else {
 				try {
 					Plugin p = (Plugin) getPluginDescriptor(pluginId);
